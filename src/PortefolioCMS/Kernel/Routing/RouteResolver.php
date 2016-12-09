@@ -7,6 +7,7 @@ declare(strict_types = 1);
 
 namespace StendenINF1B\PortefolioCMS\Routing;
 
+use StendenINF1B\PortefolioCMS\Kernel\Helper\ConfigLoader;
 
 class RouteResolver
 {
@@ -33,10 +34,10 @@ class RouteResolver
      * This method will parse the config and look if the url matches an path in the config. Other wise it
      * wil match to the 404
      *
-     * @param $url
+     * @param string $url
      * @return Route
      */
-    public function resolve( $url )
+    public function resolve( string $url ) : Route
     {
         foreach ($this->routerConfiguration as $route )
         {

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<routes>
+
+    <route name="Home" path="/home">
+        <controller>Home</controller>
+        <method>index</method>
+    </route>
+
+    <route name="Portefolio" path="/portefolio/{student_name}">
+        <controller>Portefolio</controller>
+        <method>index</method>
+    </route>
+
+    <route name="Admin" path="/admin">
+        <controller>Admin</controller>
+        <method>index</method>
+    </route>
+
+</routes>

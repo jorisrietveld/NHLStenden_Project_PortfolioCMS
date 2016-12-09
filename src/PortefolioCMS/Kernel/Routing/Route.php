@@ -14,21 +14,21 @@ class Route
     private $path;
     private $method;
     private $controller;
-    private $httpMethod;
+    private $arguments;
 
-    public function __construct( $name = 'index', $path = '/home', $method = 'index', $controller = 'Home', $httpMethod = 'POST')
+    public function __construct( $name = 'index', $path = '/home', $method = 'index', $controller = 'Home', $arguments = [] )
     {
-        $this->name = $name;
-        $this->path = $path;
-        $this->method = $method;
-        $this->controller = $controller;
-        $this->httpMethod =$httpMethod;
+        $this->setName( $name );
+        $this->setPath( $path );
+        $this->setMethod( $method );
+        $this->setController( $controller );
+        $this->setArguments( $arguments );
     }
 
     /**
      * @return string
      */
-    public function getName()
+    public function getName() : string
     {
         return $this->name;
     }
@@ -36,7 +36,7 @@ class Route
     /**
      * @param string $name
      */
-    public function setName($name)
+    public function setName( string $name )
     {
         $this->name = $name;
     }
@@ -44,7 +44,7 @@ class Route
     /**
      * @return string
      */
-    public function getPath()
+    public function getPath() : string
     {
         return $this->path;
     }
@@ -52,7 +52,7 @@ class Route
     /**
      * @param string $path
      */
-    public function setPath($path)
+    public function setPath( string $path )
     {
         $this->path = $path;
     }
@@ -60,23 +60,41 @@ class Route
     /**
      * @return string
      */
-    public function getMethod()
+    public function getMethod(): string
     {
         return $this->method;
     }
 
     /**
      * @param string $method
+     * @return Route
      */
-    public function setMethod($method)
+    public function setMethod( string $method ): Route
     {
         $this->method = $method;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getArguments() : array
+    {
+        return $this->arguments;
+    }
+
+    /**
+     * @param array $arguments
+     */
+    public function setArguments( array $arguments )
+    {
+        $this->arguments = $arguments;
     }
 
     /**
      * @return string
      */
-    public function getController()
+    public function getController() : string
     {
         return $this->controller;
     }
@@ -84,26 +102,8 @@ class Route
     /**
      * @param string $controller
      */
-    public function setController($controller)
+    public function setController( string $controller )
     {
         $this->controller = $controller;
     }
-
-    /**
-     * @return string
-     */
-    public function getHttpMethod()
-    {
-        return $this->httpMethod;
-    }
-
-    /**
-     * @param string $httpMethod
-     */
-    public function setHttpMethod($httpMethod)
-    {
-        $this->httpMethod = $httpMethod;
-    }
-
-
 }

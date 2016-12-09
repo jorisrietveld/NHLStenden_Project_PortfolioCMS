@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+
+    <host>
+        <name>localhost</name>
+        <hostname>loc.portefoliocms</hostname>
+        <prefix></prefix>
+    </host>
+
+    <host>
+        <name>production</name>
+        <hostname>146.185.141.142</hostname>
+        <prefix>PortefolioCMS</prefix>
+    </host>
+
+</configuration>

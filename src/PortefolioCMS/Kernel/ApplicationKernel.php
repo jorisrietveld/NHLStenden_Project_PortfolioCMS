@@ -20,41 +20,37 @@ class ApplicationKernel
 
     /**
      * Application constructor.
-     * @param Request|null $request
      */
-    public function __construct(  )
+    public function __construct()
     {
+        $this->request = Request::createFromGlobals();
         $this->response = new Response();
     }
+
     /**
      *  Handle an incoming http request and return an appropriate response.
      *
      * @param Request $request
      * @return Response
      */
-    public function handle( Request $request = null ) : self
+    public function handle( Request $request ) : Response
     {
-        $this->setRequest($request);
+        $this->setRequest( $request );
+
         $route = $this->resolveRoute();
-        try {
-            $this->callController($route->getController(), $route->getMethod());
+
+        try
+        {
+            $this->callController( $route );
         }
         catch ( \Exception $exception )
         {
-            $route->setController( 'error500' );
+            $route = $this->resolveRoute( 'error500' );
+            $this->callController( $route );
         }
-        return $this;
+        return $this->response;
     }
 
-    /**
-     * When the request is handled send the response;
-     * @return Response
-     */
-    public function send()
-    {
-        $this->response->prepare( $this->request );
-        return $this->response->send();
-    }
     /**
      * This method will call the controller matched by the route.
      *
@@ -62,14 +58,14 @@ class ApplicationKernel
      * @param $method
      * @return Response
      */
-    protected function callController( $controller, $method ) : Response
+    protected function callController( Route $route ) : Response
     {
-        $controller = '\\JorisRietveld\\Website\\Controllers\\' . $controller;
+        $controller = '\\StendenINF1B\\PortefolioCMS\\Contoller\\' . $route->getController();
         $controller = new $controller();
 
-        $response = $controller->{$method}(  );
+        $response = $controller->{$route->getMethod()}( $this->request, $route->getArguments() );
 
-        if( is_a($response, '\Symfony\Component\HttpFoundation\Response'))
+        if( is_a($response, '\StendenINF1B\PortefolioCMS\Http\Response'))
         {
             $this->response = $response;
             return $this->response;
@@ -80,19 +76,21 @@ class ApplicationKernel
     /**
      * This Method will resolve the route to an controller based on the request.
      *
-     * @param Request|null $request
+     * @param string $path
      * @return Route
      */
-    protected function resolveRoute( Request $request = null ) : Route
+    protected function resolveRoute( string $path = NULL ) : Route
     {
         $routerResolver = new RouteResolver();
-        return $routerResolver->resolve( $this->request->getRequestUri() );
+        $path = $path ?? $this->request->getRequestUri();
+
+        return $routerResolver->resolve( $path );
     }
 
     /**
      * @return Request
      */
-    public function getRequest()
+    public function getRequest() : Request
     {
         return $this->request;
     }
@@ -102,21 +100,21 @@ class ApplicationKernel
      */
     public function setRequest( Request $request )
     {
-        $this->request = $request ?: new Request();
+        $this->request = $request;
     }
 
     /**
-     * @return mixed
+     * @return Response
      */
-    public function getResponse()
+    public function getResponse() : Response
     {
         return $this->response;
     }
 
     /**
-     * @param mixed $response
+     * @param Response $response
      */
-    public function setResponse($response)
+    public function setResponse( Response $response )
     {
         $this->response = $response;
     }
