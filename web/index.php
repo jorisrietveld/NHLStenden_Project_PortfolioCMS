@@ -12,4 +12,9 @@ declare( strict_types = 1 );
 require __DIR__ . DIRECTORY_SEPARATOR . 'bootstrap.php';
 
 $application = new StendenINF1B\PortefolioCMS\Kernel\ApplicationKernel();
+$request = \StendenINF1B\PortefolioCMS\Kernel\Http\Request::createFromGlobals();
+
+var_dump($request);
+
+//$response = $application->handle( $request );
 

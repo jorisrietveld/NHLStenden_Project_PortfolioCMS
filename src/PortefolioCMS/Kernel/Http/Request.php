@@ -71,6 +71,7 @@ class Request implements RequestInterface
 
     /**
      * The holds an string containing the full request URI.
+     * www.site.com/home?logout=true -> /home?logout=true
      *
      * @var string
      */
@@ -78,16 +79,35 @@ class Request implements RequestInterface
 
     /**
      * This holds an string containing the URI without the query string.
+     * www.site.com/home?logout=true -> /home
      *
      * @var string
      */
-    protected $baseRequestUri;
+    protected $baseUrl;
+
+    /**
+     * This holds the full uri so the {scheme}://{hostname}/{path}?get
+     * www.site.com/home?logout=true -> http://www.site.com/home?logout=true
+     * @var string
+     */
+    protected $uri;
+
+    /**
+     * This holds the uri without the get params so {scheme}://{hostname}/{path}
+     * www.site.com/home?logout=true -> http://www.site.com/home
+     *
+     * @var
+     */
+    protected $baseUri;
 
     /**
      * This holds an string with the query params (the $_GET params).
+     * www.site.com/home?logout=true&user=bob -> ?logout=true&user=bob
+     *
      * @var string
      */
     protected $queryString;
+
 
     /**
      * This holds an string containing the request method like GET, POST, PUT or DELETE.
@@ -97,11 +117,68 @@ class Request implements RequestInterface
     protected $method;
 
     /**
-     * This contains the language that the user browser sends with the request like: NL or EN.
+     * This contains the language that the user browser
+     * @var array
+     */
+    protected $languages;
+
+    /**
+     * This holds an string containing the useragent with information about the operating system and browser.
      *
      * @var string
      */
-    protected $locale;
+    protected $userAgent;
+
+    /**
+     * This holds an string containing the requests scheme.
+     * http://www.site.com/home -> http
+     *
+     * @var string
+     */
+    protected $requestScheme;
+
+    /**
+     * This holds an string containing the requests protocol like: HTTP/1.1 or HTTP/2.0
+     *
+     * @var string
+     */
+    protected $protocol;
+
+    /**
+     * This will hold the content type of the request, note that GET requests don't have an content type.
+     *
+     * @var string
+     */
+    protected $contentType;
+
+    /**
+     * This will hold an string containing the port the clients uses to connect.
+     *
+     * @var string
+     */
+    protected $clientPort;
+
+    /**
+     * This will hold an string containing the clients ip address.
+     *
+     * @var string
+     */
+    protected $clientIp;
+
+    /**
+     * This will hold an string containing the servers ip address.
+     *
+     * @var string
+     */
+    protected $serverIp;
+
+    /**
+     * This will contain an string holding the hostname of the server.
+     *
+     * @var string
+     */
+    protected $hostname;
+
 
     /**
      * Request constructor.
@@ -321,6 +398,34 @@ class Request implements RequestInterface
         $this->files = new FilesContainer( $files );
         $this->server = new ServerContainer( $server );
         $this->content = $content;
+
+        $this->requestScheme = $this->server->get( 'REQUEST_SCHEME' );//
+        $this->protocol = $this->server->get('SERVER_PROTOCOL', '');//
+        $this->clientPort = $this->server->get('REMOTE_PORT', '');//
+        $this->clientIp = $this->server->get('REMOTE_ADDR', '');//
+        $this->serverIp = $this->server->get('SERVER_ADDR', ''); //
+        $this->queryString = $this->server->get( 'QUERY_STRING', '' ); //
+        $this->baseUrl = parse_url( $this->server->get('REQUEST_URI'), PHP_URL_PATH);//
+        $this->method = $this->server->get('REQUEST_METHOD', '' );//
+        $this->userAgent = $this->server->get('HTTP_USER_AGENT', '');
+        $this->requestUri = $this->server->get('REQUEST_URI', '' );//
+        $this->contentType = $this->server->get( 'CONTENT_TYPE', '' );
+        $this->hostname = $this->server->get( 'SERVER_NAME', '' );
+        $this->baseUri = $this->requestScheme . '://' . $this->hostname . $this->baseUrl;
+        $this->uri = $this->baseUri . $this->queryString;
+
+        //todo implement the languages initiation.
+
+        /**
+         * uri                  = http://hostname.nl/page?getparams=true
+         * scheme               = http
+         * schemeAndHostname    = http://hostname.nl
+         * Hostname             = hostname.nl
+         * baseUri              = http://hostname.nl/page
+         * queryString          = ?getparams=true
+         * baseUrl              = /page
+         * requestUri           = /page?getparams=true
+         */
     }
 
     /**
