@@ -1,0 +1,17 @@
+{
+  "name": "PortefolioCMS",
+  "homepage": "https://github.com/stenden-INF1B/PortefolioCMS",
+  "authors": [
+    "Joris Rietveld <jorisrietveld@gmail.com>"
+  ],
+  "description": "This is code for the project digitaal portefolio",
+  "main": "",
+  "license": "GPLv3",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

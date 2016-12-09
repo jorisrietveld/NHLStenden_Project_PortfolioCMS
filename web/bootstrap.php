@@ -1,0 +1,49 @@
+<?php
+/**
+ * Author: Joris Rietveld <jorisrietveld@gmail.com>
+ * Created: 09-12-2016 14:31
+ * Licence: GNU General Public licence version 3 <https://www.gnu.org/licenses/quick-guide-gplv3.html>
+ */
+declare( strict_types = 1 );
+
+/**
+ * Define some constants that hold the paths for the project.
+ */
+define( 'DIR_SEP', DIRECTORY_SEPARATOR );
+define( 'DIR_UP', '..'.DIR_SEP );
+define( 'WEBS_ROOT', __DIR__ . DIR_SEP );
+define( 'PROJECT_ROOT', WEBS_ROOT . DIR_UP );
+define( 'PROJECT_SRC', WEBS_ROOT . 'src' );
+define( 'CONFIG_ROOT', PROJECT_ROOT . 'config' . DIR_SEP );
+
+/**
+ * Never set debug to TRUE on an production server!
+ */
+define( 'DEBUG', TRUE );
+
+
+/**
+ * Register an autoloader for autoloading project classes.
+ */
+spl_autoload_register( function( $className ){
+    $vendorPrefix = 'StendenINF1B\\';
+
+    if( strpos( $className, $vendorPrefix ) === 0 )
+    {
+        // The class is not from this project so move to the next registered autoloader.
+        return;
+    }
+
+    $includePath = str_replace( [ $vendorPrefix, '\\' ], [ PROJECT_SRC, DIR_SEP ], $className ) . '.php';
+
+    if( file_exists( $includePath ) )
+    {
+        require $includePath;
+    }
+    else
+    {
+        throw new \ErrorException( sprintf( 'The class: %s is not found on location: %s', $className, $includePath ) );
+    }
+});
+
+
