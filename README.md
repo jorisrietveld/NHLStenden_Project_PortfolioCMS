@@ -8,14 +8,14 @@ Documentation or here:
 To view an live version of the Portefolio cms [click here](http://146.185.141.142/PortefolioCMS)
 
 ### Authors
-Esmee Lunenborg - esmee.lunenborg@student.stenden.com
-Aron Soppe - aron.soppe@student.stenden.com
-Zervan Hoving - zervan.hoving@student.stenden.com
-Anouk van der Veen - anouk.van.der.veen@student.stenden.com
-Kevin Veldman - kevin.veldman@student.stenden.com
-Kevin Tabak - kevin.tabak@student.stenden.com
-Marco Brink - marco.brink@student.stenden.com
-Joris Rietveld - jorisrietveld@gmail.com
+Esmee Lunenborg - esmee.lunenborg@student.stenden.com<br>
+Aron Soppe - aron.soppe@student.stenden.com<br>
+Zervan Hoving - zervan.hoving@student.stenden.com<br>
+Anouk van der Veen - anouk.van.der.veen@student.stenden.com<br>
+Kevin Veldman - kevin.veldman@student.stenden.com<br>
+Kevin Tabak - kevin.tabak@student.stenden.com<br>
+Marco Brink - marco.brink@student.stenden.com<br>
+Joris Rietveld - jorisrietveld@gmail.com<br>
 
 ### Licencing: General Public Licence version 3
 > Portefolio CMS - An simple CMS system for managing digital portfolios.
