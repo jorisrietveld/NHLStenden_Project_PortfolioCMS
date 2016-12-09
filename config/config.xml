@@ -13,4 +13,8 @@
         <prefix>PortefolioCMS</prefix>
     </host>
 
+    <database>
+
+    </database>
+
 </configuration>
