@@ -6,7 +6,7 @@
  */
 declare( strict_types = 1 );
 
-namespace StendenINF1B\PortefolioCMS\Http\Session\Handler;
+namespace StendenINF1B\PortefolioCMS\Kernel\Http\Session\Handler;
 
 /**
  * Class PHPDefaultSessionHandler

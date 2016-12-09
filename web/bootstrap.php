@@ -11,9 +11,9 @@ declare( strict_types = 1 );
  */
 define( 'DIR_SEP', DIRECTORY_SEPARATOR );
 define( 'DIR_UP', '..'.DIR_SEP );
-define( 'WEBS_ROOT', __DIR__ . DIR_SEP );
-define( 'PROJECT_ROOT', WEBS_ROOT . DIR_UP );
-define( 'PROJECT_SRC', WEBS_ROOT . 'src' );
+define( 'WEB_ROOT', __DIR__ . DIR_SEP  );
+define( 'PROJECT_ROOT', WEB_ROOT . DIR_UP );
+define( 'PROJECT_SRC', PROJECT_ROOT . 'src' . DIR_SEP );
 define( 'CONFIG_ROOT', PROJECT_ROOT . 'config' . DIR_SEP );
 
 /**
@@ -28,7 +28,7 @@ define( 'DEBUG', TRUE );
 spl_autoload_register( function( $className ){
     $vendorPrefix = 'StendenINF1B\\';
 
-    if( strpos( $className, $vendorPrefix ) === 0 )
+    if( strpos( $className, $vendorPrefix ) !== 0 )
     {
         // The class is not from this project so move to the next registered autoloader.
         return;
@@ -46,4 +46,5 @@ spl_autoload_register( function( $className ){
     }
 });
 
+require PROJECT_ROOT . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 

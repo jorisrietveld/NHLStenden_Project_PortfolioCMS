@@ -6,11 +6,11 @@
  */
 declare( strict_types = 1 );
 
-namespace StendenINF1B\PortefolioCMS\Http;
+namespace StendenINF1B\PortefolioCMS\Kernel\Http;
 
 
-use StendenINF1B\PortefolioCMS\Http\File\FilesContainer;
-use StendenINF1B\PortefolioCMS\Http\Session\Session;
+use StendenINF1B\PortefolioCMS\Kernel\Http\File\FilesContainer;
+use StendenINF1B\PortefolioCMS\Kernel\Http\Session\Session;
 
 interface RequestInterface
 {

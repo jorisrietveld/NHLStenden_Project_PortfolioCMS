@@ -5,7 +5,7 @@
  * Licence: GNU General Public licence version 3 <https://www.gnu.org/licenses/quick-guide-gplv3.html>
  */
 declare( strict_types = 1 );
-namespace StendenINF1B\PortefolioCMS\Http;
+namespace StendenINF1B\PortefolioCMS\Kernel\Http;
 
 
 class Cookie

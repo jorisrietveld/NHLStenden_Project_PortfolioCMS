@@ -5,11 +5,11 @@
  * Licence: GNU General Public licence version 3 <https://www.gnu.org/licenses/quick-guide-gplv3.html>
  */
 declare( strict_types = 1 );
-namespace StendenINF1B\PortefolioCMS\Http;
+namespace StendenINF1B\PortefolioCMS\Kernel\Http;
 
 
-use StendenINF1B\PortefolioCMS\Http\File\FilesContainer;
-use StendenINF1B\PortefolioCMS\Http\Session\Session;
+use StendenINF1B\PortefolioCMS\Kernel\Http\File\FilesContainer;
+use StendenINF1B\PortefolioCMS\Kernel\Http\Session\Session;
 
 class Request implements RequestInterface
 {
@@ -336,7 +336,7 @@ class Request implements RequestInterface
             $_COOKIE,
             $_FILES,
             $_SERVER,
-            http_get_request_body()
+            file_get_contents("php://input")
         );
     }
 

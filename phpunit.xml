@@ -1,29 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <phpunit
-        processIsolation="false"
-        stopOnFailure="false"
-        syntaxCheck="false"
-        backupGlobals="false"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/6.0/phpunit.xsd"
+        backupGlobals="true"
+        backupStaticAttributes="false"
+        bootstrap="web/bootstrap.php"
+        cacheTokens="false"
         colors="true"
-        bootstrap="vendor/autoload.php">
+        convertErrorsToExceptions="true"
+        convertNoticesToExceptions="true"
+        convertWarningsToExceptions="true"
+        forceCoversAnnotation="false"
+        printerClass="PHPUnit_TextUI_ResultPrinter"
+
+        processIsolation="false"
+        stopOnError="false"
+        stopOnFailure="false"
+        stopOnIncomplete="false"
+        stopOnSkipped="false"
+        stopOnRisky="false"
+        testSuiteLoaderClass="PHPUnit_Runner_StandardTestSuiteLoader"
+
+        timeoutForSmallTests="1"
+        timeoutForMediumTests="10"
+        timeoutForLargeTests="60"
+        verbose="true">
     <php>
         <ini name="error_reporting" value="-1" />
     </php>
 
     <testsuites>
+
         <testsuite name="Digitaal Portefolio Test suit">
-            <directory>./Tests/</directory>
+            <directory suffix="Test.php" phpVersion="7.0" phpVersionOperator=">=">./Tests/</directory>
         </testsuite>
+
     </testsuites>
 
     <filter>
-        <whitelist>
-            <directory>./</directory>
+
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory>src/</directory>
             <exclude>
                 <directory>./Tests</directory>
                 <directory>./vendor</directory>
+                <directory>./web</directory>
+                <directory>./config</directory>
+                <directory>./install</directory>
+                <directory>./documentation</directory>
             </exclude>
         </whitelist>
+
     </filter>
 </phpunit>

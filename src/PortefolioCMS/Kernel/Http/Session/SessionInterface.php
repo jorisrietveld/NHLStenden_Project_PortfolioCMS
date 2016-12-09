@@ -6,9 +6,9 @@
  */
 declare( strict_types = 1 );
 
-namespace StendenINF1B\PortefolioCMS\Http\Session;
+namespace StendenINF1B\PortefolioCMS\Kernel\Http\Session;
 
-use StendenINF1B\PortefolioCMS\Http\Session\Storage\SessionContainerInterface;
+use StendenINF1B\PortefolioCMS\Kernel\Http\Session\Storage\SessionContainerInterface;
 
 /**
  * Interface SessionInterface

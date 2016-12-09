@@ -6,7 +6,7 @@
  */
 declare( strict_types = 1 );
 
-namespace StendenINF1B\PortefolioCMS\Http\Session\Storage;
+namespace StendenINF1B\PortefolioCMS\Kernel\Http\Session\Storage;
 
 
 interface SessionContainerInterface

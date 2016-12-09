@@ -5,7 +5,7 @@
  */
 declare(strict_types = 1);
 
-namespace StendenINF1B\PortefolioCMS\Routing;
+namespace StendenINF1B\PortefolioCMS\Kernel\Routing;
 
 
 class Route

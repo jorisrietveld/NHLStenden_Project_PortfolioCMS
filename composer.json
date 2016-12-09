@@ -1,6 +1,6 @@
 {
     "name": "stenden-inf1b/portefolio-cms",
-    "description": "This is the project: Digitaal portefolio",
+    "description": "Portefolio CMS - An simple CMS system for managing digital portfolios.",
     "type": "project",
     "require-dev": {
         "phpunit/phpunit": "^5.7"
@@ -13,5 +13,7 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {}
+    "require": {
+        "maximebf/debugbar": "1.*"
+    }
 }

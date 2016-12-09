@@ -6,10 +6,10 @@
  */
 declare( strict_types = 1 );
 
-namespace StendenINF1B\PortefolioCMS\Http\Session\Storage;
+namespace StendenINF1B\PortefolioCMS\Kernel\Http\Session\Storage;
 
 
-use StendenINF1B\PortefolioCMS\Http\ParameterContainer;
+use StendenINF1B\PortefolioCMS\Kernel\Http\ParameterContainer;
 
 class SessionAttributesContainer extends ParameterContainer implements SessionContainerInterface
 {

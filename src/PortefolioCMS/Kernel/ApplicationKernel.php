@@ -8,10 +8,10 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortefolioCMS\Kernel;
 
-use StendenINF1B\PortefolioCMS\Http\Request;
-use StendenINF1B\PortefolioCMS\Http\Response;
-use StendenINF1B\PortefolioCMS\Routing\Route;
-use StendenINF1B\PortefolioCMS\Routing\RouteResolver;
+use StendenINF1B\PortefolioCMS\Kernel\Http\Request;
+use StendenINF1B\PortefolioCMS\Kernel\Http\Response;
+use StendenINF1B\PortefolioCMS\Kernel\Routing\Route;
+use StendenINF1B\PortefolioCMS\Kernel\Routing\RouteResolver;
 
 class ApplicationKernel
 {

@@ -6,8 +6,7 @@
  */
 declare( strict_types = 1 );
 
-namespace StendenINF1B\PortefolioCMS\Http;
-
+namespace StendenINF1B\PortefolioCMS\Kernel\Http;
 
 interface ResponseInterface
 {

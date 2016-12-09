@@ -6,7 +6,7 @@
  */
 declare( strict_types = 1 );
 
-namespace StendenINF1B\PortefolioCMS\Http\File;
+namespace StendenINF1B\PortefolioCMS\Kernel\Http\File;
 
 
 class FilesContainer

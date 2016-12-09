@@ -6,12 +6,12 @@
  */
 declare( strict_types = 1 );
 
-namespace HTTP\Session;
+namespace StendenINF1B\PortefolioCMS\Kernel\Http\Session;
 
 
-use HTTP\Session\Storage\SessionMetadataContainer;
+use StendenINF1B\PortefolioCMS\Kernel\Http\Session\Storage\SessionMetadataContainer;
 
-class Session implements \HTTP\Session\SessionInterface
+class Session implements SessionInterface
 {
     protected $containers;
     protected $started;
