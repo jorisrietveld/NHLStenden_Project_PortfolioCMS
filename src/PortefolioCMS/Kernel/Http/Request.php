@@ -9,6 +9,8 @@ namespace StendenINF1B\PortefolioCMS\Kernel\Http;
 
 
 use StendenINF1B\PortefolioCMS\Kernel\Http\File\FilesContainer;
+use StendenINF1B\PortefolioCMS\Kernel\Http\Header\AcceptHeader;
+use StendenINF1B\PortefolioCMS\Kernel\Http\Header\HeaderContainer;
 use StendenINF1B\PortefolioCMS\Kernel\Http\Session\Session;
 
 class Request implements RequestInterface
@@ -18,7 +20,7 @@ class Request implements RequestInterface
      *
      * @var ParameterContainer
      */
-    public $getParams;
+    public $query;
 
     /**
      * This holds an ParameterContainer with all the $_POST params.
@@ -83,11 +85,12 @@ class Request implements RequestInterface
      *
      * @var string
      */
-    protected $baseUrl;
+    protected $basePath;
 
     /**
      * This holds the full uri so the {scheme}://{hostname}/{path}?get
      * www.site.com/home?logout=true -> http://www.site.com/home?logout=true
+     *
      * @var string
      */
     protected $uri;
@@ -96,7 +99,7 @@ class Request implements RequestInterface
      * This holds the uri without the get params so {scheme}://{hostname}/{path}
      * www.site.com/home?logout=true -> http://www.site.com/home
      *
-     * @var
+     * @var string
      */
     protected $baseUri;
 
@@ -108,6 +111,12 @@ class Request implements RequestInterface
      */
     protected $queryString;
 
+    /**
+     * This holds an array with the encodings accepted by the clients browser.
+     * @var
+     */
+    protected $encodings;
+
 
     /**
      * This holds an string containing the request method like GET, POST, PUT or DELETE.
@@ -118,6 +127,7 @@ class Request implements RequestInterface
 
     /**
      * This contains the language that the user browser
+     *
      * @var array
      */
     protected $languages;
@@ -179,30 +189,33 @@ class Request implements RequestInterface
      */
     protected $hostname;
 
+    /**
+     * This will hold the name of the script that is being executed by the client.
+     *
+     * @var string
+     */
+    protected $scriptName;
+
+    /**
+     * This will hold the charset accepted by the user.
+     *
+     * @var array
+     */
+    protected $charsets;
 
     /**
      * Request constructor.
      *
-     * @param array  $getParams
+     * @param array  $query
      * @param array  $postParams
      * @param array  $cookies
      * @param array  $files
      * @param array  $server
      * @param string $content
      */
-    public function __construct( array $getParams = [], array $postParams = [], array $cookies = [], array $files = [], array $server = [], string $content = '' )
+    public function __construct( array $query = [], array $postParams = [], array $cookies = [], array $files = [], array $server = [], string $content = '' )
     {
-        $this->init( $getParams, $postParams, $cookies, $files, $server, $content );
-    }
-
-    /**
-     * Gets the request $_GET params in an HTTP\ParameterContainer.
-     *
-     * @return ParameterContainer
-     */
-    public function getGetParams() : ParameterContainer
-    {
-        return $this->getGetParams();
+        $this->init( $query, $postParams, $cookies, $files, $server, $content );
     }
 
     /**
@@ -262,7 +275,7 @@ class Request implements RequestInterface
      */
     public function getSession() : Session
     {
-        if( $this->session )
+        if ( $this->session )
         {
             return $this->session;
         }
@@ -301,22 +314,166 @@ class Request implements RequestInterface
 
     /**
      * Gets the uniform resource identifier.
+     * like: /page?param=true&true=false
      *
      * @return string
      */
     public function getRequestUri() : string
     {
-        return $this->requestUri;
+        return $this->getRequestUri();
     }
 
     /**
-     * Gets the uniform resource identifier without the $_GET string (query string).
+     * Gets the full uniform resource identifier.
+     * like: http://hostname.nl/some/path?getparams=true
      *
      * @return string
      */
     public function getUri() : string
     {
-        return $this->baseRequestUri;
+        return $this->uri;
+    }
+
+    /**
+     * Gets the Scheme so either http or https.
+     *
+     * @return string
+     */
+    public function getScheme() : string
+    {
+        return $this->requestScheme;
+    }
+
+    /**
+     * Gets the scheme and hostname.
+     * like: http://site.com
+     *
+     * @return string
+     */
+    public function getBaseUri() : string
+    {
+        return $this->baseUri;
+    }
+
+    /**
+     * Gets the request $_GET params in an HTTP\ParameterContainer.
+     *
+     * @return ParameterContainer
+     */
+    public function getQueryParams() : ParameterContainer
+    {
+        return $this->query;
+    }
+
+    /**
+     * Gets the name of the current executing script.
+     *
+     * @return string
+     */
+    public function getScriptName() : string
+    {
+        return $this->getScriptName();
+    }
+
+    /**
+     * Gets the accepted charset from the user.
+     *
+     * @return string
+     */
+    public function getCharsets() : array
+    {
+        $this->charsets = array_keys( AcceptHeader::fromString( $this->headers->get( 'Accept-Charset' ) )->all() );
+    }
+
+    /**
+     * TODO replace this with own implementation.
+     * @return array
+     */
+    public function getLanguages() : array
+    {
+        if ( $this->languages !== null )
+        {
+            return $this->languages;
+        }
+
+        $languages = AcceptHeader::fromString( $this->headers->get( 'Accept-Language' ) )->all();
+
+        $this->languages = array();
+        foreach ($languages as $lang => $acceptHeaderItem)
+        {
+            if ( false !== strpos( $lang, '-' ) )
+            {
+                $codes = explode( '-', $lang );
+                if ( 'i' === $codes[ 0 ] )
+                {
+                    // Language not listed in ISO 639 that are not variants
+                    // of any listed language, which can be registered with the
+                    // i-prefix, such as i-cherokee
+                    if ( count( $codes ) > 1 )
+                    {
+                        $lang = $codes[ 1 ];
+                    }
+                }
+                else
+                {
+                    for ($i = 0, $max = count( $codes ); $i < $max; ++$i)
+                    {
+                        if ( $i === 0 )
+                        {
+                            $lang = strtolower( $codes[ 0 ] );
+                        }
+                        else
+                        {
+                            $lang .= '_' . strtoupper( $codes[ $i ] );
+                        }
+                    }
+                }
+            }
+
+            $this->languages[] = $lang;
+        }
+
+        return $this->languages;
+    }
+
+    /**
+     * Gets a list of encodings acceptable by the client browser.
+     *
+     * @return array List of encodings in preferable order
+     */
+    public function getEncodings()
+    {
+        if (null !== $this->encodings) {
+            return $this->encodings;
+        }
+
+        return $this->encodings = array_keys(AcceptHeader::fromString($this->headers->get('Accept-Encoding'))->all());
+    }
+
+    /**
+     * Gets a list of content types acceptable by the client browser.
+     *
+     * @return array List of content types in preferable order
+     */
+    public function getAcceptableContentTypes()
+    {
+        if (null !== $this->acceptableContentTypes) {
+            return $this->acceptableContentTypes;
+        }
+
+        return $this->acceptableContentTypes = array_keys(AcceptHeader::fromString($this->headers->get('Accept'))->all());
+    }
+
+
+    /**
+     * Gets the base url.
+     * like: /page
+     *
+     * @return string
+     */
+    public function getBasePath() : string
+    {
+        return $this->getBasePath();
     }
 
     /**
@@ -326,7 +483,7 @@ class Request implements RequestInterface
      */
     public function getClientIp() : string
     {
-        return $this->server->get( 'REMOTE_ADDR', '' );
+        return $this->clientIp;
     }
 
     /**
@@ -334,9 +491,9 @@ class Request implements RequestInterface
      *
      * @return string
      */
-    public function getHttpHost() : string
+    public function getServerIp() : string
     {
-        return $this->server->get( 'HTTP_HOST', '' );
+        return $this->serverIp;
     }
 
     /**
@@ -350,26 +507,6 @@ class Request implements RequestInterface
     }
 
     /**
-     * Gets the hostname of the server.
-     *
-     * @return string
-     */
-    public function getHostname() : string
-    {
-        // TODO: Implement getHostname() method.
-    }
-
-    /**
-     * Gets the default locale parsed from the header.
-     *
-     * @return string
-     */
-    public function getDefaultLocale() : string
-    {
-        return $this->locale;
-    }
-
-    /**
      * Gets the request method.
      *
      * @return string
@@ -380,9 +517,35 @@ class Request implements RequestInterface
     }
 
     /**
+     * Gets an uniform resource locator based on the passed path.
+     *
+     * @param string $path
+     * @return string
+     */
+    public function getUriForPath( string $path ) : string
+    {
+        return rtrim( $this->getBaseUri(), '/' ) . '/' . ltrim( $path, '/' );
+    }
+
+    /**
+     * Gets the hostname of the server.
+     *
+     * @return string
+     */
+    public function getHostname() : string
+    {
+        return $this->hostname;
+    }
+
+    public function __toString() : string
+    {
+        return (string)json_encode( get_object_vars( $this ), true );
+    }
+
+    /**
      * Initiates the request.
      *
-     * @param array $getParams
+     * @param array $query
      * @param array $postParams
      * @param array $headers
      * @param array $cookies
@@ -390,29 +553,30 @@ class Request implements RequestInterface
      * @param array $server
      * @return mixed
      */
-    public function init( array $getParams = [], array $postParams = [], array $cookies = [], array $files = [], array $server = [], string $content = '' )
+    public function init( array $query = [], array $postParams = [], array $cookies = [], array $files = [], array $server = [], string $content = '' )
     {
-        $this->getParams = new ParameterContainer( $getParams );
+        $this->getParams = new ParameterContainer( $query );
         $this->postParams = new ParameterContainer( $postParams );
-        $this->cookies =  new ParameterContainer( $cookies );
+        $this->cookies = new ParameterContainer( $cookies );
         $this->files = new FilesContainer( $files );
         $this->server = new ServerContainer( $server );
         $this->content = $content;
 
         $this->requestScheme = $this->server->get( 'REQUEST_SCHEME' );//
-        $this->protocol = $this->server->get('SERVER_PROTOCOL', '');//
-        $this->clientPort = $this->server->get('REMOTE_PORT', '');//
-        $this->clientIp = $this->server->get('REMOTE_ADDR', '');//
-        $this->serverIp = $this->server->get('SERVER_ADDR', ''); //
+        $this->protocol = $this->server->get( 'SERVER_PROTOCOL', '' );//
+        $this->clientPort = $this->server->get( 'REMOTE_PORT', '' );//
+        $this->clientIp = $this->server->get( 'REMOTE_ADDR', '' );//
+        $this->serverIp = $this->server->get( 'SERVER_ADDR', '' ); //
         $this->queryString = $this->server->get( 'QUERY_STRING', '' ); //
-        $this->baseUrl = parse_url( $this->server->get('REQUEST_URI'), PHP_URL_PATH);//
-        $this->method = $this->server->get('REQUEST_METHOD', '' );//
-        $this->userAgent = $this->server->get('HTTP_USER_AGENT', '');
-        $this->requestUri = $this->server->get('REQUEST_URI', '' );//
+        $this->basePath = parse_url( $this->server->get( 'REQUEST_URI' ), PHP_URL_PATH );//
+        $this->method = $this->server->get( 'REQUEST_METHOD', '' );//
+        $this->userAgent = $this->server->get( 'HTTP_USER_AGENT', '' );
+        $this->requestUri = $this->server->get( 'REQUEST_URI', '' );//
         $this->contentType = $this->server->get( 'CONTENT_TYPE', '' );
         $this->hostname = $this->server->get( 'SERVER_NAME', '' );
-        $this->baseUri = $this->requestScheme . '://' . $this->hostname . $this->baseUrl;
+        $this->baseUri = $this->requestScheme . '://' . $this->hostname . $this->basePath;
         $this->uri = $this->baseUri . $this->queryString;
+        $this->scriptName = $this->server->get( 'SCRIPT_NAME', '' );
 
         //todo implement the languages initiation.
 
@@ -423,7 +587,7 @@ class Request implements RequestInterface
          * Hostname             = hostname.nl
          * baseUri              = http://hostname.nl/page
          * queryString          = ?getparams=true
-         * baseUrl              = /page
+         * getPathInfo              = /page
          * requestUri           = /page?getparams=true
          */
     }
@@ -441,7 +605,7 @@ class Request implements RequestInterface
             $_COOKIE,
             $_FILES,
             $_SERVER,
-            file_get_contents("php://input")
+            file_get_contents( "php://input" )
         );
     }
 

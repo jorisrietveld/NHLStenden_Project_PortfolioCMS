@@ -14,6 +14,7 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "maximebf/debugbar": "1.*"
+        "maximebf/debugbar": "1.*",
+        "symfony/debug-bundle": "3.2.*"
     }
 }

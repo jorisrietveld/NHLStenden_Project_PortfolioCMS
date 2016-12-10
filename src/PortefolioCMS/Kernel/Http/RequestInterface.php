@@ -11,6 +11,7 @@ namespace StendenINF1B\PortefolioCMS\Kernel\Http;
 
 use StendenINF1B\PortefolioCMS\Kernel\Http\File\FilesContainer;
 use StendenINF1B\PortefolioCMS\Kernel\Http\Session\Session;
+use StendenINF1B\PortefolioCMS\Kernel\Http\Header\HeaderContainer;
 
 interface RequestInterface
 {
@@ -19,7 +20,7 @@ interface RequestInterface
      *
      * @return ParameterContainer
      */
-    public function getGetParams() : ParameterContainer;
+    public function getQueryParams() : ParameterContainer;
 
     /**
      * Gets the requests $_POST params in an HTTP\ParameterContainer.
@@ -84,17 +85,54 @@ interface RequestInterface
 
     /**
      * Gets the uniform resource identifier.
+     * like: /page?param=true&true=false
      *
      * @return string
      */
     public function getRequestUri() : string;
 
     /**
-     * Gets the uniform resource identifier without the $_GET string (query string).
+     * Gets the full uniform resource identifier.
+     * like: http://hostname.nl/some/path?getparams=true
      *
      * @return string
      */
     public function getUri() : string;
+
+    /**
+     * Gets the Scheme so either http or https.
+     *
+     * @return string
+     */
+    public function getScheme() : string;
+
+    /**
+     * Gets the base path from the request.
+     * Like: http://www.hostname.nl/some/path?answerToLife=42 -> some/path
+     * @return string
+     */
+    public function getBasePath(  ) : string;
+
+    /**
+     * Gets the scheme and hostname.
+     * like: http://site.com
+     *
+     * @return string
+     */
+    public function getBaseUri() : string;
+
+    /**
+     * Gets the accepted charset from the user.
+     * @return string
+     */
+    public function getCharsets(  ) : array;
+
+    /**
+     * Gets the name that is executed by the user.
+     *
+     * @return string
+     */
+    public function getScriptName( ) : string;
 
     /**
      * Gets the clients ip address.
@@ -108,7 +146,7 @@ interface RequestInterface
      *
      * @return string
      */
-    public function getHttpHost() : string;
+    public function getServerIp() : string;
 
     /**
      * Gets the query string (the string from the URI containing the $_GET params).
@@ -129,7 +167,7 @@ interface RequestInterface
      *
      * @return string
      */
-    public function getDefaultLocale() : string;
+    public function getLanguages() : array;
 
     /**
      * Gets the request method.
@@ -142,7 +180,7 @@ interface RequestInterface
      * Initiates the request, it will do everything an constructor will normally do but it does it in an normal method for ]
      * more flexibility.
      *
-     * @param array  $getParams
+     * @param array  $query
      * @param array  $postParams
      * @param array  $cookies
      * @param array  $files
@@ -150,7 +188,7 @@ interface RequestInterface
      * @param string $content
      * @return mixed
      */
-    public function init( array $getParams = [], array $postParams = [], array $cookies = [], array $files = [], array $server = [], string $content = '' );
+    public function init( array $query = [], array $postParams = [], array $cookies = [], array $files = [], array $server = [], string $content = '' );
     /**
      * Returnes an Request object with created from globals like $_GET, $_POST, $_COOKIE, $FILES and server.
      *
