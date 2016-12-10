@@ -11,7 +11,6 @@ namespace StendenINF1B\PortefolioCMS\Kernel\Http;
 
 use StendenINF1B\PortefolioCMS\Kernel\Http\File\FilesContainer;
 use StendenINF1B\PortefolioCMS\Kernel\Http\Session\Session;
-use StendenINF1B\PortefolioCMS\Kernel\Http\Header\HeaderContainer;
 
 interface RequestInterface
 {
@@ -47,7 +46,13 @@ interface RequestInterface
      * Gets the headers from an request in an HTTP\HeaderContainer.
      * @return HeaderContainer
      */
-    public function getHeaders() : HeaderContainer;
+    public function getHeaders() : ParameterContainer;
+
+    /**
+     * Sets new headers.
+     * @param ParameterContainer $headers
+     */
+    public function setHeaders( ParameterContainer $headers );
 
     /**
      * Gets the $_COOKIE parameters in an HTTP\ParameterContainer.
@@ -125,7 +130,7 @@ interface RequestInterface
      * Gets the accepted charset from the user.
      * @return string
      */
-    public function getCharsets(  ) : array;
+    //public function getCharsets(  ) : array;
 
     /**
      * Gets the name that is executed by the user.
@@ -167,7 +172,7 @@ interface RequestInterface
      *
      * @return string
      */
-    public function getLanguages() : array;
+    //public function getLanguages() : array;
 
     /**
      * Gets the request method.

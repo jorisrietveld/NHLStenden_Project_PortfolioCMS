@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <routes>
 
-    <route name="Home" path="/home">
-        <controller>Home</controller>
-        <method>index</method>
+    <route id="Home" path="/home" methods="GET|POST">
+        <action id="controller">Home:index</action>
     </route>
 
-    <route name="Portefolio" path="/portefolio/{student_name}">
-        <controller>Portefolio</controller>
-        <method>index</method>
+    <route id="Portefolio" path="/portefolio/{student_name}" methods="GET">
+        <action id="controller">Portefolio:index</action>
+        <placeholder key="student_name"></placeholder>
     </route>
 
-    <route name="Admin" path="/admin">
-        <controller>Admin</controller>
-        <method>index</method>
+    <route id="Admin" path="/admin">
+        <action id="controller">Admin:index</action>
+    </route>
+
+    <route id="Admin" path="/admin/">
+        <action id="controller">Admin:index</action>
     </route>
 
 </routes>

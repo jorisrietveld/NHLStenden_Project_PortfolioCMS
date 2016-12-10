@@ -8,6 +8,7 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortefolioCMS\Kernel\Http;
 
+
 interface ResponseInterface
 {
     /**
@@ -50,9 +51,9 @@ interface ResponseInterface
     /**
      * Gets the headers in an HeaderContainer saved in the response.
      *
-     * @return HeaderContainer
+     * @return ParameterContainer
      */
-    public function getHeaders() : HeaderContainer;
+    public function getHeaders() : ParameterContainer;
 
     /**
      * Prepares the response with parameters from the request.

@@ -9,8 +9,6 @@ namespace StendenINF1B\PortefolioCMS\Kernel\Http;
 
 
 use StendenINF1B\PortefolioCMS\Kernel\Http\File\FilesContainer;
-use StendenINF1B\PortefolioCMS\Kernel\Http\Header\AcceptHeader;
-use StendenINF1B\PortefolioCMS\Kernel\Http\Header\HeaderContainer;
 use StendenINF1B\PortefolioCMS\Kernel\Http\Session\Session;
 
 class Request implements RequestInterface
@@ -190,20 +188,6 @@ class Request implements RequestInterface
     protected $hostname;
 
     /**
-     * This will hold the name of the script that is being executed by the client.
-     *
-     * @var string
-     */
-    protected $scriptName;
-
-    /**
-     * This will hold the charset accepted by the user.
-     *
-     * @var array
-     */
-    protected $charsets;
-
-    /**
      * Request constructor.
      *
      * @param array  $query
@@ -251,11 +235,20 @@ class Request implements RequestInterface
     /**
      * Gets the headers from an request in an HTTP\HeaderContainer.
      *
-     * @return HeaderContainer
+     * @return ParameterContainer
      */
-    public function getHeaders() : HeaderContainer
+    public function getHeaders() : ParameterContainer
     {
         return $this->headers;
+    }
+
+    /**
+     * Sets new headers.
+     * @param ParameterContainer $headerContainer
+     */
+    public function setHeaders( ParameterContainer $headerContainer )
+    {
+        $this->headers = $headerContainer;
     }
 
     /**
@@ -352,7 +345,7 @@ class Request implements RequestInterface
      */
     public function getBaseUri() : string
     {
-        return $this->baseUri;
+        return $this->getScheme() . '://' . $this->getHostname() . $this->getBasePath();
     }
 
     /**
@@ -372,98 +365,8 @@ class Request implements RequestInterface
      */
     public function getScriptName() : string
     {
-        return $this->getScriptName();
+        return (string)$this->server->get( 'SCRIPT_NAME', '' );
     }
-
-    /**
-     * Gets the accepted charset from the user.
-     *
-     * @return string
-     */
-    public function getCharsets() : array
-    {
-        $this->charsets = array_keys( AcceptHeader::fromString( $this->headers->get( 'Accept-Charset' ) )->all() );
-    }
-
-    /**
-     * TODO replace this with own implementation.
-     * @return array
-     */
-    public function getLanguages() : array
-    {
-        if ( $this->languages !== null )
-        {
-            return $this->languages;
-        }
-
-        $languages = AcceptHeader::fromString( $this->headers->get( 'Accept-Language' ) )->all();
-
-        $this->languages = array();
-        foreach ($languages as $lang => $acceptHeaderItem)
-        {
-            if ( false !== strpos( $lang, '-' ) )
-            {
-                $codes = explode( '-', $lang );
-                if ( 'i' === $codes[ 0 ] )
-                {
-                    // Language not listed in ISO 639 that are not variants
-                    // of any listed language, which can be registered with the
-                    // i-prefix, such as i-cherokee
-                    if ( count( $codes ) > 1 )
-                    {
-                        $lang = $codes[ 1 ];
-                    }
-                }
-                else
-                {
-                    for ($i = 0, $max = count( $codes ); $i < $max; ++$i)
-                    {
-                        if ( $i === 0 )
-                        {
-                            $lang = strtolower( $codes[ 0 ] );
-                        }
-                        else
-                        {
-                            $lang .= '_' . strtoupper( $codes[ $i ] );
-                        }
-                    }
-                }
-            }
-
-            $this->languages[] = $lang;
-        }
-
-        return $this->languages;
-    }
-
-    /**
-     * Gets a list of encodings acceptable by the client browser.
-     *
-     * @return array List of encodings in preferable order
-     */
-    public function getEncodings()
-    {
-        if (null !== $this->encodings) {
-            return $this->encodings;
-        }
-
-        return $this->encodings = array_keys(AcceptHeader::fromString($this->headers->get('Accept-Encoding'))->all());
-    }
-
-    /**
-     * Gets a list of content types acceptable by the client browser.
-     *
-     * @return array List of content types in preferable order
-     */
-    public function getAcceptableContentTypes()
-    {
-        if (null !== $this->acceptableContentTypes) {
-            return $this->acceptableContentTypes;
-        }
-
-        return $this->acceptableContentTypes = array_keys(AcceptHeader::fromString($this->headers->get('Accept'))->all());
-    }
-
 
     /**
      * Gets the base url.
@@ -473,7 +376,7 @@ class Request implements RequestInterface
      */
     public function getBasePath() : string
     {
-        return $this->getBasePath();
+        return (string)parse_url( $this->server->get( 'REQUEST_URI', '' ), PHP_URL_PATH );
     }
 
     /**
@@ -561,35 +464,43 @@ class Request implements RequestInterface
         $this->files = new FilesContainer( $files );
         $this->server = new ServerContainer( $server );
         $this->content = $content;
+        $this->initiateProperties();
+        $this->initiateHeaderContainer();
 
-        $this->requestScheme = $this->server->get( 'REQUEST_SCHEME' );//
-        $this->protocol = $this->server->get( 'SERVER_PROTOCOL', '' );//
-        $this->clientPort = $this->server->get( 'REMOTE_PORT', '' );//
-        $this->clientIp = $this->server->get( 'REMOTE_ADDR', '' );//
-        $this->serverIp = $this->server->get( 'SERVER_ADDR', '' ); //
-        $this->queryString = $this->server->get( 'QUERY_STRING', '' ); //
-        $this->basePath = parse_url( $this->server->get( 'REQUEST_URI' ), PHP_URL_PATH );//
+    }
+
+    /**
+     * Sets the request properties.
+     */
+    protected function initiateProperties(  )
+    {
+        $this->requestScheme = $this->server->get( 'REQUEST_SCHEME' );
+        $this->protocol = $this->server->get( 'SERVER_PROTOCOL', '' );
+        $this->clientPort = $this->server->get( 'REMOTE_PORT', '' );
+        $this->clientIp = $this->server->get( 'REMOTE_ADDR', '' );
+        $this->serverIp = $this->server->get( 'SERVER_ADDR', '' );
+        $this->queryString = $this->server->get( 'QUERY_STRING', '' );
+
         $this->method = $this->server->get( 'REQUEST_METHOD', '' );//
         $this->userAgent = $this->server->get( 'HTTP_USER_AGENT', '' );
         $this->requestUri = $this->server->get( 'REQUEST_URI', '' );//
         $this->contentType = $this->server->get( 'CONTENT_TYPE', '' );
         $this->hostname = $this->server->get( 'SERVER_NAME', '' );
-        $this->baseUri = $this->requestScheme . '://' . $this->hostname . $this->basePath;
-        $this->uri = $this->baseUri . $this->queryString;
-        $this->scriptName = $this->server->get( 'SCRIPT_NAME', '' );
+        $this->uri = $this->getBaseUri() . $this->queryString;
+    }
 
-        //todo implement the languages initiation.
+    public function initiateHeaderContainer(  )
+    {
+        $headers = [];
 
-        /**
-         * uri                  = http://hostname.nl/page?getparams=true
-         * scheme               = http
-         * schemeAndHostname    = http://hostname.nl
-         * Hostname             = hostname.nl
-         * baseUri              = http://hostname.nl/page
-         * queryString          = ?getparams=true
-         * getPathInfo              = /page
-         * requestUri           = /page?getparams=true
-         */
+        foreach ( $this->server->all() as $serverKey => $serverValue )
+        {
+            if( strpos( $serverKey, 'HTTP_' ) === 0 )
+            {
+                $headers[substr($serverKey, 5 )] = $serverValue;
+            }
+        }
+        $this->headers = new ParameterContainer( $headers );
     }
 
     /**

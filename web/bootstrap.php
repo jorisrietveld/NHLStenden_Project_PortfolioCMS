@@ -6,6 +6,11 @@
  */
 declare( strict_types = 1 );
 
+function normalizePath()
+{
+
+}
+
 /**
  * Define some constants that hold the paths for the project.
  */
@@ -15,6 +20,7 @@ define( 'WEB_ROOT', __DIR__ . DIR_SEP  );
 define( 'PROJECT_ROOT', WEB_ROOT . DIR_UP );
 define( 'PROJECT_SRC', PROJECT_ROOT . 'src' . DIR_SEP );
 define( 'CONFIG_ROOT', PROJECT_ROOT . 'config' . DIR_SEP );
+define( 'ROUTE_CONFIG_FILE', CONFIG_ROOT . 'Routes.xml' );
 
 /**
  * Never set debug to TRUE on an production server!

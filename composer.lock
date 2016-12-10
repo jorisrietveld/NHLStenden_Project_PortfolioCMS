@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9134500f00f7a4bee672af5a31e8f76d",
+    "hash": "df3147a62f99ecf0c1830c8f4219bc67",
     "content-hash": "8accc0af3701a591ffcc2f0f788fef85",
     "packages": [
         {
@@ -1436,12 +1436,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/comparator.git",
-                "reference": "9f49fe530008e73d496c5b9c52d50a0eac7184ee"
+                "reference": "2f09d5a251c4a92d1a80518c2166b5d0d742bc63"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/9f49fe530008e73d496c5b9c52d50a0eac7184ee",
-                "reference": "9f49fe530008e73d496c5b9c52d50a0eac7184ee",
+                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/2f09d5a251c4a92d1a80518c2166b5d0d742bc63",
+                "reference": "2f09d5a251c4a92d1a80518c2166b5d0d742bc63",
                 "shasum": ""
             },
             "require": {
@@ -1492,7 +1492,7 @@
                 "compare",
                 "equality"
             ],
-            "time": "2016-12-09 10:59:16"
+            "time": "2016-12-10 08:07:52"
         },
         {
             "name": "sebastian/diff",

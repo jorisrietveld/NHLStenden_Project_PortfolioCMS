@@ -12,6 +12,11 @@
             "email": "jorisrietveld@gmail.com"
         }
     ],
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\PortefolioCMS\\" : "Tests/"
+        }
+    },
     "minimum-stability": "dev",
     "require": {
         "maximebf/debugbar": "1.*",

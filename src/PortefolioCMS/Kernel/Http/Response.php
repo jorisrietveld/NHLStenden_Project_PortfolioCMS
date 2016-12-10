@@ -207,7 +207,7 @@ class Response implements ResponseInterface
      */
     public function setHeaders( array $headers )
     {
-        $this->headers = new HeaderContainer( $headers );
+        $this->headers = new ParameterContainer( $headers );
     }
 
     /**
@@ -219,7 +219,7 @@ class Response implements ResponseInterface
     {
         if( $this->headers == NULL )
         {
-            $this->headers = new HeaderContainer( $headers );
+            $this->headers = new ParameterContainer( $headers );
         }
         else
         {
@@ -242,7 +242,7 @@ class Response implements ResponseInterface
      *
      * @return HeaderContainer
      */
-    public function getHeaders() : HeaderContainer
+    public function getHeaders() : ParameterContainer
     {
         // TODO: Implement getHeaders() method.
     }
