@@ -14,13 +14,15 @@ require __DIR__ . DIRECTORY_SEPARATOR . 'bootstrap.php';
 $application = new StendenINF1B\PortefolioCMS\Kernel\ApplicationKernel();
 $request = \StendenINF1B\PortefolioCMS\Kernel\Http\Request::createFromGlobals();
 
-dump($request);
-$routeParser = new \StendenINF1B\PortefolioCMS\Kernel\Routing\RouteParser();
+//dump($request);
+//$routeParser = new \StendenINF1B\PortefolioCMS\Kernel\Routing\RouteParser();
 
-$routeParser->loadXml();
-dump( $routeParser->getSimpleXmlObject());
+//$routeParser->loadXml();
+// dump( $routeParser->getSimpleXmlObject());
+//$routeParser->parseXmlToRoutes();
 
-//$application->handle( $request );
+$response = $application->handle( $request );
+$response->send();
 
 //$response = $application->handle( $request );
 

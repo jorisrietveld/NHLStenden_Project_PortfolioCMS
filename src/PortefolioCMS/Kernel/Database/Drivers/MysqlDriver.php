@@ -7,6 +7,7 @@
 namespace StendenINF1B\PortefolioCMS\Kernel\Database\Driver;
 
 use PDO;
+use StendenINF1B\PortefolioCMS\Kernel\Exception\ConfigurationErrorException;
 use StendenINF1B\PortefolioCMS\Kernel\Helper\ParameterContainer;
 
 
@@ -65,9 +66,9 @@ class MysqlDriver extends Driver implements DriverInterface
 	 *
 	 * @return void
 	 */
-	protected function setCharset( Array $config )
+	protected function setCharset( ParameterContainer $config )
 	{
-		extract( $config, EXTR_PREFIX_ALL, "conf" );
+		//extract( $config, EXTR_PREFIX_ALL, "conf" );
 
 		$setNames = "set names '{$conf_charset}'";
 
@@ -130,11 +131,18 @@ class MysqlDriver extends Driver implements DriverInterface
 	 *
 	 * @return string
 	 */
-	public function getDsnWithSocketConfiguration( Array $config )
+	public function getDsnWithSocketConfiguration( ParameterContainer $config )
 	{
-		extract( $config, EXTR_PREFIX_ALL, "conf" );
+	    if( $config->has( 'unix_socket' ) && $config->has( 'database' ) )
+        {
+            return "mysql:unix_socket={$config->get('unix_socket')};dbname={$config->get('database')}";
+        }
+		else
+        {
+            throw new ConfigurationErrorException('Missing configuration for mysql with unix socket connection..');
+        }
 
-		return "mysql:unix_socket={$conf_unix_socket};dbname={$conf_database}";
+
 	}
 
 	/**

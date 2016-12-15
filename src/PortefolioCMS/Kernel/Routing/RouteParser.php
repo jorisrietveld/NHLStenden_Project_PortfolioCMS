@@ -27,6 +27,7 @@ class RouteParser
         if( file_exists( $this->filename ))
         {
             $this->simpleXMLObject = simplexml_load_file( $this->filename );
+            //$this->simpleXMLObject = new \DOMDocument();
         }
         else
         {
@@ -52,5 +53,23 @@ class RouteParser
     public function createRoutes(  )
     {
         
+    }
+
+    public function parseXmlToRoutes(  )
+    {
+        foreach ( $this->getSimpleXmlObject() as $route )
+        {
+            if( !empty( $route->{'@attributes'} ) )
+            {
+                //dump($route->{'@attributes'} );
+            }
+            else
+            {
+                $name ='@attributes';
+                //dump( $route );
+                var_dump( array_keys( (array)$route)  );
+                var_dump( (array)$route['@attributes'] );
+            }
+        }
     }
 }

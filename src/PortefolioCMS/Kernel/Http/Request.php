@@ -110,25 +110,11 @@ class Request implements RequestInterface
     protected $queryString;
 
     /**
-     * This holds an array with the encodings accepted by the clients browser.
-     * @var
-     */
-    protected $encodings;
-
-
-    /**
      * This holds an string containing the request method like GET, POST, PUT or DELETE.
      *
      * @var string
      */
     protected $method;
-
-    /**
-     * This contains the language that the user browser
-     *
-     * @var array
-     */
-    protected $languages;
 
     /**
      * This holds an string containing the useragent with information about the operating system and browser.
@@ -313,7 +299,7 @@ class Request implements RequestInterface
      */
     public function getRequestUri() : string
     {
-        return $this->getRequestUri();
+        return $this->requestUri;
     }
 
     /**
@@ -454,11 +440,10 @@ class Request implements RequestInterface
      * @param array $cookies
      * @param array $files
      * @param array $server
-     * @return mixed
      */
     public function init( array $query = [], array $postParams = [], array $cookies = [], array $files = [], array $server = [], string $content = '' )
     {
-        $this->getParams = new ParameterContainer( $query );
+        $this->query = new ParameterContainer( $query );
         $this->postParams = new ParameterContainer( $postParams );
         $this->cookies = new ParameterContainer( $cookies );
         $this->files = new FilesContainer( $files );
@@ -466,7 +451,6 @@ class Request implements RequestInterface
         $this->content = $content;
         $this->initiateProperties();
         $this->initiateHeaderContainer();
-
     }
 
     /**

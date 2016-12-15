@@ -67,10 +67,11 @@ class ConfiguredRoute
      */
     protected $placeHolders;
 
-    public function __construct( string $id = '', string $fullPath = '', array $methods = [], string $controllerAction = '' )
+    public function __construct( string $id = '', string $fullPath = '', array $methods = [], string $controller = '', string $method = '')
     {
         $this->setId( $id );
-        $this->setControllerAction( $controllerAction );
+        $this->setController( $controller );
+        $this->setMethod( $method );
     }
 
     /**

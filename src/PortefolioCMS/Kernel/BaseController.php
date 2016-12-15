@@ -11,5 +11,10 @@ namespace StendenINF1B\PortefolioCMS\Kernel;
 
 abstract class BaseController
 {
+    public function getTemplate(  )
+    {
+        
+    }
 
+    abstract public function index();
 }

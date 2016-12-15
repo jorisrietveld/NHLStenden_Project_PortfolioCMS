@@ -60,17 +60,17 @@ class ApplicationKernel
      */
     protected function callController( Route $route ) : Response
     {
-        $controller = '\\StendenINF1B\\PortefolioCMS\\Contoller\\' . $route->getController();
+        $controller = '\\StendenINF1B\\PortefolioCMS\\Controller\\' . $route->getController();
         $controller = new $controller();
 
         $response = $controller->{$route->getMethod()}( $this->request, $route->getArguments() );
 
-        if( is_a($response, '\StendenINF1B\PortefolioCMS\Http\Response'))
+        if( is_a($response, 'StendenINF1B\PortefolioCMS\Kernel\Http\Response'))
         {
             $this->response = $response;
             return $this->response;
         }
-        throw new \LogicException('The controller must return an Request object!');
+        throw new \LogicException('The controller must return an Response object!');
     }
 
     /**
@@ -81,10 +81,10 @@ class ApplicationKernel
      */
     protected function resolveRoute( string $path = NULL ) : Route
     {
-        $routerResolver = new RouteResolver();
+        //$routerResolver = new RouteResolver();
         $path = $path ?? $this->request->getRequestUri();
-
-        return $routerResolver->resolve( $path );
+        return new Route('index', '/', 'index', 'Home' ,[] );
+        //return $routerResolver->resolve( $path );
     }
 
     /**

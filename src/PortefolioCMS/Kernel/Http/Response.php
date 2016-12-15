@@ -164,6 +164,8 @@ class Response implements ResponseInterface
     public function __construct( string $content = '', $status = self::HTTP_STATUS_OK, array $headers = [] )
     {
         $this->setHeaders( $headers );
+        $this->setContent( $content );
+        $this->setStatusCode( $status );
     }
 
     /**
