@@ -9,5 +9,5 @@
 
     RewriteCond %{REQUEST_FILENAME} !-f
 
-    RewriteRule ^(.*)$ /index.php [QSA,L]
+    RewriteRule ^(.*)$ index.php?q=$1 [L,QSA]
 </IfModule>
