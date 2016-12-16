@@ -17,14 +17,6 @@ class ConfiguredRoute
     const DEFAULT_ACTION = 'index';
     const DEFAULT_METHOD = 'GET';
 
-    CONST VALID_HTTP_METHODS = [
-        'GET',
-        'POST',
-        'PUT',
-        'PATCH',
-        'DELETE'
-    ];
-
     /**
      * The id of the route.
      * @var string
@@ -47,7 +39,7 @@ class ConfiguredRoute
      * The allowed http methods.
      * @var array
      */
-    protected $methods;
+    protected $httpMethods;
 
     /**
      * The controller.
@@ -67,43 +59,14 @@ class ConfiguredRoute
      */
     protected $placeHolders;
 
-    public function __construct( string $id = '', string $fullPath = '', array $methods = [], string $controller = '', string $method = '')
+    public function __construct( string $id = '', string $fullPath = '', array $httpMethods = [ self::DEFAULT_METHOD ], string $controller = '', string $method = '')
     {
         $this->setId( $id );
+        $this->setFullPath( $fullPath );
+        $this->setHttpMethods( $httpMethods );
+
         $this->setController( $controller );
         $this->setMethod( $method );
-    }
-
-    /**
-     * This parses the configured controller:action
-     *
-     * @param string $controllerAction
-     */
-    public function setControllerAction( string $controllerAction )
-    {
-        if( !empty( $controllerAction ))
-        {
-            $parts = explode( ':', $controllerAction );
-
-            if( count( $parts ) === 2 )
-            {
-                $this->setController( $parts[0] );
-                $this->setMethod( $parts[1] );
-            }
-            elseif( count( $parts ) === 1 )
-            {
-                $this->setController( $parts[0] );
-                $this->setMethod( self::DEFAULT_ACTION );
-            }
-            else
-            {
-                throw new ConfigurationErrorException( sprintf( 'The configuration of the route: %s is not correct. You must supply at least the name of the Controller', $this->id ) );
-            }
-        }
-        else
-        {
-            Debug::notice( 'Empty controller and action configured in route with id %s', $this->getId() );
-        }
     }
 
     /**
@@ -157,17 +120,17 @@ class ConfiguredRoute
     /**
      * @return array
      */
-    public function getMethods(): array
+    public function getHttpMethods(): array
     {
-        return $this->methods;
+        return $this->httpMethods;
     }
 
     /**
      * @param array $methods
      */
-    public function setMethods( array $methods )
+    public function setHttpMethods( array $httpMethods )
     {
-        $this->methods = $methods;
+        $this->httpMethods = $httpMethods;
     }
 
     /**

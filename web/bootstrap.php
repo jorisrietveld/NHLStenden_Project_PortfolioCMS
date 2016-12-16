@@ -27,7 +27,6 @@ define( 'ROUTE_CONFIG_FILE', CONFIG_ROOT . 'Routes.xml' );
  */
 define( 'DEBUG', TRUE );
 
-
 /**
  * Register an autoloader for autoloading project classes.
  */

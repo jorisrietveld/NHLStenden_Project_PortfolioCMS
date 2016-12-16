@@ -9,8 +9,10 @@ declare( strict_types = 1 );
 namespace StendenINF1B\PortefolioCMS\Kernel\Routing;
 
 
+use StendenINF1B\PortefolioCMS\Kernel\Exception\ConfigurationErrorException;
 use StendenINF1B\PortefolioCMS\Kernel\Exception\FileNotFoundException;
 use StendenINF1B\PortefolioCMS\Kernel\Exception\XMLParserException;
+use StendenINF1B\PortefolioCMS\Kernel\Helper\ParameterContainer;
 
 class RouteParser
 {
@@ -27,7 +29,6 @@ class RouteParser
         if( file_exists( $this->filename ))
         {
             $this->simpleXMLObject = simplexml_load_file( $this->filename );
-            //$this->simpleXMLObject = new \DOMDocument();
         }
         else
         {
@@ -59,17 +60,37 @@ class RouteParser
     {
         foreach ( $this->getSimpleXmlObject() as $route )
         {
-            if( !empty( $route->{'@attributes'} ) )
+            dump( $route );
+
+            if( empty( $route['id'] ) )
             {
-                //dump($route->{'@attributes'} );
+                throw new ConfigurationErrorException( 'All configured routes must have an id.' );
+            }
+            if( empty( $route['path'] ))
+            {
+                throw new ConfigurationErrorException( 'All configured routes must have an path to.' );
+            }
+
+            $id = (string)$route['id'];
+            $path = (string)$route['path'];
+
+            if( !empty( $route['methods'] ))
+            {
+                $methods = explode( '|', (string)$route['methods'] );
+                $methods = count( $methods ) ? [ ConfiguredRoute::DEFAULT_METHOD ] : $methods;
             }
             else
             {
-                $name ='@attributes';
-                //dump( $route );
-                var_dump( array_keys( (array)$route)  );
-                var_dump( (array)$route['@attributes'] );
+                $methods = [ ConfiguredRoute::DEFAULT_METHOD ];
             }
+
+
+            $configuredRoute = new ConfiguredRoute( $id, $path, [ ConfiguredRoute::DEFAULT_METHOD ] );
+
+
+
+
+
         }
     }
 }
