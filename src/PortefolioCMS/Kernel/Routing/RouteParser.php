@@ -75,6 +75,8 @@ class RouteParser
             if( !empty( $route['methods'] ))
             {
 
+
+
                 $methods = explode( '|', (string)$route['methods'] );
                 $methods = count( $methods ) ? [ ConfiguredRoute::DEFAULT_METHOD ] : $methods;
             }
