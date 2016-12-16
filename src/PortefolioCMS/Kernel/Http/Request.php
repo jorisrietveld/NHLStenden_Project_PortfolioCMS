@@ -362,7 +362,12 @@ class Request implements RequestInterface
      */
     public function getBasePath() : string
     {
-        return (string)parse_url( $this->server->get( 'REQUEST_URI', '' ), PHP_URL_PATH );
+        $urlParts = explode( 'web/', $this->getBaseUri() );
+        if( count( $urlParts ))
+        {
+            return $basePath = $urlParts[0].'web/';
+        }
+        return '';
     }
 
     /**
@@ -471,6 +476,9 @@ class Request implements RequestInterface
         $this->contentType = $this->server->get( 'CONTENT_TYPE', '' );
         $this->hostname = $this->server->get( 'SERVER_NAME', '' );
         $this->uri = $this->getBaseUri() . $this->queryString;
+        $this->baseUri = $this->getBaseUri();
+        $this->basePath = $this->getBasePath();
+
     }
 
     public function initiateHeaderContainer(  )
