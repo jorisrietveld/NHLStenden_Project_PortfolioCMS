@@ -60,8 +60,6 @@ class RouteParser
     {
         foreach ( $this->getSimpleXmlObject() as $route )
         {
-            dump( $route );
-
             if( empty( $route['id'] ) )
             {
                 throw new ConfigurationErrorException( 'All configured routes must have an id.' );
@@ -76,6 +74,9 @@ class RouteParser
 
             if( !empty( $route['methods'] ))
             {
+
+
+
                 $methods = explode( '|', (string)$route['methods'] );
                 $methods = count( $methods ) ? [ ConfiguredRoute::DEFAULT_METHOD ] : $methods;
             }
@@ -84,8 +85,10 @@ class RouteParser
                 $methods = [ ConfiguredRoute::DEFAULT_METHOD ];
             }
 
+            if( empty( $route['']))
 
-            $configuredRoute = new ConfiguredRoute( $id, $path, [ ConfiguredRoute::DEFAULT_METHOD ] );
+
+            $configuredRoute = new ConfiguredRoute( $id, $path, $methods,  );
 
 
 
