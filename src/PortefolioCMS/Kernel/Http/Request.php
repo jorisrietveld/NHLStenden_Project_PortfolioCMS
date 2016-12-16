@@ -362,7 +362,7 @@ class Request implements RequestInterface
      */
     public function getBasePath() : string
     {
-        $urlParts = explode( 'web/', $this->getBaseUri() );
+        $urlParts = explode( 'web/', $this->server->get('REQUEST_URI') );
         if( count( $urlParts ))
         {
             return $basePath = $urlParts[0].'web/';
