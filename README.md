@@ -5,7 +5,7 @@ Documentation or here:
 [installing the CMS](https://github.com/stenden-INF1B/PortefolioCMS/blob/master/documentation/Installing.md)
 
 ### Live version
-To view an live version of the Portefolio cms [click here](http://146.185.141.142/PortefolioCMS)
+To view an live version of the Portefolio cms [click here](http://146.185.141.142/PortefolioCMS/web/)
 
 ### Authors
 Esmee Lunenborg - esmee.lunenborg@student.stenden.com<br>
