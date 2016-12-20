@@ -13,10 +13,12 @@ use StendenINF1B\PortefolioCMS\Kernel\Http\ParameterContainer;
 
 class SessionAttributesContainer extends ParameterContainer implements SessionContainerInterface
 {
-    
+    protected $name;
+    protected $key;
+
     public function setName( string $sessionName )
     {
-        // TODO: Implement setName() method.
+        $this->name = $sessionName;
     }
 
     /**
@@ -24,7 +26,7 @@ class SessionAttributesContainer extends ParameterContainer implements SessionCo
      */
     public function getName() : string
     {
-        // TODO: Implement getName() method.
+        return $this->name;
     }
 
     /**
@@ -32,7 +34,7 @@ class SessionAttributesContainer extends ParameterContainer implements SessionCo
      */
     public function setKey( string $storageKey )
     {
-        
+        $this->key = $storageKey;
     }
 
     /**
@@ -40,23 +42,14 @@ class SessionAttributesContainer extends ParameterContainer implements SessionCo
      */
     public function getKey() : string
     {
-        // TODO: Implement getKey() method.
-    }
-
-    /**
-     * @return mixed
-     */
-    public function clear()
-    {
-        // TODO: Implement clear() method.
+        return $this->key;
     }
 
     /**
      * @param array $array
-     * @return mixed
      */
     public function init( array $array )
     {
-        // TODO: Implement init() method.
+        $this->replace( $array );
     }
 }

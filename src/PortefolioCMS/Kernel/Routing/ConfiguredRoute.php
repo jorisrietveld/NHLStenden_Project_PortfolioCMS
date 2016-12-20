@@ -63,6 +63,7 @@ class ConfiguredRoute
     {
         $this->setId( $id );
         $this->setFullPath( $fullPath );
+        $this->basePath = explode( '/', $fullPath )[1];
         $this->setHttpMethods( $httpMethods );
 
         $this->setController( $controller );
@@ -165,23 +166,8 @@ class ConfiguredRoute
         $this->method = $method;
     }
 
-    /**
-     * @return array
-     */
-    public function getPlaceHolders(): array
+    public function setPlaceholders(  )
     {
-        return $this->placeHolders;
+        
     }
-
-    /**
-     * @param array $placeHolders
-     */
-    public function setPlaceHolders( array $placeHolders )
-    {
-        $this->placeHolders = $placeHolders;
-    }
-
-
-
-
 }

@@ -291,6 +291,11 @@ class Request implements RequestInterface
         return $this->content;
     }
 
+    public function getBaseUrl(  ) : string
+    {
+        return str_replace( $this->getBasePath(), '', $this->getRequestUri() );
+    }
+
     /**
      * Gets the uniform resource identifier.
      * like: /page?param=true&true=false
@@ -363,11 +368,11 @@ class Request implements RequestInterface
     public function getBasePath() : string
     {
         $urlParts = explode( 'web/', $this->server->get('REQUEST_URI') );
-        if( count( $urlParts ))
+        if( count( $urlParts ) > 1)
         {
-            return $basePath = $urlParts[0].'web/';
+            return rtrim( $urlParts[0], '/' ) . '/web/';
         }
-        return '';
+        return '/';
     }
 
     /**
