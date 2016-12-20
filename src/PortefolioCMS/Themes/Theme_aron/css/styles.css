@@ -1,0 +1,20 @@
+
+.page-wrapper > .row > div{
+    height: 200px;
+    background-color: blue;
+}
+
+.page-wrapper > .row > div:nth-child(even){
+    background-color: red;
+}
+
+.pdf-viewer{
+    height: 90vh;
+}
+.pdf-menu-wrapper{
+    height: 90vh;
+}
+.pdf-title-wrapper{
+    height: 10vh;
+    text-align: center;
+}
