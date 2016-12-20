@@ -21,7 +21,7 @@ class ConfigurationErrorException extends \Exception
      * @param int       $code     [optional] The Exception code.
      * @param Exception $previous [optional] The previous exception used for the exception chaining. Since 5.3.0
      */
-    public function __construct( $message, $code, Exception $previous )
+    public function __construct( string $message = '', int $code = 0, Exception $previous = NULL )
     {
         parent::__construct( $message, $code, $previous );
     }

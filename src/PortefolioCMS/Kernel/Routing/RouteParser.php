@@ -18,10 +18,12 @@ class RouteParser
 {
     protected $filename;
     protected $simpleXMLObject;
+    protected $routesContainer;
 
     public function __construct( string $routeConfigFile = null )
     {
         $this->filename = $routeConfigFile ?? ROUTE_CONFIG_FILE;
+        $this->routesContainer = new ParameterContainer();
     }
 
     public function loadXml(  )
@@ -43,17 +45,22 @@ class RouteParser
 
     public function getSimpleXmlObject(  ) : \SimpleXMLElement
     {
+        if( $this->simpleXMLObject == NULL )
+        {
+            $this->loadXml();
+        }
+
         return $this->simpleXMLObject;
     }
 
-    public function createRoute(  )
+    public function getRoutes(  ) : ParameterContainer
     {
-        
-    }
+        if( count( $this->routesContainer ) < 1 )
+        {
+            $this->parseXmlToRoutes();
+        }
 
-    public function createRoutes(  )
-    {
-        
+        return $this->routesContainer;
     }
 
     public function parseXmlToRoutes(  )
@@ -74,26 +81,29 @@ class RouteParser
 
             if( !empty( $route['methods'] ))
             {
-
-
-
-                $methods = explode( '|', (string)$route['methods'] );
-                $methods = count( $methods ) ? [ ConfiguredRoute::DEFAULT_METHOD ] : $methods;
+                $httpMethods = explode( '|', (string)$route['methods'] );
+                $httpMethods = count( $httpMethods ) ? $httpMethods : [ ConfiguredRoute::DEFAULT_METHOD ];
             }
             else
             {
-                $methods = [ ConfiguredRoute::DEFAULT_METHOD ];
+                $httpMethods = [ ConfiguredRoute::DEFAULT_METHOD ];
             }
 
-            if( empty( $route['']))
+            if( empty( $route->action ))
+            {
+                throw new ConfigurationErrorException( sprintf( 'You must supply an controller and action in an route configuration in route: %s', $id ));
+            }
 
+            $parts = explode( ':', (string)$route->action );
+            if( count($parts) < 1 )
+            {
+                throw new ConfigurationErrorException( sprintf( 'The action is not valid from route: %s', $id ) );
+            }
+            $controller = $parts[0];
+            $method = isset( $parts[1] ) ? $parts[1] : ConfiguredRoute::DEFAULT_ACTION;
 
-            $configuredRoute = new ConfiguredRoute( $id, $path, $methods,  );
-
-
-
-
-
+            $configuredRoute = new ConfiguredRoute( $id, $path, $httpMethods, $controller, $method  );
+            $this->routesContainer->set( $configuredRoute->getBasePath(), $configuredRoute );
         }
     }
 }

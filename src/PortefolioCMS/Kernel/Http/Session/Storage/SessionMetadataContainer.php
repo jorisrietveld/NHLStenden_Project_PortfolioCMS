@@ -57,11 +57,10 @@ class SessionMetadataContainer extends ParameterContainer implements SessionCont
      * Initialize the container.
      *
      * @param array $array
-     * @return mixed
      */
     public function init( array $array )
     {
-        $this->parameters =  $array;
+        $this->replace( $array );
     }
 
     /**
