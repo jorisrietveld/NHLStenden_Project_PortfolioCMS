@@ -1,0 +1,10 @@
+
+.page-wrapper > .row > div{
+    height: 200px;
+    background-color: blue;
+}
+
+.page-wrapper > .row > div:nth-child(even){
+    background-color: red;
+}
+
