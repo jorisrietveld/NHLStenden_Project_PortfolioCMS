@@ -21,10 +21,18 @@ declare( strict_types = 1 );
 <body>
 
     <main class="container-fluid page-wrapper">
-
+        <div class="row pdf-title-wrapper">
+            <h1 class="col-lg-12">SLB Opdrachten</h1>
+        </div>
         <div class="row">
-            <div class="col-lg-6 col-xs-6"></div>
-            <div class="col-lg-6 col-xs-6"></div>
+            <nav class="col-lg-2">
+                <ul>
+                    <li></li>
+                </ul>
+            </nav>
+
+            <object data="data/FunctioneelOntwerp_V2.5.pdf" type="application/pdf" class="col-lg-10 pdf-viewer">
+            </object>
         </div>
 
     </main>

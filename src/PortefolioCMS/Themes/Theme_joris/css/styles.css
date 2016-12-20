@@ -8,3 +8,13 @@
     background-color: red;
 }
 
+.pdf-viewer{
+    height: 90vh;
+}
+.pdf-menu-wrapper{
+    height: 90vh;
+}
+.pdf-title-wrapper{
+    height: 10vh;
+    text-align: center;
+}
