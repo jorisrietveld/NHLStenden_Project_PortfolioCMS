@@ -7,15 +7,14 @@
 
     <route id="Portefolio" path="/portefolio/{student_name}" methods="GET">
         <action id="controller">Portefolio:index</action>
-        <placeholder key="student_name"></placeholder>
     </route>
 
     <route id="Admin" path="/admin">
         <action id="controller">Admin:index</action>
     </route>
 
-    <route id="Admin" path="/admin/">
-        <action id="controller">Admin:index</action>
+    <route id="Error400" path="/400" methods="GET|POST|PUT|DELETE">
+        <action id="controller">Error:error400</action>
     </route>
 
 </routes>
