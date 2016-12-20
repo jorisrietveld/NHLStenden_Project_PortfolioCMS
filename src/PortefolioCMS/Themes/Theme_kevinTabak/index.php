@@ -28,7 +28,7 @@ declare( strict_types = 1 );
                       <span class="icon-bar"></span>
                       <span class="icon-bar"></span>                        
                     </button>  
-                  <a class="navbar-brand" href="#">Kevinski</a>
+                  <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-education" aria-hidden="true"></span></a>
                 </div>
                 <div id="Navcollapse" class="collapse navbar-collapse">  
                     <ul class="nav navbar-nav">
@@ -40,6 +40,7 @@ declare( strict_types = 1 );
                 </div>    
               </div>
             </nav>
+            <footer class="footer"></footer>
         </main>
         
     <!-- Jquery js lib -->
