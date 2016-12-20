@@ -20,7 +20,12 @@ declare( strict_types = 1 );
 </head>
 <body>
 
-    <main class="page-content">
+    <main class="container-fluid page-wrapper">
+
+        <div class="row">
+            <div class="col-lg-6 col-xs-6"></div>
+            <div class="col-lg-6 col-xs-6"></div>
+        </div>
 
     </main>
 
