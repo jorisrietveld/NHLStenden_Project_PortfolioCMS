@@ -15,32 +15,93 @@ declare( strict_types = 1 );
         <link rel="stylesheet"
               type="text/css"
               href="css/styles.css"/>
-
+        
         <title>Portfolio</title>
     </head>
     <body>       
         <main class="page-content">
-            <nav class="navbar navbar-inverse">
-              <div class="container-fluid">
+            <nav class="navbar navbar-default navbar-fixed-top">
+              <div class="container">
                 <div class="navbar-header">
-                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#Navcollapse">
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>                        
-                    </button>  
-                  <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-education" aria-hidden="true"></span></a>
+                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="#">Logo</a>
                 </div>
-                <div id="Navcollapse" class="collapse navbar-collapse">  
-                    <ul class="nav navbar-nav">
-                      <li class="active"><a href="#">Home</a></li>
-                      <li><a href="#">Page 1</a></li>
-                      <li><a href="#">Page 2</a></li>
-                      <li><a href="#">Page 3</a></li>
-                    </ul>
-                </div>    
+                <div class="collapse navbar-collapse" id="myNavbar">
+                  <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#over">OVER</a></li>
+                    <li><a href="#cv">CV</a></li>
+                    <li><a href="#contact">CONTACT</a></li>
+                  </ul>
+                </div>
               </div>
             </nav>
-            <footer class="footer"></footer>
+            <div class="jumbotron text-center">
+              <h1>Portefolio</h1>
+              <p>Kevin Tabak</p>
+            </div>
+            <div id="over" class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <h2>Over mij</h2>
+                        <p> Lorem ipsum dolor sit amet, consectetuer adipiscing elit. 
+                            Aenean commodo ligula eget dolor. Aenean massa. 
+                            Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
+                            Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. 
+                            Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. 
+                            In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. 
+                            Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. 
+                            Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. 
+                            Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. 
+                            Curabitur ullamcorper ultricies nisi. Nam eget dui. 
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div id="cv" class="container-fluid bg-grey">
+              <div class="row">
+                <div class="col-sm-6">
+                    <h2>CV</h2>
+                    <p>In mijn CV staat al mijn werk ervaring en mijn contactgegevend.</p>
+                </div>
+                <div class="col-sm-4 text-center">
+                    <h2>Download</h2>
+                    <a href="files/CV.pdf" target="_blank" id="DownCV">
+                        <span class="glyphicon glyphicon-file"></span>
+                        <p>CV.pdf</p>
+                    </a>
+                </div>
+              </div>
+            </div>
+            <div id="contact" class="container-fluid">
+                <h2 class="text-center">CONTACT</h2>
+                <div class="row">
+                    <div class="col-sm-5">
+                        <p>Neem contact met mij op.</p>
+                        <p><span class="glyphicon glyphicon-phone"></span> +31 6 46723554</p>
+                        <p><span class="glyphicon glyphicon-envelope"></span> kevin_tabak@outlook.com</p>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="row">
+                            <div class="col-sm-6 form-group">
+                                <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
+                            </div>
+                            <div class="col-sm-6 form-group">
+                                <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
+                            </div>
+                        </div>
+                        <textarea class="form-control" id="comments" name="comments" placeholder="Comment" rows="5"></textarea><br>
+                        <div class="row">
+                            <div class="col-sm-12 form-group">
+                                <button class="btn btn-default pull-right" type="submit">Send</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
         
     <!-- Jquery js lib -->
