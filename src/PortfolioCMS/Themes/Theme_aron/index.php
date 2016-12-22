@@ -41,3 +41,5 @@ declare( strict_types = 1 );
         type="text/javascript"></script>
 </body>
 </html>
+
+just a test
