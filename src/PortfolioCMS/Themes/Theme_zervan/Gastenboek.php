@@ -27,7 +27,7 @@ declare( strict_types = 1 );
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>                        
                 </button>
-                  <a class="navbar-brand" href="../Theme_zervan/afbeeldingen//zervan.jpg">Foto</a>
+                <a class="navbar-brand" href="../Theme_zervan/afbeeldingen//zervan.jpg">Foto</a>
               </div>
               <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
@@ -49,18 +49,12 @@ declare( strict_types = 1 );
             <div class="col-md-2 sidenav">
             </div>
             <div class="col-md-8 text-left"> 
-              <h1>Welkom</h1>
-              <p>In dit digitale portfolio vind u het portfolio van Zervan Hoving.
-                 Het portfolio is gemaakt op basis van een groepsproject, in het portofolio kunt u ondere andere projecten vinden van mij.
-                 Het portfolio heeft een aantal functies waaronder een gastenboek, studenten kunnen een template gebruiken om een standaard style voor het portfolio te gebruiken.
-                 Eventueel kunt u contact met mij openen via het contact formulier.
+              <h1>?????????</h1>
+              <p>
               </p>
               <hr>
-              <h3>Over mij</h3>
-              <p>Mijn naam is Zervan Hoving, ik ben 21 jaar en ben woonachtig in Duitsland.
-                 Tijdens mijn opleiding doe ik een aantal projecten deze projecten kunt u vinden in mijn portfolio.
-                 Het portfolio was ondere andere een van mijn projecten.
-                 In het portfolio kunt u mijn overige projecten inzien en mijn CV bekijken.
+              <h3>??????????????</h3>
+              <p>
               </p>
             </div>
             <div class="col-md-2 sidenav">

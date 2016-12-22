@@ -1,0 +1,14 @@
+naam is: Fekke  
+email is: Fekkefekkes@live.nl 
+onderwerp is test 
+Probleem of vraag? probleem 
+opmerking: test  
+Man of vrouw? man 
+****EINDE BERICHT**** 
+naam is: naam  
+email is: email 
+onderwerp is onderwerp 
+Probleem of vraag? vraag 
+opmerking:   
+Man of vrouw?  
+****EINDE BERICHT**** 
