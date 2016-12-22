@@ -108,7 +108,6 @@ class RouteParser
             $configuredRoute = new ConfiguredRoute( $id, $path, $httpMethods, $controller, $method );
 
             $configuredRoute->setRegularExpressionPattern( $this->compileRouteToRegex( $path ) );
-            dump($configuredRoute->getRegularExpressionPattern());
             $this->routesContainer->set( $configuredRoute->getPath(), $configuredRoute );
         }
     }
@@ -117,6 +116,6 @@ class RouteParser
     {
         $url = str_replace( '/', '\/', $url );
         $searchPlaceholder = "/\{([\w\]]+)\}/";
-        return '/'. preg_replace( $searchPlaceholder, self::REGEX_PLACEHOLDER, $url) . '/';
+        return '/'. preg_replace( $searchPlaceholder, self::REGEX_PLACEHOLDER, $url) . '$/';
     }
 }

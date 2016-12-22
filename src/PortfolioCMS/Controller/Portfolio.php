@@ -15,13 +15,13 @@ use StendenINF1B\PortfolioCMS\Kernel\Http\Response;
 
 class Portfolio extends BaseController 
 {
-    public function index( Request $request = NULL, $arguments = NULL )
+    public function index( Request $request = NULL, $name = NULL, $slbId = NULL )
     {
-        if( !empty( $arguments['url'] ) )
+        if( $name !== NULL )
         {
             ob_start();
             dump($request);
-            return new Response( '<h1>Portfolio van: ' . $arguments['url']. '</h1>'.ob_get_clean(), 200 );
+            return new Response( '<h1>Portfolio van: ' . $name. '</h1>'.ob_get_clean(), 200 );
         }
         return new Response( '<h1>Portfolio controller</h1>', 200 );
     }
