@@ -23,11 +23,14 @@ CREATE TABLE IF NOT EXISTS `User` (
  * This entity is an type of user that can have an portfolio.
  */
 CREATE TABLE IF NOT EXISTS `Student` (
-  `userId`      INT UNSIGNED UNIQUE   NOT NULL, # Inherited key from the entity user and unique identifier for this record.
-  `address`     VARBINARY(255)        NOT NULL, # The encrypted address of an student.
-  `dateOfBirth` VARBINARY(50)         NOT NULL, # The date of birth of an student.
-  `studentCode` VARBINARY(50) UNIQUE  NOT NULL, # Unique identification given by school field for the student.
-  `phoneNumber` VARBINARY(100) UNIQUE NOT NULL, # The encrypted phone number of the student.
+  `userId`        INT UNSIGNED UNIQUE   NOT NULL, # Inherited key from the entity user and unique identifier for this record.
+  `street`       VARBINARY(255)        NOT NULL, # The encrypted name the street where the student lives.
+  `address` VARBINARY(5)          NOT NULL, #The encrypted street number where the student lives.
+  `zipCode`       VARBINARY(10)         NOT NULL, # The zip code of where student lives.
+  `location`      VARBINARY(100)        NOT NULL, # The place the student lives.
+  `dateOfBirth`   VARBINARY(50)         NOT NULL, # The date of birth of an student.
+  `studentCode`   VARBINARY(50) UNIQUE  NOT NULL, # Unique identification given by school field for the student.
+  `phoneNumber`   VARBINARY(100) UNIQUE NOT NULL, # The encrypted phone number of the student.
 
   # Constraint to define the primary key of this table.
   CONSTRAINT pk_student PRIMARY KEY `DigitalPortfolio`.`Student`(`userId`),
@@ -225,10 +228,10 @@ CREATE TABLE IF NOT EXISTS `Image` (
  * This entity represents an skill that the student masters.
  */
 CREATE TABLE IF NOT EXISTS `Skill` (
-  `id` INT UNSIGNED UNIQUE AUTO_INCREMENT, # The unique identification code of the record.
-  `name` VARCHAR(100) NOT NULL,  # The name of the skill like MS Office OR PHP.
+  `id`                INT UNSIGNED UNIQUE AUTO_INCREMENT, # The unique identification code of the record.
+  `name`              VARCHAR(100)                NOT NULL, # The name of the skill like MS Office OR PHP.
   `levelOfExperience` TINYINT(2) UNIQUE DEFAULT 0 NOT NULL, # The level experience the student has on this skill.
-  `portfolioId` INT UNSIGNED NOT NULL, # The unique identifier of the portfolio that the skill belongs to.
+  `portfolioId`       INT UNSIGNED                NOT NULL, # The unique identifier of the portfolio that the skill belongs to.
 
   # Constraint to define the primary key of this table.
   CONSTRAINT pk_uploadedFile PRIMARY KEY `DigitalPortfolio`.`Skill`(`id`),
@@ -243,9 +246,9 @@ CREATE TABLE IF NOT EXISTS `Skill` (
  * This entity represents an hobby the student has_
  */
 CREATE TABLE IF NOT EXISTS `Hobby` (
-  `id` INT UNSIGNED UNIQUE AUTO_INCREMENT NOT NULL, #
-  `name` VARCHAR(255) NOT NULL, # The name of the hobby and optional an short description about the hobby.
-  `portfolioId` INT UNSIGNED NOT NULL, # The unique identifier of the portfolio that the hobby belongs to.
+  `id`          INT UNSIGNED UNIQUE AUTO_INCREMENT NOT NULL, #
+  `name`        VARCHAR(255)                       NOT NULL, # The name of the hobby and optional an short description about the hobby.
+  `portfolioId` INT UNSIGNED                       NOT NULL, # The unique identifier of the portfolio that the hobby belongs to.
 
   # Constraint to define the primary key of this table.
   CONSTRAINT pk_uploadedFile PRIMARY KEY `DigitalPortfolio`.`Hobby`(`id`),

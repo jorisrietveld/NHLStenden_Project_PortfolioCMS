@@ -20,7 +20,10 @@ active _Veld om gebruikter op inactief te zetten_<br>
 ### Student 
 _This entity is an type of user_<br>
 **userId** PRIMARY KEY, FOREIGN KEY -> User( id )<br>
-address :closed_lock_with_key:<br>
+street :closed_lock_with_key: _The encrypted name the street where the student lives_<br>
+address :closed_lock_with_key: _The encrypted street number of the house where the student lives_<br>
+zipCode :closed_lock_with_key: _The zip code of where student lives_<br>
+location :closed_lock_with_key: _The place the student lives_<br>
 dateOfBirth :closed_lock_with_key: _The date of birth of an student_<br>
 studentCode _Unique identification field for all users that are of the type student_<br>
 phoneNumber :closed_lock_with_key: _The encrypted phone number of the user_<br>
@@ -54,7 +57,6 @@ themeID FOREIGN KEY -> Theme( id ) <br>
 title _The title that will be displayed in the tab on the browser_<br>
 link _The url used in the address field in the browser_<br>
 grade _The grade of the portfolio given by the SBL teacher_<br>
-
 
 ### JobExperience
 **id** PRIMARY KEY<br>
