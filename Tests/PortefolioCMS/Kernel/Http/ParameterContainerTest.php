@@ -6,9 +6,9 @@
  */
 declare( strict_types = 1 );
 
-namespace Tests\PortefolioCMS\Kernel\Http;
+namespace Tests\PortfolioCMS\Kernel\Http;
 
-use StendenINF1B\PortefolioCMS\Kernel\Helper\ParameterContainer;
+use StendenINF1B\PortfolioCMS\Kernel\Helper\ParameterContainer;
 
 class ParameterContainerTest extends \PHPUnit_Framework_TestCase
 {

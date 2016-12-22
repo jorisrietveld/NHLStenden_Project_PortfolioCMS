@@ -14,7 +14,7 @@
     ],
     "autoload-dev": {
         "psr-4": {
-            "Tests\\PortefolioCMS\\" : "Tests/"
+            "Tests\\PortfolioCMS\\" : "Tests/"
         }
     },
     "minimum-stability": "dev",

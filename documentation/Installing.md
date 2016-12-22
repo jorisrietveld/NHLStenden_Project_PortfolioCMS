@@ -3,22 +3,23 @@ This guide will help you to setup the CMS. It will show the requirements
 and some basic configuration for the webserver.
 
 ## Requirements:
-* PHP >= 7
-* PHP driver PDO MySQL
-* PHP module mcrypt
-* PHP module curl
-* NGINX or Apache
-* Mysql Server >= 5.5
-* Composer
-* *(optional)* PHPUnit for unit testing.
-* *(optional)* Brower for asset management.
+* PHP >= 7 _The minimum PHP version required, the project is written with PHP 7 for speed and to experiment with the new scalar type hints_
+* PHP driver PDO MySQL _PHP php data objects driver for communicating with MySQL databases._
+* PHP module mcrypt _PHP module for encryption, hashing and other security related stuff._
+* PHP module curl _PHP module for making HTTP requests._
+* PECL Extension libsodium _PHP C Extension for advanced encryption and hashing._
+* NGINX or Apache _The web servers for handling the requests and passing it to the PHP engine._
+* Mysql Server >= 5.6.5 _Database software for data storage, database uses DEFAULT CURRENT_TIMESTAMP that was implemented above version 5.6.5_
+* *(optional)* Composer _PHP Library for dependency management of external libraries like PHP Unit, DebugBar and others._ 
+* *(optional)* PHPUnit _PHP Library For unit testing code._
+* *(optional)* Brower _NodeJS Library for javascript and css asset management._
 
 ## Setting up the webserver
 
 ### Nginx
 If you use Nginx as webserver you have to setup url rewriting for the urls otherwise you will always get an 404 route.
 Below is the minimal Nginx virtual host configuration you should replace the {path_to_project_root} with the absolute
-path to the PortefolioCMS root directory and {the_hostname_of_your_server} with the your domain name.
+path to the PortfolioCMS root directory and {the_hostname_of_your_server} with the your domain name.
 
 ```Nginx
 server {
@@ -58,11 +59,40 @@ server {
             
             fastcgi_pass unix:/run/php/php7.0-fpm.sock;
 	}
+	error_log /var/log/nginx/portfoliocms_error.log;
+    access_log /var/log/nginx/portfoliocms_access.log;
 }
 ```
 
 ### Apache
-todo write documentaion for configuring apache.
+If you use Apache as webserver you have to setup url rewriting for the urls otherwise you will always get an 404 route.
+Below is the minimal Apache virtual host configuration you should replace the {path_to_project_root} with the absolute
+path to the PortfolioCMS root directory and {the_hostname_of_your_server} with the your domain name.
+
+```ApacheConf
+<VirtualHost *:80>
+    ServerName {the_hostname_of_your_webserver}
+    ServerAlias {the_hostname_of_your_webserver}
+
+    DocumentRoot {path_to_project_root}/web;
+    <Directory {path_to_project_root}/web>;
+        AllowOverride All
+        Order Allow,Deny
+        Allow from All
+        
+        # This is for rewriting the URL's so they are more readable.
+        # The /web folder also includes an .htaccess that rewrites the urls.
+        <IfModule mod_rewrite.c>
+            Options +FollowSymlinks
+            RewriteEngine On
+             RewriteCond %{REQUEST_FILENAME} !-f
+             RewriteRule ^(.*)$ index.php [QSA,L]
+        </IfModule>
+    </Directory>
+
+    ErrorLog /var/log/apache2/portfoliocms_error.log
+</VirtualHost>
+```
 
 ## Setting up the database
 The directory Install contains an SQL script that you should import into your database.

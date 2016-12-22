@@ -6,11 +6,11 @@
  */
 declare( strict_types = 1 );
 
-namespace Tests\PortefolioCMS\Kernel;
+namespace Tests\PortfolioCMS\Kernel;
 
 
-use StendenINF1B\PortefolioCMS\Kernel\ApplicationKernel;
-use StendenINF1B\PortefolioCMS\Kernel\Http\Request;
+use StendenINF1B\PortfolioCMS\Kernel\ApplicationKernel;
+use StendenINF1B\PortfolioCMS\Kernel\Http\Request;
 
 class ApplicationKernelTest extends \PHPUnit_Framework_TestCase
 {
@@ -24,7 +24,7 @@ class ApplicationKernelTest extends \PHPUnit_Framework_TestCase
         $application = new ApplicationKernel();
 
         $request = new Request();
-        $this->assertInstanceOf( '\StendenINF1B\PortefolioCMS\Http\Response', $application->handle( $request ));
+        $this->assertInstanceOf( '\StendenINF1B\PortfolioCMS\Http\Response', $application->handle( $request ));
     }
 
 

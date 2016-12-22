@@ -6,11 +6,6 @@
  */
 declare( strict_types = 1 );
 
-function normalizePath()
-{
-
-}
-
 /**
  * Define some constants that hold the paths for the project.
  */

@@ -10,7 +10,7 @@
     <host>
         <name>production</name>
         <hostname>146.185.141.142</hostname>
-        <prefix>PortefolioCMS</prefix>
+        <prefix>PortfolioCMS</prefix>
     </host>
 
     <database>
