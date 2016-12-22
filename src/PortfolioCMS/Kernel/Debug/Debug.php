@@ -27,18 +27,27 @@ class Debug
         self::$debugBar = new StandardDebugBar();
     }
 
+    /**
+     * Retunes the singleton debugbar instance.
+     * 
+     * @return StandardDebugBar
+     */
     public static function getDebugBar()
+    {
+        self::init();
+        return self::$debugBar;
+    }
+
+    /**
+     * Initiate the debugbar.
+     */
+    protected static function init(  )
     {
         if( self::$debugBar === NULL )
         {
-            self::__construct();
-        }
-        else
-        {
-            return self::$debugBar;
+            new Debug();
         }
     }
-
     /**
      * Detailed debug information.
      *
@@ -49,6 +58,7 @@ class Debug
     {
         if( DEBUG )
         {
+            self::init();
             self::$debugBar['messages']->debug( $message );
         }
     }
@@ -63,6 +73,7 @@ class Debug
     {
         if( DEBUG )
         {
+            self::init();
             self::$debugBar['messages']->notice( $message );
         }
     }
@@ -77,6 +88,7 @@ class Debug
     {
         if( DEBUG )
         {
+            self::init();
             self::$debugBar['messages']->emergency( $message );
         }
     }
@@ -94,6 +106,7 @@ class Debug
     {
         if( DEBUG )
         {
+            self::init();
             self::$debugBar['messages']->alert( $message );
         }
     }
@@ -110,6 +123,7 @@ class Debug
     {
         if( DEBUG )
         {
+            self::init();
             self::$debugBar['messages']->critical( $message );
         }
     }
@@ -125,6 +139,7 @@ class Debug
     {
         if( DEBUG )
         {
+            self::init();
             self::$debugBar['messages']->error( $message );
         }
     }
@@ -142,6 +157,7 @@ class Debug
     {
         if( DEBUG )
         {
+            self::init();
             self::$debugBar['messages']->warning( $message );
         }
     }
@@ -158,7 +174,17 @@ class Debug
     {
         if( DEBUG )
         {
+            self::init();
             self::$debugBar['messages']->info( $message );
+        }
+    }
+
+    public static function addException( \Exception $exception )
+    {
+        if( DEBUG )
+        {
+            self::init();
+            self::$debugBar['exceptions']->addException( $exception );
         }
     }
 }

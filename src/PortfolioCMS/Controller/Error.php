@@ -9,7 +9,6 @@ declare( strict_types = 1 );
 namespace StendenINF1B\PortfolioCMS\Controller;
 
 
-use Prophecy\Exception\Exception;
 use StendenINF1B\PortfolioCMS\Kernel\BaseController;
 use StendenINF1B\PortfolioCMS\Kernel\Http\Request;
 use StendenINF1B\PortfolioCMS\Kernel\Http\Response;
@@ -18,7 +17,7 @@ class Error extends BaseController
 {
     public function index(  )
     {
-        
+        return new Response('<h1>Er ging iets mis... probeer later opnieuw</h1>', Response::HTTP_STATUS_INTERNAL_SERVER_ERROR );
     }
 
     public function error400(  )
@@ -36,6 +35,12 @@ class Error extends BaseController
             return new Response(' <h1>Error 500</h1> An exception was thrown:'.$exception, Response::HTTP_STATUS_INTERNAL_SERVER_ERROR );
         }
         return new Response('<h1>Error 500</h1>Oops er ging iets mis... probeer later opnieuw', Response::HTTP_STATUS_INTERNAL_SERVER_ERROR );
+    }
 
+    public function error405( Request $request = NULL )
+    {
+        ob_start();
+        dump( $request );
+        return new Response(' <h1>Error 405 HTTP Method niet toegestaan.</h1>' . ob_get_clean(), Response::HTTP_STATUS_METHOD_NOT_ALLOWED );
     }
 }
