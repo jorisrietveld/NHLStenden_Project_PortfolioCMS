@@ -11,7 +11,9 @@
 
 /* PORTFOLIOMAIN PAGINA CSS START */ 
 .page-content{ 
-    width: 90%; margin: 0 auto 0 auto; 
+    height: 100%;
+    width: 90%;
+    margin: 0 auto 0 auto; 
 }
 
 /* Haalt de standaard navbar margin-bottom en rondingen weg */ 
@@ -21,12 +23,12 @@ border-radius: 0;
 }
   
 /* Zet een hoogte voor de grid zo dat .sidenav 100% kan zijn */
-.row.content {height: 450px}
+.row.content {height: 800px}
  
 /* Zet 100% hoogte en een achtergrond kleur */
 .sidenav {
 padding-top: 20px;
-background-color: #f1f1f1;
+background-color: #d7dbdd;
 height: 100%;
 }
     

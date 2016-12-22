@@ -1,0 +1,2465 @@
+﻿/*
+CSS-STYLESHEET VOOR DE DESKTOP VERSIE 
+*/
+
+@media screen and (min-width: 900px) {
+*{
+	margin: 0px;
+	padding: 0px;
+}
+	
+h1{
+	color: #57C1E5;
+}
+
+h3{
+	color: black;
+	margin-left: 10px
+}
+h4{
+	color: #122F59;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	font-size: 18pt;
+}
+span {
+  content: "\2756";
+}
+
+body{
+	font-family: arial, helvetica, sans-serif;
+}
+
+.container{
+	margin: 0 auto;
+	width: 1600px;
+	height: 900px;
+    background-color: lightblue;
+}
+
+.aboveheader{
+    float: left;
+	width: 1600px;
+	height: 30px;
+	background-color: #122F59;
+	float: left;
+}
+
+.weer {
+	height: 30px;
+	width: 225px;
+	margin-left: 975px;
+	float: left;
+	position: absolute;
+}
+
+.weer p {
+    font-size: 18pt;
+    font-weight: bold;
+    color: #57c1e5;
+    margin-left: 45px;
+	text-shadow: 2px 2px 2px black;
+}
+.rsslogo{
+	width: 30px;
+	height: 30px;
+	float: left;
+	margin-left: 1215px;
+}
+
+.header{
+	float: left;
+	width: 1600px;
+	height: 75px;
+	background-color: #ddd;
+}
+
+.imgheader{
+	float: left;
+	width: 1600px;
+	height: 525px;
+	background-image: url("afbeeldingen/imgheader.jpg");
+}
+
+.mpimgheader{
+	display: none;
+}
+
+.spkopjemobieltl {
+	display: none;
+}
+
+.map {
+	width: 1195px; 
+	height: 589px; 
+}
+
+.maps {
+	text-align: center;
+}
+
+.mpcontentback{
+	float: left;
+	width: 1600px;
+	height: 270px;
+	margin: 0 auto;
+	background-color: #57C1E5;
+}
+
+.mpcontent{
+	margin-top: 550px;
+	margin-left: 400px;
+	width: 800px;
+	height: 350px;
+	background-color: white;
+	position: absolute;
+}
+
+.aboveheadercontact{
+	float: left;
+	width: 150px;
+	height: 30px;
+	margin-left: 16px;
+
+}
+.aanmelden{
+	float: left;
+	margin-top: 5px;
+	margin-left: 15px;
+}
+.logo{
+	margin-left: 48px;
+	width: 250px;
+	height: 165px;
+	position: absolute;
+    box-shadow: 1px 2px 3px black;
+}
+
+.menu{
+	float: left;
+	height: 75px;
+    cursor: pointer;
+	width: 900px;
+	background-color: #ddd;
+    margin-left: 300px;
+	border: none;
+}
+
+nav ul {
+	-webkit-font-smoothing:antialiased;
+	text-shadow:0 1px 0 #FFF;
+    background: #ddd;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+nav li {
+    float: left;
+    margin: 0;
+    padding: 0;
+    position: relative;	
+}
+nav a {
+	width: 225px;
+    background: #ddd;
+    color: #444;
+    display: block;
+    font: bold 16px/50px sans-serif;
+    text-align: center;
+    text-decoration: none;
+    -webkit-transition: all .25s ease;
+       -moz-transition: all .25s ease;
+            transition: all .25s ease;
+}
+nav .dropdown:after {
+	padding-left: 5px;
+    content: ' ▶';
+}
+nav .dropdown:hover:after{
+	content:'\25bc'
+}
+.dropdown{
+	padding-top: 12px;
+	padding-bottom: 13px;
+}
+nav li:hover a {
+    background: #ccc;
+}
+
+nav li:hover .dropdown:after{
+	content:'\25bc'
+}
+nav li ul {
+    float: left;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 35px;
+    visibility: hidden;
+    z-index: 1;
+    -webkit-transition: all .25s ease;
+       -moz-transition: all .25s ease;
+            transition: all .25s ease;
+	margin-top: 25px;
+}
+nav li:hover ul {
+    opacity: 1;
+    top: 50px;
+    visibility: visible;
+}
+nav li ul li {
+    float: none;
+}
+nav li ul a:hover {
+    background: #bbb;
+}
+
+.welkom{
+	margin-top: 100px;
+	margin-left: 850px;
+	width: 350px;
+	height: 200px;
+	background-color: #122F59;
+	opacity: 0.8;
+	padding-top: 13px;
+}
+
+.welkom p{
+	font-family: 'Montserrat', sans-serif;
+	font-size: 14pt;
+	color: white;
+	text-align: center;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.welkom hr{
+	color: #57C1E5;
+	width: 300px;
+	margin: 0 auto;
+	margin-top: 6px;
+	margin-bottom: 6px;
+	border: 0;
+    height: 2px;
+    background: #333;
+    background-image: linear-gradient(to right, #333, #ccc, #333);
+}
+
+p.welkomtextmidden{
+	font-family: 'Montserrat', sans-serif;
+	font-size: 20pt;
+	color: white;
+	text-align: center;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	font-weight: bold;
+}
+
+.imgandtextboxmpc{
+	float: left;
+	width: 225px;
+	height: 270px;
+	margin-top: 30px;
+	margin-left: 25px;
+}
+
+.nieuws{
+	padding-bottom: 5px;
+}
+
+p.nieuws{
+	margin: 5px;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 18pt;
+	text-align: center;
+	font-weight: bold;
+}
+
+p.nieuwsdatum{
+	margin-top: 5px;
+	margin-left: 6px;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 12pt;
+}
+
+p.nieuwscontent{
+	margin-top: 3px;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 12pt;
+	color: grey;
+	padding-left: 25px;
+	padding-bottom: 9px;
+}
+
+.mpcontentupperbar{
+	float: left;
+	width: 800px;
+	height: 15px;
+	background-color: #57C1E5;
+}
+
+.imgboxmpc{
+	float: left;
+	width: 225px;
+	height: 200px;
+}
+
+.textimgboxmpc{
+	float: left;
+	width: 225px;
+	height: 75px;
+	background-color: #f7f7f7;
+}
+.textimgboxmpc p{
+	font-family: 'Montserrat', sans-serif;
+	font-size: 14pt;
+	text-align: center;
+	margin-top: 10px;
+}
+
+.newsmpc{
+	float: left;
+	width: 250px;
+	height: 275px;
+	margin-top: 30px;
+	margin-left: 25px;
+	background-color: #f7f7f7;
+}
+
+.footer{
+    float: left;
+	width: 1600px;
+	height: 30px;
+	background-color: #122F59;
+}
+.footer p{
+	margin: 5px;
+	color: white;
+}
+/* Subpagina content upperbar */
+.spcontentupperbar{
+	float: left;
+	width: 1200px;
+	height: 15px;
+	background-color: #57C1E5;
+}
+/* Subpagina content */
+.spcontent{
+	margin-top: 250px;
+	margin-left: 200px;
+	width: 1200px;
+	height: 650px;
+	background-color: white;
+	position: absolute;
+}
+
+/*
+boxen voor de over ons pagina
+*/
+.ootextleft{
+	width: 600px;
+	height: 635px;
+	float: left;
+}
+
+.ootextright{
+	width: 600px;
+	height: 635px;
+	float: left;
+}
+
+.texttop{
+	width: 580px;
+	height: 147px;
+	margin: 50px 10px 0px 10px;
+	float: left;
+}
+
+.textmiddle{
+	width: 515px;
+	height: 100px;
+	margin: 10px 20px 0px 65px;
+	float: left;
+}
+
+.textbot{
+	width: 580px;
+	height: 178px;
+	float: left;
+	margin: 20px 10px 0px 10px;
+}
+
+.phototop{
+	width: 369px;
+	height: 157px;
+	float: left;
+	margin: 50px 0px 0px 231px;
+}
+
+.photomiddle{
+	width: 450px;
+	height: 200px;
+	float: left;
+	margin-left: 150px;
+}
+
+.photobot{
+	width: 500px;
+	height: 243px;
+	float: left;
+	margin: 35px 0px 0px 100px;
+}
+
+/*
+de headtext geld voor de pagina's over ons en waarom HM
+*/
+
+.headtext{
+	width: 600px;
+	height: 30px;
+	text-align: center;
+	float: left;
+}
+
+
+/*
+boxen voor de waarom HM pagina
+*/
+.wrmtextleft{
+	width: 600px;
+	height: 635px;
+	float: left;
+}
+
+.wrmtextright{
+	width: 600px;
+	height: 635px;
+	float: left;
+}
+
+.laterphoto{
+	width: 410px;
+	height: 222px;
+	float: left;
+	margin: 100px 0px 10px 190px;
+}
+
+.latertext{
+	width: 500px;
+	height: 243px;
+	float: left;
+	margin: 20px 55px 0px 45px;
+}
+
+.wrmtekst{
+	width: 500px;
+	height: 265px;
+	float: left;
+	margin: 20px 55px 0px 45px;
+}
+
+.wrmfoto{
+	width: 425px;
+	height: 200px;
+	float: left;
+	margin: 100px 0px 10px 175px;
+}
+/*
+contact pagina */
+.contact {
+
+	width: 1195px;
+	height: 600px;
+	margin: 5px;
+}
+
+
+.contactform {
+	width: 500px;
+	height: 350px;
+	float: left;
+}
+
+.boxjestekst {
+	float:left;
+	margin-left:10px;
+	width:150px;
+}
+.boxjes{
+	float:left;
+	margin-left:10px;
+	width:250px;
+}
+.messagebox {
+	width: 300px;
+	height: 150px;
+}
+
+.contactinfo {
+	width: 400px;
+	height: 350px;
+	float:right;
+}
+
+.contactinfo p, h1{
+	margin-top: 5px;
+	margin-left: 10px;
+	margin-bottom: 5px;
+}
+
+/*
+einde contact pagina */
+ /*
+ Mobiele versie display
+ */
+.spkopjemobiel {
+	display: none;
+}
+
+.spkopjemobiel p{
+	
+}
+
+.tekstvakopleiding{ 
+	width: 600px;
+	height: 625px;
+	padding-top:10px;
+	float:left;
+}
+.tekstvakopleiding2{ 
+	width: 600px;
+	height: 625px;
+	padding-top:10px;
+	float:left;
+}
+
+.tekstvakopleiding p{
+	font-family: 'Montserrat', sans-serif;
+	font-size: 11pt;
+	color: black;
+	text-align: left;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	margin-right:15px;
+	margin-left:10px;
+}
+.tekstvakopleiding2 p{
+	font-family: 'Montserrat', sans-serif;
+	font-size: 11pt;
+	color: black;
+	text-align: left;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	margin-right:15px;
+	margin-left:10px;
+}
+
+.subpaginatekstopleiding{ 
+	width: 595px;
+	height: 390px;
+	margin-left: 5px;
+	background-color: #f7f7f7;
+}
+.subpaginatekstopleiding2{
+	margin-top: 15px;
+	margin-right: 5px;
+	width: 595px;
+	height: 390px;
+	background-color: #f7f7f7;
+}
+
+.tekstvakopleiding2 ul{
+	list-style:none;
+	margin-left:10px;
+} 
+
+.fotoopleiding{
+	width:500x;
+	height: 200px;
+	margin-left: 50px;
+	margin-right: 50px;
+	background-color:black;
+	margin-top: 15px;
+}
+.fotoopleiding2{
+	width:500x;
+	height: 200px;
+	margin-left: 50px;
+	margin-right: 50px;
+	background-color:black;
+}
+
+.spkopje{
+	margin: 0 auto;
+	width: 800px;
+	margin-top: 25px;
+	height: 100px;
+	background-color: #122F59;
+	opacity: 0.8;
+
+}
+.spkopje p{
+	padding-top: 20px;
+	text-align: center;
+	font-size: 50px;
+	color: white;
+}
+.aanmeldencontent{
+	margin-top: 15px;
+	width: 1200px;
+	height: 635px;
+}
+.aanmeldentxtenpicvak{
+	float: left;
+	width: 590px;
+	height: 305px;
+	margin: 5px;
+	background-color: #f7f7f7;
+}
+.aanmeldenpic{
+	float: left;
+	width: 190px;
+	height: 295px;
+	margin: 5px;
+}
+.aanmeldentext{
+	float: left;
+	width: 380px;
+	height: 295px;
+	margin: 5px;
+}
+.aanmeldentext p{
+	margin: 0px;
+	margin-top: 5px;
+}
+.fototekstboxnieuweopleidingen{
+	margin-left: 40px;
+	margin-top: 50px;
+	width: 250px;
+	height: 300px;
+	float: left;
+}
+.fotonieuweopleidingen{
+	width: 250px;
+	height: 200px;
+	float: left;
+}
+.tekstnieuweopleidingen{
+	width: 250px;
+	height: 100px;
+	background-color: #f7f7f7;
+	float: left;
+}
+.tekstnieuweopleidingen a{
+	text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+	margin-left: 5px;
+	margin-right: 5px;
+	margin-top: 5px;
+	color: #444;
+	font-size: 18pt;
+}
+.textvaknieuweopleidingen{
+	width: 1120px;
+	background-color: red;
+	float: left;
+	margin-left: 40px;
+	margin-right: 40px;
+	margin-top: 75px;
+	background-color: #f7f7f7;
+	padding-bottom: 5px;
+}
+.textvaknieuweopleidingen p{
+	margin-left: 5px;
+	margin-right: 5px;
+	margin-top: 5px;
+	color: #444;
+	font-size: 18pt;
+}
+
+.galerij{
+	width: 300px;
+	height: 325px;
+	float: left;
+}
+
+.foto{
+	width: 250px;
+	height: 250px;
+	margin-left: 25px;
+	margin-top: 25px;
+	background-color: blue;
+}
+
+.tekst{
+	width: 250px;
+	height: 50px;
+	margin-left: 25px;
+	margin-bottom: 10px;
+	background-color: yellow;
+}
+
+
+
+
+.dropList {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	margin-left: 10px;
+}
+.logomobile{
+	width: 160px;
+	height: 30px;
+	margin-left: 300px;
+	float: left;
+	display: none;
+}
+.testimonialscontent{
+	float: left;
+	margin: 5px;
+	width: 1190px;
+	height: 305px;
+	background-color: #f7f7f7;
+}
+.testimonialsfoto{
+	float: left;
+	height: 295px;
+	width: 295px;
+	margin: 5px;
+}
+.testimonialstext{
+	float: left;
+	height: 295px;
+	width: 875px;
+	margin: 5px;
+}
+p.testimonialnaam{
+	font-size: 10pt;
+	color: grey;
+}
+
+}
+
+	
+
+
+
+
+
+
+
+
+
+
+
+/*
+CSS-STYLESHEET VOOR DE TABLET VERSIE 
+*/
+@media screen and (min-width: 501px) and (max-width: 900px) {
+	*{
+	margin: 0px;
+	padding: 0px;
+}
+	
+h1{
+	color: #57C1E5;
+}
+
+h3{
+	color: black;
+	margin-left: 10px
+}
+h4{
+	color: #122F59;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	font-size: 18pt;
+}
+span {
+  content: "\2756";
+}
+
+body{
+	font-family: arial, helvetica, sans-serif;
+}
+.container{
+	margin: 0 auto;
+	width: 800px;
+	height: 450px;
+    background-color: lightblue;
+}
+.aboveheader{
+    float: left;
+	width: 800px;
+	height: 15px;
+	background-color: #122F59;
+	float: left;
+}
+.header{
+	float: left;
+	width: 800px;
+	height: 43px;
+	background-color: #ddd;
+}
+.imgheader{
+	float: left;
+	width: 800px;
+	height: 275px;
+	background-image: url("afbeeldingen/imgheader.jpg");
+}
+
+.mpimgheader{
+	display: none;
+}
+.mpcontentback{
+	float: left;
+	width: 800px;
+	height: 135px;
+	margin: 0 auto;
+	background-color: #57C1E5;
+}
+.mpcontent{
+	margin-top: 293px;
+	margin-left: 200px;
+	width: 400px;
+	height: 175px;
+	background-color: white;
+	position: absolute;
+}
+.aboveheadercontact{
+	float: left;
+	width: 75px;
+	height: 15px;
+}
+
+.weer {
+	height: 15px;
+	width: 108px;
+	background-color: #ddd;
+	margin-left: 492px;
+	float: left;
+	position: absolute;
+}
+.rsslogo{
+	width: 30px;
+	height: 30px;
+	float: left;
+	margin-left: 600px;
+} 
+.rsslogo img {
+	max-height: 15px;
+	max-width: 15px;
+}
+
+.aanmelden{
+	margin-top: 5px;
+	margin-left: 8px;
+}
+.logo{
+	margin-left: 24px;
+	width: 125px;
+	height: 83px;
+	position: absolute;
+    box-shadow: 1px 2px 3px black;
+}
+.menu{
+	float: left;
+	height: 43px;
+    cursor: pointer;
+	width: 432px;
+    margin-left: 167px;
+	border: none;
+}
+
+nav ul {
+	-webkit-font-smoothing:antialiased;
+	text-shadow:0 1px 0 #FFF;
+    background: #ddd;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+nav li {
+    float: left;
+    margin: 0;
+    padding: 0;
+    position: relative;	
+}
+nav a {
+	width: 108px;
+    background: #ddd;
+    color: #444;
+    display: block;
+    font: bold 8px/25px sans-serif;
+
+    text-align: center;
+    text-decoration: none;
+    -webkit-transition: all .25s ease;
+       -moz-transition: all .25s ease;
+            transition: all .25s ease;
+}
+nav .dropdown:after {
+	padding-left: 5px;
+    content: ' ▶';
+}
+nav .dropdown:hover:after{
+	content:'\25bc'
+}
+.dropdown{
+	padding-top: 12px;
+	padding-bottom: 13px;
+}
+nav li:hover a {
+    background: #ccc;
+}
+
+nav li:hover .dropdown:after{
+	content:'\25bc'
+}
+nav li ul {
+    float: left;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 35px;
+    visibility: hidden;
+    z-index: 1;
+    -webkit-transition: all .25s ease;
+       -moz-transition: all .25s ease;
+            transition: all .25s ease;
+	margin-top: 0px;
+}
+nav li:hover ul {
+    opacity: 1;
+    top: 50px;
+    visibility: visible;
+}
+nav li ul li {
+    float: none;
+}
+nav li ul a:hover {
+    background: #bbb;
+}
+
+.welkom{
+	margin-top: 50px;
+	margin-left: 425px;
+	width: 175px;
+	height: 100px;
+	background-color: #122F59;
+	opacity: 0.8;
+	padding-top: 6px;
+}
+
+.welkom p{
+	font-family: 'Montserrat', sans-serif;
+	font-size: 7pt;
+	color: white;
+	text-align: center;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.welkom hr{
+	color: #57C1E5;
+	width: 150px;
+	margin: 0 auto;
+	margin-top: 3px;
+	margin-bottom: 3px;
+	border: 0;
+    height: 1px;
+    background: #333;
+    background-image: linear-gradient(to right, #333, #ccc, #333);
+}
+
+p.welkomtextmidden{
+	font-family: 'Montserrat', sans-serif;
+	font-size: 10pt;
+	color: white;
+	text-align: center;
+	margin-top: 7px;
+	margin-bottom: 7px;
+	font-weight: bold;
+}
+
+.imgandtextboxmpc{
+	float: left;
+	width: 112px;
+	height: 135px;
+	margin-top: 15px;
+	margin-left: 12px;
+}
+
+.nieuws{
+	padding-bottom: 2px;
+}
+
+p.nieuws{
+	margin: 2px;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 9pt;
+	text-align: center;
+	font-weight: bold;
+}
+
+p.nieuwsdatum{
+	margin-top: 2px;
+	margin-left: 3px;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 6pt;
+}
+
+p.nieuwscontent{
+	margin-top: 1px;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 6pt;
+	color: grey;
+	padding-left: 12px;
+	padding-bottom: 4px;
+}
+
+.mpcontentupperbar{
+	float: left;
+	width: 400px;
+	height: 7px;
+	background-color: #57C1E5;
+}
+
+.imgboxmpc{
+	float: left;
+	width: 112px;
+	height: 100px;
+}
+
+.textimgboxmpc{
+	float: left;
+	width: 112px;
+	height: 37px;
+	background-color: #f7f7f7;
+}
+.textimgboxmpc p{
+	font-family: 'Montserrat', sans-serif;
+	font-size: 7pt;
+	text-align: center;
+	margin-top: 5px;
+}
+
+.imgboxmpc img{
+	display: block;
+	max-width:230px;
+	max-height:95px;	
+	width: auto;
+	height: auto;
+}
+
+.logo img{
+	display: block;
+	max-width:230px;
+	max-height:95px;	
+	width: auto;
+	height: auto;
+}
+
+.aboveheadercontact img{
+	display: block;
+	max-width:153px;
+	max-height:15px;	
+	width: auto;
+	height: auto;
+}
+
+.aanmelden img {
+	display: block;
+	max-width: 200px;
+	max-height:30px;	
+	width: auto;
+	height: auto;
+	margin-left: 420px;
+	margin-top: 1px;
+}
+
+.newsmpc{
+	float: left;
+	width: 125px;
+	height: 137px;
+	margin-top: 15px;
+	margin-left: 12px;
+	background-color: #f7f7f7;
+}
+
+.footer{
+    float: left;
+	width: 800px;
+	height: 15px;
+	background-color: #122F59;
+}
+.footer p{
+	margin: 2px;
+	color: white;
+	font-size: 7pt;
+}
+/* Subpagina content upperbar */
+.spcontentupperbar{
+	float: left;
+	width: 600px;
+	height: 7px;
+	background-color: #57C1E5;
+}
+/* Subpagina content */
+.spcontent{
+	margin-top: 125px;
+	margin-left: 100px;
+	width: 600px;
+	height: 325px;
+	background-color: white;
+	position: absolute;
+}
+
+.spkopjemobiel {
+	display: none;
+}
+
+.tekstvakopleiding{ 
+	width: 300px;
+	height: 312px;
+	padding-top: 5px;
+	float:left;
+}
+.tekstvakopleiding2{ 
+	width: 300px;
+	height: 312px;
+	padding-top: 5px;
+	float:left;
+}
+
+.tekstvakopleiding p{
+	font-family: 'Montserrat', sans-serif;
+	font-size: 5pt;
+	color: black;
+	text-align: left;
+	margin-top: 7px;
+	margin-bottom: 7px;
+	margin-right: 7px;
+	margin-left:5 px;
+}
+.tekstvakopleiding2 p{
+	font-family: 'Montserrat', sans-serif;
+	font-size: 5pt;
+	color: black;
+	text-align: left;
+	margin-top: 7px;
+	margin-bottom: 7px;
+	margin-right:7px;
+	margin-left: 5px;
+}
+
+.subpaginatekstopleiding{ 
+	width: 297px;
+	height: 195px;
+	margin-left: 2px;
+	background-color: #f7f7f7;
+}
+.subpaginatekstopleiding2{
+	margin-top: 7px;
+	margin-right: 2px;
+	width: 297px;
+	height: 195px;
+	background-color: #f7f7f7;
+	font-size: 10pt;
+}
+
+.tekstvakopleiding2 ul{
+	list-style:none;
+	margin-left:5px;
+} 
+
+.fotoopleiding{
+	width:250x;
+	height: 100px;
+	margin-left: 25px;
+	margin-right: 25px;
+	margin-top: 7px;
+}
+.fotoopleiding2{
+	width:250x;
+	margin-left: 25px;
+	margin-right: 25px;
+}
+
+
+/*
+boxen voor de over ons pagina
+*/
+.ootextleft{
+	width: 300px;
+	height: 318px;
+	float: left;
+}
+
+.ootextleft p {
+	font-size: 8pt;
+}
+
+.ootextleft img {
+	width: 120px;
+	height: 75px;
+	margin-left: 25px;
+	margin-top: 10px;
+}
+
+.photobot img {
+	width: 200px;
+	height: 112px;
+	margin-top: 15px;
+	margin-left: 20px;
+}
+
+.phototop img {
+	width: 70px;
+	height: 80px;
+	margin-bottom: 10px;
+}
+
+.ootextright{
+	width: 300px;
+	height: 318px;
+	float: left;
+}
+
+.ootextright p {
+	font-size: 8pt;
+}
+
+.texttop{
+	width: 300px;
+	height: 100px;
+	float: left;
+}
+
+.texttop{
+	text-align: center;
+	margin-left: 5px;
+	margin-top: 5px;
+}
+
+.textmiddle{
+	width: 258px;
+	height: 50px;
+	margin: 5px 10px 0px 32px;
+	float: left;
+}
+
+.textbot{
+	width: 290px;
+	height: 89px;
+	float: left;
+	margin-left: 5pt;
+}
+
+.textbot p {
+	font-size: 7pt;
+	text-align: center;
+}
+
+.phototop{
+	width: 185px;
+	height: 78px;
+	float: left;
+	margin-left: 110px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.photomiddle{
+	width: 225px;
+	height: 100px;
+	float: left;
+	margin-left: 75px;
+}
+
+.photobot{
+	width: 250px;
+	height: 63px;
+	float: left;
+	margin: 8px 0px 0px 25px;
+}
+
+/*
+de headtext geld voor de pagina's over ons en waarom HM
+*/
+
+.headtext{
+	width: 300px;
+	height: 15px;
+	text-align: center;
+	float: left;
+	font-size: 8pt;
+	margin-top: 3px;
+}
+
+
+/*
+boxen voor de waarom HM pagina
+*/
+.wrmtextleft{
+	width: 300px;
+	height: 317px;
+	float: left;
+}
+
+.wrmtextright{
+	width: 300px;
+	height: 317px;
+	float: left;
+}
+
+.laterphoto{
+	width: 205px;
+	height: 111px;
+	float: left;
+	margin-left: 65px;
+	margin-top: 10px;	
+	margin-bottom: 75px;
+}
+
+.laterphoto img {
+	max-height: 166px;
+	max-width: 165px;
+
+}
+
+.latertext{
+	width: 250px;
+	height: 122px;
+	float: left;
+	font-size: 8pt;
+	text-align: center;
+	margin-left: 25px;
+}
+
+.wrmtekst{
+	width: 250px;
+	height: 133px;
+	float: left;
+	font-size: 8pt;
+	text-align: center;
+	margin-left: 25px;
+}
+
+.wrmfoto img{
+	max-width: 188px;
+	max-height: 150px;
+	margin-left: 55px;
+	margin-top: 10px;
+}
+
+.spkopje{
+	margin: 0 auto;
+	width: 400px;
+	margin-top: 12px;
+	height: 50px;
+	background-color: #122F59;
+	opacity: 0.8;
+}
+.spkopje p{
+	padding-top: 10px;
+	text-align: center;
+	font-size: 25px;
+	color: white;
+}
+.aanmeldencontent{
+	margin-top: 7px;
+	width: 600px;
+	height: 317px;
+}
+.aanmeldentxtenpicvak{
+	float: left;
+	width: 295px;
+	height: 152px;
+	margin: 2px;
+	background-color: #f7f7f7;
+}
+.aanmeldenpic{
+	float: left;
+	width: 95px;
+	height: 142px;
+	margin: 2px;
+}
+
+.aanmeldenpic img {
+	max-height: 150px;
+	max-width: 150px;
+}
+.aanmeldentext{
+	float: left;
+	width: 190px;
+	height: 142px;
+	margin: 2px;
+	font-size: 8pt;
+}
+.aanmeldentext h4{
+	font-size: 8pt;
+	margin-left: 5px;
+}
+.fototekstboxnieuweopleidingen{
+	margin-left: 20px;
+	margin-top: 25px;
+	width: 125px;
+	height: 150px;
+	float: left;
+}
+.fotonieuweopleidingen{
+	width: 125px;
+	height: 100px;
+	float: left;
+}
+.tekstnieuweopleidingen{
+	width: 125px;
+	height: 50px;
+	background-color: #f7f7f7;
+	float: left;
+}
+.tekstnieuweopleidingen a{
+	text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+	margin-left: 2;
+	margin-right: 2px;
+	margin-top: 2px;
+	color: #444;
+	font-size: 9pt;
+}
+.textvaknieuweopleidingen{
+	width: 560px;
+	background-color: red;
+	float: left;
+	margin-left: 20px;
+	margin-right: 20px;
+	margin-top: 37px;
+	background-color: #f7f7f7;
+	padding-bottom: 2px;
+}
+.textvaknieuweopleidingen p{
+	margin-left: 2px;
+	margin-right: 2px;
+	margin-top: 2px;
+	color: #444;
+	font-size: 9pt;
+}
+
+.galerij{
+	width: 150px;
+	height: 167px;
+	float: left;
+}
+
+.foto{
+	width: 125px;
+	height: 125px;
+	margin-left: 12px;
+	margin-top: 12px;
+	background-color: blue;
+}
+
+.tekst{
+	width: 125px;
+	height: 25px;
+	margin-left: 12px;
+	margin-bottom: 5px;
+	background-color: yellow;
+}
+
+.subgalerij{
+	width: 600px;
+	height: 325px;
+	float: left;
+}
+
+.subfoto{
+	width: 250px;
+	height: 225px;
+	margin-top: 15px;
+}
+
+.subtekst{
+	width: 575px;
+	height: 300px;
+	margin-left: 12px;
+	margin-bottom: 12px;
+}
+.contactform {
+	width: 300px;
+	height: 300px;
+	float: left;
+}
+
+.contactform input, p, select{
+	margin-top: 2px;
+	font-size: 8pt;
+	margin-left: 5px;
+}
+
+.messagebox {
+	width: 150px;
+	height: 300px;
+}
+
+.contactinfo {
+	width: 300px;
+	height: 90px;
+	float: left;
+}
+
+.boxjestekst {
+	font-size: 10pt;
+}
+
+.boxjes {
+	width: 100px;
+}
+
+.contactinfo p, h1{
+	margin-top: 2px;
+	margin-left: 5px;
+	margin-bottom: 2px;
+}
+
+.dropList {
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+
+.oofoto img{
+	display: block;
+	max-width:153px;
+	max-height:153px;	
+	width: auto;
+	height: auto;
+}
+
+.foto img {
+	display: block;
+	max-width:153px;
+	max-height:125px;	
+	width: auto;
+	height: auto;
+}
+.logomobile{
+	width: 160px;
+	height: 30px;
+	margin-left: 300px;
+	float: left;
+	display: none;
+}
+
+.fotonieuweopleidingen img {
+	display: block;
+	max-width:125px;
+	max-height:153px;	
+	width: auto;
+	height: auto;
+}
+
+.fotoopleiding img {
+	display: block;
+	max-width:125px;
+	max-height:153px;	
+	width: auto;
+	height: auto;
+	margin-top: 40px;
+}
+
+.fotoopleiding2 img {
+	max-width:125px;
+	max-height:153px;	
+	
+}
+
+.contactinfo p, h1 {
+	font-size: 10pt;
+}
+
+.maps {
+	width: 400px;
+	height: 400px;
+}
+
+.testimonialscontent{
+	float: left;
+	margin: 2px;
+	width: 595px;
+	height: 152px;
+	background-color: #f7f7f7;
+	font-size: 7pt;
+}
+.testimonialsfoto{
+	float: left;
+	height: 147px;
+	width: 147px;
+	margin: 2px;
+}
+
+.testimonialsfoto img {
+	max-height: 150px;
+	min-width: 150px;
+}
+.testimonialstext{
+	float: left;
+	height: 147px;
+	width: 437px;
+	margin: 2px;
+	font-size: 6pt;
+}
+
+.testimonialstext h4 {
+	font-size: 10pt;
+}
+p.testimonialnaam{
+	font-size: 5pt;
+	color: grey;
+}
+
+.map {
+	width: 596px; 
+	height: 297px; 
+}
+
+.maps h1{
+	text-align: center;
+	margin-left: 200px;
+}
+
+.spkopjemobieltl {
+	display: none;
+}
+}
+
+
+
+
+
+
+
+
+
+
+/*
+CSS-STYLESHEET VOOR DE MOBIELE VERSIE 
+*/
+@media screen and (max-width: 500px) {
+	
+*{
+	margin: 0px;
+	padding: 0px;
+
+}
+	
+h1{
+	color: #57C1E5;
+}
+
+h3{
+	color: black;
+	margin-left: 10px
+}
+h4{
+	color: #122F59;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	font-size: 18pt;
+}
+span {
+  content: "\2756";
+}
+
+body{
+	font-family: arial, helvetica, sans-serif;
+}
+
+.container{
+	margin: 0 auto;
+	width: 500px;
+}
+
+.aboveheader{
+    float: left;
+	width: 500px;
+	height: 30px;
+	background-color: #122F59;
+}
+
+.header{
+	float: left;
+	width: 500px;
+	height: 50px;
+	background-color: #ddd;
+}
+
+.logomobile{
+	width: 160px;
+	height: 30px;
+	float: left;
+}
+
+.rsslogo{
+	display: none;
+}
+
+.weer {
+	display: none;
+}
+
+.aboveheadercontact{
+	float: left;
+	width: 125px;
+	height: 30px;
+	margin-left: 187px;
+}
+
+.logo{
+	margin-left: 48px;
+	width: 250px;
+	height: 165px;
+	position: absolute;
+    box-shadow: 1px 2px 3px black;
+	display: none;
+}
+.imgheader{
+	float: left;
+	width: 500px;
+	height: 670px;
+	background-image: url("afbeeldingen/imgheader.jpg");
+	display: none;
+}
+
+.mpimgheader{
+	float: left;
+	width: 500px;
+	height: 670px;
+	background-image: url("afbeeldingen/imgheader.jpg");
+}
+
+.spimgheader{
+	width: 500px;
+	height: 75px;
+	background-image: url("afbeeldingen/imgheader.jpg");
+	background-size: cover;
+	float: left;
+}
+
+.spimgheader img {
+	max-width: 500px;
+	max-height: 75px;
+}
+
+.imgheader img {
+	max-width: 500px;
+}
+
+.aanmelden img {
+	display: none;
+}
+
+.imgheader img {
+	max-width: 500px;
+
+}
+
+.menu{
+	float: left;
+	height: 75px;
+    cursor: pointer;
+	width: 500px;
+	background-color: #ddd;
+	border: none;
+}
+.mpcontentback	{
+	float: left;
+	width: 500px;
+	height: 150px;
+	margin: 0 auto;
+	background-color: #57C1E5;
+	display: none;
+	margin-TOP: 250px;
+}
+
+.mpcontent{
+	width: 500px;
+	height: 190px;
+	position: absolute;
+	margin-top: 570px;
+}
+.aanmelden{
+	float: left;
+	margin-top: 5px;
+	margin-left: 15px;
+}
+
+.oomenu{
+	width: 200px;
+	float: left;
+	margin-top: 20px;
+}
+
+.oomenu ul{
+	list-style: none;
+	margin-left: 10px;
+}
+
+.oomenu li{
+	list-style: none;
+	margin-bottom: 5px;
+}
+
+.oofoto1 img{
+	max-height: 200px;
+	max-width: 250px;
+	margin-left: 170px;
+	margin-top: 20px;
+}
+
+.ootekst1 p{
+	font-size: 10pt;
+	margin-right: 20px;
+	margin-left: 20px;
+	text-align: center;
+	margin-top: 5px;
+}
+
+.ookop2{
+	font-size: 18pt;
+	font-weight: bold;
+	margin-left: 150px;
+	margin-top: 10px;
+	
+}
+
+.ootekst2{
+	font-size: 10pt;
+	text-align: center;
+	margin-right: 20px;
+	margin-left: 20px;
+	margin-top: 10px;
+}
+
+.oofoto2 img{
+	margin-left: 90px;
+	margin-top: 17px;
+	
+}
+
+.ookop3{
+	font-size: 18pt;
+	font-weight: bold;
+	margin-left: 120px;
+	margin-top: 10px;
+}
+.ootekst3{
+	font-size: 10pt;
+	text-align: center;
+	margin-right: 20px;
+	margin-left: 20px;
+	margin-top: 10px;
+}
+
+.oofoto3{
+	margin-left: 50px;
+	margin-top: 17px;
+}
+
+nav ul {
+	-webkit-font-smoothing:antialiased;
+	text-shadow:0 1px 0 #FFF;
+    background: #ddd;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+nav li {
+    float: left;
+    margin: 0;
+    padding: 0;
+    position: relative;	
+}
+nav a {
+	width: 125px;
+	height: 25px;
+    background: #ddd;
+    color: #444;
+    display: block;
+    font: bold 8px/25px sans-serif;
+    text-align: center;
+    text-decoration: none;
+    -webkit-transition: all .25s ease;
+       -moz-transition: all .25s ease;
+            transition: all .25s ease;
+}
+nav .dropdown:after {
+	padding-left: 5px;
+    content: ' ▶';
+}
+nav .dropdown:hover:after{
+	content:'\25bc'
+}
+.dropdown{
+	padding-top: 12px;
+	padding-bottom: 13px;
+}
+nav li:hover a {
+    background: #ccc;
+}
+nav li:hover .dropdown:after{
+	content:'\25bc'
+}
+nav li ul {
+    float: left;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 35px;
+    visibility: hidden;
+    z-index: 1;
+    -webkit-transition: all .25s ease;
+       -moz-transition: all .25s ease;
+            transition: all .25s ease;
+}
+nav li:hover ul {
+    opacity: 1;
+    top: 50px;
+    visibility: visible;
+}
+nav li ul li {
+    float: none;
+}
+nav li ul a:hover {
+    background: #bbb;
+}
+
+.welkom{
+	margin-top: 100px;
+	margin-left: 200px;
+	width: 250px;
+	height: 150px;
+	background-color: #122F59;
+	opacity: 0.8;
+	padding-top: 13px;
+}
+
+.welkom p{
+	font-family: 'Montserrat', sans-serif;
+	font-size: 10pt;
+	color: white;
+	text-align: center;
+}
+
+.welkom hr{
+	color: #57C1E5;
+	width: 225px;
+	margin: 0 auto;
+	margin-top: 12px;
+	margin-bottom: 12px;
+	border: 0;
+    height: 2px;
+    background: #333;
+    background-image: linear-gradient(to right, #333, #ccc, #333);
+}
+
+p.welkomtextmidden{
+	font-family: 'Montserrat', sans-serif;
+	font-size: 15pt;
+	color: white;
+	text-align: center;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	font-weight: bold;
+}
+
+.imgandtextboxmpc{
+	float: left;
+	width: 166px;
+	height: 175px;
+	background-color: #f7f7f7;
+}
+
+p.nieuws{	
+	margin-top: 4px;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 10pt;
+	margin-left: 15px;
+	margin-top: 10px;
+	font-weight: bold;
+}
+
+p.nieuwsdatum{
+	margin-left: 6px;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 8pt;
+	margin-bottom: 3px;
+	margin-top: 5px;
+}
+
+p.nieuwscontent{
+	font-family: 'Montserrat', sans-serif;
+	font-size: 8pt;
+	color: grey;
+	margin-left: 20px;
+	margin-top: 3px;
+}
+
+.mpcontentupperbar{
+	float: left;
+	width: 500px;
+	height: 15px;
+	background-color: #57C1E5;
+}
+
+.imgboxmpc{
+	float: left;
+	width: 150px;
+	height: 100px;
+}
+
+.imgboxmpc img {
+	max-height: 100px;
+	max-width: 166px;
+	margin-left: 20px;
+	margin-top: 10px;
+}
+
+.textimgboxmpc{
+	float: left;
+	width: 150px;
+	height: 50px;
+	background-color: #f7f7f7;
+}
+.textimgboxmpc p{
+	font-family: 'Montserrat', sans-serif;
+	font-size: 10pt;
+	text-align: center;
+	margin-top: 10px;
+}
+
+.newsmpc{
+	float: left;
+	width: 167px;
+	height: 175px;
+	background-color: #f7f7f7;
+}
+
+
+.footer{
+    float: left;
+	width: 500px;
+	height: 30px;
+	background-color: #122F59;
+	margin-top: 10px;
+}
+.footer p{
+	margin-top: 8px;
+	margin-left: 3px;
+	color: white;
+}
+/* Subpagina content upperbar */
+.spcontentupperbar{
+	float: left;
+	width: 500px;
+	height: 15px;
+	background-color: #57C1E5;
+}
+/* Subpagina content */
+.spcontainer{
+	width: 500px;
+	height: 600px;
+	background-color: white;
+	float: left;
+}
+
+.spcontainergroot{
+	width: 500px;
+	height: 1025px;
+	background-color: white;
+	float: left;
+}
+
+.spcontent {
+	width: 500px;
+	background-color: white;
+
+	float: left;
+}
+
+.tekstvakopleiding{ 
+	width: 500px;
+	height: 500px;
+	padding-top:10px;
+	float:left;
+}
+.tekstvakopleiding2{ 
+	width: 500px;
+	height: 625px;
+	padding-top:10px;
+	float:left;
+}
+
+.tekstvakopleiding p{
+	font-family: 'Montserrat', sans-serif;
+	font-size: 11pt;
+	color: black;
+	text-align: left;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	margin-right:15px;
+	margin-left:10px;
+}
+.tekstvakopleiding2 p{
+	font-family: 'Montserrat', sans-serif;
+	font-size: 11pt;
+	color: black;
+	text-align: left;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	margin-right:15px;
+	margin-left:10px;
+}
+
+.subpaginatekstopleiding{ 
+	width: 500px;
+	height: 300px;
+	margin-top: 5px;
+}
+
+.subpaginatekstopleiding h3 {
+	margin-bottom: 5px;
+}
+.subpaginatekstopleiding2{
+	margin-top: 5px;
+	margin-bottom: 5px;
+	width: 500px;
+	height: 390px;
+}
+
+.tekstvakopleiding2 ul{
+	list-style:none;
+	margin-left:10px;
+} 
+
+.fotoopleiding{
+	width:500x;
+	height: 200px;
+
+}
+.fotoopleiding2{
+	width:500x;
+	height: 200px;
+}
+
+.spkopjemobiel{
+	width: 500px;
+	height: 75px;
+	background-color: #122F59;
+	opacity: 0.8;
+	float: left;
+}
+
+.spkopjemobiel p{
+	padding-top: 5px;
+	text-align: center;
+	font-size: 50px;
+	color: white;
+}
+
+.spkopjemobieltl{
+	width: 500px;
+	height: 75px;
+	background-color: #122F59;
+	opacity: 0.8;
+	float: left;
+}
+
+.spkopjemobieltl p{
+	padding-top: 12px;
+	font-size: 34px;
+	color: white;
+	text-align: center;
+}
+.spkopje{
+	width: 500px;
+	height: 75px;
+	background-color: #122F59;
+	opacity: 0.8;
+	float: left;
+	display: none;
+}
+.spkopje p{
+	padding-top: 5px;
+	text-align: center;
+	font-size: 50px;
+	color: white;
+	display: none;
+}
+.aanmeldencontent{
+	width: 500px;
+	height: 317px;
+}
+.aanmeldentxtenpicvak{
+	float: left;
+	width: 495px;
+	height: 147px;
+	margin: 5px;
+}
+.aanmeldenpic{
+	float: left;
+	width: 95px;
+	height: 147px;
+}
+
+.aanmeldenpic img {
+	max-height: 147px;
+	max-width: 95;
+}
+.aanmeldentext{
+	float: left;
+	width: 395px;
+	height: 147px;
+	margin-left: 5px;
+	
+}
+.aanmeldentext p{
+	margin: 0px;
+	margin-top: 5px;
+}
+.fototekstboxnieuweopleidingen{
+	margin-top: 50px;
+	width: 248px;
+	height: 252px;
+	float: left;
+}
+.fotonieuweopleidingen img{
+	max-height: 200px;
+	max-width: 242px;
+	float: left;
+}
+
+.fotonieuweopleidingen img{
+	border-style: solid;
+	border-width: 2px;
+}
+.tekstnieuweopleidingen{
+	width: 250px;
+	height: 100px;
+	background-color: #f7f7f7;
+	float: left;
+}
+.tekstnieuweopleidingen a{
+	text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+	margin-left: 5px;
+	margin-right: 5px;
+	margin-top: 5px;
+	color: #444;
+	font-size: 18pt;
+}
+.textvaknieuweopleidingen{
+	width: 500px;
+	background-color: red;
+	float: left;
+	background-color: #f7f7f7;
+	margin-top: 75px;
+}
+.textvaknieuweopleidingen p{
+	margin-left: 5px;
+	margin-right: 5px;
+	margin-top: 5px;
+	color: #444;
+	font-size: 18pt;
+}
+
+.gelukt {
+	width: 500px;
+	background-color: red;
+	float: left;
+	background-color: #f7f7f7;
+}
+
+.gelukt h1 {
+	margin-bottom: 250px;
+}
+
+.gelukt p {
+	margin-bottom: 250px;
+}
+
+.galerij{
+	margin-top: 5px;
+	width: 250px;
+	height:250px;
+	float: left;
+}
+
+.foto{
+	width: 250px;
+	height: 250px;
+}
+
+.tekst{
+	width: 250px;
+	height: 50px;
+	margin-left: 25px;
+	margin-bottom: 10px;
+	background-color: yellow;
+}
+
+.subgalerij{
+	width: 1200px;
+	height: 650px;
+	float: left;
+}
+
+.subfoto{
+	width: 500px;
+	height: 450px;
+	margin-top: 30px;
+}
+
+.subtekst{
+	width: 1150px;
+	height: 600px;
+	margin-left: 25px;
+	margin-bottom: 25px;
+}
+.contactform {
+	width: 600px;
+	height: 420px;
+}
+
+.contactform input, p{
+	margin-top: 5px;
+	margin-left: 10px;
+}
+
+.dropList { 
+	margin-top: 5px;
+	margin-left: 10px;
+	width: 173px;
+}
+
+.messagebox {
+	width: 300px;
+	height: 150px;
+	float: left;
+	margin-left: 190px;
+}
+
+.contactinfo {
+	width: 600px;
+	height: 175px;
+}
+
+.contactinfo p, h1{
+	margin-top: 5px;
+	margin-left: 10px;
+	margin-bottom: 5px;
+}
+
+.lastigknopje {
+	float: left;
+	width: 280px;
+}
+
+.ootextleft {
+	font-size: 11pt;
+	text-align: center;
+}	
+
+.photomiddle{
+	float: left;
+	width: 500px;
+	margin-bottom: 10px;
+}
+
+.headtext {
+	float: left;
+	width: 500px;
+}
+
+.phototop {
+	float: left;
+	width: 320px;
+	margin-left: 180px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.headtext {
+	float: left;
+	width: 500px;
+	text-align: center;
+}
+
+.textmiddle {
+	float: left;
+	width: 500px;
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+.texttop {
+	float: left;
+	width: 500px;
+	margin-bottom: 10px;
+}
+
+.photobot {
+	float: left;
+	width: 450px;
+}
+
+.photobot img{
+	margin-left: 50px;
+} 
+
+.wrmfoto {
+	margin-top: 10px;
+	float: left;
+	width: 500px;
+}
+
+.wrmfoto img {
+	margin-left: 125px;
+}
+
+.laterphoto {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	margin-left: 140px;
+	float: left;
+	width: 500px;
+}
+
+.latertext p {
+	text-align: center;
+}
+
+.testimonialsfoto {
+	width: 400px;
+	float: left;
+	margin-top: 20px;
+	margin-left: 100px;
+}
+
+.testimonialstext {
+	text-align: center;
+}
+
+.map {
+	width: 500px; 
+	height: 600px; 
+}
+
+.maps h1{
+	text-align: center;
+	margin-left: 15px;
+}
+}

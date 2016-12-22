@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+
+	<channel>
+		<title>Hogeschool Meppel</title>
+		<link>index.html</link>
+		<description>Homepagina</description>
+		<language>en-us</language>
+	
+	<image>
+		<title>Hogeschool Meppel</title>
+		<link>index.html</link>
+		<url>afbeeldingen/logoklein.png</url>
+		<width>250</width>
+		<height>166</height>
+	</image>
+	
+	<item>
+		<title>Hogeschool Meppel</title>
+		<pubDate>Fri 4 Nov 2016 11:57</pubDate>
+		<link>rss.xml</link>
+		<description><![CDATA[Welkom op Hogeschool Meppel]]></description>
+	</item>
+	</channel>
+</rss>
+	

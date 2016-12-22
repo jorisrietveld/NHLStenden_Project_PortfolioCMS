@@ -15,7 +15,7 @@ declare( strict_types = 1 );
           type="text/css"
           href="css/styles.css"/>
 
-    <title>Digitaal Portfolio</title>
+    <title>Curriculum Vitae</title>
 </head>
 <body>
     <main class="page-content">
@@ -27,7 +27,7 @@ declare( strict_types = 1 );
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>                        
                 </button>
-                  <a class="navbar-brand" href="../Theme_zervan/afbeeldingen//zervan.jpg">Foto</a>
+                <a class="navbar-brand" href="../Theme_zervan/afbeeldingen//zervan.jpg">Foto</a>
               </div>
               <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
@@ -49,18 +49,21 @@ declare( strict_types = 1 );
             <div class="col-md-2 sidenav">
             </div>
             <div class="col-md-8 text-left"> 
-              <h1>Welkom</h1>
-              <p>In dit digitale portfolio vind u het portfolio van Zervan Hoving.
-                 Het portfolio is gemaakt op basis van een groepsproject, in het portofolio kunt u ondere andere projecten vinden van mij.
-                 Het portfolio heeft een aantal functies waaronder een gastenboek, studenten kunnen een template gebruiken om een standaard style voor het portfolio te gebruiken.
-                 Eventueel kunt u contact met mij openen via het contact formulier.
+              <h1>Curriculum Vitae</h1>
+              <p>
               </p>
               <hr>
-              <h3>Over mij</h3>
-              <p>Mijn naam is Zervan Hoving, ik ben 21 jaar en ben woonachtig in Duitsland.
-                 Tijdens mijn opleiding doe ik een aantal projecten deze projecten kunt u vinden in mijn portfolio.
-                 Het portfolio was ondere andere een van mijn projecten.
-                 In het portfolio kunt u mijn overige projecten inzien en mijn CV bekijken.
+              <h3>Over het Curriculum Vitae </h3>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ullamcorper vel dolor sed convallis. Sed arcu odio, molestie ullamcorper semper sit amet, bibendum at velit. 
+                Praesent vestibulum quam nec maximus ornare. Cras pharetra sem mi, nec consequat mi suscipit a. Vivamus vel eros hendrerit, lacinia dolor sed, pharetra nunc. 
+                Nulla hendrerit massa vitae risus accumsan hendrerit. Nulla in ipsum lacinia, suscipit ante sit amet, vestibulum magna. Mauris ac justo lectus. Sed et ante arcu. Maecenas viverra volutpat placerat. Nulla at molestie mi.
+                Pellentesque ut felis eget massa gravida molestie et non tortor. Donec ac gravida risus, sit amet facilisis purus. Cras tincidunt vitae tellus nec rhoncus. Fusce blandit, justo et dignissim convallis, purus justo vestibulum est, eget aliquam enim turpis id nulla. Aliquam ut mattis mi. 
+                Mauris in ullamcorper lacus. Pellentesque rhoncus ligula magna, eu lobortis erat pretium nec. Cras efficitur sit amet nisi sed faucibus. 
+                Morbi elit tellus, tincidunt vitae pretium sit amet, aliquam vel justo. Praesent tincidunt feugiat pharetra. Sed id efficitur ex. Nullam sed tempor mauris, sed blandit leo. Aliquam vitae fermentum sem. 
+                Vivamus lobortis est magna, eget tincidunt tortor ultrices quis. Suspendisse eget ornare ex, in pharetra justo. Pellentesque ac enim in arcu mollis laoreet a eget sapien.
+                Nam vel sagittis sapien. Praesent varius quam et lorem blandit, venenatis interdum magna gravida. Sed dolor est, molestie eget laoreet et, dictum et lorem. Vestibulum cursus faucibus metus non aliquet. 
+                Ut metus justo, dapibus ut velit vitae, facilisis pulvinar magna. Phasellus tempus ornare enim. Aliquam ut convallis nunc. Morbi tincidunt at dui ac condimentum. In justo ipsum, imperdiet eget diam ac, viverra dapibus libero. 
               </p>
             </div>
             <div class="col-md-2 sidenav">
