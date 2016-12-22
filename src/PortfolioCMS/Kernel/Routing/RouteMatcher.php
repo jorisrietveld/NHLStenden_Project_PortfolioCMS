@@ -25,17 +25,21 @@ class RouteMatcher
 
     public function match( Request $request )
     {
-        
-    }
-
-    public function parseUrlParts( Request $request )
-    {
-        $requestUri = str_replace( $request->getBasePath(), '/', $request->getRequestUri();
+        $requestUri = str_replace( $request->getBasePath(), '/', $request->getRequestUri());
         $requestParts = explode( '/', $requestUri );
 
         if( count( $requestParts ) > 1 )
         {
-            return
+            if( $this->configuredRoutes->has( $requestParts[0] ))
+            {
+                $route = $this->configuredRoutes->get( $requestParts[0] );
+                $route->setPlaceholders( $requestParts[1] );
+                return $route;
+            }
+            else
+            {
+                return $this->configuredRoutes->get( 'error400');
+            }
         }
         elseif( count( $requestParts ) === 1 )
         {
@@ -46,7 +50,6 @@ class RouteMatcher
             // no url given so match go to home
             return $this->configuredRoutes->get('home');
         }
-        throw new \Exception('No route found!');
     }
 
     

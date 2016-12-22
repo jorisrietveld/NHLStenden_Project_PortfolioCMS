@@ -17,12 +17,6 @@ require __DIR__ . DIRECTORY_SEPARATOR . 'PHPStormAutoCompleteLibSodiumHack.php';
 $application = new StendenINF1B\PortfolioCMS\Kernel\ApplicationKernel();
 $request = \StendenINF1B\PortfolioCMS\Kernel\Http\Request::createFromGlobals();
 
-var_dump([
-    \Sodium\library_version_major(),
-    \Sodium\library_version_minor(),
-    \Sodium\version_string()
-]);
-
 dump($request);
 //dump($request);
 $routeParser = new \StendenINF1B\PortfolioCMS\Kernel\Routing\RouteParser();

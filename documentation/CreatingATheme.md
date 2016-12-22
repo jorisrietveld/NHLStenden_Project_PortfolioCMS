@@ -2,9 +2,12 @@
 This guide explains how to create a new theme for the PortfolioCMS.
 
 ## Creating an theme folder
-todo write someting
+To create a new theme you first have to create a new theme folder located in `src/PortfolioCMS/Themes/{name of your theme}`.  
+Inside this folder you can add the css, js and images folders for your assets. 
 
 ## Required files
+Inside every theme you have to create the files `index.php` and `slbOpdrachen.php`. In these files you can write the html and php code 
+for your theme.
 
 ## Available portfolio data
 In your theme you can access the $portfolio variable which has methods for receiving portfolio data. you can see an interface below defining the 

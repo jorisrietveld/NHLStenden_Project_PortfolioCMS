@@ -55,7 +55,7 @@ class ConfiguredRoute
 
     /**
      * The placeholders.
-     * @var array
+     * @var string
      */
     protected $placeHolders;
 
@@ -166,8 +166,13 @@ class ConfiguredRoute
         $this->method = $method;
     }
 
-    public function setPlaceholders(  )
+    public function setPlaceholders( string $placeholders )
     {
-        
+        $this->placeHolders = $placeholders;
+    }
+
+    public function getPlaceholders(  )
+    {
+        return $this->placeHolders;
     }
 }
