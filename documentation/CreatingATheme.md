@@ -6,7 +6,7 @@ todo write someting
 
 ## Required files
 
-## Getting portfolio data
+## Available portfolio data
 
 $title = portfolio - joris rietveld
 
@@ -26,49 +26,75 @@ $student [
 
 
 $JobExperiences [
-    0 => JobExperience(),
-    1 => JobExperience(),
+    0 => JobExperience(
+            isInternship() : bool,
+            getLocation() :string,
+            getStartedAt() : DateTime(),
+            getEndedAt() : DateTime(),
+            getDescription() : string
+    ),
 ]
 
 $Languages [
-    0 => Language(),
-    1 => Language(),
+    0 => Language(
+            getLanguage() : string,
+            isNative() : bool,
+            getLevel() : int,
+    ),
 ]
 
 $Trainings [
-    0 => Training()
-    1 => Training()
-    2 => Training()
+    0 => Training(
+            getTitle() : string,
+            getInstitution() : string,
+            getLocation() : string,
+            getStartedAt() : Datetime(),
+            getFinishedAt() : DateTime(),
+            getDescription() : string,
+            getObtainedCertificate() : bool,
+            getIsCurrentTraining() : bool,
+    )
 ]
 
 $SlbAssignment [
-    0 => SLBAssignment(),
-    1 => SLBAssignment(),
-    2 => SLBAssignment(),
-    3 => SLBAssignment(),
-    4 => SLBAssignment(),
+    0 => SLBAssignment(
+            getName() : string,
+            getFeedback() : string,
+            getFileName() : string,
+            getFilePath() : string,
+            getMimeType() : string,
+    ),
 ]
 
-$profileImage = Image();
+$profileImage = Image(
+            getFileName() : string,
+            getFilePath() : string,
+            getMimeType() : string,
+            getName() : string,
+            getDescription() : string,
+);
 
 $profileImages [
-    0 => Image();
-    1 => Image();
+    0 => Image(
+            getFileName() : string,
+            getFilePath() : string,
+            getMimeType() : string,
+            getName() : string,
+            getDescription() : string,
+            getOrder() : int,
+    );
 ]
 
 $Skills [
-    0 => Skill(),
-    1 => Skill(),
-    2 => Skill(),
-    3 => Skill(),
-    4 => Skill(),
-    5 => Skill(),
-
+    0 => Skill(
+            getName() : string,
+            getLevelOfExperience() : int,
+    ),
 ]
 
 $Hobbies [
-    0 => Hobby()
-    1 => Hobby()
-    2 => Hobby()
+    0 => Hobby(
+            getName() : string,
+    ),
 ]
 
