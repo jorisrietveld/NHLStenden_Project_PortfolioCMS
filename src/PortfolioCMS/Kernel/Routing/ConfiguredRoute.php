@@ -9,8 +9,7 @@ declare( strict_types = 1 );
 namespace StendenINF1B\PortfolioCMS\Kernel\Routing;
 
 
-use StendenINF1B\PortfolioCMS\Kernel\Debug\Debug;
-use StendenINF1B\PortfolioCMS\Kernel\Exception\ConfigurationErrorException;
+use StendenINF1B\PortfolioCMS\Kernel\Helper\ParameterContainer;
 
 class ConfiguredRoute
 {
@@ -27,13 +26,7 @@ class ConfiguredRoute
      * The full path with placeholders.
      * @var string
      */
-    protected $fullPath;
-
-    /**
-     * The base path without the placeholders.
-     * @var string
-     */
-    protected $basePath;
+    protected $path;
 
     /**
      * The allowed http methods.
@@ -54,26 +47,26 @@ class ConfiguredRoute
     protected $method;
 
     /**
-     * The placeholder.
-     * @var string
-     */
-    protected $placeHolder;
-
-    /**
      * Arguments that need to be passed to the controller.
      * @var array
      */
     protected $arguments;
 
+    /**
+     * The compiled regex for matching this route.
+     * @var string
+     */
+    protected $regularExpressionPattern;
+
     public function __construct( string $id = '', string $fullPath = '', array $httpMethods = [ self::DEFAULT_METHOD ], string $controller = '', string $method = '')
     {
         $this->setId( $id );
-        $this->setFullPath( $fullPath );
-        $this->basePath = explode( '/', $fullPath )[1];
+        $this->setPath( $fullPath );
         $this->setHttpMethods( $httpMethods );
 
         $this->setController( $controller );
         $this->setMethod( $method );
+        $this->setArguments( [] );
     }
 
     /**
@@ -92,36 +85,30 @@ class ConfiguredRoute
         $this->id = $id;
     }
 
+    public function setRegularExpressionPattern( string $regularExpressionPattern )
+    {
+        $this->regularExpressionPattern = $regularExpressionPattern;
+    }
+
+    public function getRegularExpressionPattern(  )
+    {
+        return $this->regularExpressionPattern;
+    }
+
     /**
      * @return string
      */
-    public function getFullPath(): string
+    public function getPath(): string
     {
-        return $this->fullPath;
+        return $this->path;
     }
 
     /**
      * @param string $fullPath
      */
-    public function setFullPath( string $fullPath )
+    public function setPath( string $fullPath )
     {
-        $this->fullPath = $fullPath;
-    }
-
-    /**
-     * @return string
-     */
-    public function getBasePath(): string
-    {
-        return $this->basePath;
-    }
-
-    /**
-     * @param string $basePath
-     */
-    public function setBasePath( string $basePath )
-    {
-        $this->basePath = $basePath;
+        $this->path = $fullPath;
     }
 
     /**
@@ -170,16 +157,6 @@ class ConfiguredRoute
     public function setMethod( string $method )
     {
         $this->method = $method;
-    }
-
-    public function setPlaceholder( string $placeholders )
-    {
-        $this->placeHolder = $placeholders;
-    }
-
-    public function getPlaceholder(  )
-    {
-        return $this->placeHolder;
     }
 
     public function setArguments( array $arguments )

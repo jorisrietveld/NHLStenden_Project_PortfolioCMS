@@ -16,6 +16,9 @@ use StendenINF1B\PortfolioCMS\Kernel\Helper\ParameterContainer;
 
 class RouteParser
 {
+    const REGEX_PLACEHOLDER = '([\w]+)';
+    const REGEX_SLASH = '\/';
+
     protected $filename;
     protected $simpleXMLObject;
     protected $routesContainer;
@@ -26,9 +29,9 @@ class RouteParser
         $this->routesContainer = new ParameterContainer();
     }
 
-    public function loadXml(  )
+    public function loadXml()
     {
-        if( file_exists( $this->filename ))
+        if ( file_exists( $this->filename ) )
         {
             $this->simpleXMLObject = simplexml_load_file( $this->filename );
         }
@@ -37,15 +40,15 @@ class RouteParser
             throw new FileNotFoundException( sprintf( 'The routing configuration file is not found at location: %s.', $this->filename ) );
         }
 
-        if( !is_a(  $this->simpleXMLObject, '\\SimpleXMLElement' ))
+        if ( !is_a( $this->simpleXMLObject, '\\SimpleXMLElement' ) )
         {
             throw new XMLParserException( sprintf( 'Can\'t parse the routing configuration file.' ) );
         }
     }
 
-    public function getSimpleXmlObject(  ) : \SimpleXMLElement
+    public function getSimpleXmlObject() : \SimpleXMLElement
     {
-        if( $this->simpleXMLObject == NULL )
+        if ( $this->simpleXMLObject == null )
         {
             $this->loadXml();
         }
@@ -53,9 +56,9 @@ class RouteParser
         return $this->simpleXMLObject;
     }
 
-    public function getRoutes(  ) : ParameterContainer
+    public function getRoutes() : ParameterContainer
     {
-        if( count( $this->routesContainer ) < 1 )
+        if ( count( $this->routesContainer ) < 1 )
         {
             $this->parseXmlToRoutes();
         }
@@ -63,25 +66,25 @@ class RouteParser
         return $this->routesContainer;
     }
 
-    public function parseXmlToRoutes(  )
+    public function parseXmlToRoutes()
     {
-        foreach ( $this->getSimpleXmlObject() as $route )
+        foreach ($this->getSimpleXmlObject() as $route)
         {
-            if( empty( $route['id'] ) )
+            if ( empty( $route[ 'id' ] ) )
             {
                 throw new ConfigurationErrorException( 'All configured routes must have an id.' );
             }
-            if( empty( $route['path'] ))
+            if ( empty( $route[ 'path' ] ) )
             {
                 throw new ConfigurationErrorException( 'All configured routes must have an path to.' );
             }
 
-            $id = (string)$route['id'];
-            $path = (string)$route['path'];
+            $id = (string)$route[ 'id' ];
+            $path = (string)$route[ 'path' ];
 
-            if( !empty( $route['methods'] ))
+            if ( !empty( $route[ 'methods' ] ) )
             {
-                $httpMethods = explode( '|', (string)$route['methods'] );
+                $httpMethods = explode( '|', (string)$route[ 'methods' ] );
                 $httpMethods = count( $httpMethods ) ? $httpMethods : [ ConfiguredRoute::DEFAULT_METHOD ];
             }
             else
@@ -89,21 +92,31 @@ class RouteParser
                 $httpMethods = [ ConfiguredRoute::DEFAULT_METHOD ];
             }
 
-            if( empty( $route->action ))
+            if ( empty( $route->action ) )
             {
-                throw new ConfigurationErrorException( sprintf( 'You must supply an controller and action in an route configuration in route: %s', $id ));
+                throw new ConfigurationErrorException( sprintf( 'You must supply an controller and action in an route configuration in route: %s', $id ) );
             }
 
             $parts = explode( ':', (string)$route->action );
-            if( count($parts) < 1 )
+            if ( count( $parts ) < 1 )
             {
                 throw new ConfigurationErrorException( sprintf( 'The action is not valid from route: %s', $id ) );
             }
-            $controller = $parts[0];
-            $method = isset( $parts[1] ) ? $parts[1] : ConfiguredRoute::DEFAULT_ACTION;
+            $controller = $parts[ 0 ];
+            $method = isset( $parts[ 1 ] ) ? $parts[ 1 ] : ConfiguredRoute::DEFAULT_ACTION;
 
-            $configuredRoute = new ConfiguredRoute( $id, $path, $httpMethods, $controller, $method  );
-            $this->routesContainer->set( $configuredRoute->getBasePath(), $configuredRoute );
+            $configuredRoute = new ConfiguredRoute( $id, $path, $httpMethods, $controller, $method );
+
+            $configuredRoute->setRegularExpressionPattern( $this->compileRouteToRegex( $path ) );
+            dump($configuredRoute->getRegularExpressionPattern());
+            $this->routesContainer->set( $configuredRoute->getPath(), $configuredRoute );
         }
+    }
+
+    public function compileRouteToRegex( string $url )
+    {
+        $url = str_replace( '/', '\/', $url );
+        $searchPlaceholder = "/\{([\w\]]+)\}/";
+        return '/'. preg_replace( $searchPlaceholder, self::REGEX_PLACEHOLDER, $url) . '/';
     }
 }

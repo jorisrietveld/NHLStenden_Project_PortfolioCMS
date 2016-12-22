@@ -8,12 +8,11 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Kernel;
 
+use StendenINF1B\PortfolioCMS\Kernel\Debug\Debug;
 use StendenINF1B\PortfolioCMS\Kernel\Http\Request;
 use StendenINF1B\PortfolioCMS\Kernel\Http\Response;
 use StendenINF1B\PortfolioCMS\Kernel\Routing\ConfiguredRoute;
-use StendenINF1B\PortfolioCMS\Kernel\Routing\Route;
 use StendenINF1B\PortfolioCMS\Kernel\Routing\RouteMatcher;
-use StendenINF1B\PortfolioCMS\Kernel\Routing\RouteResolver;
 
 class ApplicationKernel
 {
@@ -47,6 +46,9 @@ class ApplicationKernel
         }
         catch ( \Exception $exception )
         {
+            Debug::warning( 'An exception was thrown' );
+            Debug::addException( $exception );
+
             // An exception was thrown so set the route to 500.
             $route = $this->resolveRoute( '500' );
             $route->setArguments( [ 'exception' => $exception ] );
@@ -64,11 +66,16 @@ class ApplicationKernel
      */
     protected function callController( ConfiguredRoute $route ) : Response
     {
+        Debug::debug( 'Call to controller: ' . $route->getController() );
+
+        // Construct the controller that handles the request.
         $controller = '\\StendenINF1B\\PortfolioCMS\\Controller\\' . $route->getController();
         $controller = new $controller();
 
-        $response = $controller->{$route->getMethod()}( $this->request, $route->getArguments() );
+        // Call the method on the controller and pass it the arguments so we get an response.
+        $response = $controller->{$route->getMethod()}( $this->request, ...array_values( $route->getArguments() ) );
 
+        // Check if the controller returned an appropriate response.
         if( is_a($response, 'StendenINF1B\PortfolioCMS\Kernel\Http\Response'))
         {
             $this->response = $response;
@@ -89,7 +96,6 @@ class ApplicationKernel
 
         if( $path === NULL )
         {
-
             return $routeMatcher->match( $this->request );
         }
         else
