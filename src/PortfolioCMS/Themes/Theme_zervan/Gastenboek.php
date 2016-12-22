@@ -15,7 +15,7 @@ declare( strict_types = 1 );
           type="text/css"
           href="css/styles.css"/>
 
-    <title>Digitaal Portfolio</title>
+    <title>Gastenboek</title>
 </head>
 <body>
     <main class="page-content">
@@ -49,12 +49,21 @@ declare( strict_types = 1 );
             <div class="col-md-2 sidenav">
             </div>
             <div class="col-md-8 text-left"> 
-              <h1>?????????</h1>
+              <h1>Gastenboek</h1>
               <p>
               </p>
               <hr>
-              <h3>??????????????</h3>
+              <h3>Over het Gastenboek</h3>
               <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ullamcorper vel dolor sed convallis. Sed arcu odio, molestie ullamcorper semper sit amet, bibendum at velit. 
+                Praesent vestibulum quam nec maximus ornare. Cras pharetra sem mi, nec consequat mi suscipit a. Vivamus vel eros hendrerit, lacinia dolor sed, pharetra nunc. 
+                Nulla hendrerit massa vitae risus accumsan hendrerit. Nulla in ipsum lacinia, suscipit ante sit amet, vestibulum magna. Mauris ac justo lectus. Sed et ante arcu. Maecenas viverra volutpat placerat. Nulla at molestie mi.
+                Pellentesque ut felis eget massa gravida molestie et non tortor. Donec ac gravida risus, sit amet facilisis purus. Cras tincidunt vitae tellus nec rhoncus. Fusce blandit, justo et dignissim convallis, purus justo vestibulum est, eget aliquam enim turpis id nulla. Aliquam ut mattis mi. 
+                Mauris in ullamcorper lacus. Pellentesque rhoncus ligula magna, eu lobortis erat pretium nec. Cras efficitur sit amet nisi sed faucibus. 
+                Morbi elit tellus, tincidunt vitae pretium sit amet, aliquam vel justo. Praesent tincidunt feugiat pharetra. Sed id efficitur ex. Nullam sed tempor mauris, sed blandit leo. Aliquam vitae fermentum sem. 
+                Vivamus lobortis est magna, eget tincidunt tortor ultrices quis. Suspendisse eget ornare ex, in pharetra justo. Pellentesque ac enim in arcu mollis laoreet a eget sapien.
+                Nam vel sagittis sapien. Praesent varius quam et lorem blandit, venenatis interdum magna gravida. Sed dolor est, molestie eget laoreet et, dictum et lorem. Vestibulum cursus faucibus metus non aliquet. 
+                Ut metus justo, dapibus ut velit vitae, facilisis pulvinar magna. Phasellus tempus ornare enim. Aliquam ut convallis nunc. Morbi tincidunt at dui ac condimentum. In justo ipsum, imperdiet eget diam ac, viverra dapibus libero. 
               </p>
             </div>
             <div class="col-md-2 sidenav">

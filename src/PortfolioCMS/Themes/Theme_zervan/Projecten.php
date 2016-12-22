@@ -51,7 +51,7 @@ declare( strict_types = 1 );
             <div class="col-md-8 text-left"> 
               <h1>Projecten</h1>
                 <ul class="list-group">
-                    <li class="list-group-item"><a href="../Theme_zervan/projectprofessionelewebsite/index.php">Project Professionele Website</a></li>
+                 <li class="list-group-item"><a href="../Theme_zervan/projectprofessionelewebsite/index.php">Project Professionele Website</a></li>
                  <li class="list-group-item"><a href="../Theme_zervan/index.php">Project Digitaalportfolio</a></li>
                  <li class="list-group-item"><a href="#">Project Geen idee</a></li>
                  <li class="list-group-item"><a href="#">Project Innovatie</a></li>
