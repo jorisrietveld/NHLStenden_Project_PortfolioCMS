@@ -3,6 +3,11 @@ Ik heb de database en relaties even bekeken en denk dat hij moeilijk te realizer
 ik ben even bezig om een aantal dingen te wijzigen en dan kunnen we overleggen wat de beste strategie is.
 Mischien kunnen we voorstellen dat we een nieuw ERD aanleveren die zal ik ook even maken met een data dictionary.
 
+Ik heb ook een aantal entiteiten toegevoegd en verwijderd. Ik heb de entiteiten Skill, Hobby en project toegevoegd.
+In de eisen staat dat: Deel is Showcase (projecten en CV) vandaar de projecten entiteit en Skill en Hobby zijn aanvulling
+voor je CV. De tabel grade heb ik verwijderd omdat het het verplicht is om cijfers weer te geven voor alle vakken en 
+in plaats daarvan heb ik grade toegevoegd aan Portfolio( grade ) zodat een SLB'er een cijfer kan geven voor het portfolio.
+
 ## Entities
 
 ### User 
@@ -75,8 +80,8 @@ level _The level of mastery of the language_<br>
 isNative _If it is the native language of the user_<br>
 portfolioId FOREIGN KEY -> Portfolio( id )<br>
 
-### Trainings
-_This entity represents the trainings the student attended_<br>
+### Training
+_This entity represents the training the student attended_<br>
 **id** PRIMARY KEY<br>
 title _The title of the training_<br>
 institution _The institution where the student attended the training_<br>
@@ -123,5 +128,16 @@ _This entity represents an hobby the student has_<br>
 **id** PRIMARY KEY, FOREIGN KEY -> Portfolio( id )<br>
 name _The name of the hobby and an short description_<br>
 portfolioId FORGEIN KEY -> Portfolio( id )<br>
+
+### Project
+_This entity represents an project the user has worked on._<br>
+**id** PRIMERY KEY<br>
+name _The name of the project_<br>
+description _An short descripton about the project_<br>
+link _An link to the project_<br>
+thumbnailImageId FOREIGN KEY -> Image( uploadedKileId ) _An thumbnail image of the project_<br>
+portfolioId FOREIGN KEY -> Portfolio( id ) <br>
+
+
 
  

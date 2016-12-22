@@ -8,6 +8,12 @@ todo write someting
 
 ## Available portfolio data
 
+$portfolio(
+    getTitle();
+    getLink();
+    getStudent();
+    getJobExperiences();
+)
 $title = portfolio - joris rietveld
 
 $link = http://146.185.141.142/portfolio/web/portfolio/joris-rietveld
@@ -98,3 +104,8 @@ $Hobbies [
     ),
 ]
 
+echo '<h1>I can speak:</h1>';
+foreach( $portfolio->getLanguages() as $language )
+{
+    echo $language->getLanguage() . '<br>';
+}
