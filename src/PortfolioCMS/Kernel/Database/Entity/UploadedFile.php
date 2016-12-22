@@ -11,9 +11,28 @@ namespace StendenINF1B\PortfolioCMS\Kernel\Database\Entity;
 
 abstract class UploadedFile
 {
+    /**
+     * @var int
+     */
     protected $id;
+
+    /**
+     * @var string
+     */
     protected $fileName;
+
+    /**
+     * @var string
+     */
     protected $mimeType;
+
+    /**
+     * @var string
+     */
     protected $filePath;
+
+    /**
+     * @var Portfolio
+     */
     protected $portfolio; // One uploaded file has one portfolio.
 }

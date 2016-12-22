@@ -67,7 +67,6 @@ class RouteMatcher
                 unset( $matches[0] );
                 $matches = array_values( $matches );
                 $route->setArguments( $matches );
-                dump($route);
                 return $route;
             }
         }

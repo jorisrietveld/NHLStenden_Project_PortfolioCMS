@@ -16,5 +16,10 @@ abstract class BaseController
         
     }
 
+    public function renderWebPage( string $name, array $context = [] ) : string
+    {
+        return 'todo implement renderer';
+    }
+
     abstract public function index();
 }
