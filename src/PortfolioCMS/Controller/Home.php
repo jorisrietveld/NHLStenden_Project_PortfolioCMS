@@ -23,10 +23,10 @@ class Home extends BaseController
         return new Response(
             '<html>
                 <head>
-                    <title>Test controller</title>
+                    <title>Welcom op PortfolioCMS</title>
                 </head>
                 <body>
-                    <h1>Test Controller</h1>
+                    <h1>Welkom op PortfolioCMS</h1>
                     '.
                     $dumpData .
                     '

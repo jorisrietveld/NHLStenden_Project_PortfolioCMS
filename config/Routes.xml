@@ -5,8 +5,8 @@
         <action id="controller">Home:index</action>
     </route>
 
-    <route id="Portefolio" path="/portefolio/{student_name}" methods="GET">
-        <action id="controller">Portefolio:index</action>
+    <route id="Portfolio" path="/portfolio/{student_name}" methods="GET">
+        <action id="controller">Portfolio:index</action>
     </route>
 
     <route id="Admin" path="/admin">
@@ -15,6 +15,10 @@
 
     <route id="Error400" path="/400" methods="GET|POST|PUT|DELETE">
         <action id="controller">Error:error400</action>
+    </route>
+
+    <route id="Error500" path="/500" methods="GET|POST|PUT|DELETE">
+        <action id="controller">Error:error500</action>
     </route>
 
 </routes>

@@ -54,10 +54,16 @@ class ConfiguredRoute
     protected $method;
 
     /**
-     * The placeholders.
+     * The placeholder.
      * @var string
      */
-    protected $placeHolders;
+    protected $placeHolder;
+
+    /**
+     * Arguments that need to be passed to the controller.
+     * @var array
+     */
+    protected $arguments;
 
     public function __construct( string $id = '', string $fullPath = '', array $httpMethods = [ self::DEFAULT_METHOD ], string $controller = '', string $method = '')
     {
@@ -166,13 +172,28 @@ class ConfiguredRoute
         $this->method = $method;
     }
 
-    public function setPlaceholders( string $placeholders )
+    public function setPlaceholder( string $placeholders )
     {
-        $this->placeHolders = $placeholders;
+        $this->placeHolder = $placeholders;
     }
 
-    public function getPlaceholders(  )
+    public function getPlaceholder(  )
     {
-        return $this->placeHolders;
+        return $this->placeHolder;
+    }
+
+    public function setArguments( array $arguments )
+    {
+        $this->arguments = $arguments;
+    }
+
+    public function addArgument( string $key, $argument )
+    {
+        $this->arguments[ $key ] = $argument;
+    }
+
+    public function getArguments(  )
+    {
+        return $this->arguments;
     }
 }
