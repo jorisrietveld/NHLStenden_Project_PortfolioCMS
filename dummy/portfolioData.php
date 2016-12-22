@@ -6,10 +6,10 @@
  */
 declare( strict_types = 1 );
 
-abstract class user
+abstract class User
 {
-    protected $id;
-    protected $hashedPassword;
+    protected $id = 1;
+    protected $hashedPassword = 'password';
     protected $accountCreated;
     protected $lastLogin;
     protected $email;
@@ -17,14 +17,20 @@ abstract class user
     protected $firstName;
     protected $lastName;
     protected $active;
+
+    public function __construct(  )
+    {
+        $this->accountCreated = new DateTime();
+        $this->lastLogin = new DateTime();
+    }
 }
 
-class teacher extends user
+class Teacher extends User
 {
     protected $isSLBer = false;
 }
 
-class student extends user
+class Student extends User
 {
     protected $street = 'cakeIsALieStreet';
     protected $address = 42;
@@ -33,6 +39,12 @@ class student extends user
     protected $dateOfBirth;
     protected $studentCode = '31415';
     protected $phoneNumber = '063141592653';
+
+    public function __construct(  )
+    {
+        $this->dateOfBirth = new DateTime('30-06-1995');
+        parent::__construct();
+    }
 }
 
 class Portfolio

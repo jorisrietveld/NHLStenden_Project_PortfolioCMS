@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS `User` (
   `active`         BOOLEAN DEFAULT 1                                              NOT NULL, # Field to mark the user as inactive.
 
   # Constraint to define the primary key of this table.
-  CONSTRAINT pk_user PRIMARY KEY `DigitalPortfolio`.`User`(`id`)
+  CONSTRAINT pk_user PRIMARY KEY `User`(`id`)
 );
 
 /**
@@ -33,10 +33,10 @@ CREATE TABLE IF NOT EXISTS `Student` (
   `phoneNumber` VARBINARY(100) UNIQUE NOT NULL, # The encrypted phone number of the student.
 
   # Constraint to define the primary key of this table.
-  CONSTRAINT pk_student PRIMARY KEY `DigitalPortfolio`.`Student`(`userId`),
+  CONSTRAINT pk_student PRIMARY KEY `Student`(`userId`),
 
   # Constrains that defines the foreign key to entity User( id )
-  CONSTRAINT fk_user FOREIGN KEY `DigitalPortfolio`.`Student`(`userId`) REFERENCES `DigitalPortfolio`.`User` (`userId`)
+  CONSTRAINT fk_student_user FOREIGN KEY `Student`(`userId`) REFERENCES `DigitalPortfolio`.`User`(`id`)
     ON UPDATE CASCADE # When the user is updated, update this record also.
     ON DELETE CASCADE # When the user is deleted, delete this record also.
 );
@@ -49,10 +49,10 @@ CREATE TABLE IF NOT EXISTS `Teacher` (
   `isSLBer` BOOLEAN             NOT NULL, # Field TO differentiate between normal teachers AND SLB teachers.
 
   # Constraint to define the primary key of this table.
-  CONSTRAINT pk_teacher PRIMARY KEY `DigitalPortfolio`.`Teacher`(`userId`),
+  CONSTRAINT pk_teacher PRIMARY KEY `Teacher`(`userId`),
 
   # Constrains that defines the foreign key to the entity User( id )
-  CONSTRAINT fk_user FOREIGN KEY `DigitalPortfolio`.`Teacher`(`userId`) REFERENCES `DigitalPortfolio`.`User` (`userId`)
+  CONSTRAINT fk_teacher_user FOREIGN KEY `Teacher`(`userId`) REFERENCES `DigitalPortfolio`.`User` (`id`)
     ON UPDATE CASCADE # When the user is updated, update this record also.
     ON DELETE CASCADE # When the user is deleted, delete this record also.
 );
@@ -69,12 +69,12 @@ CREATE TABLE IF NOT EXISTS `GuestBookMessage` (
   `accsepted` BOOLEAN DEFAULT 0                  NOT NULL, # If the post is accepted by the student.
 
   # Constraint to define the primary key of this table.
-  CONSTRAINT pk_guestBook PRIMARY KEY `DigitalPortfolio`.`GuestBookMessage`(`id`),
+  CONSTRAINT pk_guestBook PRIMARY KEY `GuestBookMessage`(`id`),
 
   # Constraint that defines the foreign key to the entity Student( id )
-  CONSTRAINT fk_student FOREIGN KEY `DigitalPortfolio`.`GuestBookMessage`(`id`) REFERENCES `DigitalPortfolio`.`Student` (`id`)
+  CONSTRAINT fk_guestBookMessage_student FOREIGN KEY `GuestBookMessage`(`studentId`) REFERENCES `DigitalPortfolio`.`Student` (`userId`)
     ON UPDATE CASCADE # When the student is updated, update this record.
-    ON DELETE SET NULL # When the student is deleted set id to NULL
+    ON DELETE CASCADE # When the student is deleted set id to NULL
 );
 
 /**
@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `Theme` (
   `directoryName` VARCHAR(100)                       NOT NULL, # the name of the actual theme folder.
 
   # Constraint to define the primary key of this table.
-  CONSTRAINT pk_theme PRIMARY KEY `DigitalPortfolio`.`Theme`(`id`)
+  CONSTRAINT pk_theme PRIMARY KEY `Theme`(`id`)
 );
 
 /**
@@ -101,7 +101,7 @@ CREATE TABLE IF NOT EXISTS `Portfolio` (
   `grade`   DECIMAL(2, 1)                      NULL, # The grade of the portfolio given BY the SBL teacher.
 
   # Constraint to define the primary key of this table.
-  CONSTRAINT pk_portfolio PRIMARY KEY `DigitalPortfolio`.`Portfolio`(`id`)
+  CONSTRAINT pk_portfolio PRIMARY KEY `Portfolio`(`id`)
 );
 
 /**
@@ -117,10 +117,10 @@ CREATE TABLE IF NOT EXISTS `JobExperience` (
   `portfolioId`  INT UNSIGNED                        NOT NULL, # The unique identifier of the portfolio that the job experience belongs to.
 
   # Constraint to define the primary key of this table.
-  CONSTRAINT pk_jobExperience PRIMARY KEY `DigitalPortfolio`.`JobExperience`(`id`),
+  CONSTRAINT pk_jobExperience PRIMARY KEY `JobExperience`(`id`),
 
   # Constraint to define the foreign key to the entity Portfolio( id )
-  CONSTRAINT fk_portfolio FOREIGN KEY `DigitalPortfolio`.`JobExperience`(`portfolioId`) REFERENCES `DigitalPortfolio`.`Portfolio` (`id`)
+  CONSTRAINT fk_jobExperience_portfolio FOREIGN KEY `JobExperience`(`portfolioId`) REFERENCES `DigitalPortfolio`.`Portfolio` (`id`)
     ON UPDATE CASCADE # When the portfolio is updated, update this record.
     ON DELETE CASCADE # When the portfolio is updated, delete this record.
 );
@@ -136,10 +136,10 @@ CREATE TABLE IF NOT EXISTS `Language` (
   `portfolioId` INT UNSIGNED                          NOT NULL, # The unique identifier of the portfolio that the language belongs to.
 
   # Constraint to define the primary key of this table.
-  CONSTRAINT pk_language PRIMARY KEY `DigitalPortfolio`.`Language`(`id`),
+  CONSTRAINT pk_language PRIMARY KEY `Language`(`id`),
 
   # Constraint to define the foreign key to the entity Portfolio( id )
-  CONSTRAINT fk_portfolio FOREIGN KEY `DigitalPortfolio`.`Language`(`portfolioId`) REFERENCES `DigitalPortfolio`.`Portfolio` (`id`)
+  CONSTRAINT fk_language_portfolio FOREIGN KEY `Language`(`portfolioId`) REFERENCES `DigitalPortfolio`.`Portfolio` (`id`)
     ON UPDATE CASCADE # When the portfolio is updated, update this record.
     ON DELETE CASCADE # When the portfolio is updated, delete this record.
 );
@@ -160,10 +160,10 @@ CREATE TABLE IF NOT EXISTS `Training` (
   `portfolioId`         INT UNSIGNED                       NOT NULL, # The unique identifier of the portfolio that the training belongs to.
 
   # Constraint to define the primary key of this table.
-  CONSTRAINT pk_training PRIMARY KEY `DigitalPortfolio`.`Training`(`id`),
+  CONSTRAINT pk_training PRIMARY KEY `Training`(`id`),
 
   # Constraint to define the foreign key to the entity Portfolio( id )
-  CONSTRAINT fk_portfolio FOREIGN KEY `DigitalPortfolio`.`Training`(`portfolioId`) REFERENCES `DigitalPortfolio`.`Portfolio` (`id`)
+  CONSTRAINT fk_training_portfolio FOREIGN KEY `Training`(`portfolioId`) REFERENCES `DigitalPortfolio`.`Portfolio` (`id`)
     ON UPDATE CASCADE # When the portfolio is updated, update this record.
     ON DELETE CASCADE # When the portfolio is updated, delete this record.
 );
@@ -179,10 +179,10 @@ CREATE TABLE IF NOT EXISTS `UploadedFile` (
   `portfolioId` INT UNSIGNED        NOT NULL, # The unique identifier of the portfolio that the uploaded file belongs to.
 
   # Constraint to define the primary key of this table.
-  CONSTRAINT pk_uploadedFile PRIMARY KEY `DigitalPortfolio`.`UploadedFile.`(`id`),
+  CONSTRAINT pk_uploadedFile PRIMARY KEY `UploadedFile.`(`id`),
 
   # Constraint to define the foreign key to the entity Portfolio( id )
-  CONSTRAINT fk_portfolio FOREIGN KEY `DigitalPortfolio`.`UploadedFile`(`portfolioId`) REFERENCES `DigitalPortfolio`.`Portfolio` (`id`)
+  CONSTRAINT fk_uploadedFile_portfolio FOREIGN KEY `UploadedFile`(`portfolioId`) REFERENCES `DigitalPortfolio`.`Portfolio` (`id`)
     ON UPDATE CASCADE # When the portfolio is updated, update this record.
     ON DELETE CASCADE # When the portfolio is updated, delete this record.
 );
@@ -190,17 +190,17 @@ CREATE TABLE IF NOT EXISTS `UploadedFile` (
 /**
  * This entity IS an type of UploadedFile that represents an slb assignment.
  */
+drop TABLE SLBAssignment;
 CREATE TABLE IF NOT EXISTS `SLBAssignment` (
   `uploadedFileId` INT UNSIGNED UNIQUE, # Inherited key from the entity UploadedFile and unique identifier for this record
   `name`           VARCHAR(100) NOT NULL, # The name of the assignment.
   `feedback`       VARCHAR(500) NULL, # The Feedback by the SLB teacher on the assignment.
-  `uploadedFile`   INT UNSIGNED NOT NULL, # The unique identifier of the uploadedFile that the SLB assignment file belongs to.
 
   # Constraint to define the primary key of this table.
-  CONSTRAINT pk_slbAssignment PRIMARY KEY `DigitalPortfolio`.`SLBAssignment`(`uploadedFileId`),
+  CONSTRAINT pk_slbAssignment PRIMARY KEY `SLBAssignment`(`uploadedFileId`),
 
   # Constraint to define the foreign key to the entity UploadedFile( id )
-  CONSTRAINT fk_slbAssignment FOREIGN KEY `DigitalPortfolio`.`SLBAssignment`(`uploadedFileId`) REFERENCES `DigitalPortfolio`.`UploadedFile` (`id`)
+  CONSTRAINT fk_slbAssignment_uploadedFile FOREIGN KEY `SLBAssignment`(`uploadedFileId`) REFERENCES `DigitalPortfolio`.`UploadedFile` (`id`)
     ON UPDATE CASCADE # When the uploaded file is updated, update this record.
     ON DELETE CASCADE # When the uploaded file is updated, delete this record.
 );
@@ -216,10 +216,10 @@ CREATE TABLE IF NOT EXISTS `Image` (
   `order`          TINYINT(2) UNSIGNED DEFAULT 0                                   NOT NULL, # This can be used when an image is an gallery picture to set the order of display.
 
   # Constraint to define the primary key of this table.
-  CONSTRAINT pk_slbAssignment PRIMARY KEY `DigitalPortfolio`.`Image`(`uploadedFileId`),
+  CONSTRAINT pk_slbAssignment PRIMARY KEY `Image`(`uploadedFileId`),
 
   # Constraint to define the foreign key to the entity UploadedFile( id )
-  CONSTRAINT fk_portfolio FOREIGN KEY `DigitalPortfolio`.`Image`(`uploadedFileId`) REFERENCES `DigitalPortfolio`.`UploadedFile` (`id`)
+  CONSTRAINT fk_image_uploadedFile FOREIGN KEY `Image`(`uploadedFileId`) REFERENCES `DigitalPortfolio`.`UploadedFile` (`id`)
     ON UPDATE CASCADE # When the uploaded file is updated, update this record.
     ON DELETE CASCADE # When the uploaded file is updated, delete this record.
 );
@@ -234,10 +234,10 @@ CREATE TABLE IF NOT EXISTS `Skill` (
   `portfolioId`       INT UNSIGNED                NOT NULL, # The unique identifier of the portfolio that the skill belongs to.
 
   # Constraint to define the primary key of this table.
-  CONSTRAINT pk_uploadedFile PRIMARY KEY `DigitalPortfolio`.`Skill`(`id`),
+  CONSTRAINT pk_uploadedFile PRIMARY KEY `Skill`(`id`),
 
   # Constraint to define the foreign key to the entity Portfolio( id )
-  CONSTRAINT fk_portfolio FOREIGN KEY `DigitalPortfolio`.`Skill`(`portfolioId`) REFERENCES `DigitalPortfolio`.`Portfolio` (`id`)
+  CONSTRAINT fk_skill_portfolio FOREIGN KEY `Skill`(`portfolioId`) REFERENCES `DigitalPortfolio`.`Portfolio` (`id`)
     ON UPDATE CASCADE # When the portfolio is updated, update this record.
     ON DELETE CASCADE # When the portfolio is updated, delete this record.
 );
@@ -251,10 +251,10 @@ CREATE TABLE IF NOT EXISTS `Hobby` (
   `portfolioId` INT UNSIGNED                       NOT NULL, # The unique identifier of the portfolio that the hobby belongs to.
 
   # Constraint to define the primary key of this table.
-  CONSTRAINT pk_uploadedFile PRIMARY KEY `DigitalPortfolio`.`Hobby`(`id`),
+  CONSTRAINT pk_uploadedFile PRIMARY KEY `Hobby`(`id`),
 
   # Constraint to define the foreign key to the entity Portfolio( id )
-  CONSTRAINT fk_portfolio FOREIGN KEY `DigitalPortfolio`.`Hobby`(`portfolioId`) REFERENCES `DigitalPortfolio`.`Portfolio` (`id`)
+  CONSTRAINT fk_hobby_portfolio FOREIGN KEY `Hobby`(`portfolioId`) REFERENCES `DigitalPortfolio`.`Portfolio` (`id`)
     ON UPDATE CASCADE # When the portfolio is updated, update this record.
     ON DELETE CASCADE # When the portfolio is updated, delete this record.
 );
@@ -271,16 +271,15 @@ CREATE TABLE IF NOT EXISTS `Project` (
   `portfolioId`      INT UNSIGNED                       NOT NULL, # The unique identifier of the portfolio that the project belongs to.
 
   # Constraint to define the primary key of this table.
-  CONSTRAINT pk_project PRIMARY KEY `DigitalPortfolio`.`Project`(`id`),
+  CONSTRAINT pk_project PRIMARY KEY `Project`(`id`),
 
   # Constraint to define the foreign key to the entity Image( id )
-  CONSTRAINT fk_thumbnail FOREIGN KEY  `DigitalPortfolio`.`Project`(`portfolioId`) REFERENCES `DigitalPortfolio`.`Image` (`id`)
+  CONSTRAINT fk_project_image FOREIGN KEY  `Project`(`portfolioId`) REFERENCES `DigitalPortfolio`.`Image` (`uploadedFileId`)
     ON UPDATE CASCADE # When the portfolio is updated, update this record.
-    ON DELETE CASCADE # When the portfolio is updated, delete this record.
+    ON DELETE CASCADE, # When the portfolio is updated, delete this record.
 
   # Constraint to define the foreign key to the entity Portfolio( id )
-  CONSTRAINT fk_portfolio FOREIGN KEY `DigitalPortfolio`.`Project`(`portfolioId`) REFERENCES `DigitalPortfolio`.`Portfolio` (`id`)
+  CONSTRAINT fk_project_portfolio FOREIGN KEY `Project`(`portfolioId`) REFERENCES `DigitalPortfolio`.`Portfolio` (`id`)
     ON UPDATE CASCADE # When the portfolio is updated, update this record.
     ON DELETE CASCADE # When the portfolio is updated, delete this record.
-
 );
