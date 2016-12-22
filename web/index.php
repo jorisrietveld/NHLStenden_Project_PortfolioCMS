@@ -11,23 +11,15 @@ declare( strict_types = 1 );
  */
 require __DIR__ . DIRECTORY_SEPARATOR . 'bootstrap.php';
 
-// This file does nothing it is only for auto completion in PHPStorm for lib Sodium for secure encryption.
-require __DIR__ . DIRECTORY_SEPARATOR . 'PHPStormAutoCompleteLibSodiumHack.php';
-
+// Boot an new application.
 $application = new StendenINF1B\PortfolioCMS\Kernel\ApplicationKernel();
+
+// Create an new Request from PHP's gobals.
 $request = \StendenINF1B\PortfolioCMS\Kernel\Http\Request::createFromGlobals();
 
-dump($request);
-//dump($request);
-$routeParser = new \StendenINF1B\PortfolioCMS\Kernel\Routing\RouteParser();
+// Handle the request.
+$response = $application->handle( $request );
 
-//$routeParser->loadXml();
-// dump( $routeParser->getSimpleXmlObject());
-$routeParser->parseXmlToRoutes();
-$routes = $routeParser->getRoutes();
-dump( $routes );
-//$response = $application->handle( $request );
-//$response->send();
-
-//$response = $application->handle( $request );
+// Send the generated response.
+$response->send();
 

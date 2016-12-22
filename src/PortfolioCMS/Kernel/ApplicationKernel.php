@@ -10,7 +10,9 @@ namespace StendenINF1B\PortfolioCMS\Kernel;
 
 use StendenINF1B\PortfolioCMS\Kernel\Http\Request;
 use StendenINF1B\PortfolioCMS\Kernel\Http\Response;
+use StendenINF1B\PortfolioCMS\Kernel\Routing\ConfiguredRoute;
 use StendenINF1B\PortfolioCMS\Kernel\Routing\Route;
+use StendenINF1B\PortfolioCMS\Kernel\Routing\RouteMatcher;
 use StendenINF1B\PortfolioCMS\Kernel\Routing\RouteResolver;
 
 class ApplicationKernel
@@ -45,7 +47,9 @@ class ApplicationKernel
         }
         catch ( \Exception $exception )
         {
-            $route = $this->resolveRoute( 'error500' );
+            // An exception was thrown so set the route to 500.
+            $route = $this->resolveRoute( '500' );
+            $route->setArguments( [ 'exception' => $exception ] );
             $this->callController( $route );
         }
         return $this->response;
@@ -58,7 +62,7 @@ class ApplicationKernel
      * @param $method
      * @return Response
      */
-    protected function callController( Route $route ) : Response
+    protected function callController( ConfiguredRoute $route ) : Response
     {
         $controller = '\\StendenINF1B\\PortfolioCMS\\Controller\\' . $route->getController();
         $controller = new $controller();
@@ -77,14 +81,21 @@ class ApplicationKernel
      * This Method will resolve the route to an controller based on the request.
      *
      * @param string $path
-     * @return Route
+     * @return ConfiguredRoute
      */
-    protected function resolveRoute( string $path = NULL ) : Route
+    protected function resolveRoute( string $path = NULL ) : ConfiguredRoute
     {
-        //$routerResolver = new RouteResolver();
-        $path = $path ?? $this->request->getRequestUri();
-        return new Route('index', '/', 'index', 'Home' ,[] );
-        //return $routerResolver->resolve( $path );
+        $routeMatcher = new RouteMatcher();
+
+        if( $path === NULL )
+        {
+
+            return $routeMatcher->match( $this->request );
+        }
+        else
+        {
+            return $routeMatcher->getRouteForPath( $path );
+        }
     }
 
     /**

@@ -17,43 +17,64 @@ class RouteMatcher
     protected $routeParser;
     protected $configuredRoutes;
 
-    public function __construct(  )
+    public function __construct()
     {
         $this->routeParser = new RouteParser();
         $this->configuredRoutes = $this->routeParser->getRoutes();
     }
 
-    public function match( Request $request )
+    /**
+     * Matches an request to an configured route.
+     *
+     * @param Request $request
+     * @return ConfiguredRoute
+     */
+    public function match( Request $request ) : ConfiguredRoute
     {
-        $requestUri = str_replace( $request->getBasePath(), '/', $request->getRequestUri());
+        $requestUri = str_replace( $request->getBasePath(), '/', $request->getRequestUri() );
         $requestParts = explode( '/', $requestUri );
 
-        if( count( $requestParts ) > 1 )
+        if( empty( $requestParts[0] ) )
         {
-            if( $this->configuredRoutes->has( $requestParts[0] ))
+            unset( $requestParts[0] );
+            $requestParts = array_values( $requestParts );
+        }
+
+        if ( count( $requestParts ) > 1 && !empty( $requestParts[ 0 ] ) )
+        {
+            if ( $this->configuredRoutes->has( $requestParts[ 0 ] ) )
             {
-                $route = $this->configuredRoutes->get( $requestParts[0] );
-                $route->setPlaceholders( $requestParts[1] );
+                $route = $this->configuredRoutes->get( $requestParts[ 0 ] );
+                $route->setArguments( [ 'url' => $requestParts[ 1 ] ] );
                 return $route;
             }
             else
             {
-                return $this->configuredRoutes->get( 'error400');
+                return $this->configuredRoutes->get( '400' );
             }
         }
-        elseif( count( $requestParts ) === 1 )
+        elseif ( count( $requestParts ) === 1 && !empty( $requestParts[ 0 ] ) )
         {
-            return $this->configuredRoutes->has( $requestParts[0] ) ? $this->configuredRoutes->get( $requestParts[0] ) : $this->configuredRoutes->get( 'error400');
+            return $this->configuredRoutes->has( $requestParts[ 0 ] ) ? $this->configuredRoutes->get( $requestParts[ 0 ] ) : $this->configuredRoutes->get( '400' );
         }
         else
         {
             // no url given so match go to home
-            return $this->configuredRoutes->get('home');
+            return $this->configuredRoutes->get( 'home' );
         }
     }
 
-    
-
+    public function getRouteForPath( string $path ) : ConfiguredRoute
+    {
+        if ( $this->configuredRoutes->has( $path ) )
+        {
+            return $this->configuredRoutes->get( $path );
+        }
+        else
+        {
+            return $this->configuredRoutes->get( '400' );
+        }
+    }
 
 
 }
