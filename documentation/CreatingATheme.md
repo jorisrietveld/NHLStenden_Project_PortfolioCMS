@@ -8,10 +8,19 @@ This guide explains how to create a new theme in PortfolioCMS for your portfolio
 - [Creating pages](#creating-pages)
 - [Rendering portfolio data](#rendering-portfolio-data)
   - [Portfolio object](#portfolio-object)
+  - [Student](#student)
+  - [JobExperience](#jobexperience)
+  - [Language](#language)
+  - [Training](#training)
+  - [SLBAssignment](#slbassignment)
+  - [Image](#image)
+  - [Skill](#skill)
+  - [Hobby](#hobby)
   - [Request object](#request-object)
-  - [TODO create much more documentation](#todo-create-much-more-documentation)
+  - [ParameterContainer](#parametercontainer)
+  - [Session](#session)
+  - [FilesContainer](#filescontainer)
   - [$portfolio data](#portfolio-data)
-  - [Using portfolio data](#using-portfolio-data)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -47,9 +56,235 @@ of the return type of the method.
 * `$portfolio->getGetLanguages() : array` This method returns an array containing `Language()` objects, scroll down for information about the `Language()` object.
 * `$portfolio->getTrainings() : array` This method returns an array containing `Training()` objects, scroll down for information about the `Training()` object.
 * `$portfolio->getSLBAssignments() : array` This method returns an array containing `SLBAssignment()` objects, scroll down for information about the `SLBAssignment()` object.
-* `$portfolio->getGalleryPictures() : array` This method returns an array containing `Image()` objects, scroll down for more information about the `Image()` object.
+* `$portfolio->getGalleryImages() : array` This method returns an array containing `Image()` objects, scroll down for more information about the `Image()` object.
 * `$portfolio->getSkills() : array` This method returns an array containing `Skill()` objects, scroll down for more information about the `Skill()` object.
 * `$portfolio->getHobbies() : array` This method returns an array containing `Hobby()` objects, scroll down for more information about the `Hobby()` object.
+
+### Student
+This list below shows an list of the methods the `Student()` object has.It also shows the return types of the methods. notice that
+when you use the methods in your portfolio you don't type `: string ` or `: array` behind the method call, this is just for clarification
+of the return type of the method. you can get data from the student from either saving the student an in variable and then accessing its 
+methods like:
+```php
+<?php 
+$student = $portfolio->getStudent();
+echo $student->getSomeProperty();
+?>
+```
+Or by accessing it it directly from the portfolio object like:
+```php
+<?php
+echo $portfolio->getStudent()->getSomeProperty();
+?>
+// Or for the php shorthand echo, which is more elegant when outputting data inline:
+<?= $portfolio->getStudent()->getSomeProperty() ?>
+// The short hand is the exact eqelevan of the code above just shorter.
+```
+I wont type `$portfolio->getStudent()` in front of every method for convenience just `$s` but in your template you should first receive the request or use it 
+like described above.
+
+### JobExperience
+This list below shows an list of the methods the `JobExperience()` object has.It also shows the return types of the methods. notice that
+when you use the methods in your portfolio you don't type `: string ` or `: array` behind the method call, this is just for clarification
+of the return methods type. Also notice that the method returns an array with the JobExperiences objects. you can get data from the 
+JobExperience from either saving the job experiences an in variable and then accessing its methods like:
+```php
+<?php 
+$jobExperiences = $portfolio->getJobExperiences();
+
+// Its an array so you can loop through it and access the JobExperience poreperties.
+foreach( $jobExperiences as $jobExperience )
+{
+    echo $jobExperience->getSomeProperty();
+}
+?>
+```
+Or by accessing it it directly from the portfolio object like:
+```php
+<?php
+// Its an array so you need to use [] brackets with an index key to access it directly. 
+echo $portfolio->getjobExperiences()[0]->getSomeProperty();
+?>
+// Or for the php shorthand echo, which is more elegant when outputting data inline:
+<?= $portfolio->getLanguages()[0]->getSomeProperty() ?>
+// The short hand is the exact eqelevan of the code above just shorter.
+```
+I wont type `$portfolio->getJobExperiences()[0]` in front of every method for convenience just `$j` but in your template you should first receive the request or use it 
+like described above.
+
+### Language
+This list below shows an list of the methods the `Language()` object has.It also shows the return types of the methods. notice that
+when you use the methods in your portfolio you don't type `: string ` or `: array` behind the method call, this is just for clarification
+of the return methods type. Also notice that the method returns an array with the Language objects. you can get data from the 
+Language from either saving the languages an in variable and then accessing its methods like:
+```php
+<?php 
+$languages = $portfolio->getLanguages();
+
+// Its an array so you can loop through it and access the Language poreperties.
+foreach( $languages as $language )
+{
+    echo $language->getSomeProperty();
+}
+?>
+```
+Or by accessing it it directly from the portfolio object like:
+```php
+<?php
+// Its an array so you need to use [] brackets with an index key to access it directly. 
+echo $portfolio->getLanguages()[0]->getSomeProperty();
+?>
+// Or for the php shorthand echo, which is more elegant when outputting data inline:
+<?= $portfolio->getLanguages()[0]->getSomeProperty() ?>
+// The short hand is the exact eqelevan of the code above just shorter.
+```
+I wont type `$portfolio->getLanguages()[0]` in front of every method for convenience just `$l` but in your template you should first receive the request or use it 
+like described above.
+
+### Training
+This list below shows an list of the methods the `Training()` object has.It also shows the return types of the methods. notice that
+when you use the methods in your portfolio you don't type `: string ` or `: array` behind the method call, this is just for clarification
+of the return methods type. Also notice that the method returns an array with the Training objects. you can get data from the 
+Training from either saving the trainings an in variable and then accessing its methods like:
+```php
+<?php 
+$trainings = $portfolio->getTrainings();
+
+// Its an array so you can loop through it and access the Training poreperties.
+foreach( $trainings as $training )
+{
+    echo $training->getSomeProperty();
+}
+?>
+```
+Or by accessing it it directly from the portfolio object like:
+```php
+<?php
+// Its an array so you need to use [] brackets with an index key to access it directly. 
+echo $portfolio->getTrainings()[0]->getSomeProperty();
+?>
+// Or for the php shorthand echo, which is more elegant when outputting data inline:
+<?= $portfolio->getTrainings()[0]->getSomeProperty() ?>
+// The short hand is the exact eqelevan of the code above just shorter.
+```
+I wont type `$portfolio->getTrainings()[0]` in front of every method for convenience just `$t` but in your template you should first receive the request or use it 
+like described above.
+
+### SLBAssignment
+This list below shows an list of the methods the `SLBAssignment()` object has.It also shows the return types of the methods. notice that
+when you use the methods in your portfolio you don't type `: string ` or `: array` behind the method call, this is just for clarification
+of the return methods type. Also notice that the method returns an array with the SLBAssignments objects. you can get data from the 
+SLBAssignment from either saving the SLB assignments an in variable and then accessing its methods like:
+```php
+<?php 
+$slbAssignments = $portfolio->getSLBAssignments();
+
+// Its an array so you can loop through it and access the SLBAssignment poreperties.
+foreach( $slbAssignments as $slbAssignment )
+{
+    echo $slbAssignment->getSomeProperty();
+}
+?>
+```
+Or by accessing it it directly from the portfolio object like:
+```php
+<?php
+// Its an array so you need to use [] brackets with an index key to access it directly. 
+echo $portfolio->getSLBAssignments()[0]->getSomeProperty();
+?>
+// Or for the php shorthand echo, which is more elegant when outputting data inline:
+<?= $portfolio->getSLBAssignments()[0]->getSomeProperty() ?>
+// The short hand is the exact eqelevan of the code above just shorter.
+```
+I wont type `$portfolio->getSLBAssignments()[0]` in front of every method for convenience just `$s` but in your template you should first receive the request or use it 
+like described above.
+
+### Image
+This list below shows an list of the methods the `Image()` object has.It also shows the return types of the methods. notice that
+when you use the methods in your portfolio you don't type `: string ` or `: array` behind the method call, this is just for clarification
+of the return methods type. Also notice that the method returns an array with the Images objects. you can get data from the 
+Image from either saving the skill an in variable and then accessing its methods like:
+```php
+<?php 
+$images = $portfolio->getGalleryImages();
+
+// Its an array so you can loop through it and access the Image poreperties.
+foreach( $images as $image )
+{
+    echo $image->getSomeProperty();
+}
+?>
+```
+Or by accessing it it directly from the portfolio object like:
+```php
+<?php
+// Its an array so you need to use [] brackets with an index key to access it directly. 
+echo $portfolio->getGalleryImages()[0]->getSomeProperty();
+?>
+// Or for the php shorthand echo, which is more elegant when outputting data inline:
+<?= $portfolio->getGalleryImages()[0]->getSomeProperty() ?>
+// The short hand is the exact eqelevan of the code above just shorter.
+```
+I wont type `$portfolio->getGalleryImages()[0]` in front of every method for convenience just `$i` but in your template you should first receive the request or use it 
+like described above.
+
+### Skill
+This list below shows an list of the methods the `Skill()` object has.It also shows the return types of the methods. notice that
+when you use the methods in your portfolio you don't type `: string ` or `: array` behind the method call, this is just for clarification
+of the return methods type. Also notice that the method returns an array with the Skill objects. you can get data from the 
+Skill from either saving the skill an in variable and then accessing its methods like:
+```php
+<?php 
+$skills = $portfolio->getSkills();
+
+// Its an array so you can loop through it and access the Skill poreperties.
+foreach( $skills as $skill )
+{
+    echo $skill->getSomeProperty();
+}
+?>
+```
+Or by accessing it it directly from the portfolio object like:
+```php
+<?php
+// Its an array so you need to use [] brackets with an index key to access it directly. 
+echo $portfolio->getSkills()[0]->getSomeProperty();
+?>
+// Or for the php shorthand echo, which is more elegant when outputting data inline:
+<?= $portfolio->getSkills()[0]->getSomeProperty() ?>
+// The short hand is the exact eqelevan of the code above just shorter.
+```
+I wont type `$portfolio->getSkills()[0]` in front of every method for convenience just `$s` but in your template you should first receive the request or use it 
+like described above.
+
+### Hobby
+This list below shows an list of the methods the `Hobby()` object has.It also shows the return types of the methods. notice that
+when you use the methods in your portfolio you don't type `: string ` or `: array` behind the method call, this is just for clarification
+of the return methods type. Also notice that the method returns an array with the Hobby objects. you can get data from the 
+Hobby from either saving the hobby an in variable and then accessing its methods like:
+```php
+<?php 
+$hobby = $portfolio->getHobbies();
+
+// Its an array so you can loop through it and access the Hobby poreperties.
+foreach( $hobbys as $hobby )
+{
+    echo $hobby->getSomeProperty();
+}
+?>
+```
+Or by accessing it it directly from the portfolio object like:
+```php
+<?php
+// Its an array so you need to use [] brackets with an index key to access it directly. 
+echo $portfolio->getHobbies()[0]->getSomeProperty();
+?>
+// Or for the php shorthand echo, which is more elegant when outputting data inline:
+<?= $portfolio->getHobbies()[0]->getSomeProperty() ?>
+// The short hand is the exact eqelevan of the code above just shorter.
+```
+I wont type `$portfolio->getHobbies()[0]` in front of every method for convenience just `$h` but in your template you should first receive the request or use it 
+like described above.
 
 ### Request object
 This list below shows an list of the methods the `HttpRequest()` object has.It also shows the return types of the methods. notice that
@@ -95,135 +330,47 @@ like described above.
 * `$r->getMethod(): string` This method returns an `string` containing the HTTP request method like `GET`, `POST`, `PUT`, `DELETE`, `HEAD`, `TRACE` or `CONNECT`.
 * `$r->getUriForPath( $path ): string` This method returns an `string` containing the uri for an path that can be passed as argument, the path `/portfolio/joris` will return something like: `hhttp://hostname.nl/portfolio/joris`.
 
-### TODO create much more documentation
+### ParameterContainer
+This list below shows an list of the methods the `ParameterContainer()` object has.It also shows the return types of the methods. notice that
+when you use the methods in your portfolio you don't type `: string ` or `: array` behind the method call, this is just for clarification
+of the return type of the method. you can get data from the ParameterContainer from either saving the parameter container an in variable and then 
+accessing its methods like:
+```php
+<?php 
+// The request has manny methods that return an ParameterContainer so this applies to all of the methods that return one.
+$parameterContainer = $portfolio->getRequest->getSomethingThatReturnsParameterContainer();
+
+echo $parameterContainer->get( $keyOfParameter, $defaultReturnType = NULL );
+// Notice that the $defaultReturnType is an optional parameter so you don't have to supplly it so you can also use:
+echo $parameterContainer->get( $keyOfParameter );
+
+// A parameter container implements the \ArrayAccess interface so you can use it like an array:
+echo $parameterContainer[ $keyOfParameter ];
+
+// Also because it implements the \Iterator interface you can use it in foreach loop like:
+foreach( $portfolio->getRequest->getSomethingThatReturnsParameterContainer() as $parameterKey => $parameterValue )
+{
+    echo "The key: " . $parameterKey . " Holds the value: " . $parameterValue;
+}
+?>
+```
+Or by accessing it it directly from the portfolio object like:
+```php
+<?php
+echo $portfolio->getRequest()->getSomethingThatReturnsParameterContainer()->get( $keyOfParameter );
+?>
+
+// Or for the php shorthand echo, which is more elegant when outputting data inline:
+<?= $portfolio->getRequest()->getSomethingThatReturnsParameterContainer()->get( $keyOfParameter ); ?>
+// The short hand is the exact eqelevan of the code above just shorter.
+```
+I wont type `$portfolio->getRequest()->getSomethingThatReturnsParameterContainer();` in front of every method for convenience just `$p` but in your template you should first receive the request or use it 
+like described above.
+
+### Session
+
+
+### FilesContainer
+
 
 ### $portfolio data
-Below are the data structures that can be received with the $portfolio variable.
-
-```php
-$title = portfolio - joris rietveld
-
-$link = http://146.185.141.142/portfolio/web/portfolio/joris-rietveld
-
-$student [
-    firstname,
-    lastname,
-    email,
-    dateOfBirth,
-    street,
-    address,
-    place,
-    zipCode,
-    place,
-]
-
-
-$JobExperiences [
-    0 => JobExperience(
-            isInternship() : bool,
-            getLocation() :string,
-            getStartedAt() : DateTime(),
-            getEndedAt() : DateTime(),
-            getDescription() : string
-    ),
-]
-
-$Languages [
-    0 => Language(
-            getLanguage() : string,
-            isNative() : bool,
-            getLevel() : int,
-    ),
-]
-
-$Trainings [
-    0 => Training(
-            getTitle() : string,
-            getInstitution() : string,
-            getLocation() : string,
-            getStartedAt() : Datetime(),
-            getFinishedAt() : DateTime(),
-            getDescription() : string,
-            getObtainedCertificate() : bool,
-            getIsCurrentTraining() : bool,
-    )
-]
-
-$SlbAssignment [
-    0 => SLBAssignment(
-            getName() : string,
-            getFeedback() : string,
-            getFileName() : string,
-            getFilePath() : string,
-            getMimeType() : string,
-    ),
-]
-
-$profileImage = Image(
-            getFileName() : string,
-            getFilePath() : string,
-            getMimeType() : string,
-            getName() : string,
-            getDescription() : string,
-);
-
-$galleryImages [
-    0 => Image(
-            getFileName() : string,
-            getFilePath() : string,
-            getMimeType() : string,
-            getName() : string,
-            getDescription() : string,
-            getOrder() : int,
-    );
-]
-
-$Skills [
-    0 => Skill(
-            getName() : string,
-            getLevelOfExperience() : int,
-    ),
-]
-
-$Hobbies [
-    0 => Hobby(
-            getName() : string,
-    ),
-]
-```
-
-### Using portfolio data
-To use the portfolio data from the database you access the $portfolio variable and call an method to receive data.
-So if you want to get the page title use the following code:
-```php
-<!DOCTYPE html>
-<html>
-<head>
-    <title><?= $portfolio->getTitle() ?></title>
-</head>
-<body>
-</body>
-</html>
-```
-Notice that I used the shorthand php tags <?= 'some string' ?> these tags are the equivalent of typing <?php echo 'some string' ?> just a bit shorter.<br>
-To render the languages that the student speaks you can use an foreach loop to output the data. Below an example of rendering all languages.
-
-```php
-<!DOCTYPE html>
-<html>
-<head>
-</head>
-<body>
-    <div id='language-wrapper'>
-        <h>I speak the following languages</h>
-        <?php
-            foreach( $portfolio->getLanguages() as $language )
-            {
-                echo $language->getLanguage() . '<br>';
-                echo 'On level:' . $language->getLevel() . '<br>';
-            }
-        ?>
-    </div>
-</body>
-</html>
-```
