@@ -1,6 +1,7 @@
 CREATE DATABASE IF NOT EXISTS `DigitalPortfolio`;
 USE `DigitalPortfolio`;
 
+
 /**
  * This entity represent an user that can authenticate on the site.
  */
@@ -126,7 +127,12 @@ CREATE TABLE IF NOT EXISTS `Portfolio` (
   # Constraint to define the foreign key to User( id )
   CONSTRAINT fk_portfolio_user FOREIGN KEY `Portfolio`(`userId`) REFERENCES `DigitalPortfolio`.`User` (`id`)
     ON UPDATE CASCADE # When an user is updated, update this record.
-    ON DELETE RESTRICT # When an user is deleted, delete this record.
+    ON DELETE RESTRICT, # When an user is deleted, delete this record.
+
+    # Constraint to define the foreign key to User( id )
+    CONSTRAINT fk_portfolio_theme FOREIGN KEY `Portfolio`(`themeId`) REFERENCES `DigitalPortfolio`.`Theme` (`id`)
+      ON UPDATE CASCADE # When an theme is updated, update this record.
+      ON DELETE NO ACTION # When an theme is deleted, do not delete this record.
 );
 
 /**
@@ -237,7 +243,7 @@ CREATE TABLE IF NOT EXISTS `Image` (
   `name`           VARCHAR(50)                                                     NOT NULL, # An friendly name for the image.
   `description`    VARCHAR(255)                                                    NULL, # The description of the image that can be used IN the alt tag IN html_
   `type`           ENUM ('GALLERY_IMAGE', 'PROFILE_IMAGE') DEFAULT 'GALLERY_IMAGE' NOT NULL, # This defines where the image will be used as PROFILE_IMAGE OR GALLERY_IMAGE.
-  `order`          TINYINT(2) UNSIGNED DEFAULT 0                                   NOT NULL, # This can be used when an image is an gallery picture to set the order of display.
+  `order`          TINYINT(2) UNSIGNED DEFAULT 0                                   NULL, # This can be used when an image is an gallery picture to set the order of display.
 
   # Constraint to define the primary key of this table.
   CONSTRAINT pk_slbAssignment PRIMARY KEY `Image`(`uploadedFileId`),
