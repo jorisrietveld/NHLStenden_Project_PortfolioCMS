@@ -35,21 +35,21 @@ To render portfolio data in your theme you use the `Portfolio()` object to fetch
 The list below shows an list of methods the `Portfolio()` object has. It also shows the return types of the methods. notice that
 when you use the methods in your portfolio you don't type `: string ` or `: array` behind the method call, this is just for clarification
 of the return type of the method.
-`$portfolio->getTitle() : string` This method returns an string containing the page title from the `Portfolio( title )` database entity.
-`$portfolio->getBaseUrl() : string` This method returns an string containing the current base url like: `http://146.185.141.142/portfoliocms/web/`.
-`$portfolio->getUrl() : string` This method returns an string containing the full current url the like: `http://146.185.141.142/portfoliocms/web/portfolio/joris`.
-`$portfolio->getPortfolioPath() : string` This method returns an string containing the path to the portfolio like `/portfolio/joris`. 
-`$portfolio->getPagePath() : string` This method returns an string containing the path to the page like: `/portfolio/joris` or `/portfolio/joris/slbo_prachten`.
-`$portfolio->getRequest() : HttpRequest` This method returns the current `HttpRequest()` object, scroll down for more information about the `HttpRequest()` object.
-`$portfolio->getGetGrade() : string` This method returns an string containing the grade from the `Portfolio( grade )` database entity.
-`$portfolio->getGetStudent() : Student()` This method returns an `Student()` object containing the data about the user, scroll down for information about the `Student()` object.
-`$portfolio->getGetJobExperiences() : array` This method returns an array containing `JobExperience()` objects, scroll down for information about the `JobExperience()` object.
-`$portfolio->getGetLanguages() : array` This method returns an array containing `Language()` objects, scroll down for information about the `Language()` object.
-`$portfolio->getTrainings() : array` This method returns an array containing `Training()` objects, scroll down for information about the `Training()` object.
-`$portfolio->getSLBAssignments() : array` This method returns an array containing `SLBAssignment()` objects, scroll down for information about the `SLBAssignment()` object.
-`$portfolio->getGalleryPictures() : array` This method returns an array containing `Image()` objects, scroll down for more information about the `Image()` object.
-`$portfolio->getSkills() : array` This method returns an array containing `Skill()` objects, scroll down for more information about the `Skill()` object.
-`$portfolio->getHobbies() : array` This method returns an array containing `Hobby()` objects, scroll down for more information about the `Hobby()` object.
+`$portfolio->getTitle() : string` This method returns an string containing the page title from the `Portfolio( title )` database entity.<br>
+`$portfolio->getBaseUrl() : string` This method returns an string containing the current base url like: `http://146.185.141.142/portfoliocms/web/`.<br>
+`$portfolio->getUrl() : string` This method returns an string containing the full current url the like: `http://146.185.141.142/portfoliocms/web/portfolio/joris`.<br>
+`$portfolio->getPortfolioPath() : string` This method returns an string containing the path to the portfolio like `/portfolio/joris`. <br>
+`$portfolio->getPagePath() : string` This method returns an string containing the path to the page like: `/portfolio/joris` or `/portfolio/joris/slbo_prachten`.<br>
+`$portfolio->getRequest() : HttpRequest` This method returns the current `HttpRequest()` object, scroll down for more information about the `HttpRequest()` object.<br>
+`$portfolio->getGetGrade() : string` This method returns an string containing the grade from the `Portfolio( grade )` database entity.<br>
+`$portfolio->getGetStudent() : Student()` This method returns an `Student()` object containing the data about the user, scroll down for information about the `Student()` object.<br>
+`$portfolio->getGetJobExperiences() : array` This method returns an array containing `JobExperience()` objects, scroll down for information about the `JobExperience()` object.<br>
+`$portfolio->getGetLanguages() : array` This method returns an array containing `Language()` objects, scroll down for information about the `Language()` object.<br>
+`$portfolio->getTrainings() : array` This method returns an array containing `Training()` objects, scroll down for information about the `Training()` object.<br>
+`$portfolio->getSLBAssignments() : array` This method returns an array containing `SLBAssignment()` objects, scroll down for information about the `SLBAssignment()` object.<br>
+`$portfolio->getGalleryPictures() : array` This method returns an array containing `Image()` objects, scroll down for more information about the `Image()` object.<br>
+`$portfolio->getSkills() : array` This method returns an array containing `Skill()` objects, scroll down for more information about the `Skill()` object.<br>
+`$portfolio->getHobbies() : array` This method returns an array containing `Hobby()` objects, scroll down for more information about the `Hobby()` object.<br>
 
 ### Request object
 This list below shows an list of the methods the `HttpRequest()` object has.It also shows the return types of the methods. notice that
