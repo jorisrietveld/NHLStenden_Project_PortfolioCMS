@@ -62,6 +62,7 @@ themeID FOREIGN KEY -> Theme( id ) <br>
 title _The title that will be displayed in the tab on the browser_<br>
 link _The url used in the address field in the browser_<br>
 grade _The grade of the portfolio given by the SBL teacher_<br>
+userId _The unique identifier to User( id )<br>
 
 ### JobExperience
 **id** PRIMARY KEY<br>

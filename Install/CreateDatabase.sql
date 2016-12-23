@@ -1,161 +1,290 @@
-CREATE DATABASE IF NOT EXISTS `DigitaalPortfolio`;
-USE `DigitaalPortfolio`;
+CREATE DATABASE IF NOT EXISTS `DigitalPortfolio`;
+USE `DigitalPortfolio`;
 
-DROP TABLE IF EXISTS `User`;
-CREATE TABLE `User` (
-  `username`       VARCHAR(100)          NOT NULL,
-  `password`       VARCHAR(255)          NOT NULL, # Hashed data
-  `accountCreated` DATETIME DEFAULT CURRENT_TIMESTAMP,
-  `lastOnline`     DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `email`          VARBINARY(255) UNIQUE NOT NULL, # Encrypted data
-  `lastIpAddress`  VARBINARY(50), # Encrypted data
-  `address`        VARBINARY(255), # Encrypted data
-  `birthday`       VARBINARY(50), # Encrypted data
-  `displayName`    VARCHAR(255)          NOT NULL, # Encrypted data
-  `firstName`      VARBINARY(255)        NOT NULL, # Encrypted data
-  `lastName`       VARBINARY(255)        NOT NULL, # Encrypted data
-  `studentCode`    VARCHAR(6), # todo So teachers and admins also have an student code? Set to not required.
-  `phoneNumber`    VARBINARY(50), # Encrypted data
+/**
+ * This entity represent an user that can authenticate on the site.
+ */
+CREATE TABLE IF NOT EXISTS `User` (
+  `id`             INT UNSIGNED UNIQUE AUTO_INCREMENT                             NOT NULL, # The unique identification code of the record.
+  `password`       VARCHAR(255)                                                   NOT NULL, # An secret key for authenticating an user.
+  `accountCreated` DATETIME DEFAULT CURRENT_TIMESTAMP                             NOT NULL, # An timestamp of when the account was created.
+  `lastLogin`      DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL, # An timestamp of the last time the user was online.
+  `email`          VARBINARY(255) UNIQUE                                          NOT NULL, # The encrypted email address of the user, also used for the login.
+  `lastIpAddress`  VARBINARY(50)                                                  NULL, # The encrypted last ip address the user used to login.
+  `firstName`      VARBINARY(255)                                                 NOT NULL, # The encrypted first name of the user.
+  `lastName`       VARBINARY(255)                                                 NOT NULL, # The encrypted last name of the user.
+  `active`         BOOLEAN DEFAULT 1                                              NOT NULL, # Field to mark the user as inactive.
 
-  CONSTRAINT pk_user PRIMARY KEY `User`(`username`)
+  # Constraint to define the primary key of this table.
+  CONSTRAINT pk_user PRIMARY KEY `User`(`id`)
 );
 
-DROP TABLE IF EXISTS `Guestbook`;
-CREATE TABLE `Guestbook` (
-  `id`         INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `senderName` VARCHAR(255) NOT NULL,
-  `message`    TEXT         NOT NULL,
-  `title`      VARCHAR(50),
-  `receiverId` INT UNSIGNED NOT NULL, # todo is the receiver an user? The primary key of an user is an VARCHAR...
+/**
+ * This entity is an type of user that can have an portfolio.
+ */
+CREATE TABLE IF NOT EXISTS `Student` (
+  `userId`      INT UNSIGNED UNIQUE   NOT NULL, # Inherited key from the entity user and unique identifier for this record.
+  `street`      VARBINARY(255)        NOT NULL, # The encrypted name the street where the student lives.
+  `address`     VARBINARY(5)          NOT NULL, #The encrypted street number where the student lives.
+  `zipCode`     VARBINARY(10)         NOT NULL, # The zip code of where student lives.
+  `location`    VARBINARY(100)        NOT NULL, # The place the student lives.
+  `dateOfBirth` VARBINARY(50)         NOT NULL, # The date of birth of an student.
+  `studentCode` VARBINARY(50) UNIQUE  NOT NULL, # Unique identification given by school field for the student.
+  `phoneNumber` VARBINARY(100) UNIQUE NOT NULL, # The encrypted phone number of the student.
 
-  CONSTRAINT pk_guestbook PRIMARY KEY `Guestbook`(`id`),
-  CONSTRAINT fk_receiver FOREIGN KEY `Guestbook`(`receiverId`) REFERENCES #todo what references this?
+  # Constraint to define the primary key of this table.
+  CONSTRAINT pk_student PRIMARY KEY `Student`(`userId`),
+
+  # Constrains that defines the foreign key to entity User( id )
+  CONSTRAINT fk_student_user FOREIGN KEY `Student`(`userId`) REFERENCES `DigitalPortfolio`.`User` (`id`)
+    ON UPDATE CASCADE # When the user is updated, update this record also.
+    ON DELETE CASCADE # When the user is deleted, delete this record also.
 );
 
-DROP TABLE IF EXISTS `Content`; # todo is this an portfolio? if so why not name it that to be more descriptive?
-CREATE TABLE `Content` (
-  `id`                  INT UNSIGNED     NOT NULL AUTO_INCREMENT, # todo added auto increment on primary key.
-  `contentPosition`     TINYINT UNSIGNED NOT NULL,
-  `text`                TEXT             NOT NULL,
-  `heading`             VARCHAR(100)     NOT NULL,
-  `username`            VARCHAR(100)     NOT NULL, # todo auto increment on a varchar?
-  `contentType`         VARCHAR(100)     NOT NULL,
-  `authorizationToView` INT UNSIGNED     NOT NULL, # todo shouldn't this be an authorization id or enum( GUEST, TEACHER, ... )
+/**
+ * This entity is an type of user that depending on the isSLBer field can give grades on portfolios.
+ */
+CREATE TABLE IF NOT EXISTS `Teacher` (
+  `userId`  INT UNSIGNED UNIQUE NOT NULL, # Inherited key from the entity user and unique identifier for this record.
+  `isSLBer` BOOLEAN             NOT NULL, # Field TO differentiate between normal teachers AND SLB teachers.
 
-  CONSTRAINT pk_content PRIMARY KEY `Content`(`id`),
-  CONSTRAINT fk_authorization FOREIGN KEY `Content`(`authorizationToView`) REFERENCES `User` (`username`)
+  # Constraint to define the primary key of this table.
+  CONSTRAINT pk_teacher PRIMARY KEY `Teacher`(`userId`),
+
+  # Constrains that defines the foreign key to the entity User( id )
+  CONSTRAINT fk_teacher_user FOREIGN KEY `Teacher`(`userId`) REFERENCES `DigitalPortfolio`.`User` (`id`)
+    ON UPDATE CASCADE # When the user is updated, update this record also.
+    ON DELETE CASCADE # When the user is deleted, delete this record also.
+);
+
+/**
+ * This Entity represents an message posted on the guest book.
+ */
+CREATE TABLE IF NOT EXISTS `GuestBookMessage` (
+  `id`        INT UNSIGNED UNIQUE AUTO_INCREMENT NOT NULL, # The unique identification code of the record.
+  `sender`    VARCHAR(255)                       NOT NULL, # The name of the author of the message in the posted in the guest book.
+  `title`     VARCHAR(50) DEFAULT 'Reachtie op portfolio', # The subject or title for the message.
+  `message`   TEXT                               NOT NULL, # The actual message.
+  `studentId` INT UNSIGNED                       NOT NULL, # The unique identifier for the student witch receives the message.
+  `accsepted` BOOLEAN DEFAULT 0                  NOT NULL, # If the post is accepted by the student.
+
+  # Constraint to define the primary key of this table.
+  CONSTRAINT pk_guestBook PRIMARY KEY `GuestBookMessage`(`id`),
+
+  # Constraint that defines the foreign key to the entity Student( id )
+  CONSTRAINT fk_guestBookMessage_student FOREIGN KEY `GuestBookMessage`(`studentId`) REFERENCES `DigitalPortfolio`.`Student` (`userId`)
+    ON UPDATE CASCADE # When the student is updated, update this record.
+    ON DELETE CASCADE # When the student is deleted set id to NULL
+);
+
+/**
+ * This entity represents an installed theme that can be used FOR an portfolio.
+ */
+CREATE TABLE IF NOT EXISTS `Theme` (
+  `id`            INT UNSIGNED UNIQUE AUTO_INCREMENT NOT NULL, # The unique identification code of the record.
+  `author`        VARCHAR(50)                        NOT NULL, # The author that created the theme.
+  `description`   VARCHAR(255)                       NOT NULL, # A short description of the theme.
+  `directoryName` VARCHAR(100)                       NOT NULL, # the name of the actual theme folder.
+
+  # Constraint to define the primary key of this table.
+  CONSTRAINT pk_theme PRIMARY KEY `Theme`(`id`)
+);
+
+/**
+ * This entity represents an portfolio of an user.
+*/
+CREATE TABLE IF NOT EXISTS `Portfolio` (
+  `id`      INT UNSIGNED UNIQUE AUTO_INCREMENT NOT NULL, # The unique identification code of the record.
+  `themeId` INT UNSIGNED                       NOT NULL, # The unique identifier for the theme that will be used to render this portfolio.
+  `title`   VARCHAR(50)                        NOT NULL, # The title that will be displayed IN the tab ON the browser.
+  `url`     VARCHAR(50)                        NOT NULL, # The url used IN the address field IN the browser.
+  `grade`   DECIMAL(2, 1)                      NULL, # The grade of the portfolio given BY the SBL teacher.
+  `userId`  INT UNSIGNED                       NOT NULL, # The unique identification code to User( id )
+
+  # Constraint to define the primary key of this table.
+  CONSTRAINT pk_portfolio PRIMARY KEY `Portfolio`(`id`),
+
+  # Constraint to define the foreign key to User( id )
+  CONSTRAINT fk_portfolio_user FOREIGN KEY `Portfolio`( `userId`) REFERENCES `DigitalPortfolio`.`User`(`id`)
     ON UPDATE CASCADE
-    ON DELETE CASCADE
+    ON DELETE RESTRICT
 );
 
-DROP TABLE IF EXISTS `Grade`;
-CREATE TABLE `Grade` (
-  `id`          INT UNSIGNED                       NOT NULL AUTO_INCREMENT,
-  `course`      VARCHAR(50)                        NOT NULL,
-  `teacher`     INT UNSIGNED                       NOT NULL, # todo shouldn't this be required?
-  `dateAdded`   DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, # todo I chanced the name to something more appropriate.
-  `grade`       TINYINT UNSIGNED                   NOT NULL,
-  `studentCode` VARCHAR(6)                         NOT NULL, # todo shouldn't the forgein key be required? and why don't we use the user id this is safer than an unrequired attribute.
-  `description` VARCHAR(50)                        NOT NULL,
+/**
+ * This entity represent an job experience of an student that has an relation to the portfolio.
+ */
+CREATE TABLE IF NOT EXISTS `JobExperience` (
+  `id`           INT UNSIGNED UNIQUE  AUTO_INCREMENT NOT NULL, # The unique identification code of the record.
+  `location`     VARCHAR(100)                        NOT NULL, # The location of the job experience.
+  `startedAt`    DATE                                NULL, #The START DATE of the job.
+  `endedAt`      DATE                                NULL, # The END DATE of the job.
+  `description`  VARCHAR(255)                        NOT NULL, #An description about the tasks performed AT the job.
+  `isInternship` BOOL DEFAULT 0                      NOT NULL, # If the job experience IS an internship.
+  `portfolioId`  INT UNSIGNED                        NOT NULL, # The unique identifier of the portfolio that the job experience belongs to.
 
-  CONSTRAINT pk_grade PRIMARY KEY `Grade`(`id`),
-  CONSTRAINT fk_studentCode FOREIGN KEY `Grade`(`studentCode`) REFERENCES `User` (`studentCode`) # todo this forgein key is not save
-    ON UPDATE CASCADE
-    ON DELETE CASCADE
-);
-
-DROP TABLE IF EXISTS `Certificate`;
-CREATE TABLE `Certificate` (
-  `id`                     INT UNSIGNED NOT NULL,
-  `certificateTitle`       VARCHAR(50)  NOT NULL,
-  `startDate`              DATE, # todo renamed to be more consistent with the other tables.
-  `earnedOnDate`           DATE, # todo renamed to be more consistent with the other tables.
-  `certificateDescription` VARCHAR(100) NOT NULL, # todo TEXT(50) doesn't take an size converted to VARCHAR(100).
-  `contentId`              INT UNSIGNED NOT NULL,
-
-  CONSTRAINT pk_certificate PRIMARY KEY `Certificate`(`id`),
-  CONSTRAINT fk_content FOREIGN KEY `Certificate`(`contentId`) REFERENCES `Content` (`id`)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE
-);
-
-DROP TABLE IF EXISTS `PageSettings`;
-CREATE TABLE `PageSettings` (
-  `username`    VARCHAR(100) NOT NULL,
-  `theme`       VARCHAR(100) NOT NULL,
-  `headerImage` VARCHAR(100) NOT NULL, # todo Why this field? you can use multiple images in an theme.
-  `pageTitle`   VARCHAR(100) NOT NULL,
-  `pageLink`    VARCHAR(100) NOT NULL,
-
-  CONSTRAINT pk_pageSettings PRIMARY KEY `PageSettings`(`username`),
-  CONSTRAINT fk_user FOREIGN KEY `PageSettings`(`username`) REFERENCES `User` (`username`)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE
-);
-
-DROP TABLE IF EXISTS `JobExperience`;
-CREATE TABLE `JobExperience` (
-  `id`            INT UNSIGNED NOT NULL AUTO_INCREMENT, # todo varchar as id and no auto increment? converted to INT AUTO_INCREMENT
-  `jobLocation`   VARCHAR(100) NOT NULL,
-  `startDate`     DATE,
-  `endDate`       DATE,
-  `jobDescripton` VARCHAR(255), # todo TEXT(150) Doesn't exist converted to VARCHAR(255) shouldn't this be required?
-  `contentId`     INT UNSIGNED NOT NULL,
-
+  # Constraint to define the primary key of this table.
   CONSTRAINT pk_jobExperience PRIMARY KEY `JobExperience`(`id`),
-  CONSTRAINT fk_content FOREIGN KEY `JobExperience`(`contentId`) REFERENCES `Content` (`id`)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE
+
+  # Constraint to define the foreign key to the entity Portfolio( id )
+  CONSTRAINT fk_jobExperience_portfolio FOREIGN KEY `JobExperience`(`portfolioId`) REFERENCES `DigitalPortfolio`.`Portfolio` (`id`)
+    ON UPDATE CASCADE # When the portfolio is updated, update this record.
+    ON DELETE CASCADE # When the portfolio is updated, delete this record.
 );
 
-# todo: shouldn't language have an relation with an user instead to content?
-DROP TABLE IF EXISTS `Language`;
-CREATE TABLE `Language` (
-  `id`               INT UNSIGNED NOT NULL AUTO_INCREMENT, # todo shouldn't this be auto increment? converted to AUTO_INCREMENT.
-  `nativeLanguage`   VARCHAR(50)  NOT NULL, # todo I renamed it to be more appropriate. Its an convention for is{Someting} fields to be booleans.
-  # todo why save an native language? you when you can define languageControl as native?
-  `languageControll` VARCHAR(50)  NOT NULL,
-  `contentId`        INT UNSIGNED NOT NULL,
+/*
+ * This entity represents the languages the student masters.
+ */
+CREATE TABLE IF NOT EXISTS `Language` (
+  `id`          INT UNSIGNED UNIQUE AUTO_INCREMENT    NOT NULL, # The unique identification code of the record.
+  `language`    VARCHAR(50)                           NOT NULL, # Thee name of the language.
+  `level`       TINYINT(2) UNSIGNED DEFAULT 10        NOT NULL, # The level of mastery the student has of the language.
+  `isNative`    BOOLEAN DEFAULT 0                     NOT NULL, # If it IS the native LANGUAGE of the user.
+  `portfolioId` INT UNSIGNED                          NOT NULL, # The unique identifier of the portfolio that the language belongs to.
 
+  # Constraint to define the primary key of this table.
   CONSTRAINT pk_language PRIMARY KEY `Language`(`id`),
-  CONSTRAINT fk_content FOREIGN KEY `Language`(`contentId`) REFERENCES `Content` (`id`)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE
+
+  # Constraint to define the foreign key to the entity Portfolio( id )
+  CONSTRAINT fk_language_portfolio FOREIGN KEY `Language`(`portfolioId`) REFERENCES `DigitalPortfolio`.`Portfolio` (`id`)
+    ON UPDATE CASCADE # When the portfolio is updated, update this record.
+    ON DELETE CASCADE # When the portfolio is updated, delete this record.
 );
 
-DROP TABLE IF EXISTS `UploadedFile`;
-CREATE TABLE `UploadedFile` (# todo renamed the entity to be more convenient.
-  `id`        INT UNSIGNED AUTO_INCREMENT, # todo shouldn't this be auto increment? converted to AUTO_INCREMENT.
-  `filePath`  VARCHAR(255) NOT NULL, # todo renamed attribute to be more convenient.
-  `mimeType`  VARCHAR(20)  NOT NULL, # todo renamed attribute to be more descriptive.
-  `fileName`  VARCHAR(50)  NOT NULL, # todo added this attribute because it was missing.
-  `contentId` INT UNSIGNED NOT NULL,
+/**
+ * This entity represents the trainings the student attended.
+*/
+CREATE TABLE IF NOT EXISTS `Training` (
+  `id`                  INT UNSIGNED UNIQUE AUTO_INCREMENT NOT NULL, # The unique identification code of the record.
+  `title`               VARCHAR(100)                       NOT NULL, # The title of the training.
+  `institution`         VARCHAR(100)                       NOT NULL, # The institution where the student attended the training.
+  `location`            VARCHAR(100)                       NOT NULL, # The location of the institution.
+  `startedAt`           DATE                               NULL, # The start date of the training.
+  `finishedAt`          DATE                               NULL, # The date the student earned an certificate of the training.
+  `description`         VARCHAR(255)                       NOT NULL, # An description about the training the student attended.
+  `obtainedCertificate` BOOLEAN DEFAULT 0                  NOT NULL, # An boolean representing IF the student obtained an certificate for the training.
+  `currentTraining`     BOOLEAN DEFAULT 0                  NOT NULL, # An boolean representing if the this is the current training the student is attending.
+  `portfolioId`         INT UNSIGNED                       NOT NULL, # The unique identifier of the portfolio that the training belongs to.
 
-  CONSTRAINT pk_uploadedFile PRIMARY KEY `UploadedFile`(`id`),
-  CONSTRAINT fk_content FOREIGN KEY `UploadedFile`(`contentId`) REFERENCES `Content` (`id`)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE
+  # Constraint to define the primary key of this table.
+  CONSTRAINT pk_training PRIMARY KEY `Training`(`id`),
+
+  # Constraint to define the foreign key to the entity Portfolio( id )
+  CONSTRAINT fk_training_portfolio FOREIGN KEY `Training`(`portfolioId`) REFERENCES `DigitalPortfolio`.`Portfolio` (`id`)
+    ON UPDATE CASCADE # When the portfolio is updated, update this record.
+    ON DELETE CASCADE # When the portfolio is updated, delete this record.
 );
 
-DROP TABLE IF EXISTS `Catagory`;
-CREATE TABLE `Category` (# todo are this the authorization groups? if so why not call it that?
-  `id`                  INT UNSIGNED AUTO_INCREMENT NOT NULL, # todo shouldn't this be auto increment? converted to AUTO_INCREMENT,
-  `catecoryName`        VARCHAR(50)                 NOT NULL,
-  `categoryDescription` VARCHAR(300)                NOT NULL, # todo there is no TEXT(300) datatype converted to VARCHAR(300)
+/*
+ * This entity represents an uploaded file like an slb assignment or an picture.
+ */
+CREATE TABLE IF NOT EXISTS `UploadedFile` (
+  `id`          INT UNSIGNED UNIQUE NOT NULL AUTO_INCREMENT, # The unique identification code of the record.
+  `fileName`    VARCHAR(100)        NOT NULL, # The file name of the uploaded file.
+  `mimeType`    VARCHAR(20)         NOT NULL, # The mime type the uploaded file.
+  `filePath`    VARCHAR(255)        NOT NULL, # The path to the location of the file.
+  `portfolioId` INT UNSIGNED        NOT NULL, # The unique identifier of the portfolio that the uploaded file belongs to.
 
-  CONSTRAINT pk_catagory PRIMARY KEY `Category`(`id`)
+  # Constraint to define the primary key of this table.
+  CONSTRAINT pk_uploadedFile PRIMARY KEY `UploadedFile.`(`id`),
+
+  # Constraint to define the foreign key to the entity Portfolio( id )
+  CONSTRAINT fk_uploadedFile_portfolio FOREIGN KEY `UploadedFile`(`portfolioId`) REFERENCES `DigitalPortfolio`.`Portfolio` (`id`)
+    ON UPDATE CASCADE # When the portfolio is updated, update this record.
+    ON DELETE CASCADE # When the portfolio is updated, delete this record.
 );
 
-DROP TABLE IF EXISTS `UserCategory`; #todo if the above is an authorization id why does it have an N:M relation to user instead of an 1:N?
-CREATE TABLE `UserCategory` (
-  `username`   VARCHAR(100) NOT NULL,
-  `categoryId` INT UNSIGNED NOT NULL,
+/**
+ * This entity IS an type of UploadedFile that represents an slb assignment.
+ */
+CREATE TABLE IF NOT EXISTS `SLBAssignment` (
+  `uploadedFileId` INT UNSIGNED UNIQUE, # Inherited key from the entity UploadedFile and unique identifier for this record
+  `name`           VARCHAR(100) NOT NULL, # The name of the assignment.
+  `feedback`       VARCHAR(500) NULL, # The Feedback by the SLB teacher on the assignment.
 
-  CONSTRAINT pk_userCacegory PRIMARY KEY `UserCategory`(`username`, `categoryId`),
-  CONSTRAINT fk_user FOREIGN KEY `UserCategory`(`username`) REFERENCES `User` (`username`)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE,
-  CONSTRAINT fk_category FOREIGN KEY `UserCategory`(`categoryId`) REFERENCES `Category` (`categoryId`)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE
+  # Constraint to define the primary key of this table.
+  CONSTRAINT pk_slbAssignment PRIMARY KEY `SLBAssignment`(`uploadedFileId`),
+
+  # Constraint to define the foreign key to the entity UploadedFile( id )
+  CONSTRAINT fk_slbAssignment_uploadedFile FOREIGN KEY `SLBAssignment`(`uploadedFileId`) REFERENCES `DigitalPortfolio`.`UploadedFile` (`id`)
+    ON UPDATE CASCADE # When the uploaded file is updated, update this record.
+    ON DELETE CASCADE # When the uploaded file is updated, delete this record.
+);
+
+/**
+ * This entity is an type of UploadedFile that represents an image that can be used in as profile or gallery image.
+ */
+CREATE TABLE IF NOT EXISTS `Image` (
+  `uploadedFileId` INT UNSIGNED UNIQUE, # Inherited key from the entity UploadedFile and unique identifier for this record.
+  `name`           VARCHAR(50)                                                     NOT NULL, # An friendly name for the image.
+  `description`    VARCHAR(255)                                                    NULL, # The description of the image that can be used IN the alt tag IN html_
+  `type`           ENUM ('GALLERY_IMAGE', 'PROFILE_IMAGE') DEFAULT 'GALLERY_IMAGE' NOT NULL, # This defines where the image will be used as PROFILE_IMAGE OR GALLERY_IMAGE.
+  `order`          TINYINT(2) UNSIGNED DEFAULT 0                                   NOT NULL, # This can be used when an image is an gallery picture to set the order of display.
+
+  # Constraint to define the primary key of this table.
+  CONSTRAINT pk_slbAssignment PRIMARY KEY `Image`(`uploadedFileId`),
+
+  # Constraint to define the foreign key to the entity UploadedFile( id )
+  CONSTRAINT fk_image_uploadedFile FOREIGN KEY `Image`(`uploadedFileId`) REFERENCES `DigitalPortfolio`.`UploadedFile` (`id`)
+    ON UPDATE CASCADE # When the uploaded file is updated, update this record.
+    ON DELETE CASCADE # When the uploaded file is updated, delete this record.
+);
+
+/**
+ * This entity represents an skill that the student masters.
+ */
+CREATE TABLE IF NOT EXISTS `Skill` (
+  `id`                INT UNSIGNED UNIQUE AUTO_INCREMENT, # The unique identification code of the record.
+  `name`              VARCHAR(100)                NOT NULL, # The name of the skill like MS Office OR PHP.
+  `levelOfExperience` TINYINT(2) UNIQUE DEFAULT 0 NOT NULL, # The level experience the student has on this skill.
+  `portfolioId`       INT UNSIGNED                NOT NULL, # The unique identifier of the portfolio that the skill belongs to.
+
+  # Constraint to define the primary key of this table.
+  CONSTRAINT pk_uploadedFile PRIMARY KEY `Skill`(`id`),
+
+  # Constraint to define the foreign key to the entity Portfolio( id )
+  CONSTRAINT fk_skill_portfolio FOREIGN KEY `Skill`(`portfolioId`) REFERENCES `DigitalPortfolio`.`Portfolio` (`id`)
+    ON UPDATE CASCADE # When the portfolio is updated, update this record.
+    ON DELETE CASCADE # When the portfolio is updated, delete this record.
+);
+
+/**
+ * This entity represents an hobby the student has_
+ */
+CREATE TABLE IF NOT EXISTS `Hobby` (
+  `id`          INT UNSIGNED UNIQUE AUTO_INCREMENT NOT NULL, #
+  `name`        VARCHAR(255)                       NOT NULL, # The name of the hobby and optional an short description about the hobby.
+  `portfolioId` INT UNSIGNED                       NOT NULL, # The unique identifier of the portfolio that the hobby belongs to.
+
+  # Constraint to define the primary key of this table.
+  CONSTRAINT pk_uploadedFile PRIMARY KEY `Hobby`(`id`),
+
+  # Constraint to define the foreign key to the entity Portfolio( id )
+  CONSTRAINT fk_hobby_portfolio FOREIGN KEY `Hobby`(`portfolioId`) REFERENCES `DigitalPortfolio`.`Portfolio` (`id`)
+    ON UPDATE CASCADE # When the portfolio is updated, update this record.
+    ON DELETE CASCADE # When the portfolio is updated, delete this record.
+);
+
+/**
+  * This entity represent an project the student wants to show.
+ */
+CREATE TABLE IF NOT EXISTS `Project` (
+  `id`               INT UNSIGNED UNIQUE AUTO_INCREMENT NOT NULL, # The unique identification code of the record.
+  `name`             VARCHAR(100)                       NOT NULL, # The name of the project.
+  `description`      VARCHAR(255)                       NOT NULL, # An short description about the project.
+  `link`             VARCHAR(255)                       NOT NULL, # An link to the project.
+  `thumbnailImageId` INT UNSIGNED                       NOT NULL, # The unique identifier of the uploaded image thumbnail that belongs to the project.
+  `portfolioId`      INT UNSIGNED                       NOT NULL, # The unique identifier of the portfolio that the project belongs to.
+  `grade`            DECIMAL(2, 1)                      NULL, #
+  # Constraint to define the primary key of this table.
+  CONSTRAINT pk_project PRIMARY KEY `Project`(`id`),
+
+  # Constraint to define the foreign key to the entity Image( id )
+  CONSTRAINT fk_project_image FOREIGN KEY `Project`(`portfolioId`) REFERENCES `DigitalPortfolio`.`Image` (`uploadedFileId`)
+    ON UPDATE CASCADE # When the portfolio is updated, update this record.
+    ON DELETE CASCADE, # When the portfolio is updated, delete this record.
+
+  # Constraint to define the foreign key to the entity Portfolio( id )
+  CONSTRAINT fk_project_portfolio FOREIGN KEY `Project`(`portfolioId`) REFERENCES `DigitalPortfolio`.`Portfolio` (`id`)
+    ON UPDATE CASCADE # When the portfolio is updated, update this record.
+    ON DELETE CASCADE # When the portfolio is updated, delete this record.
 );
