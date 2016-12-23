@@ -7,13 +7,22 @@
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Driver;
 
 use PDO;
+use StendenINF1B\PortfolioCMS\Kernel\Database\Helper\DatabaseConfigurationContainer;
 use StendenINF1B\PortfolioCMS\Kernel\Exception\ConfigurationErrorException;
 use StendenINF1B\PortfolioCMS\Kernel\Helper\ParameterContainer;
 
 
 class MysqlDriver extends Driver implements DriverInterface
 {
+    /**
+     * @var PDO
+     */
 	private $mysqlConnection;
+
+    /**
+     * @var DatabaseConfigurationContainer
+     */
+    protected $databaseConfig;
 
 	/**
 	 * This method will connect to a Mysql database
@@ -22,7 +31,7 @@ class MysqlDriver extends Driver implements DriverInterface
 	 *
 	 * @return PDO
 	 */
-	public function connect( ParameterContainer $config )
+	public function connect( DatabaseConfigurationContainer $config ) : \PDO
 	{
 		$dsn = $this->getDsn( $config );
 
@@ -114,7 +123,7 @@ class MysqlDriver extends Driver implements DriverInterface
 	 *
 	 * @return string
 	 */
-	protected function getDsn( Array $config )
+	protected function getDsn( DatabaseConfigurationContainer $config )
 	{
 		if( $this->configHasUnixSocket( $config ) )
 		{
@@ -131,9 +140,9 @@ class MysqlDriver extends Driver implements DriverInterface
 	 *
 	 * @return string
 	 */
-	public function getDsnWithSocketConfiguration( ParameterContainer $config )
+	public function getDsnWithSocketConfiguration( DatabaseConfigurationContainer $config )
 	{
-	    if( $config->has( 'unix_socket' ) && $config->has( 'database' ) )
+	    if( $config->has( 'unix_socket' ) && $config->has( 'dbname' ) )
         {
             return "mysql:unix_socket={$config->get('unix_socket')};dbname={$config->get('database')}";
         }

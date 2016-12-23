@@ -21,7 +21,8 @@ $request = \StendenINF1B\PortfolioCMS\Kernel\Http\Request::createFromGlobals();
 //$response = $application->handle( $request );
 
 $databaseConfigLoader = new \StendenINF1B\PortfolioCMS\Kernel\Database\Helper\DatabaseConfigLoader();
-$databaseConfigLoader->parseXMLToParameterContainer();
+$databaseConfigLoader->convertXMLToDatabaseContainer();
+ dump( $databaseConfigLoader->getDatabaseConfigContainers() );
 
 // Send the generated response.
 //$response->send();

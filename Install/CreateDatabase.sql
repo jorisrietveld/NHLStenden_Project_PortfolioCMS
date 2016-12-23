@@ -105,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `Portfolio` (
   CONSTRAINT pk_portfolio PRIMARY KEY `Portfolio`(`id`),
 
   # Constraint to define the foreign key to User( id )
-  CONSTRAINT fk_portfolio_user FOREIGN KEY `Portfolio`( `userId`) REFERENCES `DigitalPortfolio`.`User`(`id`)
+  CONSTRAINT fk_portfolio_user FOREIGN KEY `Portfolio`(`userId`) REFERENCES `DigitalPortfolio`.`User` (`id`)
     ON UPDATE CASCADE
     ON DELETE RESTRICT
 );
@@ -214,7 +214,7 @@ CREATE TABLE IF NOT EXISTS `SLBAssignment` (
  * This entity is an type of UploadedFile that represents an image that can be used in as profile or gallery image.
  */
 CREATE TABLE IF NOT EXISTS `Image` (
-  `uploadedFileId` INT UNSIGNED UNIQUE, # Inherited key from the entity UploadedFile and unique identifier for this record.
+  `uploadedFileId` INT UNSIGNED UNIQUE                                             NOT NULL, # Inherited key from the entity UploadedFile and unique identifier for this record.
   `name`           VARCHAR(50)                                                     NOT NULL, # An friendly name for the image.
   `description`    VARCHAR(255)                                                    NULL, # The description of the image that can be used IN the alt tag IN html_
   `type`           ENUM ('GALLERY_IMAGE', 'PROFILE_IMAGE') DEFAULT 'GALLERY_IMAGE' NOT NULL, # This defines where the image will be used as PROFILE_IMAGE OR GALLERY_IMAGE.
@@ -251,7 +251,7 @@ CREATE TABLE IF NOT EXISTS `Skill` (
  * This entity represents an hobby the student has_
  */
 CREATE TABLE IF NOT EXISTS `Hobby` (
-  `id`          INT UNSIGNED UNIQUE AUTO_INCREMENT NOT NULL, #
+  `id`          INT UNSIGNED UNIQUE AUTO_INCREMENT NOT NULL, # The unique identification code of the record.
   `name`        VARCHAR(255)                       NOT NULL, # The name of the hobby and optional an short description about the hobby.
   `portfolioId` INT UNSIGNED                       NOT NULL, # The unique identifier of the portfolio that the hobby belongs to.
 
@@ -274,7 +274,7 @@ CREATE TABLE IF NOT EXISTS `Project` (
   `link`             VARCHAR(255)                       NOT NULL, # An link to the project.
   `thumbnailImageId` INT UNSIGNED                       NOT NULL, # The unique identifier of the uploaded image thumbnail that belongs to the project.
   `portfolioId`      INT UNSIGNED                       NOT NULL, # The unique identifier of the portfolio that the project belongs to.
-  `grade`            DECIMAL(2, 1)                      NULL, #
+  `grade`            DECIMAL(2, 1)                      NULL, # The grade the teacher has given for the project.
   # Constraint to define the primary key of this table.
   CONSTRAINT pk_project PRIMARY KEY `Project`(`id`),
 

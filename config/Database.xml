@@ -11,11 +11,11 @@
         <option id="charset">UTF8</option>
         <option id="strict">1</option>
         <option id="pdo-options">
-            <option id="ATTR_EMULATE_PREPARES">0</option>
-            <option id="ATTR_ERRMODE">ERRMODE_EXCEPTION</option>
-            <option id="ATTR_CASE">CASE_NATURAL</option>
-            <option id="ATTR_ORACLE_NULLS">NULL_NATURAL</option>
-            <option id="ATTR_STRINGIFY_FETCHES">0</option>
+            <option id="\PDO::ATTR_EMULATE_PREPARES">FALSE</option>
+            <option id="\PDO::ATTR_ERRMODE">\PDO::ERRMODE_EXCEPTION</option>
+            <option id="\PDO::ATTR_CASE">\PDO::CASE_NATURAL</option>
+            <option id="\PDO::ATTR_ORACLE_NULLS">\PDO::NULL_NATURAL</option>
+            <option id="\PDO::ATTR_STRINGIFY_FETCHES">FALSE</option>
         </option>
     </databaseConnection>
 
