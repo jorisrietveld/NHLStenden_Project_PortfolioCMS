@@ -1,14 +1,10 @@
-# Nieuwe database
-Ik heb de database en relaties even bekeken en denk dat hij moeilijk te realizeren is en over complex 
-ik ben even bezig om een aantal dingen te wijzigen en dan kunnen we overleggen wat de beste strategie is.
-Mischien kunnen we voorstellen dat we een nieuw ERD aanleveren die zal ik ook even maken met een data dictionary.
+# The structure of the database
+This page shows all entities in the database and explains the entities properties.
 
-Ik heb ook een aantal entiteiten toegevoegd en verwijderd. Ik heb de entiteiten Skill, Hobby en project toegevoegd.
-In de eisen staat dat: Deel is Showcase (projecten en CV) vandaar de projecten entiteit en Skill en Hobby zijn aanvulling
-voor je CV. De tabel grade heb ik verwijderd omdat het het verplicht is om cijfers weer te geven voor alle vakken en 
-in plaats daarvan heb ik grade toegevoegd aan Portfolio( grade ) zodat een SLB'er een cijfer kan geven voor het portfolio.
+![ERD portfolio CMS](https://github.com/stenden-INF1B/PortfolioCMS/blob/master/documentation/ERD/ERD_DigitalPortfolio_23-12-2016.png "ERD Digital portfolio")
 
-## Entities
+
+## The Entities explained
 
 ### User 
 _This entity is used for authenticating users_ <br>
