@@ -1,13 +1,17 @@
 # installing the CMS
 This guide will help you to setup the CMS. It will show the requirements
 and some basic configuration for the webserver.
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents** 
 
-#### Table of contents
-1. [requirements](#requirements)
-2. [setting up the webserver](#settingUpTheWebserver)
-    * [nginx](#nginx)
-    * [apache](#apache)
-3. [setting up the database](#database)
+- [Requirements: <a name="requirements"></a>](#requirements-a-namerequirementsa)
+- [Setting up the webserver <a name="settingUpTheWebserver"></a>](#setting-up-the-webserver-a-namesettingupthewebservera)
+  - [Nginx <a name="nginx"></a>](#nginx-a-namenginxa)
+  - [Apache <a name="apache"></a>](#apache-a-nameapachea)
+- [Setting up the database <a name="database"></a>](#setting-up-the-database-a-namedatabasea)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Requirements: <a name="requirements"></a>
 * PHP >= 7 _The minimum PHP version required, the project is written with PHP 7 for speed and to experiment with the new scalar type hints_

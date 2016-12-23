@@ -2,9 +2,9 @@
 This repository contains the source code for the project: Digitaal Porteflio developed by project group INF1B.
 Information about installing and configuring the CMS and the application structure can be found in the directory
 Documentation or here:
-[installing the CMS](https://github.com/stenden-INF1B/PortfolioCMS/blob/master/documentation/InstallingTheCMS.md)
-[Installing lib sodium](https://github.com/stenden-INF1B/PortfolioCMS/blob/master/documentation/InstallingLibSodium.md)
-[Creating a theme](https://github.com/stenden-INF1B/PortfolioCMS/blob/master/documentation/CreatingATheme.md)
+[installing the CMS](https://github.com/stenden-INF1B/PortfolioCMS/blob/master/documentation/InstallingTheCMS.md)<br>
+[Installing lib sodium](https://github.com/stenden-INF1B/PortfolioCMS/blob/master/documentation/InstallingLibSodium.md)<br>
+[Creating a theme](https://github.com/stenden-INF1B/PortfolioCMS/blob/master/documentation/CreatingATheme.md)<br>
 
 ### Live version
 To view an live version of the Portefolio cms [click here](http://146.185.141.142/PortfolioCMS/web/)

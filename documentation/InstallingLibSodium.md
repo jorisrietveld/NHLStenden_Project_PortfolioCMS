@@ -1,11 +1,25 @@
 # Installing libsodium-dev
-This project uses libsodium for encryption and hasing. Below an description of libsodium from there wiki [source](https://paragonie.com/book/pecl-libsodium/read/00-intro.md):
+This guide explanes how to install the php libsodium extention for secure encryption and hasing and other security relating stuff.
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**
+
+- [What is libsodium?](#what-is-libsodium)
+- [Installing on Ubuntu](#installing-on-ubuntu)
+- [Installing on Windows](#installing-on-windows)
+- [More info](#more-info)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+## What is libsodium?
 The Sodium crypto library (libsodium) is a modern, easy-to-use software library for encryption, decryption, signatures, password hashing and more.
 It is a portable, cross-compilable, installable, packageable fork of NaCl, with a compatible API, and an extended API to improve usability even further.
 Its goal is to provide all of the core operations needed to build higher-level cryptographic tools.
 Sodium supports a variety of compilers and operating systems, including Windows (with MinGW or Visual Studio, x86 and x64), iOS and Android.
 The design choices emphasize security, and "magic constants" have clear rationales.
 And despite the emphasis on high security, primitives are faster across-the-board than most implementations of the NIST standards.
+copied from there website: [source](https://paragonie.com/book/pecl-libsodium/read/00-intro.md)
+
 
 ## Installing on Ubuntu
 On ubuntu >= 15.04 you can use the command:

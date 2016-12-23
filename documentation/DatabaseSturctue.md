@@ -1,10 +1,31 @@
 # The structure of the database
 This page shows all entities in the database and explains the entities properties.
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**
 
+- [The Entities explained](#the-entities-explained)
+  - [User](#user)
+  - [Student](#student)
+  - [Teacher](#teacher)
+  - [GuestBookMessage](#guestbookmessage)
+  - [Theme](#theme)
+  - [Page](#page)
+  - [Portfolio](#portfolio)
+  - [JobExperience](#jobexperience)
+  - [Language](#language)
+  - [Training](#training)
+  - [UploadedFile](#uploadedfile)
+  - [SlbAssignment](#slbassignment)
+  - [Image](#image)
+  - [Skill](#skill)
+  - [Hobbies](#hobbies)
+  - [Project](#project)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 
 ![ERD portfolio CMS](https://github.com/stenden-INF1B/PortfolioCMS/blob/master/documentation/ERD/ERD_DigitalPortfolio_23-12-2016.png "ERD Digital portfolio")
-
 
 ## The Entities explained
 

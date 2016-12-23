@@ -1,5 +1,19 @@
 # Creating a new theme
 This guide explains how to create a new theme in PortfolioCMS for your portfolio.
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**
+
+- [Creating an theme folder](#creating-an-theme-folder)
+- [Creating pages](#creating-pages)
+- [Rendering portfolio data](#rendering-portfolio-data)
+    - [Portfolio object](#portfolio-object)
+    - [Request object](#request-object)
+    - [TODO create much more documentation](#todo-create-much-more-documentation)
+    - [$portfolio data](#portfolio-data)
+    - [Using portfolio data](#using-portfolio-data)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 # Creating an theme folder
 To create a new theme you first have to create a new theme folder located in `src/PortfolioCMS/Themes/{name of your theme}`.  
