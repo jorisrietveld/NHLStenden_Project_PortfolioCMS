@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `Teacher` (
 CREATE TABLE IF NOT EXISTS `GuestBookMessage` (
   `id`        INT UNSIGNED UNIQUE AUTO_INCREMENT NOT NULL, # The unique identification code of the record.
   `sender`    VARCHAR(255)                       NOT NULL, # The name of the author of the message in the posted in the guest book.
-  `title`     VARCHAR(50) DEFAULT 'Reachtie op portfolio', # The subject or title for the message.
+  `title`     VARCHAR(50) DEFAULT 'Reactie op portfolio', # The subject or title for the message.
   `message`   TEXT                               NOT NULL, # The actual message.
   `studentId` INT UNSIGNED                       NOT NULL, # The unique identifier for the student witch receives the message.
   `accsepted` BOOLEAN DEFAULT 0                  NOT NULL, # If the post is accepted by the student.
@@ -91,6 +91,25 @@ CREATE TABLE IF NOT EXISTS `Theme` (
 );
 
 /**
+ * This entity represents a web page in a theme
+ */
+CREATE TABLE IF NOT EXISTS `Page` (
+  `id`          INT UNSIGNED UNIQUE AUTO_INCREMENT NOT NULL, # The unique identification code of the record.
+  `name`        VARCHAR(100)                       NOT NULL, # The name of the page.
+  `fileName`    VARCHAR(100)                       NOT NULL, # The actual filename of the web page.
+  `description` VARCHAR(300)                       NULL, # An short description about what is displayed on the page.
+  `themeId`     INT UNSIGNED                       NOT NULL, # The unique identification code to Theme( id ).
+
+  # Constraint to define the primary key of this table.
+  CONSTRAINT pk_page PRIMARY KEY `Page`(`id`),
+
+  # Constraint to define the foreign key to Theme( id )
+  CONSTRAINT fk_page_theme FOREIGN KEY `Page`(`themeId`) REFERENCES `DigitalPortfolio`.`Theme` (`id`)
+    ON UPDATE CASCADE # When an theme is updated, update this record.
+    ON DELETE CASCADE # When an theme is deleted, delete this record.
+);
+
+/**
  * This entity represents an portfolio of an user.
 */
 CREATE TABLE IF NOT EXISTS `Portfolio` (
@@ -106,8 +125,8 @@ CREATE TABLE IF NOT EXISTS `Portfolio` (
 
   # Constraint to define the foreign key to User( id )
   CONSTRAINT fk_portfolio_user FOREIGN KEY `Portfolio`(`userId`) REFERENCES `DigitalPortfolio`.`User` (`id`)
-    ON UPDATE CASCADE
-    ON DELETE RESTRICT
+    ON UPDATE CASCADE # When an user is updated, update this record.
+    ON DELETE RESTRICT # When an user is deleted, delete this record.
 );
 
 /**
