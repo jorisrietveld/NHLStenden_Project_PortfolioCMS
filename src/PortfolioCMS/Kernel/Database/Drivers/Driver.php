@@ -8,7 +8,11 @@ namespace StendenINF1B\PortfolioCMS\Kernel\Database\Driver;
 
 use DebugBar\StandardDebugBar;
 use PDO;
+use StendenINF1B\PortfolioCMS\Kernel\Database\Helper\DatabaseConfigurationContainer;
+use StendenINF1B\PortfolioCMS\Kernel\Exception\ConfigurationErrorException;
+use StendenINF1B\PortfolioCMS\Kernel\Exception\DatabaseDriverException;
 use StendenINF1B\PortfolioCMS\Kernel\Helper\ParameterContainer;
+use Symfony\Component\VarDumper\Cloner\Data;
 
 
 /**
@@ -23,7 +27,7 @@ class Driver
      *
      * @var array
      */
-    protected $options = [
+    protected $pdoOptions = [
         \PDO::ATTR_EMULATE_PREPARES => false,
         \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
         \PDO::ATTR_CASE => \PDO::CASE_NATURAL,
@@ -32,17 +36,66 @@ class Driver
     ];
 
     /**
-     * Get all options configured to open an connection to the database And optionally add/chance other options with
-     * the $config argument.
+     * Add a new pdo option or set it to a new value.
      *
-     * @param array $config
+     * @param $option
+     * @param $value
+     */
+    public function addPdoOption( $option, $value )
+    {
+        $this->pdoOptions[ $option ] = $value;
+    }
+
+    /**
+     * Add the pdo options from an database configuration container.
+     *
+     * @param DatabaseConfigurationContainer $config
+     * @throws DatabaseDriverException
+     */
+    public function addPdoOptionsFromConfig( DatabaseConfigurationContainer $config )
+    {
+        foreach ( $config->getPdoOptions() as $setting => $value )
+        {
+            if( defined( $setting ) && defined( $value ) )
+            {
+                $this->addPdoOption( constant( $setting ), constant( $value ));
+            }
+            else
+            {
+                throw new DatabaseDriverException( sprintf( 'Bad configured PDO option: %s with value: %s.', $setting, $value ) );
+            }
+        }
+    }
+
+    /**
+     * Sets new php data object options.
+     *
+     * @param array $pdoOptions
+     */
+    public function setPdoOptions( array $pdoOptions )
+    {
+        $this->pdoOptions = $pdoOptions;
+    }
+
+    /**
+     * Gets an php data object option.
+     *
+     * @param $key
+     * @return array|mixed|null
+     */
+    public function getPdoOption( $key )
+    {
+        return isset( $this->pdoOptions[ $key ] ) ? $this->pdoOptions[ $key ] : NULL;
+    }
+
+    /**
+     * Gets the all php data object Options.
+     *
      * @return array
      */
-    public function getOptions( ParameterContainer $config )
+    public function getPdoOptions( ) : array
     {
-        $options = !empty( $config[ "options" ] ) ? $config[ "options" ] : [];
-
-        return array_diff_key( $this->options, $options ) + $options;
+        return $this->pdoOptions;
     }
 
     /**
@@ -53,12 +106,16 @@ class Driver
      * @param array $options
      * @return PDO
      */
-    public function openConnection( $dsn, array $config, array $options )
+    public function openConnection( string $dsn, DatabaseConfigurationContainer $config )
     {
-        $username = !empty( $config[ "username" ] ) ? $config[ "username" ] : "";
-        $password = !empty( $config[ "password" ] ) ? $config[ "password" ] : "";
+        $this->addPdoOptionsFromConfig( $config );
 
-        return new \PDO( $dsn, $username, $password, $options );
+        return new \PDO(
+            $dsn,
+            $config->get( 'username', '' ),
+            $config->get( 'password', '' ),
+            $this->getPdoOptions()
+        );
     }
 
     /**
@@ -66,9 +123,9 @@ class Driver
      *
      * @param array $options
      */
-    public function setDefaultOptions( ParameterContainer $options )
+    public function setDefaultPdoOptions( array $pdoOptions )
     {
-        $this->options = $options;
+        $this->pdoOptions = $pdoOptions;
     }
 
     /**
@@ -76,9 +133,9 @@ class Driver
      *
      * @return array
      */
-    public function getDefaultOptions()
+    public function getDefaultPdoOptions() : array
     {
-        return $this->options;
+        return $this->pdoOptions;
     }
 
     /**

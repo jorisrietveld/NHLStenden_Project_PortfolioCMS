@@ -38,47 +38,5 @@ declare( strict_types = 1 );
         type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.terminal/0.11.11/js/jquery.terminal.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.terminal/0.11.11/css/jquery.terminal.min.css" rel="stylesheet"/>
-    <script>
-
-        jQuery(function($, undefined) {
-            if( document.getElementById('#terminal') !== 'undifined' ) {
-                $('#terminal').terminal(function (command, term) {
-
-                    if( command == 'help' )
-                    {
-                        term.echo( '[----------------------------------------------------]\n' +
-                            '[   HELP!   HELP!    HELP!   HELP!    HELP!   HELP!  ]\n' +
-                            '[----------------------------------------------------]\n\n' +
-                            'type: location home; voor de home pagina\n' +
-                            'type: location locatie; voor de locatie pagina\n' +
-                            'type: location weather; voor de weer pagina\n' +
-                            'type: location interests; voor de hobbies pagina\n' +
-                            'type: location contact; voor de contact pagina\n' );
-                        return;
-                    }
-
-                    if ( command.substring(0,8) == 'location') {
-                        var goto = command.substring(8, (command.length-1) );
-                        window.location = goto;
-
-                    } else {
-                        term.echo('Dat begrijp ik niet');
-                    }
-                }, {
-                    greetings: ''+
-                    '██╗    ██╗███████╗██╗     ██╗  ██╗ ██████╗ ███╗   ███╗\n'+
-                    '██║    ██║██╔════╝██║     ██║ ██╔╝██╔═══██╗████╗ ████║\n'+
-                    '██║ █╗ ██║█████╗  ██║     █████╔╝ ██║   ██║██╔████╔██║\n'+
-                    '██║███╗██║██╔══╝  ██║     ██╔═██╗ ██║   ██║██║╚██╔╝██║\n'+
-                    '╚███╔███╔╝███████╗███████╗██║  ██╗╚██████╔╝██║ ╚═╝ ██║\n'+
-                    ' ╚══╝╚══╝ ╚══════╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝\n'+
-                    '\n' +
-                    '\n',
-                    name: 'Welkom op dezuh site',
-                    prompt: 'root@nsa.gov> '
-                });
-            }
-        });
-    </script>
 </body>
 </html>

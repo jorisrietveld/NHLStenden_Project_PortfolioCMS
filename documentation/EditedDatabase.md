@@ -55,6 +55,14 @@ author _The author that created the theme_<br>
 description _A short description of the theme_<br>
 directoryName _the name of the actual folder_<br>
 
+### Page
+_This entity represents a web page in a theme_<br>
+**id** PRIMARY KEY<br>
+name _The name of the page_<br>
+fileName _The actual filename of the web page_<br>
+description _An short description about what is displayed on the page_<br>
+themeId _FOREIGN KEY to the entity Theme( id )_ <br>
+
 ### Portfolio 
 _This entity represents an portfolio of an user_<br>
 **id** PRIMARY KEY, FOREIGN KEY -> User( id )<br>

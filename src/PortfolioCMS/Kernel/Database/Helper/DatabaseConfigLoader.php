@@ -11,7 +11,6 @@ namespace StendenINF1B\PortfolioCMS\Kernel\Database\Helper;
 use StendenINF1B\PortfolioCMS\Kernel\Exception\ConfigurationErrorException;
 use StendenINF1B\PortfolioCMS\Kernel\Exception\FileNotFoundException;
 use StendenINF1B\PortfolioCMS\Kernel\Exception\XMLParserException;
-use StendenINF1B\PortfolioCMS\Kernel\Helper\ParameterContainer;
 
 class DatabaseConfigLoader
 {
@@ -23,7 +22,7 @@ class DatabaseConfigLoader
     /**
      * @var array
      */
-    protected $databaseConfigurationContainers;
+    protected $databaseConfigContainers;
 
     /**
      * @var \SimpleXMLElement
@@ -105,7 +104,7 @@ class DatabaseConfigLoader
      * @param \SimpleXMLElement|null $databaseConfig
      * @throws ConfigurationErrorException
      */
-    public function convertXMLTo( \SimpleXMLElement $databaseConfig = NULL )
+    public function convertXMLToDatabaseContainer( \SimpleXMLElement $databaseConfig = NULL )
     {
         if( $databaseConfig !== NULL )
         {
@@ -144,7 +143,7 @@ class DatabaseConfigLoader
                 }
             }
             // Add the new DatabaseConfigurationContainer to the
-            $this->databaseConfigurationContainers[ $databaseConfigContainer->getConnectionName() ] = $databaseConfigContainer;
+            $this->setDatabaseConfigContainer( $databaseConfigContainer );
         }
     }
 
@@ -169,20 +168,45 @@ class DatabaseConfigLoader
     }
 
     /**
-     * Gets the database configuration container that hol
-     * @return DatabaseConfigurationContainer
+     * Gets the database configuration containers that hold connection information.
+     * 
+     * @return array
      */
-    public function getDatabaseConfigurationContainer(): DatabaseConfigurationContainer
+    public function getDatabaseConfigContainers(): array
     {
-        return $this->databaseConfigurationContainer;
+        return $this->databaseConfigContainers;
     }
 
     /**
+     * Gets an single database configuration container.
+     *
+     * @param string $connectionName
+     * @param null   $default
+     * @return array|null
+     */
+    public function getDatabaseConfigContainer( string $connectionName ) : DatabaseConfigurationContainer
+    {
+        return isset( $this->databaseConfigContainers[ $connectionName ] ) ? $this->databaseConfigContainers : NULL;
+    }
+
+    /**
+     * Sets an array of database configuration containers, overwrites the current one if it exists.
+     * 
+     * @param array $databaseConfigContainers
+     */
+    public function setDatabaseConfigContainers( array $databaseConfigContainers )
+    {
+        $this->databaseConfigContainers = $databaseConfigContainers;
+    }
+
+    /**
+     *  Sets an single database configuration container.
+     *
      * @param DatabaseConfigurationContainer $databaseConfigurationContainer
      */
-    public function setDatabaseConfigurationContainer( DatabaseConfigurationContainer $databaseConfigurationContainer )
+    public function setDatabaseConfigContainer( DatabaseConfigurationContainer $databaseConfigContainer )
     {
-        $this->databaseConfigurationContainer = $databaseConfigurationContainer;
+        $this->databaseConfigContainers[ $databaseConfigContainer->getConnectionName() ] = $databaseConfigContainer;
     }
 
 }
