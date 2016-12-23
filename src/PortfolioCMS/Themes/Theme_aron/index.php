@@ -216,7 +216,6 @@
 
         </div>
     </div>
-    </div>
 </section>
 
 <!-- Cijfers Section -->
@@ -231,7 +230,6 @@
         <div class="row">
 
         </div>
-    </div>
     </div>
 </section>
 
@@ -304,7 +302,7 @@
 <!-- jQuery -->
 <script src="vendor/jquery/jquery.min.js"></script>
 
-<!-- Bootstrap js lib -->
+<!-- Bootstrap js lib plugin -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
@@ -312,12 +310,12 @@
 <!-- Plugin JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 
-<!-- Contact Form JavaScript -->
-<script src="js/jqBootstrapValidation.js"></script>
-<script src="js/contact_me.js"></script>
+<!-- Contact Form JavaScript (mag geen javascript gebruiken)-->
+<!-- <script src="js/jqBootstrapValidation.js"></script> -->
+<!-- <script src="js/contact_me.js"></script> -->
 
 <!-- Theme JavaScript -->
-<script src="js/freelancer.js"></script>
+<!-- <script src="js/freelancer.js"></script> -->
 
 </body>
 
