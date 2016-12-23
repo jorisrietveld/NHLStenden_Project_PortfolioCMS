@@ -5,7 +5,7 @@
         <option id="driver">mysql</option>
         <option id="host">85.144.187.81</option>
         <option id="port">3306</option>
-        <option id="dbname">digitaalportfolio</option>
+        <option id="dbname">DigitalPortfolio</option>
         <option id="user">inf1b</option>
         <option id="password">peer</option>
         <option id="charset">UTF8</option>
