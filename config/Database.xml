@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseConnections>
+
+    <databaseConnection name="defaultConnection">
+        <option id="driver">mysql</option>
+        <option id="host">127.0.0.1</option>
+        <option id="port">3306</option>
+        <option id="dbname">DigitalPortfolio</option>
+        <option id="charset">UTF8</option>
+        <option id="strict">1</option>
+        <option id="pdo-options">
+            <option id="ATTR_EMULATE_PREPARES">0</option>
+            <option id="ATTR_ERRMODE">ERRMODE_EXCEPTION</option>
+            <option id="ATTR_CASE">CASE_NATURAL</option>
+            <option id="ATTR_ORACLE_NULLS">NULL_NATURAL</option>
+            <option id="ATTR_STRINGIFY_FETCHES">0</option>
+        </option>
+    </databaseConnection>
+
+</databaseConnections>

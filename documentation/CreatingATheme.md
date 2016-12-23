@@ -153,8 +153,8 @@ To render the languages that the student speaks you can use an foreach loop to o
                 echo $language->getLanguage() . '<br>';
                 echo 'On level:' . $language->getLevel() . '<br>';
             }
+        ?>
     </div>
-?>
 </body>
 </html>
 ```

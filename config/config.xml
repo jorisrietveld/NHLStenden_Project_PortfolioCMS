@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <configuration>
 
-    <host>
-        <name>localhost</name>
-        <hostname>loc.portefoliocms</hostname>
-        <prefix></prefix>
-    </host>
-
-    <host>
-        <name>production</name>
-        <hostname>146.185.141.142</hostname>
-        <prefix>PortfolioCMS</prefix>
-    </host>
-
-    <database>
-
+    <database name="defaultConnection">
+        <driver>mysql</driver>
+        <host>127.0.0.1</host>
+        <port>3306</port>
+        <dbname>DigitalPortfolio</dbname>
+        <charset>UTF8</charset>
+        <strict>1</strict>
+        <pdoOptions>
+            <option name="ATTR_EMULATE_PREPARES">0</option>
+            <option name="ATTR_ERRMODE">ERRMODE_EXCEPTION</option>
+            <option name="ATTR_CASE">CASE_NATURAL</option>
+            <option name="ATTR_ORACLE_NULLS">NULL_NATURAL</option>
+            <option name="ATTR_STRINGIFY_FETCHES">0</option>
+        </pdoOptions>
     </database>
 
 </configuration>

@@ -141,8 +141,6 @@ class MysqlDriver extends Driver implements DriverInterface
         {
             throw new ConfigurationErrorException('Missing configuration for mysql with unix socket connection..');
         }
-
-
 	}
 
 	/**

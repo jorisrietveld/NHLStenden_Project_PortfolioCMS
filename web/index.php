@@ -18,8 +18,11 @@ $application = new StendenINF1B\PortfolioCMS\Kernel\ApplicationKernel();
 $request = \StendenINF1B\PortfolioCMS\Kernel\Http\Request::createFromGlobals();
 
 // Handle the request.
-$response = $application->handle( $request );
+//$response = $application->handle( $request );
+
+$databaseConfigLoader = new \StendenINF1B\PortfolioCMS\Kernel\Database\Helper\DatabaseConfigLoader();
+$databaseConfigLoader->parseXMLToParameterContainer();
 
 // Send the generated response.
-$response->send();
+//$response->send();
 

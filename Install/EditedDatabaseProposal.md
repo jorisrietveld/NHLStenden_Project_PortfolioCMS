@@ -137,7 +137,4 @@ description _An short descripton about the project_<br>
 link _An link to the project_<br>
 thumbnailImageId FOREIGN KEY -> Image( uploadedKileId ) _An thumbnail image of the project_<br>
 portfolioId FOREIGN KEY -> Portfolio( id ) <br>
-
-
-
  

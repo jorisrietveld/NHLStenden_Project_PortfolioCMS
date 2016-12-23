@@ -16,6 +16,9 @@ define( 'PROJECT_ROOT', WEB_ROOT . DIR_UP );
 define( 'PROJECT_SRC', PROJECT_ROOT . 'src' . DIR_SEP );
 define( 'CONFIG_ROOT', PROJECT_ROOT . 'config' . DIR_SEP );
 define( 'ROUTE_CONFIG_FILE', CONFIG_ROOT . 'Routes.xml' );
+define( 'CONFIG_FILE', CONFIG_ROOT . 'config.xml' );
+define( 'DATABASE_CONFIG_FILE', CONFIG_ROOT . 'Database.xml' );
+define( 'THEMES_DIR', PROJECT_SRC . 'Themes' );
 
 /**
  * Never set debug to TRUE on an production server!

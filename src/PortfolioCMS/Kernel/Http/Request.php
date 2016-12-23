@@ -507,6 +507,14 @@ class Request implements RequestInterface
      */
     public static function createFromGlobals()
     {
+        /**
+         * Protect database credentials from leaking.
+         */
+        if( isset( $_SERVER[ 'DATABASE_USER' ], $_SERVER[ 'DATABASE_PASSWORD' ] ))
+        {
+            unset( $_SERVER[ 'DATABASE_USER' ], $_SERVER[ 'DATABASE_PASSWORD' ] );
+        }
+
         return new Request(
             $_GET,
             $_POST,
