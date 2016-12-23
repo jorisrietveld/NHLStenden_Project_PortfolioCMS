@@ -49,7 +49,6 @@ hr.star-primary {
 hr.star-light:after,
 hr.star-primary:after {
     content: "\f005";
-    font-family: FontAwesome;
     display: inline-block;
     position: relative;
     top: -0.8em;
@@ -329,11 +328,9 @@ section.success {
     font-size: 0.85em;
     line-height: 1.764705882em;
     vertical-align: middle;
-    vertical-align: baseline;
     opacity: 0;
     -webkit-transition: top 0.3s ease, opacity 0.3s ease;
     -moz-transition: top 0.3s ease, opacity 0.3s ease;
-    -ms-transition: top 0.3s ease, opacity 0.3s ease;
     transition: top 0.3s ease, opacity 0.3s ease;
 }
 
