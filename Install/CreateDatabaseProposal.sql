@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `Student` (
   CONSTRAINT pk_student PRIMARY KEY `Student`(`userId`),
 
   # Constrains that defines the foreign key to entity User( id )
-  CONSTRAINT fk_student_user FOREIGN KEY `Student`(`userId`) REFERENCES `DigitalPortfolio`.`User`(`id`)
+  CONSTRAINT fk_student_user FOREIGN KEY `Student`(`userId`) REFERENCES `DigitalPortfolio`.`User` (`id`)
     ON UPDATE CASCADE # When the user is updated, update this record also.
     ON DELETE CASCADE # When the user is deleted, delete this record also.
 );
@@ -99,9 +99,15 @@ CREATE TABLE IF NOT EXISTS `Portfolio` (
   `title`   VARCHAR(50)                        NOT NULL, # The title that will be displayed IN the tab ON the browser.
   `url`     VARCHAR(50)                        NOT NULL, # The url used IN the address field IN the browser.
   `grade`   DECIMAL(2, 1)                      NULL, # The grade of the portfolio given BY the SBL teacher.
+  `userId`  INT UNSIGNED                       NOT NULL, # The unique identification code to User( id )
 
   # Constraint to define the primary key of this table.
-  CONSTRAINT pk_portfolio PRIMARY KEY `Portfolio`(`id`)
+  CONSTRAINT pk_portfolio PRIMARY KEY `Portfolio`(`id`),
+
+  # Constraint to define the foreign key to User( id )
+  CONSTRAINT fk_portfolio_user FOREIGN KEY `Portfolio`( `userId`) REFERENCES `DigitalPortfolio`.`User`(`id`)
+    ON UPDATE CASCADE
+    ON DELETE RESTRICT
 );
 
 /**
@@ -190,7 +196,6 @@ CREATE TABLE IF NOT EXISTS `UploadedFile` (
 /**
  * This entity IS an type of UploadedFile that represents an slb assignment.
  */
-drop TABLE SLBAssignment;
 CREATE TABLE IF NOT EXISTS `SLBAssignment` (
   `uploadedFileId` INT UNSIGNED UNIQUE, # Inherited key from the entity UploadedFile and unique identifier for this record
   `name`           VARCHAR(100) NOT NULL, # The name of the assignment.
@@ -269,12 +274,12 @@ CREATE TABLE IF NOT EXISTS `Project` (
   `link`             VARCHAR(255)                       NOT NULL, # An link to the project.
   `thumbnailImageId` INT UNSIGNED                       NOT NULL, # The unique identifier of the uploaded image thumbnail that belongs to the project.
   `portfolioId`      INT UNSIGNED                       NOT NULL, # The unique identifier of the portfolio that the project belongs to.
-
+  `grade`            DECIMAL(2, 1)                      NULL, #
   # Constraint to define the primary key of this table.
   CONSTRAINT pk_project PRIMARY KEY `Project`(`id`),
 
   # Constraint to define the foreign key to the entity Image( id )
-  CONSTRAINT fk_project_image FOREIGN KEY  `Project`(`portfolioId`) REFERENCES `DigitalPortfolio`.`Image` (`uploadedFileId`)
+  CONSTRAINT fk_project_image FOREIGN KEY `Project`(`portfolioId`) REFERENCES `DigitalPortfolio`.`Image` (`uploadedFileId`)
     ON UPDATE CASCADE # When the portfolio is updated, update this record.
     ON DELETE CASCADE, # When the portfolio is updated, delete this record.
 
