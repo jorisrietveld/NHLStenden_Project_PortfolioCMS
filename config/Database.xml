@@ -19,4 +19,22 @@
         </option>
     </databaseConnection>
 
+    <databaseConnection name="database@146.185.141.142">
+        <option id="driver">mysql</option>
+        <option id="host">146.185.141.142</option>
+        <option id="port">3306</option>
+        <option id="dbname">DigitalPortfolio</option>
+        <option id="user">DATABASE_USER</option>
+        <option id="password">DATABASE_PASSWORD</option>
+        <option id="charset">UTF8</option>
+        <option id="strict">1</option>
+        <option id="pdo-options">
+            <option id="\PDO::ATTR_EMULATE_PREPARES">FALSE</option>
+            <option id="\PDO::ATTR_ERRMODE">\PDO::ERRMODE_EXCEPTION</option>
+            <option id="\PDO::ATTR_CASE">\PDO::CASE_NATURAL</option>
+            <option id="\PDO::ATTR_ORACLE_NULLS">\PDO::NULL_NATURAL</option>
+            <option id="\PDO::ATTR_STRINGIFY_FETCHES">FALSE</option>
+        </option>
+    </databaseConnection>
+
 </databaseConnections>

@@ -1,32 +1,87 @@
 # Creating a new theme
-This guide explains how to create a new theme for the PortfolioCMS.
+This guide explains how to create a new theme in PortfolioCMS for your portfolio.
 
-## Creating an theme folder
+# Creating an theme folder
 To create a new theme you first have to create a new theme folder located in `src/PortfolioCMS/Themes/{name of your theme}`.  
-Inside this folder you can add the css, js and images folders for your assets. 
+Inside this folder you can add the folders css, js and images for your assets. 
 
-## Required files
-Inside every theme you have to create the files `index.php` and `slbOpdrachen.php`. In these files you can write the html and php code 
-for your theme.
+# Creating pages
+In an theme you can add your theme pages. The pages need to be `.php` pages and the pages also need to be registered in the database
+so the template engine knows what to render for your portfolio. Its advised to use CDN networks for your external asset libraries like
+bootstrap, jquery etc. 
 
-## Available portfolio data
-In your theme you can access the $portfolio variable which has methods for receiving portfolio data. you can see an interface below defining the 
-methods and return types.
+On every page you have access to data from the database through the `Portfolio()` object. this object has a few methods for receiving data
+from the database. The framework will handle the communication to the database and fetches the database entities into PHP objects.
+
+# Rendering portfolio data
+To render portfolio data in your theme you use the `Portfolio()` object to fetch data, the `Portfolio()` object is stored in the variable
+`$portfolio` witch will be accessible in your theme when the template engine renders the templates (theme files).
+
+### Portfolio object
+The list below shows an list of methods the `Portfolio()` object has. It also shows the return types of the methods. notice that
+when you use the methods in your portfolio you don't type `: string ` or `: array` behind the method call, this is just for clarification
+of the return type of the method.
+* `$portfolio->getTitle() : string` This method returns an string containing the page title from the `Portfolio( title )` database entity.
+* `$portfolio->getBaseUrl() : string` This method returns an string containing the current base url like: `http://146.185.141.142/portfoliocms/web/`.
+* `$portfolio->getUrl() : string` This method returns an string containing the full current url the like: `http://146.185.141.142/portfoliocms/web/portfolio/joris`.
+* `$portfolio->getPortfolioPath() : string` This method returns an string containing the path to the portfolio like `/portfolio/joris`. 
+* `$portfolio->getPagePath() : string` This method returns an string containing the path to the page like: `/portfolio/joris` or `/portfolio/joris/slbo_prachten`.
+* `$portfolio->getRequest() : HttpRequest` This method returns the current `HttpRequest()` object, scroll down for more information about the `HttpRequest()` object.
+* `$portfolio->getGetGrade() : string` This method returns an string containing the grade from the `Portfolio( grade )` database entity.
+* `$portfolio->getGetStudent() : Student()` This method returns an `Student()` object containing the data about the user, scroll down for information about the `Student()` object.
+* `$portfolio->getGetJobExperiences() : array` This method returns an array containing `JobExperience()` objects, scroll down for information about the `JobExperience()` object.
+* `$portfolio->getGetLanguages() : array` This method returns an array containing `Language()` objects, scroll down for information about the `Language()` object.
+* `$portfolio->getTrainings() : array` This method returns an array containing `Training()` objects, scroll down for information about the `Training()` object.
+* `$portfolio->getSLBAssignments() : array` This method returns an array containing `SLBAssignment()` objects, scroll down for information about the `SLBAssignment()` object.
+* `$portfolio->getGalleryPictures() : array` This method returns an array containing `Image()` objects, scroll down for more information about the `Image()` object.
+* `$portfolio->getSkills() : array` This method returns an array containing `Skill()` objects, scroll down for more information about the `Skill()` object.
+* `$portfolio->getHobbies() : array` This method returns an array containing `Hobby()` objects, scroll down for more information about the `Hobby()` object.
+
+### Request object
+This list below shows an list of the methods the `HttpRequest()` object has.It also shows the return types of the methods. notice that
+when you use the methods in your portfolio you don't type `: string ` or `: array` behind the method call, this is just for clarification
+of the return type of the method. you can get data from the request from either saving the request an in variable and then accessing its 
+methods like:
 ```php
-$portfolio(
-    getTitle() : string;
-    getLink() : string;
-    getStudent() : array;
-    getJobExperiences() : array;
-    getLanguages() : array;
-    getTrainings() : array;
-    getSLBAssignments() : array;
-    getProfileImage() : Image();
-    getGalleryPictures() : array;
-    getSkills() : array;
-    getHobbies() : array;
-)
+<?php 
+$request = $portfolio->getRequest();
+echo $request->getSomeProperty();
+?>
 ```
+Or by accessing it it directly from the portfolio object like:
+```php
+<?php
+echo $request = $portfolio->getRequest()->getSomeProperty();
+?>
+// Or for the php shorthand echo, which is more elegant when outputting data inline:
+<?= $portfolio->getRequest()->getSomeProperty() ?>
+// The short hand is the exact eqelevan of the code above just shorter.
+```
+I wont type `$portfolio->getRequest()` in front of every method for convenience just `$request` but in your template you should first receive the request or use it 
+like described above.
+* `$request->getQueryParams() : ParameterContainer` This method returns an `ParameterContainer()` containing the `$_GET` parameters, scroll down for more information about the `ParameterContainer()` object. 
+* `$request->getPostParams(): ParameterContainer` This method returns an `ParameterContainer()` containing the `$_POST` parameters, scroll down for more information about the `ParameterContainer()` object. 
+* `$request->getFiles(): FilesContainer` This method returns an `FilesContainer()` containing the `$_FILES` parameters, scroll down for more information about the `FilesContainer()` object. 
+* `$request->getServer(): ParameterContainer` This method returns an `ParameterContainer()` containing the `$_SERVER` parameters, scroll down for more information about the `ParameterContainer()` object. 
+* `$request->getHeaders(): ParameterContainer` This method returns an `ParameterContainer()` containing the headers from the request, scroll down for more information about the `ParameterContainer()` object. 
+* `$request->getCookies(): ParameterContainer` This method returns an `ParameterContainer()` containing the `$_COOKIE` parameters, scroll down for more information about the `ParameterContainer()` object. 
+* `$request->getSession(): Session` This method returns an `Session()` object, scroll down for more information about the `Session()` object. 
+* `$request->hasSession(): bool` This method returns an `boolean` for checking if the request has an session. 
+* `$request->getContent(): string` This method returns an `string` containing the requests body. 
+* `$request->getRequestUri(): string` This method returns an `string` containing the request uri like: `/portfolio/joris?bringAn=towel&answerToEverything=42`.
+* `$request->getUri(): string` This method returns an `string` containing the full uri like: `http://hostname.nl/portfolio/joris?bringAn=towel&answerToEverything=42`. 
+* `$request->getScheme(): string` This method returns an `string` containing the requests scheme like: `http` or `https`.
+* `$request->getBasePath(): string` This method returns an `string` containing the base path of the request like: `/portfolio/joris`.
+* `$request->getBaseUri(): string` This method returns an `string` containing the base uri like: `http://hostname.nl`.
+* `$request->getScriptName(): string` This method returns an `string` containing the name of the script executing the request like: `index.php`.
+* `$request->getClientIp(): string` This method returns an `string` containing the clients ip address like: `192.168.1.10`.
+* `$request->getServerIp(): string` This method returns an `string` containing the servers ip address like: `141.185.141.142`.
+* `$request->getQueryString(): string` This method returns an `string` containing the query string like: `bringAn=towel&answerToEverything=42`.
+* `$request->getHostname(): string` This method returns an `string` containing the hostname of the server like: `www.hostname.nl` without the requests scheme and path.
+* `$request->getMethod(): string` This method returns an `string` containing the HTTP request method like `GET`, `POST`, `PUT`, `DELETE`, `HEAD`, `TRACE` or `CONNECT`.
+* `$request->getUriForPath( $path ): string` This method returns an `string` containing the uri for an path that can be passed as argument, the path `/portfolio/joris` will return something like: `hhttp://hostname.nl/portfolio/joris`.
+
+### TODO create much more documentation
 
 ### $portfolio data
 Below are the data structures that can be received with the $portfolio variable.

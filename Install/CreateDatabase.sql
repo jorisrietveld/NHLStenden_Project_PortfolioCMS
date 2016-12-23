@@ -1,6 +1,10 @@
-CREATE DATABASE IF NOT EXISTS `DigitalPortfolio`;
-USE `DigitalPortfolio`;
+# DROP DATABASE IF EXISTS `DigitalPortfolio`;
 
+# Create the new database.
+CREATE DATABASE IF NOT EXISTS `DigitalPortfolio`;
+
+# Select the just created database.
+USE `DigitalPortfolio`;
 
 /**
  * This entity represent an user that can authenticate on the site.
@@ -99,6 +103,7 @@ CREATE TABLE IF NOT EXISTS `Page` (
   `name`        VARCHAR(100)                       NOT NULL, # The name of the page.
   `fileName`    VARCHAR(100)                       NOT NULL, # The actual filename of the web page.
   `description` VARCHAR(300)                       NULL, # An short description about what is displayed on the page.
+  `url`         VARCHAR(100)                       NULL, #this is the url part after the url from portfolio.
   `themeId`     INT UNSIGNED                       NOT NULL, # The unique identification code to Theme( id ).
 
   # Constraint to define the primary key of this table.
@@ -129,10 +134,10 @@ CREATE TABLE IF NOT EXISTS `Portfolio` (
     ON UPDATE CASCADE # When an user is updated, update this record.
     ON DELETE RESTRICT, # When an user is deleted, delete this record.
 
-    # Constraint to define the foreign key to User( id )
-    CONSTRAINT fk_portfolio_theme FOREIGN KEY `Portfolio`(`themeId`) REFERENCES `DigitalPortfolio`.`Theme` (`id`)
-      ON UPDATE CASCADE # When an theme is updated, update this record.
-      ON DELETE NO ACTION # When an theme is deleted, do not delete this record.
+  # Constraint to define the foreign key to User( id )
+  CONSTRAINT fk_portfolio_theme FOREIGN KEY `Portfolio`(`themeId`) REFERENCES `DigitalPortfolio`.`Theme` (`id`)
+    ON UPDATE CASCADE # When an theme is updated, update this record.
+    ON DELETE NO ACTION # When an theme is deleted, do not delete this record.
 );
 
 /**

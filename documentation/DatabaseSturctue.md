@@ -1,6 +1,8 @@
 # The structure of the database
 This page shows all entities in the database and explains the entities properties.
 
+
+
 ![ERD portfolio CMS](https://github.com/stenden-INF1B/PortfolioCMS/blob/master/documentation/ERD/ERD_DigitalPortfolio_23-12-2016.png "ERD Digital portfolio")
 
 

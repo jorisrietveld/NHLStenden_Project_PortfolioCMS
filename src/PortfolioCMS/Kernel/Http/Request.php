@@ -291,9 +291,14 @@ class Request implements RequestInterface
         return $this->content;
     }
 
+    /**
+     * Gets the base url like: /portfolio/joris/slb_opdrachten/1 from the full url: http://loc.portfoliocms/portfolio/joris/slb_opdrachten/1
+     *
+     * @return string
+     */
     public function getBaseUrl(  ) : string
     {
-        return str_replace( $this->getBasePath(), '', $this->getRequestUri() );
+        return str_replace( $this->getBasePath(), '/', $this->getRequestUri() );
     }
 
     /**

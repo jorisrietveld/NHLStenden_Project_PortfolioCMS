@@ -50,8 +50,9 @@ class RouteMatcher
 
     public function matchRouteUrl( Request $request ): ConfiguredRoute
     {
+        // Todo replace this line with the one commented out.
         $requestUri = str_replace( $request->getBasePath(), '/', $request->getRequestUri() );
-
+        // $requestUri = $request->getBaseUrl();
         if( $requestUri === '/' )
         {
             return $this->configuredRoutes->get('/home');

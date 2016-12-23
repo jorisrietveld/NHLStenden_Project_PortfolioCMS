@@ -16,7 +16,8 @@ $application = new StendenINF1B\PortfolioCMS\Kernel\ApplicationKernel();
 
 // Create an new Request from PHP's gobals.
 $request = \StendenINF1B\PortfolioCMS\Kernel\Http\Request::createFromGlobals();
-
+dump($request);
+dump($request->getBaseUrl());
 // Handle the request.
 //$response = $application->handle( $request );
 

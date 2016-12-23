@@ -2,7 +2,14 @@
 This guide will help you to setup the CMS. It will show the requirements
 and some basic configuration for the webserver.
 
-## Requirements:
+#### Table of contents
+1. [requirements](#requirements)
+2. [setting up the webserver](#settingUpTheWebserver)
+    * [nginx](#nginx)
+    * [apache](#apache)
+3. [setting up the database](#database)
+
+## Requirements: <a name="requirements"></a>
 * PHP >= 7 _The minimum PHP version required, the project is written with PHP 7 for speed and to experiment with the new scalar type hints_
 * PHP driver PDO MySQL _PHP php data objects driver for communicating with MySQL databases._
 * PHP module mcrypt _PHP module for encryption, hashing and other security related stuff._
@@ -14,9 +21,9 @@ and some basic configuration for the webserver.
 * *(optional)* PHPUnit _PHP Library For unit testing code._
 * *(optional)* Brower _NodeJS Library for javascript and css asset management._
 
-## Setting up the webserver
+## Setting up the webserver <a name="settingUpTheWebserver"></a>
 
-### Nginx
+### Nginx <a name="nginx"></a>
 If you use Nginx as webserver you have to setup url rewriting for the urls otherwise you will always get an 404 route.
 Below is the minimal Nginx virtual host configuration you should replace the {path_to_project_root} with the absolute
 path to the PortfolioCMS root directory and {the_hostname_of_your_server} with the your domain name.
@@ -64,7 +71,7 @@ server {
 }
 ```
 
-### Apache
+### Apache <a name="apache"></a>
 If you use Apache as webserver you have to setup url rewriting for the urls otherwise you will always get an 404 route.
 Below is the minimal Apache virtual host configuration you should replace the {path_to_project_root} with the absolute
 path to the PortfolioCMS root directory and {the_hostname_of_your_server} with the your domain name.
@@ -94,6 +101,7 @@ path to the PortfolioCMS root directory and {the_hostname_of_your_server} with t
 </VirtualHost>
 ```
 
-## Setting up the database
-The directory Install contains an SQL script that you should import into your database.
+## Setting up the database <a name="database"></a>
+The directory Install contains an SQL script `CreateDatabase.sql` that you can import into your database with the MySQL workbench, PHPMyAdmin or some 
+other database client
 Also you should edit the database connection configuration in config/config.xml

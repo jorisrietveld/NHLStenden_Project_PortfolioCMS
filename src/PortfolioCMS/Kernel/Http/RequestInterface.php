@@ -182,6 +182,21 @@ interface RequestInterface
     public function getMethod() : string;
 
     /**
+     * Gets an uniform resource locator based on the passed path.
+     *
+     * @param string $path
+     * @return string
+     */
+    public function getUriForPath( string $path ) : string;
+
+    /**
+     * Gets the base url like: /portfolio/joris/slb_opdrachten/1 from the full url: http://loc.portfoliocms/portfolio/joris/slb_opdrachten/1
+     *
+     * @return string
+     */
+    public function getBaseUrl(  ) : string;
+
+    /**
      * Initiates the request, it will do everything an constructor will normally do but it does it in an normal method for ]
      * more flexibility.
      *
@@ -212,4 +227,5 @@ interface RequestInterface
      * @return Request
      */
     public static function create( string $uri, string $method = 'GET', array $postParams = [], array $cookies = [], array $files = [], string $body = '' ) : Request;
+
 }
