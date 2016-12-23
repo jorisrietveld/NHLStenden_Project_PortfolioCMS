@@ -45,7 +45,7 @@ declare( strict_types = 1 );
             </div>
             <div id="over" class="container-fluid">
                 <div class="row">
-                    <div class="col-sm-8">
+                    <div class="col-sm-6">
                         <h2>Over mij</h2>
                         <p> Lorem ipsum dolor sit amet, consectetuer adipiscing elit. 
                             Aenean commodo ligula eget dolor. Aenean massa. 

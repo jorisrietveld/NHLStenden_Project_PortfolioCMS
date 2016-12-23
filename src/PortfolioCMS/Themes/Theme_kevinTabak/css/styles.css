@@ -8,9 +8,13 @@
 }
 .jumbotron {
     background-image: url("../files/banner.jpg");
+    background-repeat: repeat-y;
+    background-size: cover;
+    width: 100%;
 /*    background-color: #f4511e;  Orange */
     color: #ffffff;
     padding: 100px 25px;
+    letter-spacing: 2px;
 }
 .container-fluid {
     padding: 60px 50px;
