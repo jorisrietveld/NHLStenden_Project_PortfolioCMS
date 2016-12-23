@@ -135,6 +135,7 @@ _This entity represents an project the user has worked on._<br>
 name _The name of the project_<br>
 description _An short descripton about the project_<br>
 link _An link to the project_<br>
+grade _The grade for the project_<br>
 thumbnailImageId FOREIGN KEY -> Image( uploadedKileId ) _An thumbnail image of the project_<br>
 portfolioId FOREIGN KEY -> Portfolio( id ) <br>
  
