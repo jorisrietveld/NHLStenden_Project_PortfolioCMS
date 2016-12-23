@@ -1,20 +1,110 @@
-
-.page-wrapper > .row > div{
+.page-wrapper > .row > div {
     height: 200px;
     background-color: blue;
 }
 
-.page-wrapper > .row > div:nth-child(even){
+.page-wrapper > .row > div:nth-child(even) {
     background-color: red;
 }
 
-.pdf-viewer{
+.pdf-viewer {
     height: 90vh;
 }
-.pdf-menu-wrapper{
+
+.pdf-menu-wrapper {
     height: 90vh;
 }
-.pdf-title-wrapper{
+
+.pdf-title-wrapper {
     height: 10vh;
     text-align: center;
 }
+
+.navbar {
+    text-align: center;
+}
+
+@media all and (min-width: 760px) {
+    .page-content {
+        margin-left: 100px;
+    }
+}
+
+hr.linestyle {
+    border-top: 1px solid white;
+    text-align: center;
+    max-width: 250px;
+    border-top: solid 2px;
+}
+
+hr.linestyle:after {
+    content: '§';
+    display: inline-block;
+    position: relative;
+    top: -14px;
+    padding: 0 1px;
+    font-size: 18px;
+    -webkit-transform: rotate(60deg);
+    -moz-transform: rotate(60deg);
+    transform: rotate(60deg);
+}
+
+hr.linestyle-inv {
+    border-top: 1px solid black;
+    text-align: center;
+    max-width: 250px;
+    border-top: solid 2px black;
+}
+
+hr.linestyle-inv:after {
+    content: '§';
+    display: inline-block;
+    position: relative;
+    top: -14px;
+    color: black;
+    padding: 0 1px;
+    font-size: 18px;
+    -webkit-transform: rotate(60deg);
+    -moz-transform: rotate(60deg);
+    transform: rotate(60deg);
+}
+
+.natureHeader {
+    background-image: url("../img/naturebg.jpg");
+    background-size: cover;
+    text-shadow: 2px 1px 5px black;
+    height: 55vmin;
+}
+
+@media all and (min-width: 768px) {
+    body {
+        padding-top: 100px;
+    }
+
+    .intro-text {
+        padding-top: 100px;
+    }
+
+}
+
+@media all and (min-width: 0px) and (max-width: 768px) {
+    body {
+        padding-top: 50px;
+    }
+
+    .intro-text {
+        padding-top: 15vmin;
+    }
+}
+
+@media all and (max-width: 400px) {
+
+    .intro-text {
+        padding-top: 7vmin;
+    }
+}
+
+.navbar-header:hover {
+    font-size: 13pt;
+}
+

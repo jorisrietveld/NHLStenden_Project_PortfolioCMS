@@ -6,14 +6,49 @@
 .page-wrapper > .row > div:nth-child(even){
     background-color: red;
 }
-.navbar{
-    border-radius: 0px;
-}
-.footer{
-    position: absolute;
-    bottom: 0;
+.jumbotron {
+    background-image: url("../files/banner.jpg");
+    background-repeat: repeat-y;
+    background-size: cover;
     width: 100%;
-    height: 60px;
-    line-height: 60px;
-    background-color: #101010;
+/*    background-color: #f4511e;  Orange */
+    color: #ffffff;
+    padding: 100px 25px;
+    letter-spacing: 2px;
+}
+.container-fluid {
+    padding: 60px 50px;
+}
+.navbar {
+    margin-bottom: 0;
+    background-color: #f4511e;
+    z-index: 9999;
+    border: 0;
+    font-size: 12px !important;
+    line-height: 1.42857143 !important;
+    letter-spacing: 4px;
+    border-radius: 0;
+}
+
+.navbar li a, .navbar .navbar-brand {
+    color: #fff !important;
+}
+
+.navbar-nav li a:hover, .navbar-nav li.active a {
+    color: #f4511e !important;
+    background-color: #fff !important;
+}
+
+.navbar-default .navbar-toggle {
+    border-color: transparent;
+    color: #fff !important;
+}
+.bg-grey {
+    background-color: #f6f6f6;
+}
+.glyphicon-file{
+    font-size: 125px;
+}
+#DownCV {
+    outline: none;
 }
