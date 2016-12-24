@@ -108,6 +108,10 @@ like described above.
 * `$s->getPlace: string`
 * `$s->getZipCode: string`
 * `$s->getPlace: string`
+* `$s->getDateOfBirth(): string` 
+* `$s->getPhoneNumber(): string`
+* `$s->getStudentCode(): string`
+
 ### JobExperience
 This list below shows an list of the methods the `JobExperience()` object has.It also shows the return types of the methods. notice that
 when you use the methods in your portfolio you don't type `: string ` or `: array` behind the method call, this is just for clarification

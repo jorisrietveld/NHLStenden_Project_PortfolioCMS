@@ -25,7 +25,7 @@ This page shows all entities in the database and explains the entities propertie
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 
-![ERD portfolio CMS](https://github.com/stenden-INF1B/PortfolioCMS/blob/master/documentation/ERD/ERD_DigitalPortfolio_23-12-2016.png "ERD Digital portfolio")
+![ERD portfolio CMS](https://github.com/stenden-INF1B/PortfolioCMS/blob/master/documentation/ERD/ERD_DigitalPortfolio_24-12-2016.png "ERD Digital portfolio")
 
 ## The Entities explained
 
@@ -39,6 +39,7 @@ email :closed_lock_with_key: _The email address of the user, also used to login_
 lastIpAddress :closed_lock_with_key: _The last ip address the user used to login_<br>
 firstName :closed_lock_with_key: _The encrypted first name of the user_<br>
 lastName :closed_lock_with_key: _The encrypted last name of the user_<br>
+isAdmin _The boolean that decides if an user is of the type admin._<br>
 active _Veld om gebruikter op inactief te zetten_<br>
 
 ### Student 
@@ -63,6 +64,7 @@ _This entity represents an message on the guestbook_<br>
 sender _The name of the author of the message in the guestbook_<br>
 title _An subject or title for the message_<br>
 message _The actual message_<br>
+sendAt _The date and time the message was posted._
 isAccepted _If the message is accepted by the student_ <br>
 userId FOREIGN KEY -> User( id )<br>
 
