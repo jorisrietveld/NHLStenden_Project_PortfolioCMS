@@ -12,11 +12,29 @@ use StendenINF1B\PortfolioCMS\Kernel\Http\Request;
 
 class RouteMatcher
 {
+    /**
+     * @var string
+     */
     protected $basePath;
+
+    /**
+     * @var string
+     */
     protected $url;
+
+    /**
+     * @var RouteParser
+     */
     protected $routeParser;
+
+    /**
+     * @var \StendenINF1B\PortfolioCMS\Kernel\Helper\ParameterContainer
+     */
     protected $configuredRoutes;
 
+    /**
+     * RouteMatcher constructor for initiating this object.
+     */
     public function __construct()
     {
         $this->routeParser = new RouteParser();
@@ -36,6 +54,13 @@ class RouteMatcher
 
     }
 
+    /**
+     * This method checks if the HTTP method from the request matches the Configured route.
+     *
+     * @param Request         $request
+     * @param ConfiguredRoute $configuredRoute
+     * @return ConfiguredRoute
+     */
     public function matchHttpMethod( Request $request, ConfiguredRoute $configuredRoute ) : ConfiguredRoute
     {
         if( in_array( $request->getMethod(), $configuredRoute->getHttpMethods(), FALSE ) )
@@ -48,6 +73,12 @@ class RouteMatcher
         }
     }
 
+    /**
+     * This method matches the Request to an ConfiguredRoute and returns the configured route.
+     *
+     * @param Request $request
+     * @return ConfiguredRoute
+     */
     public function matchRouteUrl( Request $request ): ConfiguredRoute
     {
         // Todo replace this line with the one commented out.
@@ -74,6 +105,12 @@ class RouteMatcher
         return $this->configuredRoutes->get('/400');
     }
 
+    /**
+     * Gets an ConfiguredRoute that matches the path given as argument.
+     *
+     * @param string $path
+     * @return ConfiguredRoute
+     */
     public function getRouteForPath( string $path ) : ConfiguredRoute
     {
         if ( $this->configuredRoutes->has( $path ) )

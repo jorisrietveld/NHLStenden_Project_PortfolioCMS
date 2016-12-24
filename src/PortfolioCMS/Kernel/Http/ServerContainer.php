@@ -11,7 +11,8 @@ namespace StendenINF1B\PortfolioCMS\Kernel\Http;
 class ServerContainer extends ParameterContainer 
 {
     /**
-     * Get all the HTTP headers.
+     * Get all the HTTP headers. this method is replaced by the Parameter container that is saved directly
+     * to the Request. todo remove this method.
      *
      * @return array
      */

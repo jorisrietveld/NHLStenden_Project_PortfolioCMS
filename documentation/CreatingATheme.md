@@ -43,7 +43,23 @@ To render portfolio data in your theme you use the `Portfolio()` object to fetch
 ### Portfolio object
 The list below shows an list of methods the `Portfolio()` object has. It also shows the return types of the methods. notice that
 when you use the methods in your portfolio you don't type `: string ` or `: array` behind the method call, this is just for clarification
-of the return type of the method.
+of the return type of the method. To echo data stored in the `$portfolio` that are objects or arrays, scroll down and look for the exlanation from 
+that object. To output string data you can use: 
+```php
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Getting the page title from the $portfolio. -->
+        <title><?php echo $portfolio->getTitle(); ?></title>
+        
+        <!-- Optionally you can use the php shorthand tags, this code is the exact equivalent of the line above. -->
+        <title><?= $portfolio->getTitle() ?></title>
+    </head>
+    <body>
+
+    </body>
+</html>
+```
 * `$portfolio->getTitle() : string` This method returns an string containing the page title from the `Portfolio( title )` database entity.
 * `$portfolio->getBaseUrl() : string` This method returns an string containing the current base url like: `http://146.185.141.142/portfoliocms/web/`.
 * `$portfolio->getUrl() : string` This method returns an string containing the full current url the like: `http://146.185.141.142/portfoliocms/web/portfolio/joris`.
@@ -83,15 +99,15 @@ echo $portfolio->getStudent()->getSomeProperty();
 ```
 I wont type `$portfolio->getStudent()` in front of every method for convenience just `$s` but in your template you should first receive the request or use it 
 like described above.
-firstname,
--    lastname,
--    email,
--    dateOfBirth,
--    street,
--    address,
--    place,
--    zipCode,
--    place,
+* `$s->getFirstName(): string`
+* `$s->getLastName: string`
+* `$s->getEmail(): string`
+* `$s->getDateOfBirth(): string`
+* `$s->getStreet(): string`
+* `$s->getAddress(): string`
+* `$s->getPlace: string`
+* `$s->getZipCode: string`
+* `$s->getPlace: string`
 ### JobExperience
 This list below shows an list of the methods the `JobExperience()` object has.It also shows the return types of the methods. notice that
 when you use the methods in your portfolio you don't type `: string ` or `: array` behind the method call, this is just for clarification

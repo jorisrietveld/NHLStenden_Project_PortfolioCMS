@@ -18,7 +18,8 @@ CREATE TABLE IF NOT EXISTS `User` (
   `lastIpAddress`  VARBINARY(50)                                                  NULL, # The encrypted last ip address the user used to login.
   `firstName`      VARBINARY(255)                                                 NOT NULL, # The encrypted first name of the user.
   `lastName`       VARBINARY(255)                                                 NOT NULL, # The encrypted last name of the user.
-  `active`         BOOLEAN DEFAULT 1                                              NOT NULL, # Field to mark the user as inactive.
+  `isAdmin`        BOOLEAN DEFAULT 0                                              NOT NULL, # Boolean for storing if this user is an administrator.
+  `active` BOOLEAN DEFAULT 1 NOT NULL, # Field to mark the user as inactive.
 
   # Constraint to define the primary key of this table.
   CONSTRAINT pk_user PRIMARY KEY `User`(`id`)
