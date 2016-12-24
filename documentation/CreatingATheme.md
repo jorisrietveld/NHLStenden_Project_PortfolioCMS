@@ -59,6 +59,7 @@ of the return type of the method.
 * `$portfolio->getGalleryImages() : array` This method returns an array containing `Image()` objects, scroll down for more information about the `Image()` object.
 * `$portfolio->getSkills() : array` This method returns an array containing `Skill()` objects, scroll down for more information about the `Skill()` object.
 * `$portfolio->getHobbies() : array` This method returns an array containing `Hobby()` objects, scroll down for more information about the `Hobby()` object.
+* `$portfolio->getUser() : User` This method returns the current authenticated user object, scroll down for more information about the `User()` object.
 
 ### Student
 This list below shows an list of the methods the `Student()` object has.It also shows the return types of the methods. notice that
@@ -82,7 +83,15 @@ echo $portfolio->getStudent()->getSomeProperty();
 ```
 I wont type `$portfolio->getStudent()` in front of every method for convenience just `$s` but in your template you should first receive the request or use it 
 like described above.
-
+firstname,
+-    lastname,
+-    email,
+-    dateOfBirth,
+-    street,
+-    address,
+-    place,
+-    zipCode,
+-    place,
 ### JobExperience
 This list below shows an list of the methods the `JobExperience()` object has.It also shows the return types of the methods. notice that
 when you use the methods in your portfolio you don't type `: string ` or `: array` behind the method call, this is just for clarification
@@ -366,11 +375,3 @@ echo $portfolio->getRequest()->getSomethingThatReturnsParameterContainer()->get(
 ```
 I wont type `$portfolio->getRequest()->getSomethingThatReturnsParameterContainer();` in front of every method for convenience just `$p` but in your template you should first receive the request or use it 
 like described above.
-
-### Session
-
-
-### FilesContainer
-
-
-### $portfolio data

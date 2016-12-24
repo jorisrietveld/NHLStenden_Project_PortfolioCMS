@@ -1,4 +1,4 @@
-# DROP DATABASE IF EXISTS `DigitalPortfolio`;
+#DROP DATABASE IF EXISTS `DigitalPortfolio`;
 
 # Create the new database.
 CREATE DATABASE IF NOT EXISTS `DigitalPortfolio`;
@@ -70,6 +70,7 @@ CREATE TABLE IF NOT EXISTS `GuestBookMessage` (
   `sender`    VARCHAR(255)                       NOT NULL, # The name of the author of the message in the posted in the guest book.
   `title`     VARCHAR(50) DEFAULT 'Reactie op portfolio', # The subject or title for the message.
   `message`   TEXT                               NOT NULL, # The actual message.
+  `sendAt`    DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, # The time the message was posted.
   `studentId` INT UNSIGNED                       NOT NULL, # The unique identifier for the student witch receives the message.
   `accsepted` BOOLEAN DEFAULT 0                  NOT NULL, # If the post is accepted by the student.
 
