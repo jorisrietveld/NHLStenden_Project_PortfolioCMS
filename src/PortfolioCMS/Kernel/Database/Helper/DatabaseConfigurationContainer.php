@@ -24,9 +24,11 @@ class DatabaseConfigurationContainer extends ParameterContainer
      *
      * @param array $databaseConfigurationParams
      */
-    public function __construct( array $databaseConfigurationParams = [] )
+    public function __construct( string $connectionName, array $databaseConfigurationParams = [] )
     {
         parent::__construct( $databaseConfigurationParams );
+        $this->setConnectionName( $connectionName );
+
         $this->pdoOptions = new ParameterContainer();
     }
 
@@ -66,7 +68,7 @@ class DatabaseConfigurationContainer extends ParameterContainer
      */
     public function getPdoOptions(  ) : ParameterContainer
     {
-        return $this->getPdoOptions();
+        return $this->pdoOptions;
     }
 
 

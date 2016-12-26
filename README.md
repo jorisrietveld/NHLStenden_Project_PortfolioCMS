@@ -5,6 +5,7 @@ Documentation or here:
 [installing the CMS](https://github.com/stenden-INF1B/PortfolioCMS/blob/master/documentation/InstallingTheCMS.md)<br>
 [Installing lib sodium](https://github.com/stenden-INF1B/PortfolioCMS/blob/master/documentation/InstallingLibSodium.md)<br>
 [Creating a theme](https://github.com/stenden-INF1B/PortfolioCMS/blob/master/documentation/CreatingATheme.md)<br>
+[Database structure explained](https://github.com/stenden-INF1B/PortfolioCMS/blob/master/documentation/DatabaseSturctue.md)<br>
 
 ### Live version
 To view an live version of the Portefolio cms [click here](http://146.185.141.142/PortfolioCMS/web/)

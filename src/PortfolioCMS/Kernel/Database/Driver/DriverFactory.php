@@ -18,7 +18,7 @@ class DriverFactory
      * @param array $config
      * @return DriverInterface
      */
-    public function createDriver( ParameterContainer $databaseConfiguration  ) : DriverInterface
+    public function createDriver( ParameterContainer $databaseConfiguration ) : DriverInterface
     {
         if( $databaseConfiguration->has( 'driver' ) === FALSE )
         {

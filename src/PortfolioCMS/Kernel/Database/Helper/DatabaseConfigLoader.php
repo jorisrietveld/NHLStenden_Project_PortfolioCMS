@@ -36,8 +36,8 @@ class DatabaseConfigLoader
      */
     public function __construct( string $configFile = null )
     {
-        $this->filename = $routeConfigFile ?? DATABASE_CONFIG_FILE;
-        $this->databaseConfigContainers = [ ];
+        $this->filename = $configFile ?? DATABASE_CONFIG_FILE;
+        $this->databaseConfigContainers = [];
     }
 
     /**
@@ -46,9 +46,9 @@ class DatabaseConfigLoader
      * @throws FileNotFoundException
      * @throws XMLParserException
      */
-    public function loadXmlFile( string $fileName = NULL )
+    public function loadXmlFile( string $fileName = null )
     {
-        if( $fileName !== NULL )
+        if ( $fileName )
         {
             $this->setFilename( $fileName );
         }
@@ -104,27 +104,25 @@ class DatabaseConfigLoader
      * @param \SimpleXMLElement|null $databaseConfig
      * @throws ConfigurationErrorException
      */
-    public function convertXMLToDatabaseContainer( \SimpleXMLElement $databaseConfig = NULL )
+    public function convertSimpleXMLToDatabaseContainer( \SimpleXMLElement $databaseConfig = null )
     {
-        if( $databaseConfig !== NULL )
+        if ( $databaseConfig !== null )
         {
-            $this->simpleXMLObject =  $databaseConfig;
+            $this->simpleXMLObject = $databaseConfig;
         }
 
         // Iterate through the database connections.
-        foreach ( $this->getSimpleXmlObject() as $databaseConnection )
+        foreach ($this->getSimpleXmlObject() as $databaseConnection)
         {
-            $databaseConfigContainer = new DatabaseConfigurationContainer();
-
-            if( empty( $databaseConnection[ 'name' ] ))
+            if ( empty( $databaseConnection[ 'name' ] ) )
             {
                 throw new ConfigurationErrorException( 'You must name the configured database connection' );
             }
 
-            $databaseConfigContainer->setConnectionName( (string)$databaseConnection['name'] );
+            $databaseConfigContainer = new DatabaseConfigurationContainer( (string)$databaseConnection[ 'name' ] );
 
             // Iterate through database connection options.
-            foreach ( $databaseConnection->option as $configOption )
+            foreach ($databaseConnection->option as $configOption)
             {
                 if ( (string)$configOption[ 'id' ] !== 'pdo-options' )
                 {
@@ -132,13 +130,26 @@ class DatabaseConfigLoader
                 }
                 else
                 {
+                    $count = 0;
+
                     // Iterate through the pdo options
                     foreach ($configOption as $pdoOption)
                     {
-                        $databaseConfigContainer->pdoOptions->set(
-                            (string)$pdoOption['id'],
-                            (string)$pdoOption
-                        );
+                        $count++;
+                        $pdoOptionKey = (string)$pdoOption[ 'id' ];
+                        $pdoOptionValue = (string)$pdoOption;
+
+                        if ( defined( $pdoOptionKey ) && defined( $pdoOptionValue ) )
+                        {
+                            $databaseConfigContainer->pdoOptions->set(
+                                constant( $pdoOptionKey ),
+                                constant( $pdoOptionValue )
+                            );
+                        }
+                        else
+                        {
+                            throw new ConfigurationErrorException( 'Invalid PDO configuration in database configuration file. Check the %s configured parameter.', $count );
+                        }
                     }
                 }
             }
@@ -169,11 +180,17 @@ class DatabaseConfigLoader
 
     /**
      * Gets the database configuration containers that hold connection information.
-     * 
+     *
+     * @param $autoLoadXml bool Set this to to prevent the auto loading of the SimpleXMLFile.
      * @return array
      */
-    public function getDatabaseConfigContainers(): array
+    public function getDatabaseConfigContainers( $autoLoadXml = false ): array
     {
+        if ( $autoLoadXml )
+        {
+            $this->convertSimpleXMLToDatabaseContainer();
+        }
+
         return $this->databaseConfigContainers;
     }
 
@@ -181,17 +198,22 @@ class DatabaseConfigLoader
      * Gets an single database configuration container.
      *
      * @param string $connectionName
-     * @param null   $default
+     * @param        $autoLoadXml bool Set this to to prevent the auto loading of the SimpleXMLFile.
      * @return array|null
      */
-    public function getDatabaseConfigContainer( string $connectionName ) : DatabaseConfigurationContainer
+    public function getDatabaseConfigContainer( string $connectionName, $autoLoadXml = false ) : DatabaseConfigurationContainer
     {
-        return isset( $this->databaseConfigContainers[ $connectionName ] ) ? $this->databaseConfigContainers : NULL;
+        if ( $autoLoadXml )
+        {
+            $this->convertSimpleXMLToDatabaseContainer();
+        }
+
+        return isset( $this->databaseConfigContainers[ $connectionName ] ) ? $this->databaseConfigContainers[ $connectionName ] : null;
     }
 
     /**
      * Sets an array of database configuration containers, overwrites the current one if it exists.
-     * 
+     *
      * @param array $databaseConfigContainers
      */
     public function setDatabaseConfigContainers( array $databaseConfigContainers )

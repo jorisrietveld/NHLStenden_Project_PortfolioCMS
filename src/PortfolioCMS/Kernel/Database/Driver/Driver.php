@@ -6,24 +6,15 @@
 
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Driver;
 
-use DebugBar\StandardDebugBar;
 use PDO;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Helper\DatabaseConfigurationContainer;
-use StendenINF1B\PortfolioCMS\Kernel\Exception\ConfigurationErrorException;
 use StendenINF1B\PortfolioCMS\Kernel\Exception\DatabaseDriverException;
-use StendenINF1B\PortfolioCMS\Kernel\Helper\ParameterContainer;
-use Symfony\Component\VarDumper\Cloner\Data;
 
 
-/**
- * Class Driver
- *
- * @package CWDatabase\Drivers
- */
 class Driver
 {
     /**
-     * This are the default \PDO connection options for opening an connection to the database.
+     * This are the default PHP Data Object options for opening an connection to the database.
      *
      * @var array
      */
