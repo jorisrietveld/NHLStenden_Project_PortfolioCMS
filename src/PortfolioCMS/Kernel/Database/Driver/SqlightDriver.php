@@ -2,6 +2,8 @@
 /**
  * Author: Joris Rietveld <jorisrietveld@protonmail.com>
  * Date: 14-9-15 - 12:02
+ *
+ * Todo rewrite this driver to work with the new framework. DOES NOT WORK AT THE MOMENT.
  */
 
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Driver;

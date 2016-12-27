@@ -60,22 +60,23 @@ that object. To output string data you can use:
     </body>
 </html>
 ```
-* `$portfolio->getTitle() : string` This method returns an string containing the page title from the `Portfolio( title )` database entity.
-* `$portfolio->getBaseUrl() : string` This method returns an string containing the current base url like: `http://146.185.141.142/portfoliocms/web/`.
-* `$portfolio->getUrl() : string` This method returns an string containing the full current url the like: `http://146.185.141.142/portfoliocms/web/portfolio/joris`.
-* `$portfolio->getPortfolioPath() : string` This method returns an string containing the path to the portfolio like `/portfolio/joris`. 
-* `$portfolio->getPagePath() : string` This method returns an string containing the path to the page like: `/portfolio/joris` or `/portfolio/joris/slbo_prachten`.
-* `$portfolio->getRequest() : HttpRequest` This method returns the current `HttpRequest()` object, scroll down for more information about the `HttpRequest()` object.
-* `$portfolio->getGetGrade() : string` This method returns an string containing the grade from the `Portfolio( grade )` database entity.
-* `$portfolio->getGetStudent() : Student()` This method returns an `Student()` object containing the data about the user, scroll down for information about the `Student()` object.
-* `$portfolio->getGetJobExperiences() : array` This method returns an array containing `JobExperience()` objects, scroll down for information about the `JobExperience()` object.
-* `$portfolio->getGetLanguages() : array` This method returns an array containing `Language()` objects, scroll down for information about the `Language()` object.
-* `$portfolio->getTrainings() : array` This method returns an array containing `Training()` objects, scroll down for information about the `Training()` object.
-* `$portfolio->getSLBAssignments() : array` This method returns an array containing `SLBAssignment()` objects, scroll down for information about the `SLBAssignment()` object.
-* `$portfolio->getGalleryImages() : array` This method returns an array containing `Image()` objects, scroll down for more information about the `Image()` object.
-* `$portfolio->getSkills() : array` This method returns an array containing `Skill()` objects, scroll down for more information about the `Skill()` object.
-* `$portfolio->getHobbies() : array` This method returns an array containing `Hobby()` objects, scroll down for more information about the `Hobby()` object.
-* `$portfolio->getUser() : User` This method returns the current authenticated user object, scroll down for more information about the `User()` object.
+* `$portfolio->getTitle() : string` Returns the page title from the `Portfolio( title )` database entity.
+* `$portfolio->getBaseUrl() : string` Returns the current base url like: `http://146.185.141.142/portfoliocms/web/`.
+* `$portfolio->getUrl() : string` Returns the full current url the like: `http://146.185.141.142/portfoliocms/web/portfolio/joris`.
+* `$portfolio->getPortfolioPath() : string` Returns the path to the portfolio like `/portfolio/joris`. 
+* `$portfolio->getPagePath() : string` Returns  the path to the page like: `/portfolio/joris` or `/portfolio/joris/slbo_prachten`.
+* `$portfolio->getRequest() : HttpRequest` Returns the current `HttpRequest()` object, scroll down for more information about the `HttpRequest()` object.
+* `$portfolio->getGetGrade() : string` Returns the grade from the `Portfolio( grade )` database entity.
+* `$portfolio->getGetStudent() : Student()` Returns an `Student()` object containing the data about the user, scroll down for info about the `Student()` object.
+* `$portfolio->getGetJobExperiences() : array` Returns an array containing `JobExperience()` objects, scroll down for info about the `JobExperience()` object.
+
+* `$portfolio->getGetLanguages() : array` Returns an array containing `Language()` objects, scroll down for info about the `Language()` object.
+* `$portfolio->getTrainings() : array` Returns an array containing `Training()` objects, scroll down for info about the `Training()` object.
+* `$portfolio->getSLBAssignments() : array` Returns an array containing `SLBAssignment()` objects, scroll down for info about the `SLBAssignment()` object.
+* `$portfolio->getGalleryImages() : array` Returns an array containing `Image()` objects, scroll down for more info about the `Image()` object.
+* `$portfolio->getSkills() : array` Returns an array containing `Skill()` objects, scroll down for more info about the `Skill()` object.
+* `$portfolio->getHobbies() : array` Returns an array containing `Hobby()` objects, scroll down for more info about the `Hobby()` object.
+* `$portfolio->getUser() : User` Returns the current authenticated user object, scroll down for more info about the `User()` object.
 
 ### Student
 This list below shows an list of the methods the `Student()` object has.It also shows the return types of the methods. notice that
@@ -99,18 +100,16 @@ echo $portfolio->getStudent()->getSomeProperty();
 ```
 I wont type `$portfolio->getStudent()` in front of every method for convenience just `$s` but in your template you should first receive the request or use it 
 like described above.
-* `$s->getFirstName(): string`
-* `$s->getLastName: string`
-* `$s->getEmail(): string`
-* `$s->getDateOfBirth(): string`
-* `$s->getStreet(): string`
-* `$s->getAddress(): string`
-* `$s->getPlace: string`
-* `$s->getZipCode: string`
-* `$s->getPlace: string`
-* `$s->getDateOfBirth(): string` 
-* `$s->getPhoneNumber(): string`
-* `$s->getStudentCode(): string`
+* `$s->getFirstName(): string` Returns the first name of the student.
+* `$s->getLastName: string` Returns the last name of the student.
+* `$s->getEmail(): string` Returns the email address of the student.
+* `$s->getDateOfBirth(): DateTime()` Returns the date of birh of the student in an `Datetime` object. 
+* `$s->getStreet(): string` Returns the street where the student lives.
+* `$s->getAddress(): string` Returns the house number where the student lives.
+* `$s->getPlace: string` Returns the city where the student lives.
+* `$s->getZipCode: string` Returns the zip code from the student.
+* `$s->getPhoneNumber(): string` Returns the phone number of the student.
+* `$s->getStudentCode(): string` Returns the Stenden student code from the student.
 
 ### JobExperience
 This list below shows an list of the methods the `JobExperience()` object has.It also shows the return types of the methods. notice that
@@ -140,7 +139,11 @@ echo $portfolio->getjobExperiences()[0]->getSomeProperty();
 ```
 I wont type `$portfolio->getJobExperiences()[0]` in front of every method for convenience just `$j` but in your template you should first receive the request or use it 
 like described above.
-
+`$j->getId(): int` returns the id given by the database.
+`$j->getStartedAt(): DateTime` Returns an `DateTime()` object with the start date or `NULL`.
+`$j->getEndedAt(): DateTime` Returns an `DateTime()` object with the end date or `NULL`.
+`$j->description(): string` Returns an description about the job experience.
+`$j->isInternship(): bool`
 ### Language
 This list below shows an list of the methods the `Language()` object has.It also shows the return types of the methods. notice that
 when you use the methods in your portfolio you don't type `: string ` or `: array` behind the method call, this is just for clarification

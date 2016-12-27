@@ -124,14 +124,13 @@ class DatabaseConfigLoader
             // Iterate through database connection options.
             foreach ($databaseConnection->option as $configOption)
             {
+                $count = 0;
                 if ( (string)$configOption[ 'id' ] !== 'pdo-options' )
                 {
                     $databaseConfigContainer->set( (string)$configOption[ 'id' ], (string)$configOption );
                 }
                 else
                 {
-                    $count = 0;
-
                     // Iterate through the pdo options
                     foreach ($configOption as $pdoOption)
                     {
@@ -208,7 +207,12 @@ class DatabaseConfigLoader
             $this->convertSimpleXMLToDatabaseContainer();
         }
 
-        return isset( $this->databaseConfigContainers[ $connectionName ] ) ? $this->databaseConfigContainers[ $connectionName ] : null;
+        if ( !isset( $this->databaseConfigContainers[ $connectionName ] ) )
+        {
+            throw  new ConfigurationErrorException( sprintf( 'No database configuration found with connection name: %s', $connectionName ));
+        }
+
+        return $this->databaseConfigContainers[ $connectionName ];
     }
 
     /**

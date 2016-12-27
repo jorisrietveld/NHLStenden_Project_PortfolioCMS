@@ -47,13 +47,13 @@ class Driver
     {
         foreach ( $config->getPdoOptions() as $setting => $value )
         {
-            if( defined( $setting ) && defined( $value ) )
+            if( defined( $setting ) )
             {
                 $this->addPdoOption( constant( $setting ), constant( $value ));
             }
             else
             {
-                throw new DatabaseDriverException( sprintf( 'Bad configured PDO option: %s with value: %s.', $setting, $value ) );
+                throw new DatabaseDriverException( sprintf( 'Bad configured PDO option: %s with value: %s', $setting, $value ) );
             }
         }
     }
@@ -99,12 +99,12 @@ class Driver
      */
     public function openConnection( string $dsn, DatabaseConfigurationContainer $config )
     {
-        $this->addPdoOptionsFromConfig( $config );
+        $this->setPdoOptions( $config->pdoOptions->all() );
 
         return new \PDO(
             $dsn,
-            $config->get( 'username', '' ),
-            $config->get( 'password', '' ),
+            $config->get( 'username' ),
+            $config->get( 'password' ),
             $this->getPdoOptions()
         );
     }

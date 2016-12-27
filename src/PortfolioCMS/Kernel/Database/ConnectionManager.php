@@ -13,7 +13,7 @@ class ConnectionManager
 {
     protected static $openedConnections = [];
 
-    protected static function addConnection( )
+    protected static function addConnection(  )
     {
 
     }

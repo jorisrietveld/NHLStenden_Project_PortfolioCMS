@@ -15,5 +15,7 @@ interface EntityMangerInterface
 
     public function findOne( $entityName, $withAttributes = [] );
 
+    public function getRepository();
+
 
 }

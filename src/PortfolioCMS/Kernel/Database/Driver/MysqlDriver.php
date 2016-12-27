@@ -8,9 +8,7 @@ namespace StendenINF1B\PortfolioCMS\Kernel\Database\Driver;
 
 use PDO;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Helper\DatabaseConfigurationContainer;
-use StendenINF1B\PortfolioCMS\Kernel\Debug\Debug;
 use StendenINF1B\PortfolioCMS\Kernel\Exception\DatabaseDriverException;
-use StendenINF1B\PortfolioCMS\Kernel\Helper\ParameterContainer;
 
 
 class MysqlDriver extends Driver implements DriverInterface
@@ -33,6 +31,8 @@ class MysqlDriver extends Driver implements DriverInterface
      */
     public function connect( DatabaseConfigurationContainer $config ) : \PDO
     {
+        $this->databaseConfig = $config;
+
         $dsn = $this->getDsn( $config );
 
         $this->mysqlConnection = $this->openConnection( $dsn, $config );
@@ -58,7 +58,7 @@ class MysqlDriver extends Driver implements DriverInterface
             $this->setTimezone( );
         }
 
-        if ( $this->configHasStrict( ) )
+        if ( $config->has( 'strict' ) )
         {
             $this->setStrict();
         }
@@ -112,12 +112,12 @@ class MysqlDriver extends Driver implements DriverInterface
         if ( $config->has( 'host' ) )
         {
             // Generate an domain name string for an mysql connection with host configuration.
-            $this->getDsnWithHostConfiguration( $config );
+            return $this->getDsnWithHostConfiguration( $config );
         }
         elseif ( $config->has( 'unix_socket' ) )
         {
             // Generate an Domain name string for mysql with unix socket configuration.
-            $this->getDsnWithSocketConfiguration( $config );
+            return $this->getDsnWithSocketConfiguration( $config );
         }
         else
         {
@@ -139,7 +139,7 @@ class MysqlDriver extends Driver implements DriverInterface
             throw new DatabaseDriverException( 'It is required to set an database name when connecting to an database with unix socket.' );
         }
 
-        return sprinf( 'mysql:unix_socket=%s;dbname=%s;', $config->get( 'unix_socket' ), $config->get( 'dbname' ) );
+        return sprintf( 'mysql:unix_socket=%s;dbname=%s;', $config->get( 'unix_socket' ), $config->get( 'dbname' ) );
     }
 
     /**
@@ -151,8 +151,8 @@ class MysqlDriver extends Driver implements DriverInterface
     protected function getDsnWithHostConfiguration( DatabaseConfigurationContainer $config )
     {
         $port = $config->has( 'port' ) ? sprintf( 'port=%s;', $config->get( 'port' ) ) : '';
-        $dbname = $config->has( 'dbname=' ) ? sprintf( 'dbname=%s;', $config->get( 'dbname' ) ) : '';
+        $dbname = $config->has( 'dbname' ) ? sprintf( 'dbname=%s;', $config->get( 'dbname' ) ) : '';
 
-        return sprinf( 'mysql:host=%s%s%s', $config->get( 'host' ), $port, $dbname );
+        return sprintf( 'mysql:host=%s;%s%s', $config->get( 'host' ), $port, $dbname );
     }
 }

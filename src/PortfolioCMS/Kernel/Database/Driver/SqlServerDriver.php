@@ -1,7 +1,8 @@
 <?php
 /**
  * Author: Joris Rietveld <jorisrietveld@protonmail.com>
- * Date: 4-9-15 - 15:15
+ * Date: 04-09-2015 - 15:15
+ * Todo rewrite this driver to work with the new framework. DOES NOT WORK AT THE MOMENT.
  */
 
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Driver;

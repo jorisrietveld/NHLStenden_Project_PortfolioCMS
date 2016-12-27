@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseConnections>
+
+    <databaseConnection name="testConnectConfig">
+        <option id="driver">mysql</option>
+        <option id="host">127.0.0.1</option>
+        <option id="port">3306</option>
+        <option id="dbname">Test</option>
+        <option id="username">root</option>
+        <option id="password">toor</option>
+        <option id="charset">UTF8</option>
+        <option id="pdo-options">
+            <option id="\PDO::ATTR_EMULATE_PREPARES">FALSE</option>
+            <option id="\PDO::ATTR_ERRMODE">\PDO::ERRMODE_EXCEPTION</option>
+            <option id="\PDO::ATTR_CASE">\PDO::CASE_NATURAL</option>
+            <option id="\PDO::ATTR_ORACLE_NULLS">\PDO::NULL_NATURAL</option>
+            <option id="\PDO::ATTR_STRINGIFY_FETCHES">FALSE</option>
+        </option>
+    </databaseConnection>
+
+</databaseConnections>

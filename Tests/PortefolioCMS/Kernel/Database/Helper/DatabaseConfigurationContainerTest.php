@@ -13,9 +13,25 @@ use StendenINF1B\PortfolioCMS\Kernel\Database\Helper\DatabaseConfigurationContai
 
 class DatabaseConfigurationContainerTest extends \PHPUnit_Framework_TestCase
 {
-    public function testController(  )
+    public function testController()
     {
-        $dbConfigContainer = new DatabaseConfigurationContainer( [ 'foo' => 'bar' ] );
+        $dbConfigContainer = new DatabaseConfigurationContainer( 'dbConn', [ 'foo' => 'bar' ] );
+
         $this->assertEquals( [ 'foo' => 'bar' ], $dbConfigContainer->all() );
+        $this->assertEquals( 'dbConn', $dbConfigContainer->getConnectionName() );
+    }
+
+    public function testSetPdoOptions()
+    {
+        $dbConfigContainer = new DatabaseConfigurationContainer('dbConn');
+
+        $pdoOptions = [
+            \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+            \PDO::ATTR_EMULATE_PREPARES => false,
+        ];
+
+        $dbConfigContainer->setPdoOptions( $pdoOptions );
+
+        $this->assertEquals( $pdoOptions, $dbConfigContainer->getPdoOptions()->all() );
     }
 }
