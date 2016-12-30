@@ -13,4 +13,9 @@ class EntityManager
 {
     protected $connectionManager;
     protected $repositoryManager;
+
+    public function __construct(  )
+    {
+        
+    }
 }

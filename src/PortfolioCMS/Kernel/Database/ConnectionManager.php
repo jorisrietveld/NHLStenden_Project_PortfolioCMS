@@ -10,6 +10,7 @@ namespace StendenINF1B\PortfolioCMS\Kernel\Database;
 
 use StendenINF1B\PortfolioCMS\Kernel\Database\Driver\DriverFactory;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Helper\DatabaseConfigLoader;
+use StendenINF1B\PortfolioCMS\Kernel\Helper\ParameterContainer;
 
 class ConnectionManager
 {
@@ -19,9 +20,9 @@ class ConnectionManager
     const defaultDatabase = 'jorisLocalhost';
 
     /**
-     * @var array
+     * @var ParameterContainer
      */
-    protected  $openedConnections = [];
+    protected  $openedConnections;
 
     /**
      * @var DriverFactory
@@ -38,10 +39,11 @@ class ConnectionManager
      *
      * @param bool $autoLoadConfig
      */
-    public function __construct( bool $autoLoadConfig = FALSE )
+    public function __construct( bool $autoLoadConfig = FALSE, string $configFile = DATABASE_CONFIG_FILE )
     {
         $this->driverFactory = new DriverFactory();
-        $this->configLoader = new DatabaseConfigLoader( DATABASE_CONFIG_FILE );
+        $this->configLoader = new DatabaseConfigLoader( $configFile );
+        $this->openedConnections = new ParameterContainer();
 
         if( $autoLoadConfig )
         {
@@ -78,7 +80,7 @@ class ConnectionManager
             {
                 if( in_array( $name, $loadConnectionNames, TRUE ) )
                 {
-                    $this->loadConnectionFromConfig();
+                    $this->loadConnectionFromConfig( $name );
                 }
             }
             else
@@ -95,7 +97,7 @@ class ConnectionManager
      */
     public function addConnection( DatabaseConnection $databaseConnection )
     {
-        $this->openedConnections[ $databaseConnection->getName() ] = $databaseConnection;
+        $this->openedConnections->set( $databaseConnection->getName(), $databaseConnection );
     }
 
     /**
@@ -106,9 +108,9 @@ class ConnectionManager
      */
     public function getConnection( string $connectionName ): DatabaseConnection
     {
-        if( isset( $this->openedConnections[ $connectionName ] ))
+        if( $this->openedConnections->has( $connectionName ) )
         {
-            return $this->openedConnections[ $connectionName ];
+            return $this->openedConnections->get( $connectionName );
         }
         else
         {
@@ -121,7 +123,7 @@ class ConnectionManager
      *
      * @param array $connections
      */
-    public function setConnections( array $connections )
+    public function setConnections( ParameterContainer $connections )
     {
         $this->openedConnections = $connections;
     }
@@ -131,7 +133,7 @@ class ConnectionManager
      *
      * @return array
      */
-    public function getConnections(  ): array
+    public function getConnections(  ): ParameterContainer
     {
         return $this->openedConnections;
     }
