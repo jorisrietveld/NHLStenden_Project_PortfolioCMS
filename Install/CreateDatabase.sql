@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `User` (
   `firstName`      VARBINARY(255)                                                 NOT NULL, # The encrypted first name of the user.
   `lastName`       VARBINARY(255)                                                 NOT NULL, # The encrypted last name of the user.
   `isAdmin`        BOOLEAN DEFAULT 0                                              NOT NULL, # Boolean for storing if this user is an administrator.
-  `active` BOOLEAN DEFAULT 1 NOT NULL, # Field to mark the user as inactive.
+  `active`         BOOLEAN DEFAULT 1                                              NOT NULL, # Field to mark the user as inactive.
 
   # Constraint to define the primary key of this table.
   CONSTRAINT pk_user PRIMARY KEY `User`(`id`)
@@ -30,8 +30,7 @@ CREATE TABLE IF NOT EXISTS `User` (
  */
 CREATE TABLE IF NOT EXISTS `Student` (
   `userId`      INT UNSIGNED UNIQUE   NOT NULL, # Inherited key from the entity user and unique identifier for this record.
-  `street`      VARBINARY(255)        NOT NULL, # The encrypted name the street where the student lives.
-  `address`     VARBINARY(5)          NOT NULL, #The encrypted street number where the student lives.
+  `address`     VARBINARY(5)          NOT NULL, # The encrypted street number where the student lives.
   `zipCode`     VARBINARY(10)         NOT NULL, # The zip code of where student lives.
   `location`    VARBINARY(100)        NOT NULL, # The place the student lives.
   `dateOfBirth` VARBINARY(50)         NOT NULL, # The date of birth of an student.
@@ -300,13 +299,13 @@ CREATE TABLE IF NOT EXISTS `Hobby` (
   * This entity represent an project the student wants to show.
  */
 CREATE TABLE IF NOT EXISTS `Project` (
-  `id`               INT UNSIGNED UNIQUE AUTO_INCREMENT NOT NULL, # The unique identification code of the record.
-  `name`             VARCHAR(100)                       NOT NULL, # The name of the project.
-  `description`      VARCHAR(255)                       NOT NULL, # An short description about the project.
-  `link`             VARCHAR(255)                       NOT NULL, # An link to the project.
-  `thumbnailImageId` INT UNSIGNED                       NOT NULL, # The unique identifier of the uploaded image thumbnail that belongs to the project.
-  `portfolioId`      INT UNSIGNED                       NOT NULL, # The unique identifier of the portfolio that the project belongs to.
-  `grade`            DECIMAL(2, 1)                      NULL, # The grade the teacher has given for the project.
+  `id`          INT UNSIGNED UNIQUE AUTO_INCREMENT NOT NULL, # The unique identification code of the record.
+  `name`        VARCHAR(100)                       NOT NULL, # The name of the project.
+  `description` VARCHAR(255)                       NOT NULL, # An short description about the project.
+  `link`        VARCHAR(255)                       NOT NULL, # An link to the project.
+  `imageId`     INT UNSIGNED                       NOT NULL, # The unique identifier of the uploaded image thumbnail that belongs to the project.
+  `portfolioId` INT UNSIGNED                       NOT NULL, # The unique identifier of the portfolio that the project belongs to.
+  `grade`       DECIMAL(2, 1)                      NULL, # The grade the teacher has given for the project.
   # Constraint to define the primary key of this table.
   CONSTRAINT pk_project PRIMARY KEY `Project`(`id`),
 
