@@ -14,11 +14,6 @@ class Student extends User implements EntityInterface
     /**
      * @var string
      */
-    protected $street;
-
-    /**
-     * @var string
-     */
     protected $address;
 
     /**
@@ -45,24 +40,6 @@ class Student extends User implements EntityInterface
      * @var string
      */
     protected $phoneNumber;
-
-    /**
-     * @return string
-     */
-    public function getStreet(): string
-    {
-        return $this->street;
-    }
-
-    /**
-     * @param string $street
-     * @return Student
-     */
-    public function setStreet( string $street ): Student
-    {
-        $this->street = $street;
-        return $this;
-    }
 
     /**
      * @return string

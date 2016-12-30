@@ -8,6 +8,7 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Driver;
 
+use StendenINF1B\PortfolioCMS\Kernel\Database\Helper\DatabaseConfigurationContainer;
 use StendenINF1B\PortfolioCMS\Kernel\Helper\ParameterContainer;
 
 class DriverFactory
@@ -15,10 +16,10 @@ class DriverFactory
     /**
      * Search in the configuration for the driver key and return an driver instance that implements the DriverInterface.
      *
-     * @param array $config
+     * @param $databaseConfiguration DatabaseConfigurationContainer
      * @return DriverInterface
      */
-    public function createDriver( ParameterContainer $databaseConfiguration ) : DriverInterface
+    public function createDriver( DatabaseConfigurationContainer $databaseConfiguration ) : DriverInterface
     {
         if( $databaseConfiguration->has( 'driver' ) === FALSE )
         {

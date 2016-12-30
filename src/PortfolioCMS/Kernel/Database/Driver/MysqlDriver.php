@@ -7,6 +7,7 @@
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Driver;
 
 use PDO;
+use StendenINF1B\PortfolioCMS\Kernel\Database\DatabaseConnection;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Helper\DatabaseConfigurationContainer;
 use StendenINF1B\PortfolioCMS\Kernel\Exception\DatabaseDriverException;
 
@@ -16,10 +17,15 @@ class MysqlDriver extends Driver implements DriverInterface
     /**
      * @var PDO The PHP data object connected to the MySQL server.
      */
-    private $mysqlConnection;
+    protected $mysqlConnection;
 
     /**
-     * @var DatabaseConfigurationContainer An conteiner containing connection parameters and PDO options.
+     * @var DatabaseConnection
+     */
+    protected $connection;
+
+    /**
+     * @var DatabaseConfigurationContainer An container containing connection parameters and PDO options.
      */
     protected $databaseConfig;
 
@@ -29,11 +35,13 @@ class MysqlDriver extends Driver implements DriverInterface
      * @param DatabaseConfigurationContainer $config
      * @return PDO
      */
-    public function connect( DatabaseConfigurationContainer $config ) : \PDO
+    public function connect( DatabaseConfigurationContainer $config ) : DatabaseConnection
     {
         $this->databaseConfig = $config;
 
         $dsn = $this->getDsn( $config );
+
+        $this->connection = new DatabaseConnection( $config->getConnectionName(), $config->get( 'driver' ) );
 
         $this->mysqlConnection = $this->openConnection( $dsn, $config );
 
@@ -63,7 +71,10 @@ class MysqlDriver extends Driver implements DriverInterface
             $this->setStrict();
         }
 
-        return $this->mysqlConnection;
+        $this->connection->setPdo( $this->mysqlConnection );
+        $this->connection->setPdoSettings( $config->getPdoOptions() );
+
+        return $this->connection;
     }
 
     /**

@@ -103,6 +103,9 @@ class MysqlDriverTest extends \PHPUnit_Framework_TestCase
         $configFileName = __DIR__.DIRECTORY_SEPARATOR.'testConnectConfig.xml';
         $dbConfig = (new DatabaseConfigLoader( $configFileName ) )->getDatabaseConfigContainer( 'testConnectConfig', TRUE );
 
-        $connection = $mysqlDriver->connect( $dbConfig );
+        $this->assertInstanceOf(
+            '\\StendenINF1B\\PortfolioCMS\\Kernel\\Database\\DatabaseConnection',
+            $mysqlDriver->connect( $dbConfig )
+        );
     }
 }

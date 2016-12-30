@@ -8,9 +8,10 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Driver;
 
+use StendenINF1B\PortfolioCMS\Kernel\Database\DatabaseConnection;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Helper\DatabaseConfigurationContainer;
 
 interface DriverInterface
 {
-    public function connect( DatabaseConfigurationContainer $config ) : \PDO;
+    public function connect( DatabaseConfigurationContainer $config ) : DatabaseConnection;
 }
