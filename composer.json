@@ -14,12 +14,14 @@
     ],
     "autoload-dev": {
         "psr-4": {
-            "Tests\\PortfolioCMS\\" : "Tests/"
+            "Tests\\PortfolioCMS\\" : "Tests/",
+            "JorisRietveld\\Commandline\\" : "bin/src/Commandline"
         }
     },
     "minimum-stability": "dev",
     "require": {
         "maximebf/debugbar": "1.*",
-        "symfony/debug-bundle": "3.2.*"
+        "symfony/debug-bundle": "3.2.*",
+        "symfony/console": "3.2.1"
     }
 }

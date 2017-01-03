@@ -33,6 +33,10 @@ class EntityManagerTest extends \PHPUnit_Framework_TestCase
 
         $imageRepository = $entityManager->getRepository( 'Image' );
 
+        $this->assertInstanceOf(
+            '\\StendenINF1B\\PortfolioCMS\\Kernel\\Database\\Repository\\ImageRepository',
+            $imageRepository
+        );
 
     }
 

@@ -35,8 +35,8 @@ class EntityManager
     protected function createNewRepository( string $repositoryName )
     {
         $this->connectionManager->loadConnectionFromConfig();
-        $fullRepositoryName = $repositoryName.'Repository';
-        $repository = new $fullRepositoryName( $this->connectionManager->getConnection() );
+        $fullRepositoryName = '\\StendenINF1B\\PortfolioCMS\\Kernel\\Database\\Repository\\' . $repositoryName . 'Repository';
+        $repository = new $fullRepositoryName( $this );
 
         $this->repositories->set( $repositoryName, $repository );
     }

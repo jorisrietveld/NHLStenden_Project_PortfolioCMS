@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `User` (
  */
 CREATE TABLE IF NOT EXISTS `Student` (
   `userId`      INT UNSIGNED UNIQUE   NOT NULL, # Inherited key from the entity user and unique identifier for this record.
-  `address`     VARBINARY(5)          NOT NULL, # The encrypted street number where the student lives.
+  `address`     VARBINARY(50)          NOT NULL, # The encrypted street number where the student lives.
   `zipCode`     VARBINARY(10)         NOT NULL, # The zip code of where student lives.
   `location`    VARBINARY(100)        NOT NULL, # The place the student lives.
   `dateOfBirth` VARBINARY(50)         NOT NULL, # The date of birth of an student.

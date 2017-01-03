@@ -11,6 +11,7 @@ namespace StendenINF1B\PortfolioCMS\Kernel\Database\Repository;
 
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\EntityInterface;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\Image;
+use StendenINF1B\PortfolioCMS\Kernel\Database\EntityManager;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Helper\EntityCollection;
 
 class ImageRepository extends Repository
@@ -53,14 +54,27 @@ class ImageRepository extends Repository
 
     protected $deleteSql = '';
 
-    public function __construct( $connection )
+    public function __construct( EntityManager $entityManager )
     {
-        parent::__construct( $connection );
+        //$this->connection = new \PDO('','','');
+        parent::__construct( $entityManager );
     }
 
     public function getById( int $id ) : EntityInterface
     {
+        $statement = $this->connection->prepare( $this->getByIdSql );
 
+        if( $statement->execute( [ 'id' => $id ] ))
+        {
+            $imageData = $statement->fetchAll( \PDO::FETCH_ASSOC );
+
+            if( count( $imageData) < 1)
+            {
+                return new Image();
+            }
+
+            return $this->createNewImage( $imageData[0] );
+        }
     }
 
     public function getByCondition( $whereClause, $params ) : EntityCollection
@@ -86,5 +100,22 @@ class ImageRepository extends Repository
     public function delete( int $id )
     {
 
+    }
+
+    public function createNewImage( array $databaseData ) : Image
+    {
+        $image = new Image();
+        $image->setId( $databaseData['uploadedFileId'] );
+        $image->setName( $databaseData['name'] );
+        $image->setDescription( $databaseData['description'] );
+        $image->setType( $databaseData['type'] );
+        $image->setOrder( $databaseData['order'] );
+        $image->setFileName( $databaseData['fileName'] );
+        $image->setMimeType( $databaseData['mimeType'] );
+        $image->setFilePath( $databaseData['filePath'] );
+
+        $image->setPortfolio( $this->entityManager->getRepository('Portfolio')->getById( $databaseData['PortfolioId'] ) );
+
+        return $image;
     }
 }

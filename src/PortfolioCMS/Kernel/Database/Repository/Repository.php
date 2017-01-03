@@ -10,15 +10,18 @@ namespace StendenINF1B\PortfolioCMS\Kernel\Database\Repository;
 
 
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\EntityInterface;
+use StendenINF1B\PortfolioCMS\Kernel\Database\EntityManager;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Helper\EntityCollection;
 
 abstract class Repository
 {
     protected $connection;
+    protected $entityManager;
 
-    public function __construct( $connection )
+    public function __construct( EntityManager $entityManager )
     {
-        $this->connection = $connection;
+        $this->entityManager =$entityManager;
+        $this->connection = $entityManager->getConnectionManager()->getConnection()->getPdo();
     }
 
     abstract public function getById( int $id ) : EntityInterface;
