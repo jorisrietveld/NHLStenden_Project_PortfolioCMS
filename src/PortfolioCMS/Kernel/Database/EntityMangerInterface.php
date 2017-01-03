@@ -11,11 +11,9 @@ namespace StendenINF1B\PortfolioCMS\Kernel\Database;
 
 interface EntityMangerInterface
 {
-    public function find( $entityName, $withAttributes = [], $limit = NULL );
+    public function find( $entityName, $id );
 
-    public function findOne( $entityName, $withAttributes = [] );
-
-    public function getRepository();
+    public function getRepository( $entityName );
 
 
 }

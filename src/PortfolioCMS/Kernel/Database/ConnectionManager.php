@@ -106,7 +106,7 @@ class ConnectionManager
      * @param string $connectionName
      * @return DatabaseConnection
      */
-    public function getConnection( string $connectionName ): DatabaseConnection
+    public function getConnection( string $connectionName = self::defaultDatabase ): DatabaseConnection
     {
         if( $this->openedConnections->has( $connectionName ) )
         {

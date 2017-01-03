@@ -9,13 +9,46 @@ declare( strict_types = 1 );
 namespace StendenINF1B\PortfolioCMS\Kernel\Database;
 
 
+use StendenINF1B\PortfolioCMS\Kernel\Helper\ParameterContainer;
+
 class EntityManager
 {
+    protected $repositories;
     protected $connectionManager;
-    protected $repositoryManager;
 
     public function __construct(  )
     {
-        
+        $this->connectionManager = new ConnectionManager( TRUE, DATABASE_CONFIG_FILE );
+        $this->repositories = new ParameterContainer();
     }
+
+    public function getRepository( string $repositoryName )
+    {
+        if( !$this->repositories->has( $repositoryName ) )
+        {
+            $this->createNewRepository( $repositoryName );
+        }
+
+        return $this->repositories->get( $repositoryName );
+    }
+
+    protected function createNewRepository( string $repositoryName )
+    {
+        $this->connectionManager->loadConnectionFromConfig();
+        $fullRepositoryName = $repositoryName.'Repository';
+        $repository = new $fullRepositoryName( $this->connectionManager->getConnection() );
+
+        $this->repositories->set( $repositoryName, $repository );
+    }
+
+    public function getRepositories(  ) : ParameterContainer
+    {
+        return $this->repositories;
+    }
+
+    public function getConnectionManager(  ) : ConnectionManager
+    {
+        return $this->connectionManager;
+    }
+
 }

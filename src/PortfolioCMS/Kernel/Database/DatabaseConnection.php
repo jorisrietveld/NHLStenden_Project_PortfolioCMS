@@ -9,6 +9,7 @@ declare( strict_types = 1 );
 namespace StendenINF1B\PortfolioCMS\Kernel\Database;
 
 
+use DebugBar\DataCollector\PDO\TraceablePDO;
 use StendenINF1B\PortfolioCMS\Kernel\Helper\ParameterContainer;
 
 class DatabaseConnection
@@ -71,12 +72,18 @@ class DatabaseConnection
      * @return \PDO
      * @throws \LogicException
      */
-    public function getPdo(): \PDO
+    public function getPdo()
     {
         if( $this->pdo == NULL )
         {
             throw new \LogicException( 'Cannot return the php data object because it is not set.' );
         }
+
+        if( DEBUG )
+        {
+            return new TraceablePDO( $this->pdo );
+        }
+
         return $this->pdo;
     }
 
