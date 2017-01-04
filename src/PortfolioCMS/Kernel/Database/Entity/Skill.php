@@ -14,22 +14,22 @@ class Skill implements EntityInterface
     /**
      * @var int
      */
-    protected $id;
+    protected $id = -1;
 
     /**
      * @var string
      */
-    protected $name;
+    protected $name = '';
 
     /**
      * @var int
      */
-    protected $levelOfExperience;
+    protected $levelOfExperience = -1;
 
     /**
      * @var int
      */
-    protected $portfolioId; // One Skill has one Portfolio
+    protected $portfolioId = -1; // One Skill has one Portfolio
 
     /**
      * @return int
@@ -97,7 +97,7 @@ class Skill implements EntityInterface
      * @param Portfolio $portfolioId
      * @return Skill
      */
-    public function setPortfolio( int $portfolioId ): Skill
+    public function setPortfolioId( int $portfolioId ): Skill
     {
         $this->portfolioId = $portfolioId;
         return $this;

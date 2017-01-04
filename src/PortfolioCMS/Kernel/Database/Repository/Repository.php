@@ -138,7 +138,7 @@ abstract class Repository
 
             if ( count( $data ) < 1 )
             {
-                return $this->createEmptyEntity();
+                return $this->createEntities( $data );
             }
 
             return $this->createEntities( $data );

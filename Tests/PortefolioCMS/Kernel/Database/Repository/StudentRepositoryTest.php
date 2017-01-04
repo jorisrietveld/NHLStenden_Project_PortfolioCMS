@@ -8,8 +8,6 @@ declare( strict_types = 1 );
 
 namespace Tests\PortefolioCMS\Kernel\Database\Repository;
 
-
-use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\Student;
 use StendenINF1B\PortfolioCMS\Kernel\Database\EntityManager;
 
 class StudentRepositoryTest extends \PHPUnit_Framework_TestCase
@@ -134,6 +132,4 @@ class StudentRepositoryTest extends \PHPUnit_Framework_TestCase
         $studentRepository->insert( $student );
     }
 */
-
-
 }

@@ -185,7 +185,7 @@ class PortfolioRepository extends Repository
         $slbAssignmentManager = $this->entityManager->getRepository( 'SLBAssignment' );
         $trainingManager = $this->entityManager->getRepository( 'Training' );
 
-        $whereClause = ' WHERE portfolioId = :wherePortfolioId';
+        $whereClause = '`portfolioId` = :wherePortfolioId';
         $param = [ ':wherePortfolioId' => $databaseData['id'] ];
 
         $portfolio = new Portfolio();
@@ -193,11 +193,10 @@ class PortfolioRepository extends Repository
         $portfolio->setTitle( $databaseData['title']);
         $portfolio->setUrl( $databaseData['url']);
         $portfolio->setGrade( (float)$databaseData['grade'] );
-        $portfolio->setTheme( $themeManager->getByCondition( $whereClause, $param ) );
-        $portfolio->setImages( $imageManager->getByCondition( $whereClause, $param ) );
+        $portfolio->setTheme( $themeManager->getById( $databaseData['themeId'] ));
+        $portfolio->setImages( $imageManager->getByCondition( '`UploadedFile`.`portfolioId` = :wherePortfolioId', $param ) );
         $portfolio->setJobExperience( $jobExperienceManager->getByCondition( $whereClause, $param ) );
         $portfolio->setLanguage( $languageManager->getByCondition( $whereClause, $param ) );
-        $portfolio->setPages( $pageManager->getByCondition( $whereClause, $param ) );
         $portfolio->setProjects( $projectManager->getByCondition( $whereClause, $param ) );
         $portfolio->setSkills( $skillManager->getByCondition( $whereClause, $param ) );
         $portfolio->setSlbAssignments( $slbAssignmentManager->getByCondition( $whereClause, $param ) );

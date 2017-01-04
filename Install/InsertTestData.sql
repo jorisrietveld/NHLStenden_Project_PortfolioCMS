@@ -62,8 +62,8 @@ COMMIT;
 /**
  * INSERT theme
  */
-INSERT INTO DigitalPortfolio.Theme (author, description, directoryName)
-VALUES ('/dev/null', 'An simple test theme', 'TestTheme');
+INSERT INTO DigitalPortfolio.Theme (author, name, description, directoryName)
+VALUES ('/dev/null', 'Joris', 'An simple test theme', 'TestTheme');
 
 /**
  * INSERT page
