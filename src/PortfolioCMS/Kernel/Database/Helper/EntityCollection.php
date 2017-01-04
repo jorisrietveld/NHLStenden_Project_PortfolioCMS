@@ -9,7 +9,9 @@ declare( strict_types = 1 );
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Helper;
 
 
-class EntityCollection
+use StendenINF1B\PortfolioCMS\Kernel\Helper\ParameterContainer;
+
+class EntityCollection extends ParameterContainer
 {
 
 }
