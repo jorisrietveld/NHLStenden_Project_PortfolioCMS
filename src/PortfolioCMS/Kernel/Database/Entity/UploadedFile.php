@@ -32,7 +32,7 @@ abstract class UploadedFile
     protected $filePath;
 
     /**
-     * @var Portfolio
+     * @var int
      */
-    protected $portfolio; // One uploaded file has one portfolio.
+    protected $portfolioId; // One uploaded file has one portfolio.
 }

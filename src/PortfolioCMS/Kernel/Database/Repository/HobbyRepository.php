@@ -8,8 +8,8 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Repository;
 
-use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\Hobby;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\EntityInterface;
+use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\Hobby;
 use StendenINF1B\PortfolioCMS\Kernel\Database\EntityManager;
 use StendenINF1B\PortfolioCMS\Kernel\Exception\RepositoryException;
 
@@ -89,9 +89,9 @@ class HobbyRepository extends Repository
     {
         try
         {
-            $userStatement = $this->connection->prepare( $this->insertHobbySql );
+            $statement = $this->connection->prepare( $this->insertHobbySql );
 
-            $userStatement->execute( [
+            $statement->execute( [
                 ':name' => $hobby->getName(),
                 ':portfolioId' => $hobby->getPortfolioId(),
             ] );
@@ -100,8 +100,7 @@ class HobbyRepository extends Repository
 
             return $this->getById( $id );
 
-        }
-        catch ( \PDOException $exception )
+        } catch ( \PDOException $exception )
         {
             $this->connection->rollBack();
             throw new RepositoryException( 'The hobby could not be inserted: ' . $exception->getMessage() );
@@ -111,24 +110,23 @@ class HobbyRepository extends Repository
     /**
      * Updates an hobby in the database.
      *
-     * @param Hobby $teacher
+     * @param Hobby $hobby
      * @throws RepositoryException
      */
     public function update( Hobby $hobby ) : Hobby
     {
         try
         {
-            $userStatement = $this->connection->prepare( $this->updateHobbySql );
+            $statement = $this->connection->prepare( $this->updateHobbySql );
 
-            $userStatement->execute( [
+            $statement->execute( [
                 ':name' => $hobby->getName(),
                 ':portfolioId' => $hobby->getPortfolioId(),
             ] );
 
             return $this->getById( $hobby->getId() );
 
-        }
-        catch ( \PDOException $exception )
+        } catch ( \PDOException $exception )
         {
             $this->connection->rollBack();
             throw new RepositoryException( 'The hobby could not be updated: ' . $exception->getMessage() );
@@ -144,9 +142,9 @@ class HobbyRepository extends Repository
     public function createEntity( array $databaseData ) : EntityInterface
     {
         $hobby = new Hobby();
-        $hobby->setId( (int)$databaseData['id'] );
-        $hobby->setName( $databaseData['name']);
-        $hobby->setPortfolio( (int)$databaseData['portfolioId']);
+        $hobby->setId( (int)$databaseData[ 'id' ] );
+        $hobby->setName( $databaseData[ 'name' ] );
+        $hobby->setPortfolio( (int)$databaseData[ 'portfolioId' ] );
 
 
         return $hobby;
@@ -155,7 +153,7 @@ class HobbyRepository extends Repository
     /**
      * @return EntityInterface
      */
-    public function createEmptyEntity(  ) : EntityInterface
+    public function createEmptyEntity() : EntityInterface
     {
         return new Hobby();
     }

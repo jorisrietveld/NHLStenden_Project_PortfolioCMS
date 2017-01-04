@@ -8,68 +8,184 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Repository;
 
-use StendenINF1B\PortfolioCMS\Kernel\Database\Helper\EntityCollection;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\EntityInterface;
+use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\JobExperience;
 use StendenINF1B\PortfolioCMS\Kernel\Database\EntityManager;
+use StendenINF1B\PortfolioCMS\Kernel\Exception\RepositoryException;
 
-class JobExperienceRepository
+class JobExperienceRepository extends Repository
 {
-    protected $getByIdSql = '';
+    /**
+     * @var string
+     */
+    protected $getByIdSql = '
+        SELECT
+            `JobExperience`.`id`,
+            `JobExperience`.`location`,
+            `JobExperience`.`startedAt`,
+            `JobExperience`.`endedAt`,
+            `JobExperience`.`description`,
+            `JobExperience`.`isInternship`,
+            `JobExperience`.`portfolioId`
+        FROM `DigitalPortfolio`.`JobExperience`
+        WHERE `JobExperience`.`id` = :id;
+    ';
 
-    protected $getBySql = '';
+    /**
+     * @var string
+     */
+    protected $getBySql = '
+        SELECT
+            `JobExperience`.`id`,
+            `JobExperience`.`location`,
+            `JobExperience`.`startedAt`,
+            `JobExperience`.`endedAt`,
+            `JobExperience`.`description`,
+            `JobExperience`.`isInternship`,
+            `JobExperience`.`portfolioId`
+        FROM `DigitalPortfolio`.`JobExperience`
+    ';
 
-    protected $insertUploadedFileSql = '';
+    /**
+     * @var string
+     */
+    protected $insertJobExperienceSql = '
+       INSERT INTO `DigitalPortfolio`.`JobExperience`( 
+            `location`,
+            `startedAt`,
+            `endedAt`,
+            `description`,
+            `isInternship`,
+            `portfolioId`
+        ) VALUES ( 
+            :location,
+            :startedAt,
+            :endedAt,
+            :description,
+            :isInternship,
+            :portfolioId
+        );
+    ';
 
-    protected $insertImageSql = '';
+    /**
+     * @var string
+     */
+    protected $updateJobExperienceSql = '
+        UPDATE JobExperience SET 
+            `location` = :location,
+            `startedAt` = :startedAt,
+            `endedAt` = :endedAt,
+            `description` = :description,
+            `isInternship` = :isInternship,
+            `portfolioId` = :portfolioId
+        WHERE `JobExperience`.`id` = :id;
+    ';
 
-    protected $updateSql ='';
+    /**
+     * @var string
+     */
+    protected $deleteSql = '
+        DELETE FROM JobExperience WHERE `JobExperience`.`id` = :id;
+    ';
 
-    protected $deleteSql = '';
-
+    /**
+     * HobbyRepository constructor.
+     *
+     * @param EntityManager $entityManager
+     */
     public function __construct( EntityManager $entityManager )
     {
-        //$this->connection = new \PDO('','','');
         parent::__construct( $entityManager );
     }
-    public function getById( int $id ) : EntityInterface
+
+    /**
+     * Inserts an new job experience and user in the database.
+     *
+     * @param JobExperience $jobExperience
+     * @throws RepositoryException
+     */
+    public function insert( JobExperience $jobExperience ) : JobExperience
     {
-        $statement = $this->connection->prepare( $this->getByIdSql );
-
-        if( $statement->execute( [ 'id' => $id ] ))
+        try
         {
-            $studentData = $statement->fetchAll( \PDO::FETCH_ASSOC );
+            $statement = $this->connection->prepare( $this->insertJobExperienceSql );
 
-            if( count( $studentData ) < 1)
-            {
-                return new Student();
-            }
+            $statement->execute( [
+                ':location' => $jobExperience->getLocation(),
+                ':startedAt' => $jobExperience->getStartedAt()->format( 'Y-m-d H:i:s' ),
+                ':endedAt' => $jobExperience->getEndedAt()->format( 'Y/m/d H:i:s' ),
+                ':description' => $jobExperience->getDescription(),
+                ':isInternship' => (int)$jobExperience->getIsInternship(),
+                ':portfolioId' => (int)$jobExperience->getPortfolioId(),
+            ] );
 
-            return $this->createNewImage( $imageData[0] );
+            $id = (int)$this->connection->lastInsertId();
+
+            return $this->getById( $id );
+
+        } catch ( \PDOException $exception )
+        {
+            $this->connection->rollBack();
+            throw new RepositoryException( 'The job experience could not be inserted: ' . $exception->getMessage() );
         }
     }
 
-    public function getByCondition( $whereClause, $params ) : EntityCollection
+    /**
+     * Updates an job experience in the database.
+     *
+     * @param JobExperience $jobExperience
+     * @throws RepositoryException
+     */
+    public function update( JobExperience $jobExperience ) : JobExperience
     {
+        try
+        {
+            $statement = $this->connection->prepare( $this->updateJobExperienceSql );
 
+            $statement->execute( [
+                ':id' => (int)$jobExperience->getId(),
+                ':location' => $jobExperience->getLocation(),
+                ':startedAt' => $jobExperience->getStartedAt()->format( 'Y-m-d H:i:s' ),
+                ':endedAt' => $jobExperience->getEndedAt()->format( 'Y/m/d H:i:s' ),
+                ':description' => $jobExperience->getDescription(),
+                ':isInternship' => (int)$jobExperience->getIsInternship(),
+                ':portfolioId' => (int)$jobExperience->getPortfolioId(),
+            ] );
+
+            return $this->getById( $jobExperience->getId() );
+
+        } catch ( \PDOException $exception )
+        {
+            $this->connection->rollBack();
+            throw new RepositoryException( 'The job experience could not be updated: ' . $exception->getMessage() );
+        }
     }
 
-    public function getOneByCondition( $whereClause, $params ) : EntityInterface
+    /**
+     * Creates an new job experience object from data from the database.
+     *
+     * @param array $databaseData
+     * @return EntityInterface
+     */
+    public function createEntity( array $databaseData ) : EntityInterface
     {
+        $jobExperience = new JobExperience();
+        $jobExperience->setId( (int)$databaseData[ 'id' ] );
+        $jobExperience->setLocation( $databaseData[ 'location' ] );
+        $jobExperience->setStartedAt( new \DateTime( $databaseData[ 'startedAt' ] ) );
+        $jobExperience->setEndedAt( new \DateTime( $databaseData[ 'endedAt' ] ) );
+        $jobExperience->setDescription( $databaseData[ 'description' ] );
+        $jobExperience->setIsInternship( (bool)$databaseData[ 'isInternship' ] );
+        $jobExperience->setPortfolioId( (int)$databaseData[ 'portfolioId' ] );
 
+        return $jobExperience;
     }
 
-    public function insert( EntityInterface $entity )
+    /**
+     * @return EntityInterface
+     */
+    public function createEmptyEntity() : EntityInterface
     {
-
-    }
-
-    public function update( EntityInterface $entity )
-    {
-
-    }
-
-    public function delete( int $id )
-    {
-
+        return new JobExperience();
     }
 }

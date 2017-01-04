@@ -9,7 +9,7 @@ declare( strict_types = 1 );
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Entity;
 
 
-class Page
+class Page implements EntityInterface
 {
     /**
      * @var int
@@ -37,9 +37,9 @@ class Page
     protected $url;
 
     /**
-     * @var Theme
+     * @var int
      */
-    protected $theme;
+    protected $themeId;
 
     /**
      * @return int
@@ -134,20 +134,20 @@ class Page
     /**
      * @return Theme
      */
-    public function getTheme(): Theme
+    public function getThemeId(): int
     {
-        return $this->theme;
+        return $this->themeId;
     }
 
     /**
      * @param Theme $theme
      * @return Page
      */
-    public function setTheme( Theme $theme ): Page
+    public function setThemeId( int $themeId ): Theme
     {
-        $this->theme = $theme;
+        $this->themeId = $themeId;
         return $this;
-    } // One page has one theme.
+    }
 
 
 }

@@ -42,9 +42,9 @@ class JobExperience implements EntityInterface
     protected $isInternship;
 
     /**
-     * @var Portfolio
+     * @var int
      */
-    protected $portfolio;
+    protected $portfolioId; // One JobExperience has one portfolio
 
     /**
      * @return int
@@ -139,7 +139,7 @@ class JobExperience implements EntityInterface
     /**
      * @return boolean
      */
-    public function isIsInternship(): bool
+    public function getIsInternship(): bool
     {
         return $this->isInternship;
     }
@@ -157,20 +157,20 @@ class JobExperience implements EntityInterface
     /**
      * @return Portfolio
      */
-    public function getPortfolio(): Portfolio
+    public function getPortfolioId(): int
     {
-        return $this->portfolio;
+        return $this->portfolioId;
     }
 
     /**
-     * @param Portfolio $portfolio
+     * @param int $portfolio
      * @return JobExperience
      */
-    public function setPortfolio( Portfolio $portfolio ): JobExperience
+    public function setPortfolioId( int $portfolioId ): JobExperience
     {
-        $this->portfolio = $portfolio;
+        $this->portfolioId = $portfolioId;
         return $this;
-    } // One JobExperience has one portfolio
+    }
 
 
 }

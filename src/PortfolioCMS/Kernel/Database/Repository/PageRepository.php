@@ -9,64 +9,175 @@ declare( strict_types = 1 );
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Repository;
 
 
-class PageRepository
+use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\EntityInterface;
+use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\Page;
+use StendenINF1B\PortfolioCMS\Kernel\Database\EntityManager;
+use StendenINF1B\PortfolioCMS\Kernel\Exception\RepositoryException;
+
+class PageRepository extends Repository
 {
-    protected $getByIdSql = '';
+    /**
+     * @var string
+     */
+    protected $getByIdSql = '
+        UPDATE Page SET 
+            `id` = :id,
+            `name` = :name,
+            `fileName` = :fileName,
+            `description` = :description,
+            `url` = :url,
+            `themeId` = :themeId
+        WHERE `Page`.`id` = :id;
+    ';
 
-    protected $getBySql = '';
+    /**
+     * @var string
+     */
+    protected $getBySql = '
+        SELECT
+            `Page`.`id`,
+            `Page`.`name`,
+            `Page`.`fileName`,
+            `Page`.`description`,
+            `Page`.`url`,
+            `Page`.`themeId`
+        FROM `DigitalPortfolio`.`Page`
+    ';
 
-    protected $insertUploadedFileSql = '';
+    /**
+     * @var string
+     */
+    protected $insertPageSql = '
+        INSERT INTO `DigitalPortfolio`.`Page`( 
+            `name`,
+            `fileName`,
+            `description`,
+            `url`,
+            `themeId`
+        ) VALUES ( 
+            :name,
+            :fileName,
+            :description,
+            :url,
+            :themeId
+        );
+    ';
 
-    protected $insertImageSql = '';
+    /**
+     * @var string
+     */
+    protected $updatePageSql = '
+        UPDATE Page SET 
+            `id` = :id,
+            `name` = :name,
+            `fileName` = :fileName,
+            `description` = :description,
+            `url` = :url,
+            `themeId` = :themeId
+        WHERE `Page`.`id` = :id;
+    ';
 
-    protected $updateSql ='';
+    /**
+     * @var string
+     */
+    protected $deleteSql = '
+        DELETE FROM Page WHERE `Page`.`id` = :id;
+    ';
 
-    protected $deleteSql = '';
-
+    /**
+     * PageRepository constructor.
+     *
+     * @param EntityManager $entityManager
+     */
     public function __construct( EntityManager $entityManager )
     {
-        //$this->connection = new \PDO('','','');
         parent::__construct( $entityManager );
     }
-    public function getById( int $id ) : EntityInterface
+
+    /**
+     * Inserts an new Page in the database.
+     *
+     * @param Page $page
+     * @throws RepositoryException
+     */
+    public function insert( Page $page ) : Page
     {
-        $statement = $this->connection->prepare( $this->getByIdSql );
-
-        if( $statement->execute( [ 'id' => $id ] ))
+        try
         {
-            $studentData = $statement->fetchAll( \PDO::FETCH_ASSOC );
+            $userStatement = $this->connection->prepare( $this->insertPageSql );
 
-            if( count( $studentData ) < 1)
-            {
-                return new Student();
-            }
+            $userStatement->execute( [
+                ':name' => $page->getName(),
+                ':fileName' => $page->getFileName(),
+                ':description' => $page->getDescription(),
+                ':url' => $page->getUrl(),
+                ':themeId' => $page->getThemeId(),
+            ] );
 
-            return $this->createNewImage( $imageData[0] );
+            $id = (int)$this->connection->lastInsertId();
+
+            return $this->getById( $id );
+
+        } catch ( \PDOException $exception )
+        {
+            $this->connection->rollBack();
+            throw new RepositoryException( 'The page could not be inserted: ' . $exception->getMessage() );
         }
     }
 
-    public function getByCondition( $whereClause, $params ) : EntityCollection
+    /**
+     * Updates an Page in the database.
+     *
+     * @param Page $page
+     * @throws RepositoryException
+     */
+    public function update( Page $page ) : Page
     {
+        try
+        {
+            $userStatement = $this->connection->prepare( $this->updatePageSql );
 
+            $userStatement->execute( [
+                ':name' => $page->getName(),
+                ':fileName' => $page->getFileName(),
+                ':description' => $page->getDescription(),
+                ':url' => $page->getUrl(),
+                ':themeId' => $page->getThemeId(),
+            ] );
+
+            return $this->getById( $page->getId() );
+
+        } catch ( \PDOException $exception )
+        {
+            $this->connection->rollBack();
+            throw new RepositoryException( 'The page could not be updated: ' . $exception->getMessage() );
+        }
     }
 
-    public function getOneByCondition( $whereClause, $params ) : EntityInterface
+    /**
+     * Creates an new page object from data from the database.
+     *
+     * @param array $databaseData
+     * @return EntityInterface
+     */
+    public function createEntity( array $databaseData ) : EntityInterface
     {
+        $page = new Page();
+        $page->setId( (int)$databaseData[ 'id' ] );
+        $page->setName( $databaseData[ 'name' ] );
+        $page->setDescription( $databaseData[ 'description' ] );
+        $page->setFileName( $databaseData[ 'fileName' ] );
+        $page->setUrl( $databaseData[ 'url' ] );
+        $page->setThemeId( $databaseData[ 'themeId' ] );
 
+        return $page;
     }
 
-    public function insert( EntityInterface $entity )
+    /**
+     * @return EntityInterface
+     */
+    public function createEmptyEntity() : EntityInterface
     {
-
-    }
-
-    public function update( EntityInterface $entity )
-    {
-
-    }
-
-    public function delete( int $id )
-    {
-
+        return new Page();
     }
 }

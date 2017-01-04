@@ -9,64 +9,167 @@ declare( strict_types = 1 );
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Repository;
 
 
-class LanguageRepository
+use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\EntityInterface;
+use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\Language;
+use StendenINF1B\PortfolioCMS\Kernel\Database\EntityManager;
+use StendenINF1B\PortfolioCMS\Kernel\Exception\RepositoryException;
+
+class LanguageRepository extends Repository
 {
-    protected $getByIdSql = '';
+    /**
+     * @var string
+     */
+    protected $getByIdSql = '
+        SELECT
+            `Language`.`id`,
+            `Language`.`language`,
+            `Language`.`level`,
+            `Language`.`isNative`,
+            `Language`.`portfolioId`
+        FROM `DigitalPortfolio`.`Language`
+        WHERE `Language`.`id` = :id;
+    ';
 
-    protected $getBySql = '';
+    /**
+     * @var string
+     */
+    protected $getBySql = '
+        SELECT
+            `Language`.`id`,
+            `Language`.`language`,
+            `Language`.`level`,
+            `Language`.`isNative`,
+            `Language`.`portfolioId`
+        FROM `DigitalPortfolio`.`Language`
+    ';
 
-    protected $insertUploadedFileSql = '';
+    /**
+     * @var string
+     */
+    protected $insertLanguageSql = '
+        INSERT INTO `DigitalPortfolio`.`Language`( 
+            `language`,
+            `level`,
+            `isNative`,
+            `portfolioId`
+        ) VALUES ( 
+            :language,
+            :level,
+            :isNative,
+            :portfolioId
+        );
+    ';
 
-    protected $insertImageSql = '';
+    /**
+     * @var string
+     */
+    protected $updateLanguageSql = '
+        UPDATE Language SET 
+            `language` = :language,
+            `level` = :level,
+            `isNative` = :isNative,
+            `portfolioId` = :portfolioId
+        WHERE `Language`.`id` = :id;
+    ';
 
-    protected $updateSql ='';
+    /**
+     * @var string
+     */
+    protected $deleteSql = '
+        DELETE FROM Language WHERE `Language`.`id` = :id;
+    ';
 
-    protected $deleteSql = '';
-
+    /**
+     * LanguageRepository constructor.
+     *
+     * @param EntityManager $entityManager
+     */
     public function __construct( EntityManager $entityManager )
     {
-        //$this->connection = new \PDO('','','');
         parent::__construct( $entityManager );
     }
-    public function getById( int $id ) : EntityInterface
+
+    /**
+     * Inserts an new language in the database.
+     *
+     * @param Language $language
+     * @throws RepositoryException
+     */
+    public function insert( Language $language ) : Language
     {
-        $statement = $this->connection->prepare( $this->getByIdSql );
-
-        if( $statement->execute( [ 'id' => $id ] ))
+        try
         {
-            $studentData = $statement->fetchAll( \PDO::FETCH_ASSOC );
+            $statement = $this->connection->prepare( $this->insertLanguageSql );
 
-            if( count( $studentData ) < 1)
-            {
-                return new Student();
-            }
+            $statement->execute( [
+                ':language' => $language->getLanguage(),
+                ':level' => $language->getLevel(),
+                ':isNative' => (int)$language->getIsIsNative(),
+                ':portfolioId' => (int)$language->getPortfolioId(),
+            ] );
 
-            return $this->createNewImage( $imageData[0] );
+            $id = (int)$this->connection->lastInsertId();
+
+            return $this->getById( $id );
+
+        } catch ( \PDOException $exception )
+        {
+            $this->connection->rollBack();
+            throw new RepositoryException( 'The language could not be inserted: ' . $exception->getMessage() );
         }
     }
 
-    public function getByCondition( $whereClause, $params ) : EntityCollection
+    /**
+     * Updates an language in the database.
+     *
+     * @param Language $language
+     * @throws RepositoryException
+     */
+    public function update( Language $language ) : Language
     {
+        try
+        {
+            $statement = $this->connection->prepare( $this->updateLanguageSql );
 
+            $statement->execute( [
+                ':language' => $language->getLanguage(),
+                ':level' => $language->getLevel(),
+                ':isNative' => (int)$language->getIsIsNative(),
+                ':portfolioId' => $language->getPortfolioId(),
+            ] );
+
+            return $this->getById( $language->getId() );
+
+        } catch ( \PDOException $exception )
+        {
+            $this->connection->rollBack();
+            throw new RepositoryException( 'The language could not be updated: ' . $exception->getMessage() );
+        }
     }
 
-    public function getOneByCondition( $whereClause, $params ) : EntityInterface
+    /**
+     * Creates an new language object from data from the database.
+     *
+     * @param array $databaseData
+     * @return EntityInterface
+     */
+    public function createEntity( array $databaseData ) : EntityInterface
     {
+        $language = new Language();
+        $language->setId( (int)$databaseData[ 'id' ] );
+        $language->setLanguage( $databaseData[ 'language' ] );
+        $language->setLevel( (int)$databaseData[ 'level' ] );
+        $language->setIsNative( (bool)$databaseData[ 'isNative' ] );
+        $language->setPortfolioId( (int)$databaseData[ 'portfolioId' ] );
 
+        return $language;
     }
 
-    public function insert( EntityInterface $entity )
+    /**
+     * @return EntityInterface
+     */
+    public function createEmptyEntity() : EntityInterface
     {
-
-    }
-
-    public function update( EntityInterface $entity )
-    {
-
-    }
-
-    public function delete( int $id )
-    {
-
+        return new Language();
     }
 }

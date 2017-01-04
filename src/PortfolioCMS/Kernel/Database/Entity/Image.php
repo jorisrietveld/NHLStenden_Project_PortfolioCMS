@@ -176,20 +176,20 @@ class Image extends UploadedFile implements EntityInterface
     }
 
     /**
-     * @return Portfolio
+     * @return int
      */
-    public function getPortfolio(): Portfolio
+    public function getPortfolioId(): int
     {
-        return $this->portfolio;
+        return $this->portfolioId;
     }
 
     /**
-     * @param Portfolio $portfolio
+     * @param int $portfolioId
      * @return UploadedFile
      */
-    public function setPortfolio( Portfolio $portfolio ): UploadedFile
+    public function setPortfolioId( int $portfolioId ): UploadedFile
     {
-        $this->portfolio = $portfolio;
+        $this->portfolioId = $portfolioId;
         return $this;
     }
 

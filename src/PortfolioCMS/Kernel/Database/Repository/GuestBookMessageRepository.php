@@ -8,9 +8,8 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Repository;
 
-use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\GuestBookMessage;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\EntityInterface;
-use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\User;
+use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\GuestBookMessage;
 use StendenINF1B\PortfolioCMS\Kernel\Database\EntityManager;
 use StendenINF1B\PortfolioCMS\Kernel\Exception\RepositoryException;
 
@@ -89,9 +88,9 @@ class GuestBookMessageRepository extends Repository
     {
         try
         {
-            $userStatement = $this->connection->prepare( $this->insertGuestBookMessageSql );
+            $statement = $this->connection->prepare( $this->insertGuestBookMessageSql );
 
-            $userStatement->execute( [
+            $statement->execute( [
                 ':sender' => $guestBookMessage->getSender(),
                 ':title' => $guestBookMessage->getTitle(),
                 ':message' => $guestBookMessage->getMessage(),
@@ -104,8 +103,7 @@ class GuestBookMessageRepository extends Repository
 
             return $this->getById( $id );
 
-        }
-        catch ( \PDOException $exception )
+        } catch ( \PDOException $exception )
         {
             $this->connection->rollBack();
             throw new RepositoryException( 'The guestbook message could not be inserted: ' . $exception->getMessage() );
@@ -113,7 +111,7 @@ class GuestBookMessageRepository extends Repository
     }
 
     /**
-     * Updates an teacher and user in the database.
+     * Updates an guest book message and user in the database.
      *
      * @param GuestBookMessage $teacher
      * @throws RepositoryException
@@ -122,9 +120,9 @@ class GuestBookMessageRepository extends Repository
     {
         try
         {
-            $userStatement = $this->connection->prepare( $this->updateGuestBookMessageSql );
+            $statement = $this->connection->prepare( $this->updateGuestBookMessageSql );
 
-            $userStatement->execute( [
+            $statement->execute( [
                 ':sender' => $guestBookMessage->getSender(),
                 ':title' => $guestBookMessage->getTitle(),
                 ':message' => $guestBookMessage->getMessage(),
@@ -135,8 +133,7 @@ class GuestBookMessageRepository extends Repository
 
             return $this->getById( $guestBookMessage->getId() );
 
-        }
-        catch ( \PDOException $exception )
+        } catch ( \PDOException $exception )
         {
             $this->connection->rollBack();
             throw new RepositoryException( 'The guestbook message could not be updated: ' . $exception->getMessage() );
@@ -150,13 +147,13 @@ class GuestBookMessageRepository extends Repository
     public function createEntity( array $databaseData ) : EntityInterface
     {
         $guestBookMessage = new GuestBookMessage();
-        $guestBookMessage->setId( (int)$databaseData['id'] );
-        $guestBookMessage->setSender( $databaseData['sender'] );
-        $guestBookMessage->setTitle( $databaseData['title'] );
-        $guestBookMessage->setMessage( $databaseData['message']);
-        $guestBookMessage->setSendAt( new \DateTime( $databaseData['sendAt']) );
-        $guestBookMessage->setStudentId(  (int)$databaseData['studentId'] );
-        $guestBookMessage->setIsAccepted( (bool) $databaseData['accsepted']);
+        $guestBookMessage->setId( (int)$databaseData[ 'id' ] );
+        $guestBookMessage->setSender( $databaseData[ 'sender' ] );
+        $guestBookMessage->setTitle( $databaseData[ 'title' ] );
+        $guestBookMessage->setMessage( $databaseData[ 'message' ] );
+        $guestBookMessage->setSendAt( new \DateTime( $databaseData[ 'sendAt' ] ) );
+        $guestBookMessage->setStudentId( (int)$databaseData[ 'studentId' ] );
+        $guestBookMessage->setIsAccepted( (bool)$databaseData[ 'accsepted' ] );
 
         return $guestBookMessage;
     }
@@ -164,7 +161,7 @@ class GuestBookMessageRepository extends Repository
     /**
      * @return EntityInterface
      */
-    public function createEmptyEntity(  ) : EntityInterface
+    public function createEmptyEntity() : EntityInterface
     {
         return new GuestBookMessage();
     }

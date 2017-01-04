@@ -17,6 +17,11 @@ class Language implements EntityInterface
     protected $id;
 
     /**
+     * @var string
+     */
+    protected $language;
+
+    /**
      * @var int
      */
     protected $level;
@@ -27,9 +32,9 @@ class Language implements EntityInterface
     protected $isNative;
 
     /**
-     * @var Portfolio
+     * @var int
      */
-    protected $portfolio;
+    protected $portfolioId; // One Language has one Portfolio.
 
     /**
      * @return int
@@ -70,7 +75,7 @@ class Language implements EntityInterface
     /**
      * @return boolean
      */
-    public function isIsNative(): bool
+    public function getIsIsNative(): bool
     {
         return $this->isNative;
     }
@@ -86,22 +91,39 @@ class Language implements EntityInterface
     }
 
     /**
-     * @return Portfolio
+     * @return int
      */
-    public function getPortfolio(): Portfolio
+    public function getPortfolioId(): int
     {
-        return $this->portfolio;
+        return $this->portfolioId;
     }
 
     /**
-     * @param Portfolio $portfolio
+     * @param int $portfolio
      * @return Language
      */
-    public function setPortfolio( Portfolio $portfolio ): Language
+    public function setPortfolioId( int $portfolioId ): Language
     {
-        $this->portfolio = $portfolio;
+        $this->portfolioId = $portfolioId;
         return $this;
-    } // One Language has one Portfolio.
+    }
+
+    /**
+     * @return string
+     */
+    public function getLanguage(): string
+    {
+        return $this->language;
+    }
+
+    /**
+     * @param string $language
+     */
+    public function setLanguage( string $language )
+    {
+        $this->language = $language;
+    }
+
 
 
 }
