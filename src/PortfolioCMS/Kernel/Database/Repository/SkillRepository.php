@@ -9,64 +9,173 @@ declare( strict_types = 1 );
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Repository;
 
 
-class SkillRepository
+use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\EntityInterface;
+use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\Skill;
+use StendenINF1B\PortfolioCMS\Kernel\Database\EntityManager;
+use StendenINF1B\PortfolioCMS\Kernel\Exception\RepositoryException;
+
+class SkillRepository extends Repository
 {
-    protected $getByIdSql = '';
+    /**
+     * This holds an SQL statement for selecting an Skill entity from the database by its id.
+     *
+     * @var string
+     */
+    protected $getByIdSql = '
+        SELECT
+            `Skill`.`id`,
+            `Skill`.`name`,
+            `Skill`.`levelOfExperience`,
+            `Skill`.`portfolioId`
+        FROM `DigitalPortfolio`.`Skill`
+        WHERE `Skill`.`id` = :id;
+    ';
 
-    protected $getBySql = '';
+    /**
+     * This holds an SQL statement for selecting an Skill entity from the database.
+     *
+     * @var string
+     */
+    protected $getBySql = '
+        SELECT
+            `Skill`.`id`,
+            `Skill`.`name`,
+            `Skill`.`levelOfExperience`,
+            `Skill`.`portfolioId`
+        FROM `DigitalPortfolio`.`Skill`
+    ';
 
-    protected $insertUploadedFileSql = '';
+    /**
+     * This holds an SQL statement for inserting an Skill entity into the database.
+     *
+     * @var string
+     */
+    protected $insertHobbySql = '
+        INSERT INTO `DigitalPortfolio`.`Skill`( 
+            `name`,
+            `levelOfExperience`,
+            `portfolioId`
+        ) VALUES ( 
+            :name,
+            :levelOfExperience,
+            :portfolioId
+        );
+    ';
 
-    protected $insertImageSql = '';
+    /**
+     * This holds an SQL statement for updating an Skill entity in the database.
+     *
+     * @var string
+     */
+    protected $updateHobbySql = '
+        UPDATE Skill SET 
+            `name` = :name,
+            `levelOfExperience` = :levelOfExperience,
+            `portfolioId` = :portfolioId
+        WHERE `Skill`.`id` = :id;
+    ';
 
-    protected $updateSql ='';
+    /**
+     * This holds an SQL statement for deleting an Skill entity from the database.
+     *
+     * @var string
+     */
+    protected $deleteSql = '
+        DELETE FROM Skill WHERE `Skill`.`id` = :id;
+    ';
 
-    protected $deleteSql = '';
-
+    /**
+     * HobbyRepository constructor.
+     *
+     * @param EntityManager $entityManager
+     */
     public function __construct( EntityManager $entityManager )
     {
-        //$this->connection = new \PDO('','','');
         parent::__construct( $entityManager );
     }
-    public function getById( int $id ) : EntityInterface
+
+    /**
+     * Inserts an new Skill and user in the database.
+     *
+     * @param Skill $skill
+     * @return Skill
+     * @throws RepositoryException
+     */
+    public function insert( Skill $skill ) : Skill
     {
-        $statement = $this->connection->prepare( $this->getByIdSql );
-
-        if( $statement->execute( [ 'id' => $id ] ))
+        try
         {
-            $studentData = $statement->fetchAll( \PDO::FETCH_ASSOC );
+            $statement = $this->connection->prepare( $this->insertHobbySql );
 
-            if( count( $studentData ) < 1)
-            {
-                return new Student();
-            }
+            $statement->execute( [
+                ':name' => $skill->getName(),
+                ':levelOfExperience' => $skill->getLevelOfExperience(),
+                ':portfolioId' => $skill->getPortfolioId(),
+            ] );
 
-            return $this->createNewImage( $imageData[0] );
+            $id = (int)$this->connection->lastInsertId();
+
+            return $this->getById( $id );
+
+        } catch ( \PDOException $exception )
+        {
+            $this->connection->rollBack();
+            throw new RepositoryException( 'The skill could not be inserted: ' . $exception->getMessage() );
         }
     }
 
-    public function getByCondition( $whereClause, $params ) : EntityCollection
+    /**
+     * Updates an Skill in the database.
+     *
+     * @param Skill $skill
+     * @return Skill
+     * @throws RepositoryException
+     */
+    public function update( Skill $skill ) : Skill
     {
+        try
+        {
+            $statement = $this->connection->prepare( $this->updateHobbySql );
 
+            $statement->execute( [
+                ':name' => $skill->getName(),
+                ':levelOfExperience' => $skill->getLevelOfExperience(),
+                ':portfolioId' => $skill->getPortfolioId(),
+            ] );
+
+            return $this->getById( $skill->getId() );
+
+        } catch ( \PDOException $exception )
+        {
+            $this->connection->rollBack();
+            throw new RepositoryException( 'The skill could not be updated: ' . $exception->getMessage() );
+        }
     }
 
-    public function getOneByCondition( $whereClause, $params ) : EntityInterface
+    /**
+     * Creates an new Skill object from data from the database.
+     *
+     * @param array $databaseData
+     * @return EntityInterface
+     */
+    public function createEntity( array $databaseData ) : EntityInterface
     {
+        $skill = new Skill();
+        $skill->setId( (int)$databaseData[ 'id' ] );
+        $skill->setName( $databaseData[ 'name' ] );
+        $skill->setLevelOfExperience( (int)$databaseData[ 'levelOfExperience' ] );
+        $skill->getPortfolioId( (int)$databaseData[ 'portfolioId' ] );
 
+        return $skill;
     }
 
-    public function insert( EntityInterface $entity )
+    /**
+     * Creates an new empty Skill object.
+     *
+     * @return EntityInterface
+     */
+    public function createEmptyEntity() : EntityInterface
     {
-
-    }
-
-    public function update( EntityInterface $entity )
-    {
-
-    }
-
-    public function delete( int $id )
-    {
-
+        return new Skill();
     }
 }

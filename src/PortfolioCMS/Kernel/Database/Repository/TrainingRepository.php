@@ -9,64 +9,219 @@ declare( strict_types = 1 );
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Repository;
 
 
-class TrainingRepository
+use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\EntityInterface;
+use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\Training;
+use StendenINF1B\PortfolioCMS\Kernel\Database\EntityManager;
+use StendenINF1B\PortfolioCMS\Kernel\Exception\RepositoryException;
+
+class TrainingRepository extends Repository
 {
-    protected $getByIdSql = '';
+    /**
+     * This holds an SQL statement for selecting an Training entity from the database by its id.
+     *
+     * @var string
+     */
+    protected $getByIdSql = '
+        SELECT
+            `Training`.`id`,
+            `Training`.`title`,
+            `Training`.`institution`,
+            `Training`.`location`,
+            `Training`.`startedAt`,
+            `Training`.`finishedAt`,
+            `Training`.`description`,
+            `Training`.`obtainedCertificate`,
+            `Training`.`currentTraining`,
+            `Training`.`portfolioId`
+        FROM `DigitalPortfolio`.`Training`
+        WHERE `Training`.`id` = :id;
+    ';
 
-    protected $getBySql = '';
+    /**
+     * This holds an SQL statement for selecting an Training entity from the database.
+     *
+     * @var string
+     */
+    protected $getBySql = '
+        SELECT
+            `Training`.`id`,
+            `Training`.`title`,
+            `Training`.`institution`,
+            `Training`.`location`,
+            `Training`.`startedAt`,
+            `Training`.`finishedAt`,
+            `Training`.`description`,
+            `Training`.`obtainedCertificate`,
+            `Training`.`currentTraining`,
+            `Training`.`portfolioId`
+        FROM `DigitalPortfolio`.`Training`
+    ';
 
-    protected $insertUploadedFileSql = '';
+    /**
+     * This holds an SQL statement for inserting an Training entity into the database.
+     *
+     * @var string
+     */
+    protected $insertHobbySql = '
+        INSERT INTO `DigitalPortfolio`.`Training`( 
+            `title`,
+            `institution`,
+            `location`,
+            `startedAt`,
+            `finishedAt`,
+            `description`,
+            `obtainedCertificate`,
+            `currentTraining`,
+            `portfolioId`
+        ) VALUES ( 
+            :title,
+            :institution,
+            :location,
+            :startedAt,
+            :finishedAt,
+            :description,
+            :obtainedCertificate,
+            :currentTraining,
+            :portfolioId
+        );
+    ';
 
-    protected $insertImageSql = '';
+    /**
+     * This holds an SQL statement for updating an Training entity in the database.
+     *
+     * @var string
+     */
+    protected $updateHobbySql = '
+        UPDATE Training SET 
+            `title` = :title,
+            `institution` = :institution,
+            `location` = :location,
+            `startedAt` = :startedAt,
+            `finishedAt` = :finishedAt,
+            `description` = :description,
+            `obtainedCertificate` = :obtainedCertificate,
+            `currentTraining` = :currentTraining,
+            `portfolioId` = :portfolioId
+        WHERE `Training`.`id` = :id;
+    ';
 
-    protected $updateSql ='';
+    /**
+     * This holds an SQL statement for deleting an Training entity from the database.
+     *
+     * @var string
+     */
+    protected $deleteSql = '
+        DELETE FROM Training WHERE `Training`.`id` = :id;
+    ';
 
-    protected $deleteSql = '';
-
+    /**
+     * TrainingRepository constructor.
+     *
+     * @param EntityManager $entityManager
+     */
     public function __construct( EntityManager $entityManager )
     {
-        //$this->connection = new \PDO('','','');
         parent::__construct( $entityManager );
     }
-    public function getById( int $id ) : EntityInterface
+
+    /**
+     * Inserts an new Training and user in the database.
+     *
+     * @param Training $training
+     * @return Training
+     * @throws RepositoryException
+     */
+    public function insert( Training $training ) : Training
     {
-        $statement = $this->connection->prepare( $this->getByIdSql );
-
-        if( $statement->execute( [ 'id' => $id ] ))
+        try
         {
-            $studentData = $statement->fetchAll( \PDO::FETCH_ASSOC );
+            $statement = $this->connection->prepare( $this->insertHobbySql );
 
-            if( count( $studentData ) < 1)
-            {
-                return new Student();
-            }
+            $statement->execute( [
+                ':title' => $training->getTitle(),
+                ':institution' => $training->getInstitution(),
+                ':location' => $training->getLocation(),
+                ':startedAt' => $training->getStatedAt()->format('Y-m-d H:i:s'),
+                ':finishedAt' => $training->getFinishedAt()->format('Y-m-d H:i:s'),
+                ':description' => $training->getDescription(),
+                ':obtainedCertificate' => (int)$training->getObtainedCertificate(),
+                ':currentTraining' => (int)$training->getCurrentTraining(),
+                ':portfolioId'> $training->getPortfolioId(),
+            ] );
 
-            return $this->createNewImage( $imageData[0] );
+            $id = (int)$this->connection->lastInsertId();
+
+            return $this->getById( $id );
+
+        } catch ( \PDOException $exception )
+        {
+            $this->connection->rollBack();
+            throw new RepositoryException( 'The training could not be inserted: ' . $exception->getMessage() );
         }
     }
 
-    public function getByCondition( $whereClause, $params ) : EntityCollection
+    /**
+     * Updates an Training in the database.
+     *
+     * @param Training $training
+     * @return Training
+     * @throws RepositoryException
+     */
+    public function update( Training $training ) : Training
     {
+        try
+        {
+            $statement = $this->connection->prepare( $this->updateHobbySql );
 
+            $statement->execute( [
+                ':title' => $training->getTitle(),
+                ':institution' => $training->getInstitution(),
+                ':location' => $training->getLocation(),
+                ':startedAt' => $training->getStatedAt()->format('Y-m-d H:i:s'),
+                ':finishedAt' => $training->getFinishedAt()->format('Y-m-d H:i:s'),
+                ':description' => $training->getDescription(),
+                ':obtainedCertificate' => (int)$training->getObtainedCertificate(),
+                ':currentTraining' => (int)$training->getCurrentTraining(),
+                ':portfolioId'> $training->getPortfolioId(),
+            ] );
+
+            return $this->getById( $training->getId() );
+
+        } catch ( \PDOException $exception )
+        {
+            $this->connection->rollBack();
+            throw new RepositoryException( 'The training could not be updated: ' . $exception->getMessage() );
+        }
     }
 
-    public function getOneByCondition( $whereClause, $params ) : EntityInterface
+    /**
+     * Creates an new Training object from data from the database.
+     *
+     * @param array $databaseData
+     * @return EntityInterface
+     */
+    public function createEntity( array $databaseData ) : EntityInterface
     {
+        $training = new Training();
+        $training->setId( (int)$databaseData[ 'id' ] );
+        $training->setInstitution( $databaseData['institution']);
+        $training->setLocation( $databaseData['location']);
+        $training->setStatedAt( new \DateTime( $databaseData['startedAt']));
+        $training->setFinishedAt( new \DateTime( $databaseData['finishedAt']));
+        $training->setDescription( $databaseData['description']);
+        $training->setObtainedCertificate( (bool)$databaseData['obtainedCertificate']);
+        $training->setCurrentTraining( (bool)$databaseData['currentTraining']);
+        $training->setPortfolioId( (int)$databaseData['portfolio']);
 
+        return $training;
     }
 
-    public function insert( EntityInterface $entity )
+    /**
+     * Creates an new empty hobby object.
+     * @return EntityInterface
+     */
+    public function createEmptyEntity() : EntityInterface
     {
-
-    }
-
-    public function update( EntityInterface $entity )
-    {
-
-    }
-
-    public function delete( int $id )
-    {
-
+        return new Training();
     }
 }

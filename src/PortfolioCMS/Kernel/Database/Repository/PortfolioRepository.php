@@ -9,65 +9,209 @@ declare( strict_types = 1 );
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Repository;
 
 
-class PortfolioRepository
+use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\EntityInterface;
+use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\Portfolio;
+use StendenINF1B\PortfolioCMS\Kernel\Database\EntityManager;
+use StendenINF1B\PortfolioCMS\Kernel\Exception\RepositoryException;
+
+class PortfolioRepository extends Repository
 {
-    protected $getByIdSql = '';
+    /**
+     * This holds an SQL statement for selecting an Portfolio entity from the database by its id.
+     *
+     * @var string
+     */
+    protected $getByIdSql = '
+        SELECT
+            `Portfolio`.`id`,
+            `Portfolio`.`themeId`,
+            `Portfolio`.`title`,
+            `Portfolio`.`url`,
+            `Portfolio`.`grade`,
+            `Portfolio`.`userId`
+        FROM `DigitalPortfolio`.`Portfolio`
+        WHERE `Portfolio`.`id` = :id;
+    ';
 
-    protected $getBySql = '';
+    /**
+     * This holds an SQL statement for selecting an Portfolio entity from the database.
+     *
+     * @var string
+     */
+    protected $getBySql = '
+        SELECT
+            `Portfolio`.`id`,
+            `Portfolio`.`themeId`,
+            `Portfolio`.`title`,
+            `Portfolio`.`url`,
+            `Portfolio`.`grade`,
+            `Portfolio`.`userId`
+        FROM `DigitalPortfolio`.`Portfolio`
+    ';
 
-    protected $insertUploadedFileSql = '';
+    /**
+     * This holds an SQL statement for inserting an Portfolio entity into the database.
+     *
+     * @var string
+     */
+    protected $insertHobbySql = '
+        INSERT INTO `DigitalPortfolio`.`Portfolio`( 
+            `themeId`,
+            `title`,
+            `url`,
+            `grade`,
+            `userId`
+        ) VALUES ( 
+            :themeId,
+            :title,
+            :url,
+            :grade,
+            :userId
+        );
+    ';
 
-    protected $insertImageSql = '';
+    /**
+     * This holds an SQL statement for updating an Portfolio entity in the database.
+     *
+     * @var string
+     */
+    protected $updateHobbySql = '
+        UPDATE Portfolio SET 
+            `themeId` = :themeId,
+            `title` = :title,
+            `url` = :url,
+            `grade` = :grade,
+            `userId` = :userId
+        WHERE `Portfolio`.`id` = :id;
+    ';
 
-    protected $updateSql ='';
+    /**
+     * This holds an SQL statement for deleting an Portfolio entity from the database.
+     *
+     * @var string
+     */
+    protected $deleteSql = '
+        DELETE FROM Portfolio WHERE `Portfolio`.`id` = :id;
+    ';
 
-    protected $deleteSql = '';
-
+    /**
+     * PortfolioRepository constructor.
+     *
+     * @param EntityManager $entityManager
+     */
     public function __construct( EntityManager $entityManager )
     {
-        //$this->connection = new \PDO('','','');
         parent::__construct( $entityManager );
     }
-    public function getById( int $id ) : EntityInterface
+
+    /**
+     * Inserts an new Portfolio and user in the database.
+     *
+     * @param Portfolio $portfolio
+     * @return Portfolio
+     * @throws RepositoryException
+     */
+    public function insert( Portfolio $portfolio ) : Portfolio
     {
-        $statement = $this->connection->prepare( $this->getByIdSql );
-
-        if( $statement->execute( [ 'id' => $id ] ))
+        try
         {
-            $studentData = $statement->fetchAll( \PDO::FETCH_ASSOC );
+            $statement = $this->connection->prepare( $this->insertHobbySql );
 
-            if( count( $studentData ) < 1)
-            {
-                return new Student();
-            }
+            $statement->execute( [
+                ':themeId' => $portfolio->getTheme()->getId(),
+                ':title' => $portfolio->getTitle(),
+                ':url' => $portfolio->getUrl(),
+                ':grade' => $portfolio->getGrade(),
+                ':userId' => $portfolio->getStudent()->getId(),
+            ] );
 
-            return $this->createNewImage( $imageData[0] );
+            $id = (int)$this->connection->lastInsertId();
+
+            return $this->getById( $id );
+
+        } catch ( \PDOException $exception )
+        {
+            $this->connection->rollBack();
+            throw new RepositoryException( 'The portfolio could not be inserted: ' . $exception->getMessage() );
         }
     }
 
-    public function getByCondition( $whereClause, $params ) : EntityCollection
+    /**
+     * Updates an Portfolio in the database.
+     *
+     * @param Portfolio $portfolio
+     * @return Portfolio
+     * @throws RepositoryException
+     */
+    public function update( Portfolio $portfolio ) : Portfolio
     {
+        try
+        {
+            $statement = $this->connection->prepare( $this->updateHobbySql );
 
+            $statement->execute( [
+                ':themeId' => $portfolio->getTheme()->getId(),
+                ':title' => $portfolio->getTitle(),
+                ':url' => $portfolio->getUrl(),
+                ':grade' => $portfolio->getGrade(),
+                ':userId' => $portfolio->getStudent()->getId(),
+            ] );
+
+            return $this->getById( $portfolio->getId() );
+
+        } catch ( \PDOException $exception )
+        {
+            $this->connection->rollBack();
+            throw new RepositoryException( 'The Portfolio could not be updated: ' . $exception->getMessage() );
+        }
     }
 
-    public function getOneByCondition( $whereClause, $params ) : EntityInterface
+    /**
+     * Creates an new Portfolio object from data from the database. It also contains all entities that have an N:M retation
+     * with the portfolio.
+     *
+     * @param array $databaseData
+     * @return EntityInterface
+     */
+    public function createEntity( array $databaseData ) : EntityInterface
     {
+        $themeManager = $this->entityManager->getRepository( 'Theme' );
+        $imageManager = $this->entityManager->getRepository( 'Image' );
+        $jobExperienceManager = $this->entityManager->getRepository( 'JobExperience' );
+        $languageManager = $this->entityManager->getRepository( 'Language' );
+        $pageManager = $this->entityManager->getRepository( 'Page' );
+        $projectManager = $this->entityManager->getRepository( 'Project' );
+        $skillManager = $this->entityManager->getRepository( 'Skill' );
+        $slbAssignmentManager = $this->entityManager->getRepository( 'SLBAssignment' );
+        $trainingManager = $this->entityManager->getRepository( 'Training' );
 
+        $whereClause = ' WHERE portfolioId = :wherePortfolioId';
+        $param = [ ':wherePortfolioId' => $databaseData['id'] ];
+
+        $portfolio = new Portfolio();
+        $portfolio->setId( $databaseData['id']);
+        $portfolio->setTitle( $databaseData['title']);
+        $portfolio->setUrl( $databaseData['url']);
+        $portfolio->setGrade( (float)$databaseData['grade'] );
+        $portfolio->setTheme( $themeManager->getByCondition( $whereClause, $param ) );
+        $portfolio->setImages( $imageManager->getByCondition( $whereClause, $param ) );
+        $portfolio->setJobExperience( $jobExperienceManager->getByCondition( $whereClause, $param ) );
+        $portfolio->setLanguage( $languageManager->getByCondition( $whereClause, $param ) );
+        $portfolio->setPages( $pageManager->getByCondition( $whereClause, $param ) );
+        $portfolio->setProjects( $projectManager->getByCondition( $whereClause, $param ) );
+        $portfolio->setSkills( $skillManager->getByCondition( $whereClause, $param ) );
+        $portfolio->setSlbAssignments( $slbAssignmentManager->getByCondition( $whereClause, $param ) );
+        $portfolio->setTrainings( $trainingManager->getByCondition( $whereClause, $param ) );
+
+        return $portfolio;
     }
 
-    public function insert( EntityInterface $entity )
+    /**
+     * Creates an new empty Portfolio object.
+     * @return EntityInterface
+     */
+    public function createEmptyEntity() : EntityInterface
     {
-
+        return new Portfolio();
     }
-
-    public function update( EntityInterface $entity )
-    {
-
-    }
-
-    public function delete( int $id )
-    {
-
-    }
-
 }

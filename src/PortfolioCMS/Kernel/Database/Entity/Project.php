@@ -32,14 +32,19 @@ class Project implements EntityInterface
     protected $link;
 
     /**
+     * @var float
+     */
+    protected $grade;
+
+    /**
      * @var Image
      */
     protected $image; // One project has one image.
 
     /**
-     * @var Portfolio
+     * @var int
      */
-    protected $portfolio;
+    protected $portfolioId; // One project has one project.
 
     /**
      * @return int
@@ -132,22 +137,36 @@ class Project implements EntityInterface
     }
 
     /**
-     * @return Portfolio
+     * @return int
      */
-    public function getPortfolio(): Portfolio
+    public function getPortfolioId(): int
     {
-        return $this->portfolio;
+        return $this->portfolioId;
     }
 
     /**
-     * @param Portfolio $portfolio
+     * @param int $portfolio
      * @return Project
      */
-    public function setPortfolio( Portfolio $portfolio ): Project
+    public function setPortfolioId( int $portfolioId ): Project
     {
-        $this->portfolio = $portfolio;
+        $this->portfolioId = $portfolioId;
         return $this;
-    } // One project has one project.
+    }
 
+    /**
+     * @return float
+     */
+    public function getGrade(): float
+    {
+        return $this->grade;
+    }
 
+    /**
+     * @param float $grade
+     */
+    public function setGrade( float $grade )
+    {
+        $this->grade = $grade;
+    }
 }

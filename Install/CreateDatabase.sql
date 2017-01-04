@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `User` (
  */
 CREATE TABLE IF NOT EXISTS `Student` (
   `userId`      INT UNSIGNED UNIQUE   NOT NULL, # Inherited key from the entity user and unique identifier for this record.
-  `address`     VARBINARY(50)          NOT NULL, # The encrypted street number where the student lives.
+  `address`     VARBINARY(50)         NOT NULL, # The encrypted street number where the student lives.
   `zipCode`     VARBINARY(10)         NOT NULL, # The zip code of where student lives.
   `location`    VARBINARY(100)        NOT NULL, # The place the student lives.
   `dateOfBirth` VARBINARY(50)         NOT NULL, # The date of birth of an student.
@@ -88,6 +88,7 @@ CREATE TABLE IF NOT EXISTS `GuestBookMessage` (
  */
 CREATE TABLE IF NOT EXISTS `Theme` (
   `id`            INT UNSIGNED UNIQUE AUTO_INCREMENT NOT NULL, # The unique identification code of the record.
+  `name`          VARCHAR(100)                       NOT NULL, # An friendly name for the theme.
   `author`        VARCHAR(50)                        NOT NULL, # The author that created the theme.
   `description`   VARCHAR(255)                       NOT NULL, # A short description of the theme.
   `directoryName` VARCHAR(100)                       NOT NULL, # the name of the actual theme folder.

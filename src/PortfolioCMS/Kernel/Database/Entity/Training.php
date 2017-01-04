@@ -57,9 +57,9 @@ class Training implements EntityInterface
     protected $currentTraining;
 
     /**
-     * @var Portfolio
+     * @var int
      */
-    protected $portfolio; // One training has one portfolio.
+    protected $portfolioId; // One training has one portfolio.
 
     /**
      * @return int
@@ -190,7 +190,7 @@ class Training implements EntityInterface
     /**
      * @return boolean
      */
-    public function isObtainedCertificate(): bool
+    public function getObtainedCertificate(): bool
     {
         return $this->obtainedCertificate;
     }
@@ -208,7 +208,7 @@ class Training implements EntityInterface
     /**
      * @return boolean
      */
-    public function isCurrentTraining(): bool
+    public function getCurrentTraining(): bool
     {
         return $this->currentTraining;
     }
@@ -226,18 +226,18 @@ class Training implements EntityInterface
     /**
      * @return Portfolio
      */
-    public function getPortfolio(): Portfolio
+    public function getPortfolioId(): int
     {
-        return $this->portfolio;
+        return $this->portfolioId;
     }
 
     /**
-     * @param Portfolio $portfolio
+     * @param int $portfolio
      * @return Training
      */
-    public function setPortfolio( Portfolio $portfolio ): Training
+    public function setPortfolioId( int $portfolioId ): Training
     {
-        $this->portfolio = $portfolio;
+        $this->portfolioId = $portfolioId;
         return $this;
     }
 

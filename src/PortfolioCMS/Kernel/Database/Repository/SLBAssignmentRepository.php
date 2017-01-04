@@ -17,6 +17,8 @@ use StendenINF1B\PortfolioCMS\Kernel\Exception\RepositoryException;
 class SLBAssignmentRepository extends Repository
 {
     /**
+     * This holds an SQL statement for selecting an SLBAssignment entity from the database by its id.
+     *
      * @var string
      */
     protected $getByIdSql = '
@@ -33,6 +35,8 @@ class SLBAssignmentRepository extends Repository
     ';
 
     /**
+     * This holds an SQL statement for selecting an SLBAssignment entity from the database.
+     *
      * @var string
      */
     protected $getBySql = '
@@ -48,6 +52,8 @@ class SLBAssignmentRepository extends Repository
     ';
 
     /**
+     * This holds an SQL statement for inserting an new UploadedFile entity into the database.
+     *
      * @var string
      */
     protected $insertUploadedFileSql = '
@@ -65,6 +71,7 @@ class SLBAssignmentRepository extends Repository
     ';
 
     /**
+     * This holds an SQL statement for inserting an new SLBAssignment entity into the database.
      * @var string
      */
     protected $insertSLBAssignment = '
@@ -80,6 +87,8 @@ class SLBAssignmentRepository extends Repository
     ';
 
     /**
+     * This holds an SQL statement for updating an UploadedFile entity in the database.
+     *
      * @var string
      */
     protected $updateUploadedFileSql = '
@@ -92,6 +101,7 @@ class SLBAssignmentRepository extends Repository
     ';
 
     /**
+     * This holds an SQL statement for updating an SLBAssignment entity in the database.
      * @var string
      */
     protected $updateImageSql = '
@@ -102,6 +112,8 @@ class SLBAssignmentRepository extends Repository
     ';
 
     /**
+     * This holds an SQL statement for deleting an SLBAssignment entity from the database.
+     *
      * @var string
      */
     protected $deleteSql = '
@@ -215,6 +227,8 @@ class SLBAssignmentRepository extends Repository
     }
 
     /**
+     * Creates an new empty SLBAssignment object.
+     *
      * @return EntityInterface
      */
     public function createEmptyEntity() : EntityInterface

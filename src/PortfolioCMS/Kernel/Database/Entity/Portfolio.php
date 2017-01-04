@@ -39,39 +39,59 @@ class Portfolio implements EntityInterface
     protected $grade;
 
     /**
-     * @var EntityCollection
+     * @var string
      */
-    protected $jobExperience; // One portfolio has many or zero JobExperiences.
+    protected $url;
+
+    /**
+     * @var Student
+     */
+    protected $student;
 
     /**
      * @var EntityCollection
      */
-    protected $language; // One portfolio has many or zero Languages.
+    protected $jobExperience; // (N:M) One portfolio has many or zero JobExperiences.
 
     /**
      * @var EntityCollection
      */
-    protected $trainings; // One portfolio has many or zero Trainings.
+    protected $language; // (N:M) One portfolio has many or zero Languages.
 
     /**
      * @var EntityCollection
      */
-    protected $slbAssignments; // One portfolio has many or zero SlbAssignments.
+    protected $trainings; // (N:M) One portfolio has many or zero Trainings.
 
     /**
      * @var EntityCollection
      */
-    protected $images; // One portfolio has many or zero Images.
+    protected $slbAssignments; // (N:M) One portfolio has many or zero SlbAssignments.
 
     /**
      * @var EntityCollection
      */
-    protected $skills; // One portfolio has many or zero Skills.
+    protected $images; // (N:M) One portfolio has many or zero Images.
 
     /**
      * @var EntityCollection
      */
-    protected $hobbies; // One portfolio has many or zero Hobbies.
+    protected $skills; // (N:M) One portfolio has many or zero Skills.
+
+    /**
+     * @var EntityCollection
+     */
+    protected $hobbies; // (N:M) One portfolio has many or zero Hobbies.
+
+    /**
+     * @var EntityCollection
+     */
+    protected $pages; // (N:M) One portfolio has manny or zero Pages.
+
+    /**
+     * @var EntityCollection
+     */
+    protected $projects; // (N:M) One portfolio has many or zero Projects.
 
     /**
      * @return int
@@ -289,5 +309,72 @@ class Portfolio implements EntityInterface
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function getUrl(): string
+    {
+        return $this->url;
+    }
 
+    /**
+     * @param string $url
+     */
+    public function setUrl( string $url ) : Portfolio
+    {
+        $this->url = $url;
+        return $this;
+    }
+
+    /**
+     * @return Student
+     */
+    public function getStudent(): Student
+    {
+        return $this->student;
+    }
+
+    /**
+     * @param Student $student
+     * @return Portfolio
+     */
+    public function setStudent( Student $student ) : Portfolio
+    {
+        $this->student = $student;
+        return $this;
+    }
+
+    /**
+     * @return EntityCollection
+     */
+    public function getPages(): EntityCollection
+    {
+        return $this->pages;
+    }
+
+    /**
+     * @param EntityCollection $pages
+     */
+    public function setPages( EntityCollection $pages )
+    {
+        $this->pages = $pages;
+    }
+
+    /**
+     * @return EntityCollection
+     */
+    public function getProjects(): EntityCollection
+    {
+        return $this->projects;
+    }
+
+    /**
+     * @param EntityCollection $projects
+     * @return Portfolio
+     */
+    public function setProjects( EntityCollection $projects ): Portfolio
+    {
+        $this->projects = $projects;
+        return $this;
+    }
 }

@@ -15,6 +15,11 @@ use StendenINF1B\PortfolioCMS\Kernel\Exception\RepositoryException;
 
 class TeacherRepository extends Repository
 {
+    /**
+     * This holds an SQL statement for selecting an Teacher entity from the database by its id.
+     *
+     * @var string
+     */
     protected $getByIdSql = '
         SELECT
             `User`.`id`,
@@ -32,6 +37,11 @@ class TeacherRepository extends Repository
         WHERE `Student`.`userId` = :id;
     ';
 
+    /**
+     * This holds an SQL statement for selecting an Teacher entity from the database.
+     *
+     * @var string
+     */
     protected $getBySql = '
         SELECT
             `User`.`id`,
@@ -48,6 +58,11 @@ class TeacherRepository extends Repository
         FROM `DigitalPortfolio`.`Teacher` JOIN `DigitalPortfolio`.`User` ON `Teacher`.`userId` = `User`.`id`
     ';
 
+    /**
+     * This holds an SQL statement for inserting an new User entity into the database.
+     *
+     * @var string
+     */
     protected $insertUserSql = '
             INSERT INTO `DigitalPortfolio`.`User`( 
             `password`,
@@ -68,6 +83,11 @@ class TeacherRepository extends Repository
         );
     ';
 
+    /**
+     * This holds an SQL statement for inserting an new Teacher entity into the database.
+     *
+     * @var string
+     */
     protected $insertTeacherSql = '
        INSERT INTO `DigitalPortfolio`.`Teacher`( 
             `userId`,
@@ -78,6 +98,11 @@ class TeacherRepository extends Repository
         );
     ';
 
+    /**
+     * This holds an SQL statement for updating an User entity in the database.
+     *
+     * @var string
+     */
     protected $updateUserSql = '
         UPDATE User SET         
             `password` = :password,
@@ -90,16 +115,31 @@ class TeacherRepository extends Repository
         WHERE `User`.`id` = :id;
     ';
 
+    /**
+     * This holds an SQL statement for updating an Teacher entity in the database.
+     *
+     * @var string
+     */
     protected $updateTeacherSql = '
         UPDATE Teacher SET 
             `isSLBer` = :isSLBer
         WHERE `Teacher`.`userId` = :idUser;
     ';
 
+    /**
+     * This holds an SQL statement for deleting an Teacher entity from the database.
+     *
+     * @var string
+     */
     protected $deleteSql = '
         DELETE FROM `Teacher` WHERE `Teacher`.`userId` = :userId;
     ';
 
+    /**
+     * TeacherRepository constructor.
+     *
+     * @param EntityManager $entityManager
+     */
     public function __construct( EntityManager $entityManager )
     {
         parent::__construct( $entityManager );
@@ -110,6 +150,7 @@ class TeacherRepository extends Repository
      * Inserts an new Teacher and user in the database.
      *
      * @param Teacher $entity
+     * @return Teacher
      * @throws RepositoryException
      */
     public function insert( Teacher $teacher ) : Teacher
@@ -153,9 +194,10 @@ class TeacherRepository extends Repository
      * Updates an teacher and user in the database.
      *
      * @param Teacher $teacher
+     * @return Teacher
      * @throws RepositoryException
      */
-    public function update( Teacher $teacher )
+    public function update( Teacher $teacher ) : Teacher
     {
         try
         {
@@ -181,6 +223,8 @@ class TeacherRepository extends Repository
 
             $this->connection->commit();
 
+            return $this->getById( $teacher->getId() );
+
         }
         catch ( \PDOException $exception )
         {
@@ -189,7 +233,12 @@ class TeacherRepository extends Repository
         }
     }
 
-
+    /**
+     * Creates an new Teacher object from data from the database.
+     *
+     * @param array $databaseTeacher
+     * @return EntityInterface
+     */
     public function createEntity( array $databaseTeacher ) : EntityInterface
     {
         $teacher = new Teacher();
@@ -208,6 +257,11 @@ class TeacherRepository extends Repository
         return $teacher;
     }
 
+    /**
+     * Creates an new empty Teacher object.
+     *
+     * @return EntityInterface
+     */
     public function createEmptyEntity(  ) : EntityInterface
     {
         return new Teacher();

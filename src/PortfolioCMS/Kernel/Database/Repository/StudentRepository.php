@@ -15,6 +15,11 @@ use StendenINF1B\PortfolioCMS\Kernel\Exception\RepositoryException;
 
 class StudentRepository extends Repository
 {
+    /**
+     * This holds an SQL statement for selecting an Student entity from the database by its id.
+     *
+     * @var string
+     */
     protected $getByIdSql = '
         SELECT
             `User`.`id`,
@@ -37,6 +42,11 @@ class StudentRepository extends Repository
         WHERE `Student`.`userId` = :id;
     ';
 
+    /**
+     * This holds an SQL statement for selecting an Student entity from the database.
+     *
+     * @var string
+     */
     protected $getBySql = '
         SELECT
             `User`.`id`,
@@ -58,7 +68,11 @@ class StudentRepository extends Repository
         FROM `DigitalPortfolio`.`Student` JOIN `DigitalPortfolio`.`User` ON `Student`.`userId` = `User`.`id`
     ';
 
-
+    /**
+     * This holds an SQL statement for inserting an new User entity into the database.
+     *
+     * @var string
+     */
     protected $insertUserSql = '
             INSERT INTO `DigitalPortfolio`.`User`( 
             `password`,
@@ -79,6 +93,11 @@ class StudentRepository extends Repository
         );
     ';
 
+    /**
+     * This holds an SQL statement for inserting an new Student entity into the database.
+     *
+     * @var string
+     */
     protected $insertStudentSql = '
         INSERT INTO `DigitalPortfolio`.`Student`( 
             `userId`,
@@ -99,6 +118,11 @@ class StudentRepository extends Repository
         );
     ';
 
+    /**
+     * This holds an SQL statement for updating an User entity in the database.
+     *
+     * @var string
+     */
     protected $updateUserSql = '
         UPDATE User SET         
             `password` = :password,
@@ -111,6 +135,11 @@ class StudentRepository extends Repository
         WHERE `User`.`id` = :id;
     ';
 
+    /**
+     * This holds an SQL statement for updating an Student entity in the database.
+     *
+     * @var string
+     */
     protected $updateStudentSql = '
         UPDATE Student SET 
             `address` = :address,
@@ -122,6 +151,11 @@ class StudentRepository extends Repository
         WHERE `Student`.`userId` = :userId;
     ';
 
+    /**
+     * This holds an SQL statement for deleting an Student entity from the database.
+     *
+     * @var string
+     */
     protected $deleteSql = '
         DELETE FROM Student WHERE `Student`.`userId` = :id;
     ';
@@ -140,6 +174,7 @@ class StudentRepository extends Repository
      * Inserts an new Student and user in the database.
      *
      * @param Student $entity
+     * @return Student
      * @throws RepositoryException
      */
     public function insert( Student $student ) : Student
@@ -189,7 +224,7 @@ class StudentRepository extends Repository
      * @param Student $student
      * @throws RepositoryException
      */
-    public function update( Student $student )
+    public function update( Student $student ) : Student
     {
         try
         {
@@ -220,6 +255,8 @@ class StudentRepository extends Repository
 
             $this->connection->commit();
 
+            return $this->getById( $student->getId() );
+
         }
         catch ( \PDOException $exception )
         {
@@ -228,6 +265,12 @@ class StudentRepository extends Repository
         }
     }
 
+    /**
+     * Creates an new Student object from data from the database.
+     *
+     * @param array $databaseStudent
+     * @return EntityInterface
+     */
     public function createEntity( array $databaseStudent ) : EntityInterface
     {
         $student = new Student();
@@ -251,6 +294,11 @@ class StudentRepository extends Repository
         return $student;
     }
 
+    /**
+     * Creates an new Student object from data from the database.
+     *
+     * @return EntityInterface
+     */
     public function createEmptyEntity(  ) : EntityInterface
     {
         return new Student();

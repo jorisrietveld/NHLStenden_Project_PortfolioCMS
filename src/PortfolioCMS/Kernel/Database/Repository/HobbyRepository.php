@@ -90,7 +90,7 @@ class HobbyRepository extends Repository
     }
 
     /**
-     * Inserts an new hobby and user in the database.
+     * Inserts an new hobby in the database.
      *
      * @param Hobby $hobby
      * @return Hobby

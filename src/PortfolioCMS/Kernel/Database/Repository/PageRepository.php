@@ -17,6 +17,8 @@ use StendenINF1B\PortfolioCMS\Kernel\Exception\RepositoryException;
 class PageRepository extends Repository
 {
     /**
+     * This holds an SQL statement for selecting an Page entity from the database by its id.
+     *
      * @var string
      */
     protected $getByIdSql = '
@@ -31,6 +33,8 @@ class PageRepository extends Repository
     ';
 
     /**
+     * This holds an SQL statement for selecting an Page entity from the database.
+     *
      * @var string
      */
     protected $getBySql = '
@@ -45,6 +49,8 @@ class PageRepository extends Repository
     ';
 
     /**
+     * This holds an SQL statement for inserting an new Page entity into the database.
+     *
      * @var string
      */
     protected $insertPageSql = '
@@ -64,6 +70,8 @@ class PageRepository extends Repository
     ';
 
     /**
+     * This holds an SQL statement for updating an Page entity in the database.
+     *
      * @var string
      */
     protected $updatePageSql = '
@@ -78,6 +86,8 @@ class PageRepository extends Repository
     ';
 
     /**
+     * This holds an SQL statement for deleting an Page entity from the database.
+     *
      * @var string
      */
     protected $deleteSql = '
@@ -98,6 +108,7 @@ class PageRepository extends Repository
      * Inserts an new Page in the database.
      *
      * @param Page $page
+     * @return Page
      * @throws RepositoryException
      */
     public function insert( Page $page ) : Page
@@ -129,6 +140,7 @@ class PageRepository extends Repository
      * Updates an Page in the database.
      *
      * @param Page $page
+     * @return Page
      * @throws RepositoryException
      */
     public function update( Page $page ) : Page
@@ -174,6 +186,8 @@ class PageRepository extends Repository
     }
 
     /**
+     * Creates an new empty Page object.
+     *
      * @return EntityInterface
      */
     public function createEmptyEntity() : EntityInterface
