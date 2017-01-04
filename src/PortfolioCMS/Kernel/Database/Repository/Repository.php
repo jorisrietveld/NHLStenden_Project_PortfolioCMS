@@ -24,7 +24,7 @@ abstract class Repository
         $this->connection = $entityManager->getConnectionManager()->getConnection()->getPdo();
     }
 
-    abstract public function getById( int $id ) : EntityInterface;
+   /* abstract public function getById( int $id ) : EntityInterface;
 
     abstract public function getByCondition( $whereClause, $params ) : EntityCollection;
 
@@ -34,5 +34,5 @@ abstract class Repository
 
     abstract public function update( EntityInterface $entity );
 
-    abstract public function delete( int $id );
+    abstract public function delete( int $id );*/
 }

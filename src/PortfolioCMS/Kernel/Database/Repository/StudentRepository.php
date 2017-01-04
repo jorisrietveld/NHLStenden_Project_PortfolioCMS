@@ -63,8 +63,6 @@ class StudentRepository extends Repository
     protected $insertUserSql = '
             INSERT INTO `DigitalPortfolio`.`User`( 
             `password`,
-            `accountCreated`,
-            `lastLogin`,
             `email`,
             `lastIpAddress`,
             `firstName`,
@@ -73,8 +71,6 @@ class StudentRepository extends Repository
             `active`
         ) VALUES ( 
             :password,
-            :accountCreated,
-            :lastLogin,
             :email,
             :lastIpAddress,
             :firstName,
@@ -107,8 +103,6 @@ class StudentRepository extends Repository
     protected $updateUserSql = '
         UPDATE User SET         
             `password` = :password,
-            `accountCreated` = :accountCreated,
-            `lastLogin` = :lastLogin,
             `email` = :email,
             `lastIpAddress` = :lastIpAddress,
             `firstName` = :firstName,
@@ -120,14 +114,13 @@ class StudentRepository extends Repository
 
     protected $updateStudentSql = '
         UPDATE Student SET 
-            `userId` = :userId,
             `address` = :address,
             `zipCode` = :zipCode,
             `location` = :location,
             `dateOfBirth` = :dateOfBirth,
             `studentCode` = :studentCode,
             `phoneNumber` = :phoneNumber
-        WHERE `Student`.`userId` = :id;
+        WHERE `Student`.`userId` = :userId;
     ';
 
     protected $deleteSql = '
@@ -137,9 +130,16 @@ class StudentRepository extends Repository
     public function __construct( EntityManager $entityManager )
     {
         parent::__construct( $entityManager );
+        //$this->connection = new \PDO('','','');
     }
 
-    public function getById( int $id ) : EntityInterface
+    /**
+     * Gets an Student from the database by its id.
+     * @param int $id
+     * @return EntityInterface
+     * @throws RepositoryException
+     */
+    public function getById( int $id ) : Student
     {
         $statement = $this->connection->prepare( $this->getByIdSql );
 
@@ -157,45 +157,105 @@ class StudentRepository extends Repository
         throw new RepositoryException( sprintf( 'The query: %s could not be executed.', $this->getByIdSql ) );
     }
 
+    /**
+     * Gets an EntityCollections containing all students from the database.
+     *
+     * @return EntityInterface
+     * @throws RepositoryException
+     */
+    public function getAllStudents( ) : EntityCollection
+    {
+        $statement = $this->connection->prepare( $this->getBySql );
+
+        if ( $statement->execute(  ) )
+        {
+            $studentData = $statement->fetchAll( \PDO::FETCH_ASSOC );
+
+            if ( count( $studentData ) < 1 )
+            {
+                return new EntityCollection();
+            }
+
+            return $this->createNewStudents( $studentData );
+        }
+        throw new RepositoryException( sprintf( 'The query: %s could not be executed.', $this->getByIdSql ) );
+    }
+
+    /**
+     * Gets an EntityCollection with students based on an where clause and values passed as arguments.
+     *
+     * @param $whereClause
+     * @param $params
+     * @return EntityCollection
+     * @throws RepositoryException
+     */
     public function getByCondition( $whereClause, $params ) : EntityCollection
     {
-        $query = $this->getBySql . $whereClause;
-        $statement = $this->connection->prepare( $query );
-
-        if ( $statement->execute( $params ) )
+        $query = $this->getBySql . ' WHERE ' . $whereClause;
+        try
         {
-            $studentData = $statement->fetchAll( \PDO::FETCH_ASSOC );
+            $statement = $this->connection->prepare( $query );
 
-            if ( count( $studentData ) < 1 )
+            if ( $statement->execute( $params ) )
             {
-                return new Student();
-            }
+                $studentData = $statement->fetchAll( \PDO::FETCH_ASSOC );
 
-            return $this->createNewStudent( $studentData[ 0 ] );
+                if ( count( $studentData ) < 1 )
+                {
+                    return new EntityCollection();
+                }
+
+                return $this->createNewStudents( $studentData );
+            }
+            throw new RepositoryException( sprintf( 'The query: %s could not be executed.', $query ) );
         }
-        throw new RepositoryException( sprintf( 'The query: %s could not be executed.', $this->getByIdSql ) );
+        catch (\PDOException $exception )
+        {
+            throw new RepositoryException( sprintf( 'The query: %s could not be executed because: %s', $query, $exception->getMessage() ) );
+        }
     }
 
-    public function getOneByCondition( $whereClause, $params ) : EntityInterface
+    /**
+     * Gets one student from the database.
+     *
+     * @param $whereClause
+     * @param $params
+     * @return EntityInterface
+     * @throws RepositoryException
+     */
+    public function getOneByCondition( $whereClause, $params ) : Student
     {
         $query = $this->getBySql . $whereClause;
-        $statement = $this->connection->prepare( $query );
-
-        if ( $statement->execute( $params ) )
+        try
         {
-            $studentData = $statement->fetchAll( \PDO::FETCH_ASSOC );
+            $statement = $this->connection->prepare( $query );
 
-            if ( count( $studentData ) < 1 )
+            if ( $statement->execute( $params ) )
             {
-                return new Student();
-            }
+                $studentData = $statement->fetchAll( \PDO::FETCH_ASSOC );
 
-            return $this->createNewStudent( $studentData[ 0 ] );
+                if ( count( $studentData ) < 1 )
+                {
+                    return new Student();
+                }
+
+                return $this->createNewStudent( $studentData[ 0 ] );
+            }
+            throw new RepositoryException( sprintf( 'The query: %s could not be executed.', $query ) );
         }
-        throw new RepositoryException( sprintf( 'The query: %s could not be executed.', $this->getByIdSql ) );
+        catch (\PDOException $exception )
+        {
+            throw new RepositoryException( sprintf( 'The query: %s could not be executed because: %s', $query, $exception->getMessage() ) );
+        }
     }
 
-    public function insert( EntityInterface $entity )
+    /**
+     * Inserts an new Student and user in the database.
+     *
+     * @param Student $entity
+     * @throws RepositoryException
+     */
+    public function insert( Student $student ) : Student
     {
         try
         {
@@ -203,26 +263,30 @@ class StudentRepository extends Repository
             $userStatement = $this->connection->prepare( $this->insertUserSql );
 
             $userStatement->execute( [
-                ':password' => $entity->getHashedPassword(),
-                ':email' => $entity->getEmail(),
-                ':lastIpAddress' => $entity->getLastIpAddress(),
-                ':firstName' => $entity->getFisrtName(),
-                ':lastName' => $entity->getLastName(),
-                ':isAdmin' => $entity->getIsAdmin(),
-                ':active' => $entity->getActive(),
+                ':password' => $student->getHashedPassword(),
+                ':email' => $student->getEmail(),
+                ':lastIpAddress' => $student->getLastIpAddress(),
+                ':firstName' => $student->getFirstName(),
+                ':lastName' => $student->getLastName(),
+                ':isAdmin' => (int)$student->getIsAdmin(),
+                ':active' => (int)$student->getIsActive(),
             ] );
 
             $studentStatement = $this->connection->prepare( $this->insertStudentSql );
             $studentStatement->execute( [
-                ':address' => $entity->getAddress(),
-                ':zipCode' => $entity->getZipCode(),
-                ':location' => $entity->getLocation(),
-                ':dateOfBirth' => $entity->getDateOfBirth()->format( 'Y-m-d H:i:s' ),
-                ':studentCode' => $entity->getStudentCode(),
-                ':phoneNumber' => $entity->getPhoneNumber(),
+                ':address' => $student->getAddress(),
+                ':zipCode' => $student->getZipCode(),
+                ':location' => $student->getLocation(),
+                ':dateOfBirth' => $student->getDateOfBirth()->format( 'Y-m-d H:i:s' ),
+                ':studentCode' => $student->getStudentCode(),
+                ':phoneNumber' => $student->getPhoneNumber(),
             ] );
 
             $this->connection->commit();
+
+            $id = (int)$this->connection->lastInsertId();
+
+            return $this->getById( $id );
 
         }
         catch ( \PDOException $exception )
@@ -232,7 +296,13 @@ class StudentRepository extends Repository
         }
     }
 
-    public function update( EntityInterface $entity )
+    /**
+     * Updates an student and user in the database.
+     *
+     * @param Student $student
+     * @throws RepositoryException
+     */
+    public function update( Student $student )
     {
         try
         {
@@ -240,23 +310,25 @@ class StudentRepository extends Repository
             $userStatement = $this->connection->prepare( $this->updateUserSql );
 
             $userStatement->execute( [
-                ':password' => $entity->getHashedPassword(),
-                ':email' => $entity->getEmail(),
-                ':lastIpAddress' => $entity->getLastIpAddress(),
-                ':firstName' => $entity->getFisrtName(),
-                ':lastName' => $entity->getLastName(),
-                ':isAdmin' => $entity->getIsAdmin(),
-                ':active' => $entity->getActive(),
+                ':password' => $student->getHashedPassword(),
+                ':email' => $student->getEmail(),
+                ':lastIpAddress' => $student->getLastIpAddress(),
+                ':firstName' => $student->getFirstName(),
+                ':lastName' => $student->getLastName(),
+                ':isAdmin' => $student->getIsAdmin(),
+                ':active' => $student->getIsActive(),
+                ':id' => $student->getId(),
             ] );
 
             $studentStatement = $this->connection->prepare( $this->updateStudentSql );
             $studentStatement->execute( [
-                ':address' => $entity->getAddress(),
-                ':zipCode' => $entity->getZipCode(),
-                ':location' => $entity->getLocation(),
-                ':dateOfBirth' => $entity->getDateOfBirth()->format( 'Y-m-d H:i:s' ),
-                ':studentCode' => $entity->getStudentCode(),
-                ':phoneNumber' => $entity->getPhoneNumber(),
+                ':address' => $student->getAddress(),
+                ':zipCode' => $student->getZipCode(),
+                ':location' => $student->getLocation(),
+                ':dateOfBirth' => $student->getDateOfBirth()->format( 'Y-m-d H:i:s' ),
+                ':studentCode' => $student->getStudentCode(),
+                ':phoneNumber' => $student->getPhoneNumber(),
+                ':userId' => $student->getId(),
             ] );
 
             $this->connection->commit();
@@ -269,6 +341,10 @@ class StudentRepository extends Repository
         }
     }
 
+    /**
+     * @param int $id
+     * @throws RepositoryException
+     */
     public function delete( int $id )
     {
         try
@@ -295,12 +371,14 @@ class StudentRepository extends Repository
         {
             $students->set( $databaseStudent[ 'userId' ], $this->createNewStudent( $databaseStudent ) );
         }
+
+        return $students;
     }
 
     public function createNewStudent( array $databaseStudent )
     {
         $student = new Student();
-        $student->setId( $databaseStudent[ 'userId' ] );
+        $student->setId( (int)$databaseStudent[ 'userId' ] );
         $student->setHashedPassword( $databaseStudent[ 'password' ] );
         $student->setEmail( $databaseStudent[ 'email' ] );
         $student->setAccountCreated( new \DateTime( $databaseStudent[ 'accountCreated' ] ) );
@@ -308,14 +386,15 @@ class StudentRepository extends Repository
         $student->setLastIpAddress( $databaseStudent[ 'lastIpAddress' ] );
         $student->setFirstName( $databaseStudent[ 'firstName' ] );
         $student->setLastName( $databaseStudent[ 'lastName' ] );
-        $student->setIsAdmin( $databaseStudent[ 'isAdmin' ] );
-        $student->setActive( $databaseStudent[ 'active' ] );
+        $student->setIsAdmin( (bool)$databaseStudent[ 'isAdmin' ] );
+        $student->setActive( (bool)$databaseStudent[ 'active' ] );
         $student->setAddress( $databaseStudent[ 'address' ] );
         $student->setZipCode( $databaseStudent[ 'zipCode' ] );
         $student->setLocation( $databaseStudent[ 'location' ] );
-        $student->setDateOfBirth( $databaseStudent[ 'dateOfBirth' ] );
+        $student->setDateOfBirth( new \DateTime( $databaseStudent[ 'dateOfBirth' ] ));
         $student->setStudentCode( $databaseStudent[ 'studentCode' ] );
         $student->setPhoneNumber( $databaseStudent[ 'phoneNumber' ] );
 
+        return $student;
     }
 }

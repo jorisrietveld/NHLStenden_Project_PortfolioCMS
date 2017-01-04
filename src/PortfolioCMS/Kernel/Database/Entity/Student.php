@@ -301,7 +301,7 @@ class Student extends User implements EntityInterface
     /**
      * @return boolean
      */
-    public function isActive(): bool
+    public function getIsActive(): bool
     {
         return $this->active;
     }
@@ -319,7 +319,7 @@ class Student extends User implements EntityInterface
     /**
      * @return boolean
      */
-    public function isIsAdmin(): bool
+    public function getIsAdmin(): bool
     {
         return $this->isAdmin;
     }

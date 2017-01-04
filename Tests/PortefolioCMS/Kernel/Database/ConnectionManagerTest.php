@@ -10,13 +10,14 @@ namespace Tests\PortefolioCMS\Kernel\Database;
 
 
 use StendenINF1B\PortfolioCMS\Kernel\Database\ConnectionManager;
+use StendenINF1B\PortfolioCMS\Kernel\Helper\ConfigLoader;
 
 class ConnectionManagerTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstructor(  )
     {
         $connectionManager = new ConnectionManager( true );
-        $databaseConnection = $connectionManager->getConnection( $connectionManager::defaultDatabase );
+        $databaseConnection = $connectionManager->getConnection( (new ConfigLoader( CONFIG_FILE ) )->getConfigContainer( TRUE )->get('database','') );
 
         // Test constructor with auto loading connections.
         $this->assertInstanceOf(

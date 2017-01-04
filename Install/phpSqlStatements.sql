@@ -692,7 +692,7 @@ SELECT
 	`Student`.`studentCode`,
 	`Student`.`phoneNumber`
 FROM `DigitalPortfolio`.`Student`
-WHERE `Student`.`userId` = :id;
+WHERE `Student`.`userId`;
 
 
 /**

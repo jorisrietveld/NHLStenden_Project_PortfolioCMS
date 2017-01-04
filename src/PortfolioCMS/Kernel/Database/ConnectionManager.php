@@ -10,6 +10,7 @@ namespace StendenINF1B\PortfolioCMS\Kernel\Database;
 
 use StendenINF1B\PortfolioCMS\Kernel\Database\Driver\DriverFactory;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Helper\DatabaseConfigLoader;
+use StendenINF1B\PortfolioCMS\Kernel\Helper\ConfigLoader;
 use StendenINF1B\PortfolioCMS\Kernel\Helper\ParameterContainer;
 
 class ConnectionManager
@@ -56,8 +57,13 @@ class ConnectionManager
      *
      * @param string $connectionName
      */
-    public function loadConnectionFromConfig( string $connectionName = self::defaultDatabase )
+    public function loadConnectionFromConfig( string $connectionName = '' )
     {
+        if( $connectionName === '' )
+        {
+            $connectionName = (new ConfigLoader( CONFIG_FILE ) )->getConfigContainer( TRUE )->get('database','');
+        }
+
         $databaseConfigContainer = $this->configLoader->getDatabaseConfigContainer( $connectionName, TRUE );
         $driver =  $this->driverFactory->createDriver( $databaseConfigContainer );
 
@@ -106,8 +112,13 @@ class ConnectionManager
      * @param string $connectionName
      * @return DatabaseConnection
      */
-    public function getConnection( string $connectionName = self::defaultDatabase ): DatabaseConnection
+    public function getConnection( string $connectionName = '' ): DatabaseConnection
     {
+        if( $connectionName === '' )
+        {
+            $connectionName = (new ConfigLoader( CONFIG_FILE ) )->getConfigContainer( TRUE )->get('database','');
+        }
+
         if( $this->openedConnections->has( $connectionName ) )
         {
             return $this->openedConnections->get( $connectionName );

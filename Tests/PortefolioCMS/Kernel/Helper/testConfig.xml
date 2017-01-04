@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <configuration>
 
-    <setting id="database">jorisLocalhost</setting>
+    <setting id="database">defaultConnection</setting>
 
 </configuration>

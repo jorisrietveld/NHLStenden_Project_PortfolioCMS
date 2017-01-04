@@ -8,11 +8,10 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Kernel\Exception;
 
-use StendenINF1B\PortfolioCMS\Kernel\Database\Repository\Repository;
 
 class RepositoryException extends \Exception
 {
-    public function __construct( string $message = '', int $code = 0, \Exception $exception )
+    public function __construct( string $message = '', int $code = 0, \Exception $exception = NULL )
     {
         parent::__construct( $message, $code, $exception );
     }
