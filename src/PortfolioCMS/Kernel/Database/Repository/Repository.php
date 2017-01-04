@@ -140,7 +140,7 @@ abstract class Repository
                 return $this->createEmptyEntity();
             }
 
-            return $this->createEntities( $data[ 0 ] );
+            return $this->createEntities( $data );
         }
         throw new RepositoryException( sprintf( 'The query: %s could not be executed.', $this->getByIdSql ) );
     }

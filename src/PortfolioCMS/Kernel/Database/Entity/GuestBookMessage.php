@@ -37,9 +37,14 @@ class GuestBookMessage implements EntityInterface
     protected $isAccepted;
 
     /**
-     * @var User
+     * @var int
      */
-    protected $user;
+    protected $studentId;
+
+    /**
+     * @var \DateTime
+     */
+    protected $sendAt;
 
     /**
      * @return int
@@ -116,7 +121,7 @@ class GuestBookMessage implements EntityInterface
     /**
      * @return boolean
      */
-    public function isIsAccepted(): bool
+    public function getIsAccepted(): bool
     {
         return $this->isAccepted;
     }
@@ -134,20 +139,38 @@ class GuestBookMessage implements EntityInterface
     /**
      * @return User
      */
-    public function getUser(): User
+    public function getStudentId(): int
     {
-        return $this->user;
+        return $this->studentId;
     }
 
     /**
      * @param User $user
      * @return GuestBookMessage
      */
-    public function setUser( User $user ): GuestBookMessage
+    public function setStudentId( int $studentId ): GuestBookMessage
     {
-        $this->user = $user;
+        $this->studentId = $studentId;
         return $this;
-    } // One guestBookMessage has one user.
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getSendAt(): \DateTime
+    {
+        return $this->sendAt;
+    }
+
+    /**
+     * @param \DateTime $sendAt
+     */
+    public function setSendAt( \DateTime $sendAt )
+    {
+        $this->sendAt = $sendAt;
+    }
+
+
 
 
 }

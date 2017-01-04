@@ -60,49 +60,19 @@ class ImageRepository extends Repository
         parent::__construct( $entityManager );
     }
 
-    public function getById( int $id ) : EntityInterface
-    {
-        $statement = $this->connection->prepare( $this->getByIdSql );
 
-        if( $statement->execute( [ 'id' => $id ] ))
-        {
-            $imageData = $statement->fetchAll( \PDO::FETCH_ASSOC );
 
-            if( count( $imageData) < 1)
-            {
-                return new Image();
-            }
-
-            return $this->createNewImage( $imageData[0] );
-        }
-    }
-
-    public function getByCondition( $whereClause, $params ) : EntityCollection
+    public function insert( Image $entity )
     {
 
     }
 
-    public function getOneByCondition( $whereClause, $params ) : EntityInterface
+    public function update( Image $entity )
     {
 
     }
 
-    public function insert( EntityInterface $entity )
-    {
-
-    }
-
-    public function update( EntityInterface $entity )
-    {
-
-    }
-
-    public function delete( int $id )
-    {
-
-    }
-
-    public function createNewImage( array $databaseData ) : Image
+    public function createEntity( array $databaseData ) : EntityInterface
     {
         $image = new Image();
         $image->setId( $databaseData['uploadedFileId'] );
@@ -117,5 +87,10 @@ class ImageRepository extends Repository
         $image->setPortfolio( $this->entityManager->getRepository('Portfolio')->getById( $databaseData['PortfolioId'] ) );
 
         return $image;
+    }
+
+    public function createEmptyEntity(  ) : EntityInterface
+    {
+        return new Image();
     }
 }

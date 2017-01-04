@@ -8,68 +8,155 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Repository;
 
-use StendenINF1B\PortfolioCMS\Kernel\Database\Helper\EntityCollection;
+use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\Hobby;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\EntityInterface;
 use StendenINF1B\PortfolioCMS\Kernel\Database\EntityManager;
+use StendenINF1B\PortfolioCMS\Kernel\Exception\RepositoryException;
 
-class HobbyRepository
+class HobbyRepository extends Repository
 {
-    protected $getByIdSql = '';
 
-    protected $getBySql = '';
+    /**
+     * @var string
+     */
+    protected $getByIdSql = '
+        SELECT
+            `Hobby`.`id`,
+            `Hobby`.`name`,
+            `Hobby`.`portfolioId`
+        FROM `DigitalPortfolio`.`Hobby`
+        WHERE `Hobby`.`id` = :id;
+    ';
 
-    protected $insertUploadedFileSql = '';
+    /**
+     * @var string
+     */
+    protected $getBySql = '
+        SELECT
+            `Hobby`.`id`,
+            `Hobby`.`name`,
+            `Hobby`.`portfolioId`
+        FROM `DigitalPortfolio`.`Hobby`
+    ';
 
-    protected $insertImageSql = '';
+    /**
+     * @var string
+     */
+    protected $insertHobbySql = '
+         INSERT INTO `DigitalPortfolio`.`Hobby`( 
+            `name`,
+            `portfolioId`
+        ) VALUES ( 
+            :name,
+            :portfolioId
+        );
+    ';
 
-    protected $updateSql ='';
+    /**
+     * @var string
+     */
+    protected $updateHobbySql = '
+        UPDATE Hobby SET 
+            `name` = :name,
+            `portfolioId` = :portfolioId
+        WHERE `Hobby`.`id` = :id;
+    ';
 
-    protected $deleteSql = '';
+    /**
+     * @var string
+     */
+    protected $deleteSql = '
+        DELETE FROM Hobby WHERE `Hobby`.`id` = :id;
+    ';
 
+    /**
+     * HobbyRepository constructor.
+     *
+     * @param EntityManager $entityManager
+     */
     public function __construct( EntityManager $entityManager )
     {
-        //$this->connection = new \PDO('','','');
         parent::__construct( $entityManager );
     }
-    public function getById( int $id ) : EntityInterface
+
+    /**
+     * Inserts an new hobby and user in the database.
+     *
+     * @param Hobby $hobby
+     * @throws RepositoryException
+     */
+    public function insert( Hobby $hobby ) : Hobby
     {
-        $statement = $this->connection->prepare( $this->getByIdSql );
-
-        if( $statement->execute( [ 'id' => $id ] ))
+        try
         {
-            $studentData = $statement->fetchAll( \PDO::FETCH_ASSOC );
+            $userStatement = $this->connection->prepare( $this->insertHobbySql );
 
-            if( count( $studentData ) < 1)
-            {
-                return new Student();
-            }
+            $userStatement->execute( [
+                ':name' => $hobby->getName(),
+                ':portfolioId' => $hobby->getPortfolioId(),
+            ] );
 
-            return $this->createNewImage( $imageData[0] );
+            $id = (int)$this->connection->lastInsertId();
+
+            return $this->getById( $id );
+
+        }
+        catch ( \PDOException $exception )
+        {
+            $this->connection->rollBack();
+            throw new RepositoryException( 'The hobby could not be inserted: ' . $exception->getMessage() );
         }
     }
 
-    public function getByCondition( $whereClause, $params ) : EntityCollection
+    /**
+     * Updates an hobby in the database.
+     *
+     * @param Hobby $teacher
+     * @throws RepositoryException
+     */
+    public function update( Hobby $hobby ) : Hobby
     {
+        try
+        {
+            $userStatement = $this->connection->prepare( $this->updateHobbySql );
 
+            $userStatement->execute( [
+                ':name' => $hobby->getName(),
+                ':portfolioId' => $hobby->getPortfolioId(),
+            ] );
+
+            return $this->getById( $hobby->getId() );
+
+        }
+        catch ( \PDOException $exception )
+        {
+            $this->connection->rollBack();
+            throw new RepositoryException( 'The hobby could not be updated: ' . $exception->getMessage() );
+        }
     }
 
-    public function getOneByCondition( $whereClause, $params ) : EntityInterface
+    /**
+     * Creates an new hobby object from data from the database.
+     *
+     * @param array $databaseData
+     * @return EntityInterface
+     */
+    public function createEntity( array $databaseData ) : EntityInterface
     {
+        $hobby = new Hobby();
+        $hobby->setId( (int)$databaseData['id'] );
+        $hobby->setName( $databaseData['name']);
+        $hobby->setPortfolio( (int)$databaseData['portfolioId']);
 
+
+        return $hobby;
     }
 
-    public function insert( EntityInterface $entity )
+    /**
+     * @return EntityInterface
+     */
+    public function createEmptyEntity(  ) : EntityInterface
     {
-
-    }
-
-    public function update( EntityInterface $entity )
-    {
-
-    }
-
-    public function delete( int $id )
-    {
-
+        return new Hobby();
     }
 }

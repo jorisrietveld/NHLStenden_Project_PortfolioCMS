@@ -22,9 +22,9 @@ class Hobby implements EntityInterface
     protected $name;
 
     /**
-     * @var Portfolio
+     * @var int
      */
-    protected $portfolio;
+    protected $portfolioId;
 
     /**
      * @return int
@@ -63,20 +63,20 @@ class Hobby implements EntityInterface
     }
 
     /**
-     * @return Portfolio
+     * @return int
      */
-    public function getPortfolio(): Portfolio
+    public function getPortfolioId(): int
     {
-        return $this->portfolio;
+        return $this->portfolioId;
     }
 
     /**
-     * @param Portfolio $portfolio
+     * @param int $portfolioId
      * @return Hobby
      */
-    public function setPortfolio( Portfolio $portfolio ): Hobby
+    public function setPortfolio( int $portfolioId ): Hobby
     {
-        $this->portfolio = $portfolio;
+        $this->portfolioId = $portfolioId;
         return $this;
     }
 

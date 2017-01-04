@@ -19,7 +19,7 @@ class Teacher extends User implements EntityInterface
     /**
      * @return boolean
      */
-    public function isIsSLBer(): bool
+    public function getIsSLBer(): bool
     {
         return $this->isSLBer;
     }
@@ -211,6 +211,8 @@ class Teacher extends User implements EntityInterface
     {
         $this->isAdmin = $isAdmin;
     }
+
+
 
 
 

@@ -9,7 +9,6 @@ declare( strict_types = 1 );
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Repository;
 
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\Teacher;
-use StendenINF1B\PortfolioCMS\Kernel\Database\Helper\EntityCollection;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\EntityInterface;
 use StendenINF1B\PortfolioCMS\Kernel\Database\EntityManager;
 use StendenINF1B\PortfolioCMS\Kernel\Exception\RepositoryException;
@@ -48,7 +47,6 @@ class TeacherRepository extends Repository
             `Teacher`.`isSLBer`
         FROM `DigitalPortfolio`.`Teacher` JOIN `DigitalPortfolio`.`User` ON `Teacher`.`userId` = `User`.`id`
     ';
-
 
     protected $insertUserSql = '
             INSERT INTO `DigitalPortfolio`.`User`( 
@@ -92,14 +90,14 @@ class TeacherRepository extends Repository
         WHERE `User`.`id` = :id;
     ';
 
-    protected $updateStudentSql = '
+    protected $updateTeacherSql = '
         UPDATE Teacher SET 
             `isSLBer` = :isSLBer
         WHERE `Teacher`.`userId` = :idUser;
     ';
 
     protected $deleteSql = '
-        DELETE FROM Student WHERE `Student`.`userId` = :idUserId;
+        DELETE FROM `Teacher` WHERE `Teacher`.`userId` = :userId;
     ';
 
     public function __construct( EntityManager $entityManager )
@@ -131,14 +129,10 @@ class TeacherRepository extends Repository
                 ':active' => (int)$teacher->getIsActive(),
             ] );
 
-            $studentStatement = $this->connection->prepare( $this->insertStudentSql );
-            $studentStatement->execute( [
-                ':address' => $teacher->getAddress(),
-                ':zipCode' => $teacher->getZipCode(),
-                ':location' => $teacher->getLocation(),
-                ':dateOfBirth' => $teacher->getDateOfBirth()->format( 'Y-m-d H:i:s' ),
-                ':studentCode' => $teacher->getStudentCode(),
-                ':phoneNumber' => $teacher->getPhoneNumber(),
+            $teacherStatement = $this->connection->prepare( $this->insertTeacherSql );
+            $teacherStatement->execute( [
+               ':userId' => $teacher->getId(),
+                ':isSLBer' => $teacher->getIsSLBer(),
             ] );
 
             $this->connection->commit();
@@ -179,15 +173,10 @@ class TeacherRepository extends Repository
                 ':id' => $teacher->getId(),
             ] );
 
-            $studentStatement = $this->connection->prepare( $this->updateStudentSql );
+            $studentStatement = $this->connection->prepare( $this->updateTeacherSql );
             $studentStatement->execute( [
-                ':address' => $teacher->getAddress(),
-                ':zipCode' => $teacher->getZipCode(),
-                ':location' => $teacher->getLocation(),
-                ':dateOfBirth' => $teacher->getDateOfBirth()->format( 'Y-m-d H:i:s' ),
-                ':studentCode' => $teacher->getStudentCode(),
-                ':phoneNumber' => $teacher->getPhoneNumber(),
                 ':userId' => $teacher->getId(),
+                ':isSLBer' => $teacher->getIsSLBer(),
             ] );
 
             $this->connection->commit();

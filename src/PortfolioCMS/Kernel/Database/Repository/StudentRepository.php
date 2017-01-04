@@ -17,6 +17,7 @@ class StudentRepository extends Repository
 {
     protected $getByIdSql = '
         SELECT
+            `User`.`id`,
             `User`.`password`,
             `User`.`accountCreated`,
             `User`.`lastLogin`,
@@ -26,7 +27,6 @@ class StudentRepository extends Repository
             `User`.`lastName`,
             `User`.`isAdmin`,
             `User`.`active`, 
-            `Student`.`userId`,
             `Student`.`address`,
             `Student`.`zipCode`,
             `Student`.`location`,
@@ -39,6 +39,7 @@ class StudentRepository extends Repository
 
     protected $getBySql = '
         SELECT
+            `User`.`id`,
             `User`.`password`,
             `User`.`accountCreated`,
             `User`.`lastLogin`,
@@ -48,7 +49,6 @@ class StudentRepository extends Repository
             `User`.`lastName`,
             `User`.`isAdmin`,
             `User`.`active`, 
-            `Student`.`userId`,
             `Student`.`address`,
             `Student`.`zipCode`,
             `Student`.`location`,
@@ -231,7 +231,7 @@ class StudentRepository extends Repository
     public function createEntity( array $databaseStudent ) : EntityInterface
     {
         $student = new Student();
-        $student->setId( (int)$databaseStudent[ 'userId' ] );
+        $student->setId( (int)$databaseStudent[ 'id' ] );
         $student->setHashedPassword( $databaseStudent[ 'password' ] );
         $student->setEmail( $databaseStudent[ 'email' ] );
         $student->setAccountCreated( new \DateTime( $databaseStudent[ 'accountCreated' ] ) );
