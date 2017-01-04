@@ -181,7 +181,7 @@ class Teacher extends User implements EntityInterface
     /**
      * @return boolean
      */
-    public function isActive(): bool
+    public function getIsActive(): bool
     {
         return $this->active;
     }
@@ -195,6 +195,25 @@ class Teacher extends User implements EntityInterface
         $this->active = $active;
         return $this;
     }
+
+    /**
+     * @return boolean
+     */
+    public function getIsAdmin(): bool
+    {
+        return $this->isAdmin;
+    }
+
+    /**
+     * @param boolean $isAdmin
+     */
+    public function setIsAdmin( bool $isAdmin )
+    {
+        $this->isAdmin = $isAdmin;
+    }
+
+
+
 
 
 }

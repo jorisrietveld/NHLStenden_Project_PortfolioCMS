@@ -42,11 +42,6 @@ class Student extends User implements EntityInterface
     protected $phoneNumber;
 
     /**
-     * @var bool
-     */
-    protected $isAdmin;
-
-    /**
      * @return string
      */
     public function getAddress(): string
@@ -333,6 +328,4 @@ class Student extends User implements EntityInterface
         $this->isAdmin = $isAdmin;
         return $this;
     }
-
-
 }

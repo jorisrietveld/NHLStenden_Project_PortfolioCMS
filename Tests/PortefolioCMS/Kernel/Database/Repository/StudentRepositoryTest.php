@@ -43,7 +43,7 @@ class StudentRepositoryTest extends \PHPUnit_Framework_TestCase
         $entityManager = new EntityManager();
         $studentRepository = $entityManager->getRepository( 'Student' );
 
-        $students = $studentRepository->getAllStudents();
+        $students = $studentRepository->getAll();
 
         $this->assertInstanceOf(
             '\\StendenINF1B\\PortfolioCMS\\Kernel\\Database\\Helper\\EntityCollection',

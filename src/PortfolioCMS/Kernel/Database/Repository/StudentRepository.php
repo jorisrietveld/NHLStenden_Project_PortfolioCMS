@@ -11,7 +11,6 @@ namespace StendenINF1B\PortfolioCMS\Kernel\Database\Repository;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\EntityInterface;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\Student;
 use StendenINF1B\PortfolioCMS\Kernel\Database\EntityManager;
-use StendenINF1B\PortfolioCMS\Kernel\Database\Helper\EntityCollection;
 use StendenINF1B\PortfolioCMS\Kernel\Exception\RepositoryException;
 
 class StudentRepository extends Repository
@@ -127,126 +126,14 @@ class StudentRepository extends Repository
         DELETE FROM Student WHERE `Student`.`userId` = :id;
     ';
 
+    /**
+     * StudentRepository constructor.
+     *
+     * @param EntityManager $entityManager
+     */
     public function __construct( EntityManager $entityManager )
     {
         parent::__construct( $entityManager );
-        //$this->connection = new \PDO('','','');
-    }
-
-    /**
-     * Gets an Student from the database by its id.
-     * @param int $id
-     * @return EntityInterface
-     * @throws RepositoryException
-     */
-    public function getById( int $id ) : Student
-    {
-        $statement = $this->connection->prepare( $this->getByIdSql );
-
-        if ( $statement->execute( [ 'id' => $id ] ) )
-        {
-            $studentData = $statement->fetchAll( \PDO::FETCH_ASSOC );
-
-            if ( count( $studentData ) < 1 )
-            {
-                return new Student();
-            }
-
-            return $this->createNewStudent( $studentData[ 0 ] );
-        }
-        throw new RepositoryException( sprintf( 'The query: %s could not be executed.', $this->getByIdSql ) );
-    }
-
-    /**
-     * Gets an EntityCollections containing all students from the database.
-     *
-     * @return EntityInterface
-     * @throws RepositoryException
-     */
-    public function getAllStudents( ) : EntityCollection
-    {
-        $statement = $this->connection->prepare( $this->getBySql );
-
-        if ( $statement->execute(  ) )
-        {
-            $studentData = $statement->fetchAll( \PDO::FETCH_ASSOC );
-
-            if ( count( $studentData ) < 1 )
-            {
-                return new EntityCollection();
-            }
-
-            return $this->createNewStudents( $studentData );
-        }
-        throw new RepositoryException( sprintf( 'The query: %s could not be executed.', $this->getByIdSql ) );
-    }
-
-    /**
-     * Gets an EntityCollection with students based on an where clause and values passed as arguments.
-     *
-     * @param $whereClause
-     * @param $params
-     * @return EntityCollection
-     * @throws RepositoryException
-     */
-    public function getByCondition( $whereClause, $params ) : EntityCollection
-    {
-        $query = $this->getBySql . ' WHERE ' . $whereClause;
-        try
-        {
-            $statement = $this->connection->prepare( $query );
-
-            if ( $statement->execute( $params ) )
-            {
-                $studentData = $statement->fetchAll( \PDO::FETCH_ASSOC );
-
-                if ( count( $studentData ) < 1 )
-                {
-                    return new EntityCollection();
-                }
-
-                return $this->createNewStudents( $studentData );
-            }
-            throw new RepositoryException( sprintf( 'The query: %s could not be executed.', $query ) );
-        }
-        catch (\PDOException $exception )
-        {
-            throw new RepositoryException( sprintf( 'The query: %s could not be executed because: %s', $query, $exception->getMessage() ) );
-        }
-    }
-
-    /**
-     * Gets one student from the database.
-     *
-     * @param $whereClause
-     * @param $params
-     * @return EntityInterface
-     * @throws RepositoryException
-     */
-    public function getOneByCondition( $whereClause, $params ) : Student
-    {
-        $query = $this->getBySql . $whereClause;
-        try
-        {
-            $statement = $this->connection->prepare( $query );
-
-            if ( $statement->execute( $params ) )
-            {
-                $studentData = $statement->fetchAll( \PDO::FETCH_ASSOC );
-
-                if ( count( $studentData ) < 1 )
-                {
-                    return new Student();
-                }
-
-                return $this->createNewStudent( $studentData[ 0 ] );
-            }
-            throw new RepositoryException( sprintf( 'The query: %s could not be executed.', $query ) );
-        }
-        catch (\PDOException $exception )
-        {
-            throw new RepositoryException( sprintf( 'The query: %s could not be executed because: %s', $query, $exception->getMessage() ) );
-        }
     }
 
     /**
@@ -341,41 +228,7 @@ class StudentRepository extends Repository
         }
     }
 
-    /**
-     * @param int $id
-     * @throws RepositoryException
-     */
-    public function delete( int $id )
-    {
-        try
-        {
-            $statement = $this->connection ->prepare( $this->deleteSql );
-
-            if( !$statement->execute( [ ':id' => $id  ]))
-            {
-                throw new \PDOException( 'Could not execute the deletion of the student.');
-            }
-        }
-        catch ( \PDOException $exception )
-        {
-            $this->connection->rollBack();
-            throw new RepositoryException( 'The user could not be deleted: ' . $exception->getMessage() );
-        }
-    }
-
-    public function createNewStudents( array $databaseStudents )
-    {
-        $students = new EntityCollection();
-
-        foreach ($databaseStudents as $databaseStudent)
-        {
-            $students->set( $databaseStudent[ 'userId' ], $this->createNewStudent( $databaseStudent ) );
-        }
-
-        return $students;
-    }
-
-    public function createNewStudent( array $databaseStudent )
+    public function createEntity( array $databaseStudent ) : EntityInterface
     {
         $student = new Student();
         $student->setId( (int)$databaseStudent[ 'userId' ] );
@@ -396,5 +249,10 @@ class StudentRepository extends Repository
         $student->setPhoneNumber( $databaseStudent[ 'phoneNumber' ] );
 
         return $student;
+    }
+
+    public function createEmptyEntity(  ) : EntityInterface
+    {
+        return new Student();
     }
 }

@@ -55,4 +55,9 @@ abstract class User
      * @var bool
      */
     protected $active;
+
+    /**
+     * @var bool
+     */
+    protected $isAdmin;
 }

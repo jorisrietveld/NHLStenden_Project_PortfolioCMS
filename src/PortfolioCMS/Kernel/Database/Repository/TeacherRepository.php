@@ -12,95 +12,215 @@ use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\Teacher;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Helper\EntityCollection;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\EntityInterface;
 use StendenINF1B\PortfolioCMS\Kernel\Database\EntityManager;
+use StendenINF1B\PortfolioCMS\Kernel\Exception\RepositoryException;
 
-class TeacherRepository
+class TeacherRepository extends Repository
 {
     protected $getByIdSql = '
-        SELECT 
-            Teacher.userId,
-            Teacher.isSLBer,
-            User.password,
-            User.accountCreated,
-            User.lastLogin,
-            User.email,
-            User.lastIpAddress,
-            User.firstName,
-            User.lastName,
-            User.isAdmin,
-            User.active
-        FROM `DigitalPortfolio`.`Teacher` JOIN `DigitalPortfolio`.`User` ON `User`.`id` = `Teacher`.`userId`
-        WHERE id = :id';
+        SELECT
+            `User`.`id`,
+            `User`.`password`,
+            `User`.`accountCreated`,
+            `User`.`lastLogin`,
+            `User`.`email`,
+            `User`.`lastIpAddress`,
+            `User`.`firstName`,
+            `User`.`lastName`,
+            `User`.`isAdmin`,
+            `User`.`active`, 
+            `Teacher`.`isSLBer`
+        FROM `DigitalPortfolio`.`Teacher` JOIN `DigitalPortfolio`.`User` ON `Teacher`.`userId` = `User`.`id`
+        WHERE `Student`.`userId` = :id;
+    ';
 
     protected $getBySql = '
-        SELECT 
-            Teacher.userId,
-            Teacher.isSLBer,
-            User.password,
-            User.accountCreated,
-            User.lastLogin,
-            User.email,
-            User.lastIpAddress,
-            User.firstName,
-            User.lastName,
-            User.isAdmin,
-            User.active
-        FROM `DigitalPortfolio`.`Teacher` JOIN `DigitalPortfolio`.`User` ON `User`.`id` = `Teacher`.`userId`';
+        SELECT
+            `User`.`id`,
+            `User`.`password`,
+            `User`.`accountCreated`,
+            `User`.`lastLogin`,
+            `User`.`email`,
+            `User`.`lastIpAddress`,
+            `User`.`firstName`,
+            `User`.`lastName`,
+            `User`.`isAdmin`,
+            `User`.`active`, 
+            `Teacher`.`isSLBer`
+        FROM `DigitalPortfolio`.`Teacher` JOIN `DigitalPortfolio`.`User` ON `Teacher`.`userId` = `User`.`id`
+    ';
+
 
     protected $insertUserSql = '
-      INSERT INTO DigitalPortfolio.User(password, email, lastIpAddress, firstName, lastName, isAdmin, active) 
-      VALUES ( :password, :email, :lastIpAddress, :firstName, :lastName, :isAdmin, :active)';
+            INSERT INTO `DigitalPortfolio`.`User`( 
+            `password`,
+            `email`,
+            `lastIpAddress`,
+            `firstName`,
+            `lastName`,
+            `isAdmin`,
+            `active`
+        ) VALUES ( 
+            :password,
+            :email,
+            :lastIpAddress,
+            :firstName,
+            :lastName,
+            :isAdmin,
+            :active
+        );
+    ';
 
     protected $insertTeacherSql = '
-        INSERT INTO DigitalPortfolio.Teacher(userId, isSLBer) VALUES ( LAST_INSERT_ID(), :isSLBer )';
+       INSERT INTO `DigitalPortfolio`.`Teacher`( 
+            `userId`,
+            `isSLBer`
+        ) VALUES ( 
+            LAST_INSERT_ID(),
+            :isSLBer
+        );
+    ';
 
-    protected $updateSql ='UPDATE DigitalPortfolio.Teacher SET ';
+    protected $updateUserSql = '
+        UPDATE User SET         
+            `password` = :password,
+            `email` = :email,
+            `lastIpAddress` = :lastIpAddress,
+            `firstName` = :firstName,
+            `lastName` = :lastName,
+            `isAdmin` = :isAdmin,
+            `active` = :active
+        WHERE `User`.`id` = :id;
+    ';
 
-    protected $deleteSql = 'DELETE FROM DigitalPortfolio.Teacher WHERE userId = :id';
+    protected $updateStudentSql = '
+        UPDATE Teacher SET 
+            `isSLBer` = :isSLBer
+        WHERE `Teacher`.`userId` = :idUser;
+    ';
+
+    protected $deleteSql = '
+        DELETE FROM Student WHERE `Student`.`userId` = :idUserId;
+    ';
 
     public function __construct( EntityManager $entityManager )
     {
-        //$this->connection = new \PDO('','','');
         parent::__construct( $entityManager );
+        //$this->connection = new \PDO('','','');
     }
-    public function getById( int $id ) : EntityInterface
+
+    /**
+     * Inserts an new Teacher and user in the database.
+     *
+     * @param Teacher $entity
+     * @throws RepositoryException
+     */
+    public function insert( Teacher $teacher ) : Teacher
     {
-        $statement = $this->connection->prepare( $this->getByIdSql );
-
-        if( $statement->execute( [ 'id' => $id ] ))
+        try
         {
-            $teacherData = $statement->fetchAll( \PDO::FETCH_ASSOC );
+            $this->connection->beginTransaction();
+            $userStatement = $this->connection->prepare( $this->insertUserSql );
 
-            if( count( $teacherData ) < 1)
-            {
-                return new Teacher();
-            }
+            $userStatement->execute( [
+                ':password' => $teacher->getHashedPassword(),
+                ':email' => $teacher->getEmail(),
+                ':lastIpAddress' => $teacher->getLastIpAddress(),
+                ':firstName' => $teacher->getFirstName(),
+                ':lastName' => $teacher->getLastName(),
+                ':isAdmin' => (int)$teacher->getIsAdmin(),
+                ':active' => (int)$teacher->getIsActive(),
+            ] );
 
-            return $this->createNewImage( $teacherData[0] );
+            $studentStatement = $this->connection->prepare( $this->insertStudentSql );
+            $studentStatement->execute( [
+                ':address' => $teacher->getAddress(),
+                ':zipCode' => $teacher->getZipCode(),
+                ':location' => $teacher->getLocation(),
+                ':dateOfBirth' => $teacher->getDateOfBirth()->format( 'Y-m-d H:i:s' ),
+                ':studentCode' => $teacher->getStudentCode(),
+                ':phoneNumber' => $teacher->getPhoneNumber(),
+            ] );
+
+            $this->connection->commit();
+
+            $id = (int)$this->connection->lastInsertId();
+
+            return $this->getById( $id );
+
+        }
+        catch ( \PDOException $exception )
+        {
+            $this->connection->rollBack();
+            throw new RepositoryException( 'The user could not be insterted: ' . $exception->getMessage() );
         }
     }
 
-    public function getByCondition( $whereClause, $params ) : EntityCollection
+    /**
+     * Updates an teacher and user in the database.
+     *
+     * @param Teacher $teacher
+     * @throws RepositoryException
+     */
+    public function update( Teacher $teacher )
     {
+        try
+        {
+            $this->connection->beginTransaction();
+            $userStatement = $this->connection->prepare( $this->updateUserSql );
 
+            $userStatement->execute( [
+                ':password' => $teacher->getHashedPassword(),
+                ':email' => $teacher->getEmail(),
+                ':lastIpAddress' => $teacher->getLastIpAddress(),
+                ':firstName' => $teacher->getFirstName(),
+                ':lastName' => $teacher->getLastName(),
+                ':isAdmin' => $teacher->getIsAdmin(),
+                ':active' => $teacher->getIsActive(),
+                ':id' => $teacher->getId(),
+            ] );
+
+            $studentStatement = $this->connection->prepare( $this->updateStudentSql );
+            $studentStatement->execute( [
+                ':address' => $teacher->getAddress(),
+                ':zipCode' => $teacher->getZipCode(),
+                ':location' => $teacher->getLocation(),
+                ':dateOfBirth' => $teacher->getDateOfBirth()->format( 'Y-m-d H:i:s' ),
+                ':studentCode' => $teacher->getStudentCode(),
+                ':phoneNumber' => $teacher->getPhoneNumber(),
+                ':userId' => $teacher->getId(),
+            ] );
+
+            $this->connection->commit();
+
+        }
+        catch ( \PDOException $exception )
+        {
+            $this->connection->rollBack();
+            throw new RepositoryException( 'The teacher could not be updated: ' . $exception->getMessage() );
+        }
     }
 
-    public function getOneByCondition( $whereClause, $params ) : EntityInterface
-    {
 
+    public function createEntity( array $databaseTeacher ) : EntityInterface
+    {
+        $teacher = new Teacher();
+        $teacher->setId( (int)$databaseTeacher[ 'userId' ] );
+        $teacher->setHashedPassword( $databaseTeacher[ 'password' ] );
+        $teacher->setEmail( $databaseTeacher[ 'email' ] );
+        $teacher->setAccountCreated( new \DateTime( $databaseTeacher[ 'accountCreated' ] ) );
+        $teacher->setLastLogin( new \DateTime( $databaseTeacher[ 'lastLogin' ] ) );
+        $teacher->setLastIpAddress( $databaseTeacher[ 'lastIpAddress' ] );
+        $teacher->setFirstName( $databaseTeacher[ 'firstName' ] );
+        $teacher->setLastName( $databaseTeacher[ 'lastName' ] );
+        $teacher->setIsAdmin( (bool)$databaseTeacher[ 'isAdmin' ] );
+        $teacher->setActive( (bool)$databaseTeacher[ 'active' ] );
+        $teacher->setIsSLBer( $databaseTeacher[ 'isSLBer' ] );
+
+        return $teacher;
     }
 
-    public function insert( EntityInterface $entity )
+    public function createEmptyEntity(  ) : EntityInterface
     {
-
-    }
-
-    public function update( EntityInterface $entity )
-    {
-
-    }
-
-    public function delete( int $id )
-    {
-
+        return new Teacher();
     }
 }
