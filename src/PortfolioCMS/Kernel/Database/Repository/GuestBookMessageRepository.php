@@ -15,6 +15,11 @@ use StendenINF1B\PortfolioCMS\Kernel\Exception\RepositoryException;
 
 class GuestBookMessageRepository extends Repository
 {
+    /**
+     * This holds an SQL statement for selecting an GuestBookMessage entity from the database by its id.
+     *
+     * @var string
+     */
     protected $getByIdSql = '
         SELECT
             `GuestBookMessage`.`id`,
@@ -28,6 +33,11 @@ class GuestBookMessageRepository extends Repository
         WHERE `GuestBookMessage`.`id` = :id;
     ';
 
+    /**
+     * This holds an SQL statement for selecting an GuestBookMessage entity from the database.
+     *
+     * @var string
+     */
     protected $getBySql = '
         SELECT
             `GuestBookMessage`.`id`,
@@ -40,6 +50,11 @@ class GuestBookMessageRepository extends Repository
         FROM `DigitalPortfolio`.`GuestBookMessage`
     ';
 
+    /**
+     * This holds an SQL statement for inserting an GuestBookMessage entity in the database.
+     *
+     * @var string
+     */
     protected $insertGuestBookMessageSql = '
           INSERT INTO `DigitalPortfolio`.`GuestBookMessage`( 
                 `sender`,
@@ -58,6 +73,11 @@ class GuestBookMessageRepository extends Repository
             );
     ';
 
+    /**
+     * This holds an SQL statement for updating an GuestBookMessage entity in the database.
+     *
+     * @var string
+     */
     protected $updateGuestBookMessageSql = '
         UPDATE GuestBookMessage SET 
             `sender` = :sender,
@@ -69,19 +89,30 @@ class GuestBookMessageRepository extends Repository
         WHERE `GuestBookMessage`.`id` = :id;
     ';
 
+    /**
+     * This holds an SQL statement for deleting an GuestBookMessage entity from the database.
+     *
+     * @var string
+     */
     protected $deleteSql = '
         DELETE FROM GuestBookMessage WHERE `GuestBookMessage`.`id` = :id;
     ';
 
+    /**
+     * GuestBookMessageRepository constructor for initiating the class.
+     *
+     * @param EntityManager $entityManager
+     */
     public function __construct( EntityManager $entityManager )
     {
         parent::__construct( $entityManager );
     }
 
     /**
-     * Inserts an new GuestBookMessage and user in the database.
+     * Inserts an new GuestBookMessage in the database.
      *
      * @param GuestBookMessage $guestBookMessage
+     * @return GuestBookMessage
      * @throws RepositoryException
      */
     public function insert( GuestBookMessage $guestBookMessage ) : GuestBookMessage
@@ -106,14 +137,15 @@ class GuestBookMessageRepository extends Repository
         } catch ( \PDOException $exception )
         {
             $this->connection->rollBack();
-            throw new RepositoryException( 'The guestbook message could not be inserted: ' . $exception->getMessage() );
+            throw new RepositoryException( 'The guest book message could not be inserted: ' . $exception->getMessage() );
         }
     }
 
     /**
-     * Updates an guest book message and user in the database.
+     * Updates anGuestBookMessage in the database.
      *
      * @param GuestBookMessage $teacher
+     * @return GuestBookMessage
      * @throws RepositoryException
      */
     public function update( GuestBookMessage $guestBookMessage ) : GuestBookMessage
@@ -136,11 +168,13 @@ class GuestBookMessageRepository extends Repository
         } catch ( \PDOException $exception )
         {
             $this->connection->rollBack();
-            throw new RepositoryException( 'The guestbook message could not be updated: ' . $exception->getMessage() );
+            throw new RepositoryException( 'The guest book message could not be updated: ' . $exception->getMessage() );
         }
     }
 
     /**
+     * Creates an new GuestBookMessage entity from database data.
+     *
      * @param array $databaseData
      * @return EntityInterface
      */
@@ -159,6 +193,8 @@ class GuestBookMessageRepository extends Repository
     }
 
     /**
+     * Creates an new empty GuestBookMessage.
+     *
      * @return EntityInterface
      */
     public function createEmptyEntity() : EntityInterface

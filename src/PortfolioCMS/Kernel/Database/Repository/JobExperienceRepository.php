@@ -16,6 +16,7 @@ use StendenINF1B\PortfolioCMS\Kernel\Exception\RepositoryException;
 class JobExperienceRepository extends Repository
 {
     /**
+     * This holds an SQL statement for selecting an JobExperience entity from the database by its id.
      * @var string
      */
     protected $getByIdSql = '
@@ -32,6 +33,8 @@ class JobExperienceRepository extends Repository
     ';
 
     /**
+     * This holds an SQL statement for selecting an JobExperience entity from the database.
+     *
      * @var string
      */
     protected $getBySql = '
@@ -47,6 +50,8 @@ class JobExperienceRepository extends Repository
     ';
 
     /**
+     * This holds an SQL statement for inserting an JobExperience entity into the database.
+     *
      * @var string
      */
     protected $insertJobExperienceSql = '
@@ -68,6 +73,7 @@ class JobExperienceRepository extends Repository
     ';
 
     /**
+     * This holds an SQL statement for updating an JobExperience entity in the database.
      * @var string
      */
     protected $updateJobExperienceSql = '
@@ -82,6 +88,7 @@ class JobExperienceRepository extends Repository
     ';
 
     /**
+     * This holds an SQL statement for deleting an JobExperience entity from the database.
      * @var string
      */
     protected $deleteSql = '
@@ -89,7 +96,7 @@ class JobExperienceRepository extends Repository
     ';
 
     /**
-     * HobbyRepository constructor.
+     * JobExperienceRepository constructor.
      *
      * @param EntityManager $entityManager
      */
@@ -99,7 +106,7 @@ class JobExperienceRepository extends Repository
     }
 
     /**
-     * Inserts an new job experience and user in the database.
+     * Inserts an new job experience in the database.
      *
      * @param JobExperience $jobExperience
      * @throws RepositoryException
@@ -134,6 +141,7 @@ class JobExperienceRepository extends Repository
      * Updates an job experience in the database.
      *
      * @param JobExperience $jobExperience
+     * @return JobExperience
      * @throws RepositoryException
      */
     public function update( JobExperience $jobExperience ) : JobExperience
@@ -182,6 +190,8 @@ class JobExperienceRepository extends Repository
     }
 
     /**
+     * Creates an empty job experience object.
+     *
      * @return EntityInterface
      */
     public function createEmptyEntity() : EntityInterface

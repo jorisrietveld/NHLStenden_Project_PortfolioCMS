@@ -67,9 +67,9 @@ class SLBAssignment extends UploadedFile implements EntityInterface
 
     /**
      * @param int $id
-     * @return UploadedFile
+     * @return SLBAssignment
      */
-    public function setId( int $id ): UploadedFile
+    public function setId( int $id ): SLBAssignment
     {
         $this->id = $id;
         return $this;
@@ -85,9 +85,9 @@ class SLBAssignment extends UploadedFile implements EntityInterface
 
     /**
      * @param string $fileName
-     * @return UploadedFile
+     * @return SLBAssignment
      */
-    public function setFileName( string $fileName ): UploadedFile
+    public function setFileName( string $fileName ): SLBAssignment
     {
         $this->fileName = $fileName;
         return $this;
@@ -103,9 +103,9 @@ class SLBAssignment extends UploadedFile implements EntityInterface
 
     /**
      * @param string $mimeType
-     * @return UploadedFile
+     * @return SLBAssignment
      */
-    public function setMimeType( string $mimeType ): UploadedFile
+    public function setMimeType( string $mimeType ): SLBAssignment
     {
         $this->mimeType = $mimeType;
         return $this;
@@ -121,29 +121,29 @@ class SLBAssignment extends UploadedFile implements EntityInterface
 
     /**
      * @param string $filePath
-     * @return UploadedFile
+     * @return SLBAssignment
      */
-    public function setFilePath( string $filePath ): UploadedFile
+    public function setFilePath( string $filePath ): SLBAssignment
     {
         $this->filePath = $filePath;
         return $this;
     }
 
     /**
-     * @return Portfolio
+     * @return int
      */
-    public function getPortfolio(): Portfolio
+    public function getPortfolioId(): int
     {
-        return $this->portfolio;
+        return $this->portfolioId;
     }
 
     /**
-     * @param Portfolio $portfolio
-     * @return UploadedFile
+     * @param int $portfolioId
+     * @return SLBAssignment
      */
-    public function setPortfolio( Portfolio $portfolio ): UploadedFile
+    public function setPortfolio( int $portfolioId ): SLBAssignment
     {
-        $this->portfolio = $portfolio;
+        $this->portfolioId = $portfolioId;
         return $this;
     }
 

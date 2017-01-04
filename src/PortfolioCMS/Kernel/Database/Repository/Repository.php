@@ -18,7 +18,7 @@ use StendenINF1B\PortfolioCMS\Kernel\Exception\RepositoryException;
 abstract class Repository
 {
     /**
-     * This holds an \PDO or TraceblePDO in debugging mode. it is used for communicating with the database.
+     * This holds an \PDO or TraceablePDO in debugging mode. it is used for communicating with the database.
      *
      * @var \PDO|TraceablePDO
      */
@@ -48,6 +48,7 @@ abstract class Repository
 
     /**
      * This holds an SQL statement for deleting an entity from the database.
+     *
      * @var string
      */
     protected $deleteSql;

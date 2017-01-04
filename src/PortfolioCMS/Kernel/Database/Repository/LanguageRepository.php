@@ -17,6 +17,8 @@ use StendenINF1B\PortfolioCMS\Kernel\Exception\RepositoryException;
 class LanguageRepository extends Repository
 {
     /**
+     * This holds an SQL statement for selecting an Language entity from the database by its id.
+     *
      * @var string
      */
     protected $getByIdSql = '
@@ -31,6 +33,8 @@ class LanguageRepository extends Repository
     ';
 
     /**
+     * This holds an SQL statement for selecting an Language entity from the database.
+     *
      * @var string
      */
     protected $getBySql = '
@@ -44,6 +48,8 @@ class LanguageRepository extends Repository
     ';
 
     /**
+     * This holds an SQL statement for inserting an new Language entity into the database.
+     *
      * @var string
      */
     protected $insertLanguageSql = '
@@ -61,6 +67,8 @@ class LanguageRepository extends Repository
     ';
 
     /**
+     * This holds an SQL statement for updating an Language entity in the database.
+     *
      * @var string
      */
     protected $updateLanguageSql = '
@@ -73,6 +81,8 @@ class LanguageRepository extends Repository
     ';
 
     /**
+     * This holds an SQL statement for deleting an Language entity from the database.
+     *
      * @var string
      */
     protected $deleteSql = '
@@ -93,6 +103,7 @@ class LanguageRepository extends Repository
      * Inserts an new language in the database.
      *
      * @param Language $language
+     * @return Language
      * @throws RepositoryException
      */
     public function insert( Language $language ) : Language
@@ -123,6 +134,7 @@ class LanguageRepository extends Repository
      * Updates an language in the database.
      *
      * @param Language $language
+     * @return Language
      * @throws RepositoryException
      */
     public function update( Language $language ) : Language
@@ -166,6 +178,7 @@ class LanguageRepository extends Repository
     }
 
     /**
+     * Creates an new language object.
      * @return EntityInterface
      */
     public function createEmptyEntity() : EntityInterface

@@ -17,6 +17,8 @@ use StendenINF1B\PortfolioCMS\Kernel\Exception\RepositoryException;
 class ImageRepository extends Repository
 {
     /**
+     * This holds an SQL statement for selecting an Image entity from the database by its id.
+     *
      * @var string
      */
     protected $getByIdSql = '
@@ -35,6 +37,8 @@ class ImageRepository extends Repository
     ';
 
     /**
+     *  This holds an SQL statement for selecting an Image entity from the database.
+     *
      * @var string
      */
     protected $getBySql = '
@@ -52,17 +56,17 @@ class ImageRepository extends Repository
     ';
 
     /**
+     * This holds an SQL statement for inserting an UploadedFile entity into the database.
+     *
      * @var string
      */
     protected $insertUploadedFileSql = '
         INSERT INTO `DigitalPortfolio`.`UploadedFile`( 
-            `id`,
             `fileName`,
             `mimeType`,
             `filePath`,
             `portfolioId`
         ) VALUES ( 
-            LAST_INSERT_ID(),
             :fileName,
             :mimeType,
             :filePath,
@@ -71,6 +75,8 @@ class ImageRepository extends Repository
     ';
 
     /**
+     * This holds an SQL statement for inserting an Image entity into the database.
+     *
      * @var string
      */
     protected $insertImageSql = '
@@ -81,7 +87,7 @@ class ImageRepository extends Repository
             `type`,
             `order`
         ) VALUES ( 
-            :uploadedFileId,
+            LAST_INSERT_ID(),
             :name,
             :description,
             :type,
@@ -90,19 +96,7 @@ class ImageRepository extends Repository
     ';
 
     /**
-     * @var string
-     */
-    protected $updateImageSql = '
-        UPDATE Image SET 
-            `uploadedFileId` = :uploadedFileId,
-            `name` = :name,
-            `description` = :description,
-            `type` = :type,
-            `order` = :order
-        WHERE `Image`.`uploadedFileId` = :id;
-    ';
-
-    /**
+     * This holds an SQL statement for updating an UploadedFile entity in the database.
      * @var string
      */
     protected $updateUploadedFileSql = '
@@ -116,6 +110,23 @@ class ImageRepository extends Repository
     ';
 
     /**
+     * This holds an SQL statement for updating an Image entity in de database.
+     *
+     * @var string
+     */
+    protected $updateImageSql = '
+        UPDATE Image SET 
+            `uploadedFileId` = :uploadedFileId,
+            `name` = :name,
+            `description` = :description,
+            `type` = :type,
+            `order` = :order
+        WHERE `Image`.`uploadedFileId` = :id;
+    ';
+
+    /**
+     * This holds an SQL statement for deleting an Image entity from the database.
+     *
      * @var string
      */
     protected $deleteSql = '
@@ -238,6 +249,7 @@ class ImageRepository extends Repository
     }
 
     /**
+     * Creates an new Image object.
      * @return EntityInterface
      */
     public function createEmptyEntity() : EntityInterface

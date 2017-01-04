@@ -17,6 +17,8 @@ class HobbyRepository extends Repository
 {
 
     /**
+     * This holds an SQL statement for selecting an Hobby entity from the database by its id.
+     *
      * @var string
      */
     protected $getByIdSql = '
@@ -29,6 +31,8 @@ class HobbyRepository extends Repository
     ';
 
     /**
+     * This holds an SQL statement for selecting an Hobby entity from the database.
+     *
      * @var string
      */
     protected $getBySql = '
@@ -40,6 +44,8 @@ class HobbyRepository extends Repository
     ';
 
     /**
+     * This holds an SQL statement for inserting an Hobby entity into the database.
+     *
      * @var string
      */
     protected $insertHobbySql = '
@@ -53,6 +59,8 @@ class HobbyRepository extends Repository
     ';
 
     /**
+     * This holds an SQL statement for updating an Hobby entity in the database.
+     *
      * @var string
      */
     protected $updateHobbySql = '
@@ -63,6 +71,8 @@ class HobbyRepository extends Repository
     ';
 
     /**
+     * This holds an SQL statement for deleting an entity from the database.
+     *
      * @var string
      */
     protected $deleteSql = '
@@ -83,6 +93,7 @@ class HobbyRepository extends Repository
      * Inserts an new hobby and user in the database.
      *
      * @param Hobby $hobby
+     * @return Hobby
      * @throws RepositoryException
      */
     public function insert( Hobby $hobby ) : Hobby
@@ -111,6 +122,7 @@ class HobbyRepository extends Repository
      * Updates an hobby in the database.
      *
      * @param Hobby $hobby
+     * @return Hobby
      * @throws RepositoryException
      */
     public function update( Hobby $hobby ) : Hobby
@@ -151,6 +163,7 @@ class HobbyRepository extends Repository
     }
 
     /**
+     * Creates an new empty hobby object.
      * @return EntityInterface
      */
     public function createEmptyEntity() : EntityInterface
