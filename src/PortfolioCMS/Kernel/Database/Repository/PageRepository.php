@@ -180,7 +180,7 @@ class PageRepository extends Repository
         $page->setDescription( $databaseData[ 'description' ] );
         $page->setFileName( $databaseData[ 'fileName' ] );
         $page->setUrl( $databaseData[ 'url' ] );
-        $page->setThemeId( $databaseData[ 'themeId' ] );
+        $page->setThemeId( (int)$databaseData[ 'themeId' ] );
 
         return $page;
     }

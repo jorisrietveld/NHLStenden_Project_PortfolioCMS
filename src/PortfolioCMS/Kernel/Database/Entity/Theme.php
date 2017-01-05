@@ -9,6 +9,8 @@ declare( strict_types = 1 );
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Entity;
 
 
+use StendenINF1B\PortfolioCMS\Kernel\Database\Helper\EntityCollection;
+
 class Theme implements EntityInterface
 {
     /**
@@ -35,6 +37,11 @@ class Theme implements EntityInterface
      * @var string
      */
     protected $directoryName;
+
+    /**
+     * @var EntityCollection
+     */
+    protected $pages;
 
     /**
      * @return int
@@ -125,4 +132,22 @@ class Theme implements EntityInterface
         $this->directoryName = $directoryName;
         return $this;
     }
+
+    /**
+     * @return EntityCollection
+     */
+    public function getPages(): EntityCollection
+    {
+        return $this->pages;
+    }
+
+    /**
+     * @param EntityCollection $pages
+     */
+    public function setPages( EntityCollection $pages )
+    {
+        $this->pages = $pages;
+    }
+
+
 }

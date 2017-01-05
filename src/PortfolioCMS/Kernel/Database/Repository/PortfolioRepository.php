@@ -179,28 +179,63 @@ class PortfolioRepository extends Repository
         $imageManager = $this->entityManager->getRepository( 'Image' );
         $jobExperienceManager = $this->entityManager->getRepository( 'JobExperience' );
         $languageManager = $this->entityManager->getRepository( 'Language' );
-        $pageManager = $this->entityManager->getRepository( 'Page' );
         $projectManager = $this->entityManager->getRepository( 'Project' );
         $skillManager = $this->entityManager->getRepository( 'Skill' );
         $slbAssignmentManager = $this->entityManager->getRepository( 'SLBAssignment' );
         $trainingManager = $this->entityManager->getRepository( 'Training' );
+        $hobbyManager = $this->entityManager->getRepository( 'Hobby' );
+        $studentManager = $this->entityManager->getRepository( 'Student' );
 
         $whereClause = '`portfolioId` = :wherePortfolioId';
         $param = [ ':wherePortfolioId' => $databaseData['id'] ];
 
         $portfolio = new Portfolio();
-        $portfolio->setId( $databaseData['id']);
-        $portfolio->setTitle( $databaseData['title']);
-        $portfolio->setUrl( $databaseData['url']);
-        $portfolio->setGrade( (float)$databaseData['grade'] );
-        $portfolio->setTheme( $themeManager->getById( $databaseData['themeId'] ));
-        $portfolio->setImages( $imageManager->getByCondition( '`UploadedFile`.`portfolioId` = :wherePortfolioId', $param ) );
-        $portfolio->setJobExperience( $jobExperienceManager->getByCondition( $whereClause, $param ) );
-        $portfolio->setLanguage( $languageManager->getByCondition( $whereClause, $param ) );
-        $portfolio->setProjects( $projectManager->getByCondition( $whereClause, $param ) );
-        $portfolio->setSkills( $skillManager->getByCondition( $whereClause, $param ) );
-        $portfolio->setSlbAssignments( $slbAssignmentManager->getByCondition( '`UploadedFile`.`portfolioId` = :wherePortfolioId', $param ) );
-        $portfolio->setTrainings( $trainingManager->getByCondition( $whereClause, $param ) );
+
+        $portfolio->setId(
+            $databaseData['id']
+        );
+        $portfolio->setTitle(
+            $databaseData['title']
+        );
+        $portfolio->setUrl(
+            $databaseData['url']
+        );
+        $portfolio->setGrade(
+            (float)$databaseData['grade']
+        );
+        $portfolio->setTheme(
+            $themeManager->getById( $databaseData['themeId'] )
+        );
+        $portfolio->setImages(
+            $imageManager->getByCondition( '`UploadedFile`.`portfolioId` = :wherePortfolioId', $param )
+        );
+        $portfolio->setJobExperience(
+            $jobExperienceManager->getByCondition( $whereClause, $param )
+        );
+        $portfolio->setLanguage(
+            $languageManager->getByCondition( $whereClause, $param )
+        );
+        $portfolio->setProjects(
+            $projectManager->getByCondition( $whereClause, $param )
+        );
+        $portfolio->setSkills(
+            $skillManager->getByCondition( $whereClause, $param )
+        );
+        $portfolio->setSlbAssignments(
+            $slbAssignmentManager->getByCondition( '`UploadedFile`.`portfolioId` = :wherePortfolioId', $param )
+        );
+        $portfolio->setTrainings(
+            $trainingManager->getByCondition( $whereClause, $param )
+        );
+        $portfolio->setStudent(
+            $studentManager->getbyId( $databaseData['userId'] )
+        );
+        $portfolio->setHobbies(
+            $hobbyManager->getByCondition( $whereClause, $param )
+        );
+        $portfolio->setPages(
+            $themeManager->getPagesByThemeId( $databaseData['themeId'] )
+        );
 
         return $portfolio;
     }

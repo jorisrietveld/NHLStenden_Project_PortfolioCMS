@@ -132,7 +132,7 @@ class Page implements EntityInterface
     }
 
     /**
-     * @return Theme
+     * @return int
      */
     public function getThemeId(): int
     {
@@ -140,10 +140,10 @@ class Page implements EntityInterface
     }
 
     /**
-     * @param Theme $theme
+     * @param int $theme
      * @return Page
      */
-    public function setThemeId( int $themeId ): Theme
+    public function setThemeId( int $themeId ): Page
     {
         $this->themeId = $themeId;
         return $this;

@@ -12,6 +12,7 @@ namespace StendenINF1B\PortfolioCMS\Kernel\Database\Repository;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\EntityInterface;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\Theme;
 use StendenINF1B\PortfolioCMS\Kernel\Database\EntityManager;
+use StendenINF1B\PortfolioCMS\Kernel\Database\Helper\EntityCollection;
 use StendenINF1B\PortfolioCMS\Kernel\Exception\RepositoryException;
 
 class ThemeRepository extends Repository
@@ -159,6 +160,13 @@ class ThemeRepository extends Repository
         }
     }
 
+    public function getPagesByThemeId( int $themeId ) : EntityCollection
+    {
+        $pageManager = $this->entityManager->getRepository( 'Page' );
+
+        return $pageManager->getByCondition( '`themeId` = :whereThemeId', [ ':whereThemeId' => $themeId ] );
+    }
+
     /**
      * Creates an new Theme object from data from the database.
      *
@@ -173,6 +181,7 @@ class ThemeRepository extends Repository
         $theme->setAuthor( $databaseData['author']);
         $theme->setDescription( $databaseData['description']);
         $theme->setDirectoryName( $databaseData['directoryName']);
+        $theme->setPages( $this->getPagesByThemeId( (int)$databaseData['id'] ));
 
         return $theme;
     }

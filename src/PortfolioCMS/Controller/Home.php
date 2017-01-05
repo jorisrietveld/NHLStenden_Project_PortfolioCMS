@@ -17,7 +17,8 @@ class Home extends BaseController
     public function index( Request $request = NULL )
     {
         ob_start();
-        dump( $request );
+         $portfolioRepository = $this->getEntityManager()->getRepository('Portfolio');
+         dump( $portfolioRepository->getById(1) );
         $dumpData = ob_get_clean();
 
         return new Response(

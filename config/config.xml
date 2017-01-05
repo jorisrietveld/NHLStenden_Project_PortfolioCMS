@@ -2,5 +2,6 @@
 <configuration>
 
     <setting id="database">jorisLocalhost</setting>
+    <setting id="template_asset_dirs">css|js|images|less</setting>
 
 </configuration>

@@ -29,11 +29,6 @@ class Portfolio implements EntityInterface
     protected $title;
 
     /**
-     * @var string
-     */
-    protected $link;
-
-    /**
      * @var float
      */
     protected $grade;
@@ -144,24 +139,6 @@ class Portfolio implements EntityInterface
     public function setTitle( string $title ): Portfolio
     {
         $this->title = $title;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLink(): string
-    {
-        return $this->link;
-    }
-
-    /**
-     * @param string $link
-     * @return Portfolio
-     */
-    public function setLink( string $link ): Portfolio
-    {
-        $this->link = $link;
         return $this;
     }
 
@@ -377,4 +354,5 @@ class Portfolio implements EntityInterface
         $this->projects = $projects;
         return $this;
     }
+
 }
