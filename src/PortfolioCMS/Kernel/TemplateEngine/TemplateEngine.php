@@ -19,22 +19,23 @@ class TemplateEngine
 
     public function __construct( ConfigLoader $configLoader = NULL )
     {
-        if( $configLoader === NULL )
-        {
-            $this->configLoader = new ConfigLoader( CONFIG_FILE );
-        }
+        $this->configLoader = $configLoader ?? new ConfigLoader( CONFIG_FILE );
         $this->configContainer = $this->configLoader->getConfigContainer();
-
     }
 
     public function render( string $name, array $context = [] )
     {
+        $templatePath = $this->getTemplatePath( $name );
 
-    }
+        // Start an new output buffer.
+        ob_start();
 
-    public function getAssetsFromTheme( string $themeName, array $types = [ 'css', 'js', 'images' ] )
-    {
+        extract( $context, EXTR_SKIP );
 
+        include $templatePath;
+
+        // Return the data from the output buffer as an string.
+        return ob_get_clean();
     }
 
     /**

@@ -20,7 +20,7 @@ declare( strict_types = 1 );
 </head>
 <body id="body" class="container-fluid col-lg-12">
 
-
+<?= $helloWorld ?>
 <!-- Jquery js lib -->
 <script
     src="https://code.jquery.com/jquery-2.2.4.min.js"

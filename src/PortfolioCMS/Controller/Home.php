@@ -14,25 +14,10 @@ use StendenINF1B\PortfolioCMS\Kernel\Http\Response;
 
 class Home extends BaseController
 {
-    public function index( Request $request = NULL )
+    public function index( Request $request = null )
     {
-        ob_start();
-         $portfolioRepository = $this->getEntityManager()->getRepository('Portfolio');
-         dump( $portfolioRepository->getById(1) );
-        $dumpData = ob_get_clean();
-
         return new Response(
-            '<html>
-                <head>
-                    <title>Welcom op PortfolioCMS</title>
-                </head>
-                <body>
-                    <h1>Welkom op PortfolioCMS</h1>
-                    '.
-                    $dumpData .
-                    '
-                </body>
-            </html>',
+            $this->renderWebPage( 'site:home' ),
             Response::HTTP_STATUS_OK
         );
     }

@@ -18,7 +18,7 @@ define( 'CONFIG_ROOT', PROJECT_ROOT . 'config' . DIR_SEP );
 define( 'ROUTE_CONFIG_FILE', CONFIG_ROOT . 'Routes.xml' );
 define( 'CONFIG_FILE', CONFIG_ROOT . 'config.xml' );
 define( 'DATABASE_CONFIG_FILE', CONFIG_ROOT . 'Database.xml' );
-define( 'THEMES_DIR', PROJECT_SRC . 'Themes' );
+define( 'THEMES_DIR', PROJECT_SRC . 'PortfolioCMS'. DIR_SEP . 'Themes' .DIR_SEP );
 define( 'KEY_FILE', PROJECT_SRC . 'PortfolioCMS' . DIR_SEP . 'Kernel' . DIR_SEP . 'Security' . DIR_SEP . '.secret_key' );
 define( 'NONSENSE_FILE', PROJECT_SRC . 'PortfolioCMS' . DIR_SEP . 'Kernel' . DIR_SEP . 'Security' . DIR_SEP . '.nonsense' );
 

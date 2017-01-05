@@ -25,12 +25,12 @@ class Error extends BaseController
         return new Response('<h1>Error 400</h1> De webpagina is niet gevonden!', Response::HTTP_STATUS_NOT_FOUND );
     }
 
-    public function error500( Request $request, $arguments = NULL )
+    public function error500( Request $request )
     {
-        if( DEBUG && !empty( $arguments['exception'] ) )
+        if( DEBUG )
         {
             ob_start();
-            dump( $arguments['exception'] );
+            dump( func_get_args() );
             $exception = ob_get_clean();
             return new Response(' <h1>Error 500</h1> An exception was thrown:'.$exception, Response::HTTP_STATUS_INTERNAL_SERVER_ERROR );
         }
