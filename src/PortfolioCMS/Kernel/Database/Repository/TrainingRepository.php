@@ -211,7 +211,7 @@ class TrainingRepository extends Repository
         $training->setDescription( $databaseData['description']);
         $training->setObtainedCertificate( (bool)$databaseData['obtainedCertificate']);
         $training->setCurrentTraining( (bool)$databaseData['currentTraining']);
-        $training->setPortfolioId( (int)$databaseData['portfolio']);
+        $training->setPortfolioId( (int)$databaseData['portfolioId']);
 
         return $training;
     }

@@ -48,7 +48,7 @@ class SLBAssignmentRepository extends Repository
             `UploadedFile`.`portfolioId`,
             `SLBAssignment`.`name`,
 	        `SLBAssignment`.`feedback`
-        FROM `DigitalPortfolio`.`Image` JOIN `DigitalPortfolio`.`SLBAssignment` ON `SLBAssignment`.`uploadedFileId` = `UploadedFile`.`id`
+        FROM `DigitalPortfolio`.`SLBAssignment` JOIN `DigitalPortfolio`.`UploadedFile` ON `SLBAssignment`.`uploadedFileId` = `UploadedFile`.`id`
     ';
 
     /**

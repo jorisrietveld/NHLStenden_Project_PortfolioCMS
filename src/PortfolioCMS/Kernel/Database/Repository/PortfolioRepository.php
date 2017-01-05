@@ -199,7 +199,7 @@ class PortfolioRepository extends Repository
         $portfolio->setLanguage( $languageManager->getByCondition( $whereClause, $param ) );
         $portfolio->setProjects( $projectManager->getByCondition( $whereClause, $param ) );
         $portfolio->setSkills( $skillManager->getByCondition( $whereClause, $param ) );
-        $portfolio->setSlbAssignments( $slbAssignmentManager->getByCondition( $whereClause, $param ) );
+        $portfolio->setSlbAssignments( $slbAssignmentManager->getByCondition( '`UploadedFile`.`portfolioId` = :wherePortfolioId', $param ) );
         $portfolio->setTrainings( $trainingManager->getByCondition( $whereClause, $param ) );
 
         return $portfolio;
