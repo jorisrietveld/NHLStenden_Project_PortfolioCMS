@@ -78,6 +78,32 @@ class ApplicationKernel
     }
 
     /**
+     * @param string $routePath
+     * @param array  $arguments
+     */
+    public function handleFromRoute( string $routePath, array $arguments = [] )
+    {
+        $route = $this->resolveRoute( $routePath );
+        $route->setArguments( $arguments );
+        try
+        {
+            $this->callController( $route );
+        }
+        catch ( \Exception $exception )
+        {
+            Debug::warning( 'An exception was thrown' );
+            Debug::addException( $exception );
+
+            // An exception was thrown so set the route to 500.
+            $route = $this->resolveRoute( '/500' );
+            $route->setArguments( [ 'exception' => $exception ] );
+            $this->callController( $route );
+        }
+        return $this->response;
+
+    }
+
+    /**
      * This method will call the controller matched by the route.
      *
      * @param $controller
@@ -91,6 +117,7 @@ class ApplicationKernel
         // Construct the controller that handles the request.
         $controller = '\\StendenINF1B\\PortfolioCMS\\Controller\\' . $route->getController();
         $controller = new $controller();
+        $controller->setApplication( $this );
 
         // Call the method on the controller and pass it the arguments so we get an response.
         $response = $controller->{$route->getMethod()}( $this->request, ...array_values( $route->getArguments() ) );

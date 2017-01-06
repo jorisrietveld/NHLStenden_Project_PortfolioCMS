@@ -13,7 +13,11 @@
         <action id="controller">Authentication:register</action>
     </route>
 
-    <route id="Portfolio" path="/portfolio/{student_name}/slb_oprachten/{id}" methods="GET" authorization="ANONYMOUS_USER">
+    <route id="Portfolio" path="/portfolio/{student_name}" methods="GET" authorization="ANONYMOUS_USER">
+        <action id="controller">Portfolio:index</action>
+    </route>
+
+    <route id="Portfolio" path="/portfolio/{student_name}/{page}" methods="GET" authorization="ANONYMOUS_USER">
         <action id="controller">Portfolio:index</action>
     </route>
 

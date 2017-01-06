@@ -15,14 +15,35 @@ use StendenINF1B\PortfolioCMS\Kernel\TemplateEngine\TemplateEngine;
 
 abstract class BaseController
 {
+    /**
+     * @var EntityManager
+     */
     protected static $entityManager;
+
+    /**
+     * @var ConfigLoader|TemplateEngine
+     */
     protected $templateEngine;
+
+    /**
+     * @var ConfigLoader
+     */
     protected $configLoader;
+
+    /**
+     * @var ApplicationKernel
+     */
+    protected $application;
 
     public function __construct( TemplateEngine $templateEngine = NULL, ConfigLoader $configLoader = NULL )
     {
         $this->configLoader = $configLoader ?? new ConfigLoader( CONFIG_FILE );
         $this->templateEngine = $configLoader ?? new TemplateEngine( $this->configLoader );
+    }
+
+    public function setApplication( ApplicationKernel $applicationKernel )
+    {
+        $this->application = $applicationKernel;
     }
 
     public function loadEntityManager(  )
@@ -46,9 +67,19 @@ abstract class BaseController
         return $this->configLoader;
     }
 
+    /**
+     * @param string $name
+     * @param array  $context
+     * @return string
+     */
     public function renderWebPage( string $name, array $context = [] ) : string
     {
         return $this->templateEngine->render( $name, $context );
+    }
+
+    public function redirect( string $toRoute )
+    {
+        return $this->application->handleFromRoute( $toRoute );
     }
 
     abstract public function index();
