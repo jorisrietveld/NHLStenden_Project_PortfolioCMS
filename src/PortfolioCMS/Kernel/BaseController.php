@@ -38,7 +38,7 @@ abstract class BaseController
     public function __construct( TemplateEngine $templateEngine = NULL, ConfigLoader $configLoader = NULL )
     {
         $this->configLoader = $configLoader ?? new ConfigLoader( CONFIG_FILE );
-        $this->templateEngine = $configLoader ?? new TemplateEngine( $this->configLoader );
+        $this->templateEngine = $templateEngine ?? new TemplateEngine( $this->configLoader );
     }
 
     public function setApplication( ApplicationKernel $applicationKernel )
@@ -46,14 +46,9 @@ abstract class BaseController
         $this->application = $applicationKernel;
     }
 
-    public function loadEntityManager(  )
-    {
-        self::$entityManager = $entityManager ?? new EntityManager();
-    }
-
     public function getEntityManager(  )
     {
-        self::$entityManager = self::$entityManager ?? $this->loadEntityManager();
+        self::$entityManager = self::$entityManager ?? new EntityManager();
         return self::$entityManager;
     }
 
@@ -77,6 +72,12 @@ abstract class BaseController
         return $this->templateEngine->render( $name, $context );
     }
 
+    /**
+     * Redirect the user to an different route.
+     *
+     * @param string $toRoute
+     * @return Http\Response
+     */
     public function redirect( string $toRoute )
     {
         return $this->application->handleFromRoute( $toRoute );

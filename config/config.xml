@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <configuration>
 
-    <setting id="database">database@146.185.141.142</setting>
+    <setting id="database">jorisLocalhost</setting>
     <setting id="template_asset_dirs">css|js|images|less</setting>
 
 </configuration>

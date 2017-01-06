@@ -40,7 +40,9 @@
             <div class="masthead clearfix">
                 <div class="inner">
                     <nav class="navbar navbar-default navbar-custom">
+
                         <div class="container-fluid">
+
                             <div class="navbar-header">
                                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
                                     <span class="icon-bar"></span>
@@ -48,6 +50,7 @@
                                     <span class="icon-bar"></span>
                                 </button>
                             </div>
+
                             <div class="collapse navbar-collapse" id="myNavbar">
                                 <ul class="nav navbar-nav">
                                     <li class="active-menu"><a href="#">Home</a></li>
@@ -59,6 +62,7 @@
                                     </li>
                                     <li><a href="#">Contact</a></li>
                                 </ul>
+
                                 <ul class="nav navbar-nav navbar-right">
                                     <li class="dropdown">
                                         <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-sign-in"></i> Aanmelden </a>
@@ -68,6 +72,7 @@
                                         </ul>
                                     </li>
                                 </ul>
+
                             </div>
                         </div>
                     </nav>
@@ -75,8 +80,7 @@
             </div>
 
             <div class="inner cover custom-main">
-                <h1 class="cover-heading">INF1B Portfolio's</h1>
-                <p class="lead">Register pagina.</p>
+                <?= $dataProvider->get( 'errorMessage', '' ) ?>
             </div>
         </div>
 
@@ -87,3 +91,4 @@
 <?= $dataProvider->call( 'debugBarRenderer', 'render' ) ?>
 </body>
 </html>
+

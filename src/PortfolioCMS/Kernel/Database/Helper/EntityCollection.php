@@ -20,15 +20,17 @@ class EntityCollection extends ParameterContainer
      * @param        $hasValue
      * @return EntityCollection
      */
-    public function getEntitiesWith( string $fieldName, $hasValue )
+    public function getEntitiesWith( string $fieldName, $hasValue ) : EntityCollection
     {
         $filteredEntityCollection = new EntityCollection();
 
         foreach ( $this->parameters as $entityId => $entity )
         {
-            if( isset( $entity->{$fieldName} ))
+            $methodString = 'get'.ucfirst( $fieldName );
+
+            if( method_exists( $entity, $methodString ))
             {
-                if( $entity->{$fieldName} == $hasValue )
+                if( $entity->{$methodString}() == $hasValue )
                 {
                     $filteredEntityCollection->set( $entityId, $entity );
                 }
@@ -40,5 +42,29 @@ class EntityCollection extends ParameterContainer
             }
         }
         return $filteredEntityCollection;
+    }
+
+    /**
+     * Gets the first entity from the collection that has an property with an certain value.
+     *
+     * @param string $fieldName
+     * @param        $hasValue
+     * @return bool
+     */
+    public function getEntityWith( string $fieldName, $hasValue )
+    {
+        foreach ( $this->parameters as $entityId => $entity )
+        {
+            $methodString = 'get'.ucfirst( $fieldName );
+
+            if( method_exists( $entity, $methodString ))
+            {
+                if( $entity->{$methodString}() == $hasValue )
+                {
+                    return $entity;
+                }
+            }
+        }
+        return false;
     }
 }

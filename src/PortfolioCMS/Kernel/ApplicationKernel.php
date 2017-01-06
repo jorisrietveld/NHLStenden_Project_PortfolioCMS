@@ -14,6 +14,7 @@ use StendenINF1B\PortfolioCMS\Kernel\Http\Request;
 use StendenINF1B\PortfolioCMS\Kernel\Http\Response;
 use StendenINF1B\PortfolioCMS\Kernel\Routing\ConfiguredRoute;
 use StendenINF1B\PortfolioCMS\Kernel\Routing\RouteMatcher;
+use StendenINF1B\PortfolioCMS\Kernel\TemplateEngine\TemplateEngine;
 
 class ApplicationKernel
 {
@@ -39,6 +40,11 @@ class ApplicationKernel
     protected $configLoader;
 
     /**
+     * @var TemplateEngine
+     */
+    protected $templateEngine;
+
+    /**
      * Application constructor that initiates some basic properties
      */
     public function __construct()
@@ -46,6 +52,7 @@ class ApplicationKernel
         $this->request = Request::createFromGlobals();
         $this->response = new Response();
         $this->configLoader = new ConfigLoader( CONFIG_FILE );
+        $this->templateEngine = new TemplateEngine( $this->configLoader );
     }
 
     /**
@@ -116,7 +123,7 @@ class ApplicationKernel
 
         // Construct the controller that handles the request.
         $controller = '\\StendenINF1B\\PortfolioCMS\\Controller\\' . $route->getController();
-        $controller = new $controller();
+        $controller = new $controller( $this->templateEngine, $this->configLoader );
         $controller->setApplication( $this );
 
         // Call the method on the controller and pass it the arguments so we get an response.

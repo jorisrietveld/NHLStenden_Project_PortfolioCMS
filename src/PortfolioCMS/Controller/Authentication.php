@@ -15,6 +15,8 @@ use StendenINF1B\PortfolioCMS\Kernel\Http\Response;
 
 class Authentication extends BaseController
 {
+    use SiteHelper;
+
     public function index( Request $request = null )
     {
         if ( $request->postParams->has( 'username' ) && $request->postParams->has( 'password' ) )
@@ -23,7 +25,9 @@ class Authentication extends BaseController
         }
 
         return new Response(
-            $this->renderWebPage( 'site:login' ),
+            $this->renderWebPage( 'site:login', [
+                'portfolioMenuLinks' => $this->renderMenuLinks()
+            ] ),
             Response::HTTP_STATUS_OK
         );
     }

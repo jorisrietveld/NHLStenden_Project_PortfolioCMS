@@ -102,7 +102,7 @@ class RouteMatcher
                 return $route;
             }
         }
-        return $this->configuredRoutes->get('/400');
+        return $this->configuredRoutes->get('/404');
     }
 
     /**
@@ -119,7 +119,7 @@ class RouteMatcher
         }
         else
         {
-            return $this->configuredRoutes->get( '/400' );
+            return $this->configuredRoutes->get( '/404' );
         }
     }
 

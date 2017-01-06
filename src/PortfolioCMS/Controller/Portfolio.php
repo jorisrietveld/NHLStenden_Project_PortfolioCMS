@@ -10,24 +10,41 @@ namespace StendenINF1B\PortfolioCMS\Controller;
 
 
 use StendenINF1B\PortfolioCMS\Kernel\BaseController;
+use StendenINF1B\PortfolioCMS\Kernel\Helper\ConfigLoader;
 use StendenINF1B\PortfolioCMS\Kernel\Http\Request;
 use StendenINF1B\PortfolioCMS\Kernel\Http\Response;
+use StendenINF1B\PortfolioCMS\Kernel\TemplateEngine\TemplateEngine;
 
 class Portfolio extends BaseController 
 {
+    use SiteHelper;
+
+    public function __construct( TemplateEngine $templateEngine = NULL, ConfigLoader $configLoader = NULL )
+    {
+        parent::__construct( $templateEngine, $configLoader );
+
+    }
+
     public function index( Request $request = NULL, $studentName = NULL, $portfolioPageName = NULL )
     {
         if( $studentName !== NULL )
         {
-            ob_start();
-            dump($request);
-            return new Response( '<h1>Portfolio van: ' . $name. '</h1>'.ob_get_clean(), 200 );
+            if( $this->getPortfolios()->getEntityWith( 'url', $studentName ) )
+            {
+                return new Response(
+                    sprintf( '<h1>Portfolio from %s</h1>', $studentName),
+                    200
+                );
+            }
+
         }
         else
         {
-
+            // No name is set for the repository so redirect the user to home.
+            $this->redirect( '/home' );
         }
 
-        return new Response( '<h1>Portfolio controller</h1>', 200 );
+        return new Response( '<h1>No Portfolio found!</h1>', 200 );
     }
+
 }
