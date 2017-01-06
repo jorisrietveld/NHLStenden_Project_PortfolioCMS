@@ -19,8 +19,7 @@ define( 'ROUTE_CONFIG_FILE', CONFIG_ROOT . 'Routes.xml' );
 define( 'CONFIG_FILE', CONFIG_ROOT . 'config.xml' );
 define( 'DATABASE_CONFIG_FILE', CONFIG_ROOT . 'Database.xml' );
 define( 'THEMES_DIR', PROJECT_SRC . 'PortfolioCMS'. DIR_SEP . 'Themes' .DIR_SEP );
-define( 'KEY_FILE', PROJECT_SRC . 'PortfolioCMS' . DIR_SEP . 'Kernel' . DIR_SEP . 'Security' . DIR_SEP . '.secret_key' );
-define( 'NONSENSE_FILE', PROJECT_SRC . 'PortfolioCMS' . DIR_SEP . 'Kernel' . DIR_SEP . 'Security' . DIR_SEP . '.nonsense' );
+define( 'ASSET_BASE_PATH', WEB_ROOT . 'assets' . DIR_SEP );
 
 /**
  * Never set debug to TRUE on an production server!

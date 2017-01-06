@@ -19,15 +19,20 @@ abstract class BaseController
     protected $templateEngine;
     protected $configLoader;
 
-    public function __construct( EntityManager $entityManager = NULL, TemplateEngine $templateEngine = NULL, ConfigLoader $configLoader = NULL )
+    public function __construct( TemplateEngine $templateEngine = NULL, ConfigLoader $configLoader = NULL )
     {
-        self::$entityManager = $entityManager ?? new EntityManager();
         $this->configLoader = $configLoader ?? new ConfigLoader( CONFIG_FILE );
         $this->templateEngine = $configLoader ?? new TemplateEngine( $this->configLoader );
     }
 
+    public function loadEntityManager(  )
+    {
+        self::$entityManager = $entityManager ?? new EntityManager();
+    }
+
     public function getEntityManager(  )
     {
+        self::$entityManager = self::$entityManager ?? $this->loadEntityManager();
         return self::$entityManager;
     }
 

@@ -27,6 +27,8 @@
     <![endif]-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <?= $dataProvider->call( 'debugBarRenderer', 'renderHead' ) ?>
 </head>
 
 <body>
@@ -69,8 +71,8 @@
                                     <li class="dropdown">
                                         <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-sign-in"></i> Aanmelden </a>
                                         <ul class="dropdown-menu">
-                                            <li><a href="#">Inloggen</a></li>
-                                            <li><a href="#">Registreren</a></li>
+                                            <li><a href="login">Inloggen</a></li>
+                                            <li><a href="register">Registreren</a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -90,5 +92,6 @@
 </div>
 
 <script src="https://use.fontawesome.com/7ab9d2d06f.js"></script>
+<?= $dataProvider->call( 'debugBarRenderer', 'render' ) ?>
 </body>
 </html>

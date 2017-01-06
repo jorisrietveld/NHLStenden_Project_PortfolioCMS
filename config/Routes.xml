@@ -1,31 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <routes>
 
-    <route id="Home" path="/home" methods="GET|POST">
+    <route id="Home" path="/home" methods="GET|POST" authorization="ANONYMOUS_USER">
         <action id="controller">Home:index</action>
     </route>
 
-    <route id="Portfolio" path="/portfolio/{student_name}/slb_oprachten/{id}" methods="GET">
+    <route id="Login" path="/login" methods="GET|POST" authorization="ANONYMOUS_USER">
+           <action id="controller">Authentication:index</action>
+    </route>
+
+    <route id="Register" path="/register" methods="GET|POST" authorization="ANONYMOUS_USER">
+        <action id="controller">Authentication:register</action>
+    </route>
+
+    <route id="Portfolio" path="/portfolio/{student_name}/slb_oprachten/{id}" methods="GET" authorization="ANONYMOUS_USER">
         <action id="controller">Portfolio:index</action>
     </route>
 
-    <route id="Admin" path="/admin" methods="GET">
+    <route id="Admin" path="/admin" methods="GET" authorization="ADMIN">
         <action id="controller">Admin:index</action>
     </route>
 
-    <route id="Admin" path="/admin/some" methods="GET">
+    <route id="Admin" path="/admin/some" methods="GET" authorization="ADMIN">
         <action id="controller">Admin:index</action>
     </route>
 
-    <route id="Error400" path="/400" methods="GET|POST|PUT|DELETE">
+    <route id="Error400" path="/400" methods="GET|POST|PUT|DELETE" authorization="ANONYMOUS_USER">
         <action id="controller">Error:error400</action>
     </route>
 
-    <route id="Error405" path="/405" methods="GET|POST|PUT|DELETE">
+    <route id="Error405" path="/405" methods="GET|POST|PUT|DELETE" authorization="ANONYMOUS_USER">
         <action id="controller">Error:error405</action>
     </route>
 
-    <route id="Error500" path="/500" methods="GET|POST|PUT|DELETE">
+    <route id="Error500" path="/500" methods="GET|POST|PUT|DELETE" authorization="ANONYMOUS_USER">
         <action id="controller">Error:error500</action>
     </route>
 

@@ -9,28 +9,85 @@ declare( strict_types = 1 );
 namespace StendenINF1B\PortfolioCMS\Kernel\TemplateEngine;
 
 
+use DebugBar\DebugBar;
+use StendenINF1B\PortfolioCMS\Kernel\Debug\Debug;
 use StendenINF1B\PortfolioCMS\Kernel\Exception\TemplateEngineException;
 use StendenINF1B\PortfolioCMS\Kernel\Helper\ConfigLoader;
 
 class TemplateEngine
 {
+    /**
+     * @var null|ConfigLoader
+     */
     protected $configLoader;
+
+    /**
+     * @var array|\StendenINF1B\PortfolioCMS\Kernel\Helper\ParameterContainer
+     */
     protected $configContainer;
 
+    /**
+     * ThemeManager that maneges all installed themes.
+     *
+     * @var ThemeManger
+     */
+    protected $themeManager;
+
+    /**
+     * The path to the assets from the theme.
+     * @var string
+     */
+    protected $assetPath;
+
+    /**
+     * TemplateEngine constructor.
+     *
+     * @param ConfigLoader|null $configLoader
+     */
     public function __construct( ConfigLoader $configLoader = NULL )
     {
         $this->configLoader = $configLoader ?? new ConfigLoader( CONFIG_FILE );
         $this->configContainer = $this->configLoader->getConfigContainer();
+        $this->assetPath = 'assets/site';
     }
 
-    public function render( string $name, array $context = [] )
+    /**
+     * Sets an asset path for a given theme.
+     *
+     * @param string $themeName
+     */
+    public function setAssetPath( string $themeName )
+    {
+        $this->assetPath = ASSET_BASE_PATH . $themeName;
+    }
+
+    /**
+     * Returnes the asset path for an given theme.
+     *
+     * @return mixed
+     */
+    public function getAssetPath(  ) : string
+    {
+        return $this->assetPath;
+    }
+
+    /**
+     * Renders an template file and returnes it as an string.
+     *
+     * @param string $name
+     * @param array  $context
+     * @return string
+     */
+    public function render( string $name, array $context = [] ) : string
     {
         $templatePath = $this->getTemplatePath( $name );
+        $dataProvider = new DataProvider();
+        $dataProvider->replace( $context );
+        $dataProvider->set( 'debugBarRenderer', Debug::getDebugBar()->getJavascriptRenderer() );
+        $dataProvider->set( 'assetPath', $this->getAssetPath() );
 
         // Start an new output buffer.
         ob_start();
-
-        extract( $context, EXTR_SKIP );
 
         include $templatePath;
 
@@ -70,6 +127,7 @@ class TemplateEngine
         {
             throw new TemplateEngineException( sprintf( 'The template: %s is not found at location: %s', $template, $templatePath ) );
         }
+        $this->setAssetPath( $theme );
 
         return $templatePath;
     }
