@@ -20,8 +20,16 @@ use DebugBar\StandardDebugBar;
  */
 class Debug
 {
+    /**
+     * This holds the debug bar instance that will be shared with the whole application for displaying debug information.
+     *
+     * @var StandardDebugBar
+     */
     protected static $debugBar;
 
+    /**
+     * Debug constructor.
+     */
     protected function __construct(  )
     {
         self::$debugBar = new StandardDebugBar();
@@ -179,6 +187,11 @@ class Debug
         }
     }
 
+    /**
+     * Adds an new exception to the debugbar instance.
+     *
+     * @param \Exception $exception
+     */
     public static function addException( \Exception $exception )
     {
         if( DEBUG )

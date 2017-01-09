@@ -15,16 +15,22 @@ use StendenINF1B\PortfolioCMS\Kernel\Exception\XMLParserException;
 class DatabaseConfigLoader
 {
     /**
+     * This holds the file name of the configuration file.
+     *
      * @var string
      */
     protected $filename;
 
     /**
+     * This holds an array with database connection containers.
+     *
      * @var array
      */
     protected $databaseConfigContainers;
 
     /**
+     * This holds an SimpleXMLElement parsed from the XML database configuration file.
+     *
      * @var \SimpleXMLElement
      */
     protected $simpleXMLObject;

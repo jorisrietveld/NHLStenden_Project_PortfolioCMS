@@ -16,6 +16,12 @@ class Home extends BaseController
 {
     use SiteHelper;
 
+    /**
+     * This action if for handling the home route.
+     *
+     * @param Request|null $request
+     * @return Response
+     */
     public function index( Request $request = null )
     {
         return new Response(

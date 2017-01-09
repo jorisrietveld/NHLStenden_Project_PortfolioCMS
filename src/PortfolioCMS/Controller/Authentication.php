@@ -17,6 +17,12 @@ class Authentication extends BaseController
 {
     use SiteHelper;
 
+    /**
+     * This action is for handling the Login route.
+     *
+     * @param Request|null $request
+     * @return Response
+     */
     public function index( Request $request = null )
     {
         if ( $request->postParams->has( 'username' ) && $request->postParams->has( 'password' ) )
@@ -32,6 +38,12 @@ class Authentication extends BaseController
         );
     }
 
+    /**
+     * This action if for handling the register route.
+     *
+     * @param Request|null $request
+     * @return Response
+     */
     public function register( Request $request = null )
     {
         if ( $request->postParams->has( 'email' ) &&

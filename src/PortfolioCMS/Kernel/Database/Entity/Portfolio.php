@@ -81,7 +81,7 @@ class Portfolio implements EntityInterface
     /**
      * @var EntityCollection
      */
-    protected $pages; // (N:M) One portfolio has manny or zero Pages.
+    //protected $pages; // (N:M) One portfolio has manny or zero Pages.
 
     /**
      * @var EntityCollection
@@ -319,22 +319,6 @@ class Portfolio implements EntityInterface
     {
         $this->student = $student;
         return $this;
-    }
-
-    /**
-     * @return EntityCollection
-     */
-    public function getPages(): EntityCollection
-    {
-        return $this->pages;
-    }
-
-    /**
-     * @param EntityCollection $pages
-     */
-    public function setPages( EntityCollection $pages )
-    {
-        $this->pages = $pages;
     }
 
     /**

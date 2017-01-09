@@ -21,6 +21,10 @@
         <action id="controller">Portfolio:index</action>
     </route>
 
+    <route id="RawPortfolio" path="/raw/{student_name}" methods="POST|GET" authorization="ANONYMOUS_USER">
+        <action id="controller">Raw</action>
+    </route>
+
     <route id="Admin" path="/admin" methods="GET" authorization="ADMIN">
         <action id="controller">Admin:index</action>
     </route>

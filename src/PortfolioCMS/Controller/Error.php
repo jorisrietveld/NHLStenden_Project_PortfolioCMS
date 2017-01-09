@@ -26,6 +26,21 @@ class Error extends BaseController
     }
 
     /**
+     * This route will be be called when an route is not authorized on the server.
+     *
+     * @return Response
+     */
+    public function error401(  )
+    {
+        return new Response(
+            $this->renderWebPage( 'site:error', [
+                'errorMessage' => '<h1>Error 401</h1>U heeft niet de juiste authorizatie om deze pagina te bekijken<a href="home">hier</a> om terug te gaan naar home.'
+            ] ),
+            Response::HTTP_STATUS_UNAUTHORIZED
+        );
+    }
+
+    /**
      * This route will be called when an route is not found on the server.
      *
      * @return Response
@@ -33,10 +48,11 @@ class Error extends BaseController
     public function error404(  )
     {
         return new Response(
-            $this->renderWebPage( 'site:error',[
+            $this->renderWebPage( 'site:error', [
                 'errorMessage' => '<h1>Error 404</h1>De door u opgevraagde web pagina bestaat niet Klik <a href="home">hier</a> om terug te gaan naar home.'
             ] ),
-            Response::HTTP_STATUS_NOT_FOUND );
+            Response::HTTP_STATUS_NOT_FOUND
+        );
     }
 
     /**
