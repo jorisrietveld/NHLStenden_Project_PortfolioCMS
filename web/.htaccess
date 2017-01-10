@@ -1,9 +1,7 @@
 <IfModule mod_rewrite.c>
     Options +FollowSymlinks
     RewriteEngine On
+    RewriteRule ^(vendor|assets)($|/) - [L]
     RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^assets - [L,NC]
-    RewriteRule ^vendor - [L,NC]
     RewriteRule ^(.*)$ index.php [QSA,L]
 </IfModule>
-
