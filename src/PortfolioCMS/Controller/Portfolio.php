@@ -62,6 +62,7 @@ class Portfolio extends BaseController
                     'skills' => $portfolioEntity->getSkills(),
                     'hobbies' => $portfolioEntity->getHobbies(),
                     'projects' => $portfolioEntity->getProjects(),
+                    'pages' => $portfolioEntity->getPages(),
                 ] );
 
                 return new Response(

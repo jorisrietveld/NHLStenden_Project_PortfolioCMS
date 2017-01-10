@@ -233,6 +233,9 @@ class PortfolioRepository extends Repository
         $portfolio->setHobbies(
             $hobbyManager->getByCondition( $whereClause, $param )
         );
+        $portfolio->setPages(
+            $themeManager->getPagesByThemeId( $databaseData['themeId'] )
+        );
 
         return $portfolio;
     }
