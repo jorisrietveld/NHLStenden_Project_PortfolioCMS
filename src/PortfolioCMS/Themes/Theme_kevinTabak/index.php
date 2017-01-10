@@ -76,7 +76,35 @@ declare( strict_types = 1 );
                 </div>
               </div>
             </div>
-            <div id="contact" class="container-fluid">
+            <div id="cijfers" class="container-fluid">
+                <div class="row">
+                    <div id="CTable" class="col-sm-3">
+                        <table class="table text-center">
+                            <thead>
+                              <tr>
+                                <th class="text-center">Vak</th>
+                                <th class="text-center">Cijfer</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>PHP</td>
+                                <td>8</td>
+                              </tr>
+                              <tr>
+                                <td>DGD</td>
+                                <td>7</td>
+                              </tr>
+                              <tr>
+                                <td>HTML</td>
+                                <td>8</td>
+                              </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div id="contact" class="container-fluid bg-grey">
                 <h2 class="text-center">CONTACT</h2>
                 <div class="row">
                     <div class="col-sm-5">
@@ -116,8 +144,5 @@ declare( strict_types = 1 );
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
 
-    <!-- Custom js lib -->
-    <script src="js/script.js"
-            type="text/javascript"></script>
     </body>
 </html>
