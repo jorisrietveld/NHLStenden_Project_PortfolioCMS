@@ -75,8 +75,15 @@
             </div>
 
             <div class="inner cover custom-main">
-                <h1 class="cover-heading">INF1B Portfolio's</h1>
-                <p class="lead">Login pagina.</p>
+                <h1 class="cover-heading">Inloggen</h1>
+                <form action="#" class="custom-form" method="POST">
+
+                    <input type="text" class="inputfield" placeholder="Username"/>
+                    <input type="password" class="inputfield" name="password" placeholder="Password"/>
+                    <input type="submit" class="inputsubmit btn btn-primary btn-default" name="submit" value="Inloggen"/>
+
+
+                </form>
             </div>
         </div>
 
