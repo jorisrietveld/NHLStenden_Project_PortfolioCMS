@@ -13,5 +13,11 @@ use StendenINF1B\PortfolioCMS\Kernel\Database\Helper\DatabaseConfigurationContai
 
 interface DriverInterface
 {
+    /**
+     * Returnes an database connection for the connection configuration passed to it.
+     *
+     * @param DatabaseConfigurationContainer $config
+     * @return DatabaseConnection
+     */
     public function connect( DatabaseConfigurationContainer $config ) : DatabaseConnection;
 }

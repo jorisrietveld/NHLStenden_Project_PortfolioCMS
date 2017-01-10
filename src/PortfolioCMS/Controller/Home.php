@@ -14,10 +14,20 @@ use StendenINF1B\PortfolioCMS\Kernel\Http\Response;
 
 class Home extends BaseController
 {
+    use SiteHelper;
+
+    /**
+     * This action if for handling the home route.
+     *
+     * @param Request|null $request
+     * @return Response
+     */
     public function index( Request $request = null )
     {
         return new Response(
-            $this->renderWebPage( 'site:home' ),
+            $this->renderWebPage( 'site:home', [
+                'portfolioMenuLinks' => $this->renderMenuLinks(),
+            ] ),
             Response::HTTP_STATUS_OK
         );
     }

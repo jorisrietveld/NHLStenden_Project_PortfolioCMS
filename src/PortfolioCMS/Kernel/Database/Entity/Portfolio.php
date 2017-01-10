@@ -324,22 +324,6 @@ class Portfolio implements EntityInterface
     /**
      * @return EntityCollection
      */
-    public function getPages(): EntityCollection
-    {
-        return $this->pages;
-    }
-
-    /**
-     * @param EntityCollection $pages
-     */
-    public function setPages( EntityCollection $pages )
-    {
-        $this->pages = $pages;
-    }
-
-    /**
-     * @return EntityCollection
-     */
     public function getProjects(): EntityCollection
     {
         return $this->projects;
@@ -353,6 +337,24 @@ class Portfolio implements EntityInterface
     {
         $this->projects = $projects;
         return $this;
+    }
+
+    /**
+     * @param EntityCollection $pages
+     * @return Portfolio
+     */
+    public function setPages( EntityCollection $pages ) : Portfolio
+    {
+        $this->pages = $pages;
+        return $this;
+    }
+
+    /**
+     * @return EntityCollection
+     */
+    public function getPages(  ) : EntityCollection
+    {
+        return $this->pages;
     }
 
 }

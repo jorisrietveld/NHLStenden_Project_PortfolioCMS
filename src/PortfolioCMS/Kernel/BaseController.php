@@ -15,19 +15,40 @@ use StendenINF1B\PortfolioCMS\Kernel\TemplateEngine\TemplateEngine;
 
 abstract class BaseController
 {
+    /**
+     * @var EntityManager
+     */
     protected static $entityManager;
+
+    /**
+     * @var ConfigLoader|TemplateEngine
+     */
     protected $templateEngine;
+
+    /**
+     * @var ConfigLoader
+     */
     protected $configLoader;
 
-    public function __construct( EntityManager $entityManager = NULL, TemplateEngine $templateEngine = NULL, ConfigLoader $configLoader = NULL )
+    /**
+     * @var ApplicationKernel
+     */
+    protected $application;
+
+    public function __construct( TemplateEngine $templateEngine = NULL, ConfigLoader $configLoader = NULL )
     {
-        self::$entityManager = $entityManager ?? new EntityManager();
         $this->configLoader = $configLoader ?? new ConfigLoader( CONFIG_FILE );
-        $this->templateEngine = $configLoader ?? new TemplateEngine( $this->configLoader );
+        $this->templateEngine = $templateEngine ?? new TemplateEngine( $this->configLoader );
+    }
+
+    public function setApplication( ApplicationKernel $applicationKernel )
+    {
+        $this->application = $applicationKernel;
     }
 
     public function getEntityManager(  )
     {
+        self::$entityManager = self::$entityManager ?? new EntityManager();
         return self::$entityManager;
     }
 
@@ -41,9 +62,25 @@ abstract class BaseController
         return $this->configLoader;
     }
 
+    /**
+     * @param string $name
+     * @param array  $context
+     * @return string
+     */
     public function renderWebPage( string $name, array $context = [] ) : string
     {
         return $this->templateEngine->render( $name, $context );
+    }
+
+    /**
+     * Redirect the user to an different route.
+     *
+     * @param string $toRoute
+     * @return Http\Response
+     */
+    public function redirect( string $toRoute )
+    {
+        return $this->application->handleFromRoute( $toRoute );
     }
 
     abstract public function index();

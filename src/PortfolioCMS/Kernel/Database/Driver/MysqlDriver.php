@@ -15,17 +15,23 @@ use StendenINF1B\PortfolioCMS\Kernel\Exception\DatabaseDriverException;
 class MysqlDriver extends Driver implements DriverInterface
 {
     /**
-     * @var PDO The PHP data object connected to the MySQL server.
+     * The PHP data object connected to the MySQL server.
+     *
+     * @var PDO
      */
     protected $mysqlConnection;
 
     /**
+     * This holds the database connection.
+     *
      * @var DatabaseConnection
      */
     protected $connection;
 
     /**
-     * @var DatabaseConfigurationContainer An container containing connection parameters and PDO options.
+     * This holds the An DatabaseConfiguration container containing connection parameters and PDO options.
+     *
+     * @var DatabaseConfigurationContainer
      */
     protected $databaseConfig;
 

@@ -14,9 +14,16 @@ use StendenINF1B\PortfolioCMS\Kernel\Helper\ParameterContainer;
 class DatabaseConfigurationContainer extends ParameterContainer
 {
     /**
+     * This holds the name of the database configuration file.
      * @var string
      */
     protected $connectionName;
+
+    /**
+     * This holds an ParameterContainer with all the PDO options.
+     *
+     * @var ParameterContainer
+     */
     public $pdoOptions;
 
     /**

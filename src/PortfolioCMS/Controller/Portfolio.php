@@ -10,19 +10,75 @@ namespace StendenINF1B\PortfolioCMS\Controller;
 
 
 use StendenINF1B\PortfolioCMS\Kernel\BaseController;
+use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\DisplayStudent;
+use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\Student;
+use StendenINF1B\PortfolioCMS\Kernel\Helper\ConfigLoader;
 use StendenINF1B\PortfolioCMS\Kernel\Http\Request;
 use StendenINF1B\PortfolioCMS\Kernel\Http\Response;
+use StendenINF1B\PortfolioCMS\Kernel\TemplateEngine\TemplateEngine;
 
-class Portfolio extends BaseController 
+class Portfolio extends BaseController
 {
-    public function index( Request $request = NULL, $name = NULL, $slbId = NULL )
+    use SiteHelper;
+
+    const DEFAULT_PORTFOLIO_PAGE = 'index';
+
+    public function __construct( TemplateEngine $templateEngine = null, ConfigLoader $configLoader = null )
     {
-        if( $name !== NULL )
-        {
-            ob_start();
-            dump($request);
-            return new Response( '<h1>Portfolio van: ' . $name. '</h1>'.ob_get_clean(), 200 );
-        }
-        return new Response( '<h1>Portfolio controller</h1>', 200 );
+        parent::__construct( $templateEngine, $configLoader );
+
     }
+
+    /**
+     * This action is for handling the portfolio routes.
+     *
+     * @param Request|null $request
+     * @param null         $studentName
+     * @param null         $portfolioPageName
+     * @return Response
+     */
+    public function index( Request $request = null, $studentName = null, $portfolioPageName = null )
+    {
+        if ( $studentName !== null )
+        {
+            $portfolioEntity = $this->getPortfolios()->getEntityWith( 'url', $studentName );
+            if ( $portfolioEntity )
+            {
+                $portfolioPageName = $portfolioPageName ?? self::DEFAULT_PORTFOLIO_PAGE;
+                $theme = $portfolioEntity->getTheme();
+
+                $renderedOutput = $this->templateEngine->render(
+                    $theme->getDirectoryName() . ':' . $portfolioPageName, [
+                    'title' => $portfolioEntity->getTitle(),
+                    'id' => $portfolioEntity->getId(),
+                    'grade' => $portfolioEntity->getGrade(),
+                    'url' => $portfolioEntity->getUrl(),
+                    'student' => new DisplayStudent( $portfolioEntity->getStudent() ),
+                    'jobExperiences' => $portfolioEntity->getJobExperience(),
+                    'languages' => $portfolioEntity->getLanguage(),
+                    'trainings' => $portfolioEntity->getTrainings(),
+                    'slbAssignments' => $portfolioEntity->getSlbAssignments(),
+                    'images' => $portfolioEntity->getImages(),
+                    'skills' => $portfolioEntity->getSkills(),
+                    'hobbies' => $portfolioEntity->getHobbies(),
+                    'projects' => $portfolioEntity->getProjects(),
+                    'pages' => $portfolioEntity->getPages(),
+                ] );
+
+                return new Response(
+                    $renderedOutput,
+                    Response::HTTP_STATUS_OK
+                );
+            }
+
+        }
+        else
+        {
+            // No name is set for the repository so redirect the user to home.
+            return $this->redirect( '/home' );
+        }
+
+        return new Response( '<h1>No Portfolio found!</h1>', 200 );
+    }
+
 }

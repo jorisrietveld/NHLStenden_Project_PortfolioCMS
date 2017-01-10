@@ -12,7 +12,8 @@ namespace StendenINF1B\PortfolioCMS\Kernel\Http\Session\Storage;
 interface SessionContainerInterface
 {
     /**
-     * Sets the
+     * Sets the name of the session container.
+     *
      * @param string $sessionName
      * @return mixed
      */
@@ -20,12 +21,14 @@ interface SessionContainerInterface
 
     /**
      * Gets the name of the session container.
+     *
      * @return string
      */
     public function getName() : string;
 
     /**
      * Sets the storage key.
+     *
      * @param string $storageKey
      * @return mixed
      */
@@ -33,18 +36,21 @@ interface SessionContainerInterface
 
     /**
      * Gets the storage key from the session container.
+     *
      * @return string
      */
     public function getKey() : string;
 
     /**
      * Clears all the session data stored in the container.
+     *
      * @return mixed
      */
     public function clear();
 
     /**
      * Initiates the parameters stored in the container.
+     *
      * @param array $array
      * @return mixed
      */
