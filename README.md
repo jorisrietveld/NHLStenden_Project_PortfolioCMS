@@ -4,7 +4,7 @@ Information about installing and configuring the CMS and the application structu
 Documentation or here:
 [installing the CMS](https://github.com/stenden-INF1B/PortfolioCMS/blob/master/documentation/InstallingTheCMS.md)<br>
 [Installing lib sodium](https://github.com/stenden-INF1B/PortfolioCMS/blob/master/documentation/InstallingLibSodium.md)<br>
-[Creating a theme](https://github.com/stenden-INF1B/PortfolioCMS/blob/master/documentation/CreatingATheme.md)<br>
+[Creating a theme](https://github.com/stenden-INF1B/PortfolioCMS/blob/master/documentation/CreatingAThemeNew.md)<br>
 [Database structure explained](https://github.com/stenden-INF1B/PortfolioCMS/blob/master/documentation/DatabaseSturctue.md)<br>
 
 ### Live version

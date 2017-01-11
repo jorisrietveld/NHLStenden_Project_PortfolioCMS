@@ -18,9 +18,6 @@ This guide explains how to create a new theme in PortfolioCMS for your portfolio
   - [Hobby](#hobby)
   - [Request object](#request-object)
   - [ParameterContainer](#parametercontainer)
-  - [Session](#session)
-  - [FilesContainer](#filescontainer)
-  - [$portfolio data](#portfolio-data)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
