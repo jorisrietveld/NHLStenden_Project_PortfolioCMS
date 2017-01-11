@@ -84,6 +84,10 @@ if you want to output array data inside an html document you can use the foreach
 </html>
 ```
 
+
+###
+```php
+
 ### Student
 This list below shows an list of the methods the `Student()` object has.It also shows the return types of the methods. notice that
 when you use the methods in your portfolio you don't type `: string ` or `: array` behind the method call, this is just for clarification

@@ -22,7 +22,7 @@ trait UserHelper
      */
     public function getByEmail( string $emailAddress ) : User
     {
-        return $this->getOneByCondition( 'email = :whereEmail', [':whereEmail' => $emailAddress ]);
+        return $this->getOneByCondition( 'WHERE `User`.`email` = :whereEmail', [':whereEmail' => $emailAddress ]);
     }
 
     /**

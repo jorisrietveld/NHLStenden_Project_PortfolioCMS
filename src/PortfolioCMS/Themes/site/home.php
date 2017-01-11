@@ -61,16 +61,20 @@
                                             <?= $dataProvider->get( 'portfolioMenuLinks', '' ) ?>
                                         </ul>
                                     </li>
-                                    <li><a href="#">Contact</a></li>
+                                    <li><a href="contact">Contact</a></li>
                                 </ul>
 
                                 <ul class="nav navbar-nav navbar-right">
-                                    <li class="dropdown">
-                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-sign-in"></i> Aanmelden </a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="login">Inloggen</a></li>
-                                            <li><a href="register">Registreren</a></li>
-                                        </ul>
+                                    <li>
+                                        <?php if( isset( $_SESSION['userId'] ) ): ?>
+                                            <a href="logout">
+                                                <i class="fa fa-sign-in"></i> Afmelden
+                                            </a>
+                                        <?php else: ?>
+                                            <a href="login">
+                                                <i class="fa fa-sign-in"></i> Aanmelden
+                                            </a>
+                                        <?php endif; ?>
                                     </li>
                                 </ul>
 

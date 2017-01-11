@@ -11,6 +11,9 @@ namespace StendenINF1B\PortfolioCMS\Kernel\Authorization;
 
 class User
 {
-    protected $ipAddress;
-    protected $userAgent;
+    const ANONYMOUS_USER = 0;
+    const STUDENT = 1;
+    const TEACHER = 2;
+    const SLB_TEACHER = 3;
+    const ADMIN = 4;
 }

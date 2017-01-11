@@ -45,6 +45,7 @@
                 <div class="inner">
                     <nav class="navbar navbar-default navbar-custom">
                         <div class="container-fluid">
+
                             <div class="navbar-header">
                                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
                                     <span class="icon-bar"></span>
@@ -52,27 +53,39 @@
                                     <span class="icon-bar"></span>
                                 </button>
                             </div>
+
                             <div class="collapse navbar-collapse" id="myNavbar">
                                 <ul class="nav navbar-nav">
-                                    <li class="active-menu"><a href="home">Home</a></li>
+                                    <li class="active-menu">
+                                        <a href="home">Home</a>
+                                    </li>
                                     <li class="dropdown">
-                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Portfolio's <span class="fa fa-caret-down"></span></a>
+                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                            Portfolio's<span class="fa fa-caret-down"></span>
+                                        </a>
                                         <ul class="dropdown-menu">
                                             <?= $dataProvider->get( 'portfolioMenuLinks', '' ) ?>
                                         </ul>
                                     </li>
-                                    <li><a href="#">Contact</a></li>
+                                    <li>
+                                        <a href="#">Contact</a>
+                                    </li>
                                 </ul>
                                 <ul class="nav navbar-nav navbar-right">
-                                    <li class="dropdown">
-                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-sign-in"></i> Aanmelden </a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="login">Inloggen</a></li>
-                                            <li><a href="register">Registreren</a></li>
-                                        </ul>
+                                    <li>
+                                        <?php if( isset( $_SESSION['userId'] ) ): ?>
+                                            <a href="logout">
+                                                <i class="fa fa-sign-in"></i> Afmelden
+                                            </a>
+                                        <?php else: ?>
+                                            <a href="login">
+                                                <i class="fa fa-sign-in"></i> Aanmelden
+                                            </a>
+                                        <?php endif; ?>
                                     </li>
                                 </ul>
                             </div>
+
                         </div>
                     </nav>
                 </div>

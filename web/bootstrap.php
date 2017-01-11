@@ -26,6 +26,8 @@ define( 'ASSET_BASE_PATH', WEB_ROOT . 'assets' . DIR_SEP );
  */
 define( 'DEBUG', TRUE );
 
+session_start();
+
 /**
  * Register an autoloader for autoloading project classes.
  */

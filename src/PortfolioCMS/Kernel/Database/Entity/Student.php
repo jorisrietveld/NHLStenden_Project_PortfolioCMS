@@ -51,12 +51,10 @@ class Student extends User implements EntityInterface
 
     /**
      * @param string $address
-     * @return Student
      */
-    public function setAddress( string $address ): Student
+    public function setAddress( string $address )
     {
         $this->address = $address;
-        return $this;
     }
 
     /**
@@ -69,12 +67,10 @@ class Student extends User implements EntityInterface
 
     /**
      * @param string $zipCode
-     * @return Student
      */
-    public function setZipCode( string $zipCode ): Student
+    public function setZipCode( string $zipCode )
     {
         $this->zipCode = $zipCode;
-        return $this;
     }
 
     /**
@@ -87,12 +83,10 @@ class Student extends User implements EntityInterface
 
     /**
      * @param string $location
-     * @return Student
      */
-    public function setLocation( string $location ): Student
+    public function setLocation( string $location )
     {
         $this->location = $location;
-        return $this;
     }
 
     /**
@@ -105,12 +99,10 @@ class Student extends User implements EntityInterface
 
     /**
      * @param \DateTime $dateOfBirth
-     * @return Student
      */
-    public function setDateOfBirth( \DateTime $dateOfBirth ): Student
+    public function setDateOfBirth( \DateTime $dateOfBirth )
     {
         $this->dateOfBirth = $dateOfBirth;
-        return $this;
     }
 
     /**
@@ -123,12 +115,10 @@ class Student extends User implements EntityInterface
 
     /**
      * @param string $studentCode
-     * @return Student
      */
-    public function setStudentCode( string $studentCode ): Student
+    public function setStudentCode( string $studentCode )
     {
         $this->studentCode = $studentCode;
-        return $this;
     }
 
     /**
@@ -141,12 +131,10 @@ class Student extends User implements EntityInterface
 
     /**
      * @param string $phoneNumber
-     * @return Student
      */
-    public function setPhoneNumber( string $phoneNumber ): Student
+    public function setPhoneNumber( string $phoneNumber )
     {
         $this->phoneNumber = $phoneNumber;
-        return $this;
     }
 
     /**
@@ -159,12 +147,10 @@ class Student extends User implements EntityInterface
 
     /**
      * @param int $id
-     * @return User
      */
-    public function setId( int $id ): User
+    public function setId( int $id )
     {
         $this->id = $id;
-        return $this;
     }
 
     /**
@@ -179,10 +165,9 @@ class Student extends User implements EntityInterface
      * @param string $hashedPassword
      * @return User
      */
-    public function setHashedPassword( string $hashedPassword ): User
+    public function setHashedPassword( string $hashedPassword )
     {
         $this->hashedPassword = $hashedPassword;
-        return $this;
     }
 
     /**
@@ -197,10 +182,9 @@ class Student extends User implements EntityInterface
      * @param \DateTime $accountCreated
      * @return User
      */
-    public function setAccountCreated( \DateTime $accountCreated ): User
+    public function setAccountCreated( \DateTime $accountCreated )
     {
         $this->accountCreated = $accountCreated;
-        return $this;
     }
 
     /**
@@ -213,12 +197,10 @@ class Student extends User implements EntityInterface
 
     /**
      * @param \DateTime $lastLogin
-     * @return User
      */
-    public function setLastLogin( \DateTime $lastLogin ): User
+    public function setLastLogin( \DateTime $lastLogin )
     {
         $this->lastLogin = $lastLogin;
-        return $this;
     }
 
     /**
@@ -233,10 +215,9 @@ class Student extends User implements EntityInterface
      * @param string $email
      * @return User
      */
-    public function setEmail( string $email ): User
+    public function setEmail( string $email )
     {
         $this->email = $email;
-        return $this;
     }
 
     /**
@@ -251,10 +232,9 @@ class Student extends User implements EntityInterface
      * @param string $lastIpAddress
      * @return User
      */
-    public function setLastIpAddress( string $lastIpAddress ): User
+    public function setLastIpAddress( string $lastIpAddress )
     {
         $this->lastIpAddress = $lastIpAddress;
-        return $this;
     }
 
     /**
@@ -267,12 +247,10 @@ class Student extends User implements EntityInterface
 
     /**
      * @param string $firstName
-     * @return User
      */
-    public function setFirstName( string $firstName ): User
+    public function setFirstName( string $firstName )
     {
         $this->firstName = $firstName;
-        return $this;
     }
 
     /**
@@ -285,12 +263,10 @@ class Student extends User implements EntityInterface
 
     /**
      * @param string $lastName
-     * @return User
      */
-    public function setLastName( string $lastName ): User
+    public function setLastName( string $lastName )
     {
         $this->lastName = $lastName;
-        return $this;
     }
 
     /**
@@ -303,12 +279,10 @@ class Student extends User implements EntityInterface
 
     /**
      * @param boolean $active
-     * @return User
      */
-    public function setActive( bool $active ): User
+    public function setActive( bool $active )
     {
         $this->active = $active;
-        return $this;
     }
 
     /**
@@ -321,11 +295,9 @@ class Student extends User implements EntityInterface
 
     /**
      * @param boolean $isAdmin
-     * @return Student
      */
-    public function setIsAdmin( bool $isAdmin ): Student
+    public function setIsAdmin( bool $isAdmin )
     {
         $this->isAdmin = $isAdmin;
-        return $this;
     }
 }

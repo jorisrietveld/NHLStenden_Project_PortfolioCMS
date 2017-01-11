@@ -24,8 +24,19 @@ class DataProvider extends ParameterContainer
     public function get( $key, $default = NULL )
     {
         // todo write check if the user is allowed to view that data.
-
         return parent::get( $key , 'Data not found.' );
+    }
+
+    public function isAllowedToViewGrade(  )
+    {
+        if( isset( $_SESSION[ 'id' ], $_SESSION[ 'authorizationLevel' ] ))
+        {
+            if( $this->call( 'student', 'getId' ) == $_SESSION[ 'id' ] || $_SESSION[ 'authorizationLevel' ] > 2 )
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

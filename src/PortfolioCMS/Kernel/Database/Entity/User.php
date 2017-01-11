@@ -14,12 +14,12 @@ abstract class User
     /**
      * @var int
      */
-    protected $id;
+    protected $id = 0;
 
     /**
      * @var string
      */
-    protected $hashedPassword;
+    protected $hashedPassword = '';
 
     /**
      * @var \DateTime
@@ -60,4 +60,168 @@ abstract class User
      * @var bool
      */
     protected $isAdmin;
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId( int $id )
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHashedPassword(): string
+    {
+        return $this->hashedPassword;
+    }
+
+    /**
+     * @param string $hashedPassword
+     */
+    public function setHashedPassword( string $hashedPassword )
+    {
+        $this->hashedPassword = $hashedPassword;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getAccountCreated(): \DateTime
+    {
+        return $this->accountCreated;
+    }
+
+    /**
+     * @param \DateTime $accountCreated
+     */
+    public function setAccountCreated( \DateTime $accountCreated )
+    {
+        $this->accountCreated = $accountCreated;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getLastLogin(): \DateTime
+    {
+        return $this->lastLogin;
+    }
+
+    /**
+     * @param \DateTime $lastLogin
+     */
+    public function setLastLogin( \DateTime $lastLogin )
+    {
+        $this->lastLogin = $lastLogin;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     */
+    public function setEmail( string $email )
+    {
+        $this->email = $email;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastIpAddress(): string
+    {
+        return $this->lastIpAddress;
+    }
+
+    /**
+     * @param string $lastIpAddress
+     */
+    public function setLastIpAddress( string $lastIpAddress )
+    {
+        $this->lastIpAddress = $lastIpAddress;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFirstName(): string
+    {
+        return $this->firstName;
+    }
+
+    /**
+     * @param string $firstName
+     * @return User
+     */
+    public function setFirstName( string $firstName )
+    {
+        $this->firstName = $firstName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastName(): string
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * @param string $lastName
+     * @return User
+     */
+    public function setLastName( string $lastName )
+    {
+        $this->lastName = $lastName;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getActive(): bool
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param boolean $active
+     */
+    public function setActive( bool $active )
+    {
+        $this->active = $active;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getIsAdmin(): bool
+    {
+        return $this->isAdmin;
+    }
+
+    /**
+     * @param boolean $isAdmin
+     */
+    public function setIsAdmin( bool $isAdmin )
+    {
+        $this->isAdmin = $isAdmin;
+    }
+
+
 }

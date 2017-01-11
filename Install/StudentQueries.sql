@@ -1,5 +1,5 @@
 /**
- * Insert student
+ * Insert student transaction
  */
 BEGIN;
 INSERT INTO DigitalPortfolio.User (password, email, lastIpAddress, firstName, lastName, isAdmin)
