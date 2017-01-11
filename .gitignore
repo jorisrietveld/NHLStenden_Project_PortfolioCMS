@@ -145,3 +145,4 @@ nbdist/
 nbactions.xml
 .nb-gradle/
 
+/web/libs/
