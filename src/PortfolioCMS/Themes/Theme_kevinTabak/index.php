@@ -34,14 +34,18 @@ declare( strict_types = 1 );
                   <ul class="nav navbar-nav navbar-right">
                     <li><a href="#over">OVER</a></li>
                     <li><a href="#cv">CV</a></li>
+                    <li><a href="#cijfers">CIJFERS</a></li>
+                    <li><a href="#galerij">GALERIJ</a></li>
                     <li><a href="#contact">CONTACT</a></li>
                   </ul>
                 </div>
               </div>
             </nav>
             <div class="jumbotron text-center">
-              <h1>Portefolio</h1>
-              <p>Kevin Tabak</p>
+                <div id="title">
+                    <h1>Portefolio</h1>
+                    <p>Kevin Tabak</p>
+                </div>
             </div>
             <div id="over" class="container-fluid">
                 <div class="row">
@@ -78,8 +82,9 @@ declare( strict_types = 1 );
             </div>
             <div id="cijfers" class="container-fluid">
                 <div class="row">
-                    <div id="CTable" class="col-sm-3">
-                        <table class="table text-center">
+                    <div id="CTable" class="col-sm-3 text-center">
+                        <h2>Cijfers</h2>
+                        <table class="table">
                             <thead>
                               <tr>
                                 <th class="text-center">Vak</th>
@@ -104,7 +109,34 @@ declare( strict_types = 1 );
                     </div>
                 </div>
             </div>
-            <div id="contact" class="container-fluid bg-grey">
+            <div id="galerij" class="container-fluid text-center bg-grey">
+                <h2>Galerij</h2>
+                <h4>Mijn afbeeldingen</h4>
+                <div class="row text-center">
+                    <div class="col-sm-3">
+                        <div class="thumbnail">
+                            <img src="files/me-1.jpg" alt="WOW">
+                            <p><strong>WOW</strong></p>
+                            <p>very wow</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="thumbnail">
+                            <img src="files/me-2.jpg" alt="WOW">
+                            <p><strong>WOW</strong></p>
+                            <p>very wow</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="thumbnail">
+                            <img src="files/me-3.jpg" alt="WOW">
+                            <p><strong>WOW</strong></p>
+                            <p>very wow</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="contact" class="container-fluid">
                 <h2 class="text-center">CONTACT</h2>
                 <div class="row">
                     <div class="col-sm-5">
@@ -115,13 +147,13 @@ declare( strict_types = 1 );
                     <div class="col-sm-7">
                         <div class="row">
                             <div class="col-sm-6 form-group">
-                                <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
+                                <input class="form-control" id="name" name="name" placeholder="Naam" type="text" required>
                             </div>
                             <div class="col-sm-6 form-group">
                                 <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
                             </div>
                         </div>
-                        <textarea class="form-control" id="comments" name="comments" placeholder="Comment" rows="5"></textarea><br>
+                        <textarea class="form-control" id="comments" name="comments" placeholder="Reactie" rows="5"></textarea><br>
                         <div class="row">
                             <div class="col-sm-12 form-group">
                                 <button class="btn btn-default pull-right" type="submit">Send</button>
@@ -143,6 +175,7 @@ declare( strict_types = 1 );
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
+
 
     </body>
 </html>
