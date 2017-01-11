@@ -97,8 +97,7 @@
 
                     <input type="text" class="inputfield" name="name" placeholder="Naam"/>
                     <input type ="text" class="inputfield" name="onderwerp" placeholder="Onderwerp">
-                    <textarea rows="6" cols="35" placeholder="Hallo" name="bericht" id="message" style="color:black; margin-left:16px;">                        
-                    </textarea>
+                    <textarea rows="6" cols="35" placeholder="Schrijf uw bericht hier.." name="bericht" id="message" style="color:black; margin-left:16px;"></textarea>
                     <input type="submit" class="inputsubmit btn btn-primary btn-default" name="submit" value="Verstuur bericht"/>
                     
                     <?php
