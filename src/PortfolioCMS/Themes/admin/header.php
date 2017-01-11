@@ -16,12 +16,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <!--  Light Bootstrap Table core CSS    -->
-    <link href="assets/admin/css/light-bootstrap-dashboard.css" rel="stylesheet"/>
     <link href="../assets/admin/css/light-bootstrap-dashboard.css" rel="stylesheet"/>
 
 
     <!--  CSS for Demo Purpose, don't include it in your project     -->
-    <link href="../assets/admin/css/styleadmin.css" rel="stylesheet"/>
+    <link href="../assets/admin/css/adminstyle.css" rel="stylesheet"/>
 
 
     <!--     Fonts and icons     -->

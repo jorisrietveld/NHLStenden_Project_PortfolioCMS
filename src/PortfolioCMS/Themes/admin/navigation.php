@@ -10,7 +10,7 @@
 
         <div class="sidebar-wrapper">
             <div class="logo">
-                <a href="admin" class="simple-text">
+                <a href="overzicht" class="simple-text">
                     Portfolio Beheer
                 </a>
             </div>
@@ -55,7 +55,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="admin">Gebruikers</a>
+                    <a class="navbar-brand" href="overzicht">Gebruikers</a>
                 </div>
                 <div class="collapse navbar-collapse">
 
