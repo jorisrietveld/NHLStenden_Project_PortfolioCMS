@@ -28,12 +28,24 @@
         <action id="controller">Raw</action>
     </route>
 
-    <route id="Admin" path="/admin" methods="GET" authorization="ADMIN">
+    <route id="Admin" path="/admin/overzicht" methods="GET" authorization="ADMIN">
         <action id="controller">Admin:index</action>
     </route>
 
     <route id="Admin" path="/admin/some" methods="GET" authorization="ADMIN">
         <action id="controller">Admin:index</action>
+    </route>
+
+    <route id="Admin" path="/admin/portfolio" methods="GET" authorization="ADMIN">
+        <action id="controller">Admin:portfolio</action>
+    </route>
+
+    <route id="Admin" path="/admin/thema" methods="GET" authorization="ADMIN">
+        <action id="controller">Admin:thema</action>
+    </route>
+
+    <route id="Admin" path="/admin/cijferregistratie" methods="GET" authorization="ADMIN">
+        <action id="controller">Admin:cijferregistratie</action>
     </route>
 
     <route id="Error404" path="/404" methods="GET|POST|PUT|DELETE" authorization="ANONYMOUS_USER">

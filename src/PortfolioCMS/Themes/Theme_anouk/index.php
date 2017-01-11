@@ -2,6 +2,10 @@
 declare( strict_types = 1 );
 ?>
 
+<!--<div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">-->
+<!--<div class="col-lg-5 col-sm-6">-->
+<!--<div class="col-lg-5 col-lg-offset-2 col-sm-6">-->
+<!--<div class="col-lg-5 col-sm-pull-6  col-sm-6">-->
 <!DOCTYPE html>
 <html>
 <!--<head>
@@ -84,6 +88,9 @@ declare( strict_types = 1 );
                             <a href="#cv">CV</a>
                         </li>
                         <li class="page-scroll">
+                            <a href="#cijfers">Cijfers</a>
+                        </li>
+                        <li class="page-scroll">
                             <a href="#gastenboek"> <span class="glyphicon glyphicon-pencil"></span> Gastenboek</a>
                         </li>
                         <li class="page-scroll">
@@ -122,7 +129,7 @@ declare( strict_types = 1 );
     <div class="content-section-a">
         <div class="container">
             <div class="row">
-                <div class="col-lg-5 col-sm-6">
+                <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
                     <h2 class="section-heading">SLB Opdrachten</h2>
@@ -140,7 +147,7 @@ declare( strict_types = 1 );
                        Donec vel odio dignissim, finibus lacus vitae, interdum nulla.
                     </p>
                 </div>
-                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                <div class="col-lg-5 col-sm-pull-6  col-sm-6">
                     <img class="img-responsive" src="images/SuperSLB.png" alt="">
                 </div>
             </div>
@@ -153,7 +160,7 @@ declare( strict_types = 1 );
     <div class="content-section-b">
         <div class="container">
             <div class="row">
-                <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
+                <div class="col-lg-5 col-sm-6">
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
                     <h2 class="section-heading">CV</h2>
@@ -170,7 +177,7 @@ declare( strict_types = 1 );
                         tempus a lacus. Phasellus tincidunt nunc quis ipsum imperdiet, non interdum leo ullamcorper. 
                         Donec vel odio dignissim, finibus lacus vitae, interdum nulla.</p>
                 </div>
-                <div class="col-lg-5 col-sm-pull-6  col-sm-6">
+                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
                     <img class="img-responsive" src="images/CVicon.png" alt="">
                 </div>
             </div>
@@ -178,6 +185,36 @@ declare( strict_types = 1 );
         <!-- /.container -->
     </div>
     </div>
+   
+    <a name="cijfers"></a>
+    <div class="content-section-c">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
+                    <hr class="section-heading-spacer">
+                        <div class="clearfix"></div>
+                        <h2 class="section-heading">Cijfers</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                           Ut metus purus, vestibulum sed neque et, posuere iaculis sem. 
+                           Integer eleifend tortor eget ultrices facilisis. Aenean aliquam luctus quam. 
+                           Curabitur finibus, lacus in imperdiet laoreet, neque lacus maximus mi, 
+                           ac porta erat ante sit amet ante. Duis efficitur dui eget scelerisque vestibulum. 
+                           Pellentesque in commodo odio. Duis aliquet luctus ex, eu auctor turpis hendrerit a. 
+                           Fusce et sem elementum lectus blandit hendrerit at nec ante. Etiam eget nisi leo. 
+                           Fusce nec faucibus elit, sit amet tristique leo. Suspendisse nec dui vel nulla varius suscipit. 
+                           Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce augue dui, auctor pulvinar laoreet in, 
+                           tempus a lacus. Phasellus tincidunt nunc quis ipsum imperdiet, non interdum leo ullamcorper. 
+                           Donec vel odio dignissim, finibus lacus vitae, interdum nulla.
+                        </p>
+                </div>
+                <div class="col-lg-5 col-sm-pull-6  col-sm-6">
+                    <img class="img-responsive" src="images/grade_a_plus.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
     <!-- /.content-section-a -->
     <a name="gastenboek"></a>
     <div class="banner">
@@ -219,6 +256,7 @@ declare( strict_types = 1 );
     </div>
     <!-- /.banner -->
 
+    
     <!-- Footer -->
     <footer class='text-center'>
         <div class="container">

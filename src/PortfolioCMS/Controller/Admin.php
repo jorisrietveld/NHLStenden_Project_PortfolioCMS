@@ -18,10 +18,38 @@ class Admin extends BaseController
 {
     public function index( Request $request )
     {
-        ob_start();
-        dump($request);
-        return new Response( '<h1>Admin page</h1>'.ob_get_clean(), 200 );
+        return new Response(
+            $this->renderWebPage( 'admin:overzicht'),
+            Response::HTTP_STATUS_OK
+        );
     }
+
+    public function portfolio( Request $request )
+    {
+        return new Response(
+            $this->renderWebPage( 'admin:portfolio'),
+            Response::HTTP_STATUS_OK
+        );
+    }
+
+    public function thema( Request $request )
+    {
+        return new Response(
+            $this->renderWebPage( 'admin:thema'),
+            Response::HTTP_STATUS_OK
+        );
+    }
+
+    public function cijferregistratie( Request $request )
+    {
+        return new Response(
+            $this->renderWebPage( 'admin:cijferregistratie'),
+            Response::HTTP_STATUS_OK
+        );
+    }
+
+
+
 
     public function insertStudent( Request $request )
     {
