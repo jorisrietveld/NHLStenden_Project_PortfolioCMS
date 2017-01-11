@@ -177,6 +177,26 @@ like described above.
 * `$s->getZipCode: string` Returns the zip code from the student.
 * `$s->getPhoneNumber(): string` Returns the phone number of the student.
 * `$s->getStudentCode(): string` Returns the Stenden student code from the student.
+so if you want to output contact information about an student you can use the following code:
+```php
+<php $student = $dataProvider->get( 'student' ); ?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><?= $dataProvider->get( 'title' ) ?></title>
+    </head>
+    <body>
+        <div class='portfolio'>
+            <address>
+            Name: <?= $student->getFirstName() ?>&nbsp;<?= $student->getLastName() ?><br />
+            email: <? $student->getEmail() ?><br />
+            Date of birth: <?= $student->getDateOfBirth()->format( 'Y-m-d H:i:s' ) ?><br />
+            Phone number: <?= $student->getPhoneNumber() ?>
+            </address>
+        </div>
+    </body>
+</html>
+```
 
 ### JobExperience
 This list below shows an list of the methods the `JobExperience()` object has.It also shows the return types of the methods. notice that
