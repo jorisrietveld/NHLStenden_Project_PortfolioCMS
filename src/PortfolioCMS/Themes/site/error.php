@@ -13,20 +13,10 @@
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-
+    <link href="assets/site/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
     <!-- Custom styles for this template -->
-    <link href="../lib/cover.css" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="assets/site/lib/cover.css" rel="stylesheet">
 
     <?= $dataProvider->call( 'debugBarRenderer', 'renderHead' ) ?>
 </head>
@@ -64,12 +54,16 @@
                                 </ul>
 
                                 <ul class="nav navbar-nav navbar-right">
-                                    <li class="dropdown">
-                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-sign-in"></i> Aanmelden </a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="login">Inloggen</a></li>
-                                            <li><a href="register">Registreren</a></li>
-                                        </ul>
+                                    <li>
+                                        <?php if( isset( $_SESSION['userId'] ) ): ?>
+                                            <a href="logout">
+                                                <i class="fa fa-sign-in"></i> Afmelden
+                                            </a>
+                                        <?php else: ?>
+                                            <a href="login">
+                                                <i class="fa fa-sign-in"></i> Aanmelden
+                                            </a>
+                                        <?php endif; ?>
                                     </li>
                                 </ul>
 
@@ -86,6 +80,13 @@
 
     </div>
 </div>
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <script src="https://use.fontawesome.com/7ab9d2d06f.js"></script>
 <?= $dataProvider->call( 'debugBarRenderer', 'render' ) ?>

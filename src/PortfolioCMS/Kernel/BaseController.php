@@ -81,8 +81,8 @@ abstract class BaseController
      */
     public function redirect( string $toRoute )
     {
-        //header( 'Location: '. $toRoute );
-        return $this->application->handleFromRoute( $toRoute );
+        header( 'Location: '. $toRoute );
+        //return $this->application->handleFromRoute( $toRoute );
     }
 
     abstract public function index( Request $request );

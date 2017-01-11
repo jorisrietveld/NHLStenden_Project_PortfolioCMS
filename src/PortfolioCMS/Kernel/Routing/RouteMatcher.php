@@ -8,6 +8,7 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Kernel\Routing;
 
+use StendenINF1B\PortfolioCMS\Kernel\Authorization\User as AuthorizedUser;
 use StendenINF1B\PortfolioCMS\Kernel\Http\Request;
 
 class RouteMatcher
@@ -50,7 +51,8 @@ class RouteMatcher
     public function match( Request $request ) : ConfiguredRoute
     {
         $route = $this->matchRouteUrl( $request );
-        return $this->matchHttpMethod( $request, $route );
+        $route = $this->matchHttpMethod( $request, $route );
+        return $this->matchAuthorization( $route );
 
     }
 
@@ -71,6 +73,26 @@ class RouteMatcher
         {
             return $this->getRouteForPath( '/405' );
         }
+    }
+
+    public function matchAuthorization( ConfiguredRoute $configuredRoute ) : ConfiguredRoute
+    {
+        $authConsName = 'StendenINF1B\PortfolioCMS\Kernel\Authorization\User::'.$configuredRoute->getAuthorization();
+        $authorizationValue = constant( $authConsName );
+        if( isset( $_SESSION['authorizationLevel']) )
+        {
+            if( $authorizationValue <= $_SESSION['authorizationLevel'] )
+            {
+                return $configuredRoute;
+            }
+        }
+        elseif( $authorizationValue == 0 )
+        {
+            return $configuredRoute;
+        }
+        return $this->getRouteForPath( '/login' );
+
+
     }
 
     /**

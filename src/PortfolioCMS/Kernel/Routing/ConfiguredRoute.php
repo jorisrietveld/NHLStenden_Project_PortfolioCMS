@@ -47,6 +47,11 @@ class ConfiguredRoute
     protected $method;
 
     /**
+     * @var string
+     */
+    protected $authorization;
+
+    /**
      * Arguments that need to be passed to the controller.
      * @var array
      */
@@ -58,7 +63,7 @@ class ConfiguredRoute
      */
     protected $regularExpressionPattern;
 
-    public function __construct( string $id = '', string $fullPath = '', array $httpMethods = [ self::DEFAULT_METHOD ], string $controller = '', string $method = '')
+    public function __construct( string $id = '', string $fullPath = '', array $httpMethods = [ self::DEFAULT_METHOD ], string $controller = '', string $method = '', string $authorization = 'ANONYMOUS_USER' )
     {
         $this->setId( $id );
         $this->setPath( $fullPath );
@@ -67,6 +72,7 @@ class ConfiguredRoute
         $this->setController( $controller );
         $this->setMethod( $method );
         $this->setArguments( [] );
+        $this->setAuthorization( $authorization );
     }
 
     /**
@@ -159,18 +165,46 @@ class ConfiguredRoute
         $this->method = $method;
     }
 
+    /**
+     * @param array $arguments
+     */
     public function setArguments( array $arguments )
     {
         $this->arguments = $arguments;
     }
 
+    /**
+     * @param string $key
+     * @param        $argument
+     */
     public function addArgument( string $key, $argument )
     {
         $this->arguments[ $key ] = $argument;
     }
 
+    /**
+     * @return array
+     */
     public function getArguments(  )
     {
         return $this->arguments;
     }
+
+    /**
+     * @return string
+     */
+    public function getAuthorization(): string
+    {
+        return $this->authorization;
+    }
+
+    /**
+     * @param string $authorization
+     */
+    public function setAuthorization( string $authorization )
+    {
+        $this->authorization = $authorization;
+    }
+
+
 }

@@ -92,6 +92,8 @@ class RouteParser
                 $httpMethods = [ ConfiguredRoute::DEFAULT_METHOD ];
             }
 
+            $authorization = $route['authorization'] ?? 'ANONYMOUS_USER';
+
             if ( empty( $route->action ) )
             {
                 throw new ConfigurationErrorException( sprintf( 'You must supply an controller and action in an route configuration in route: %s', $id ) );
@@ -105,7 +107,7 @@ class RouteParser
             $controller = $parts[ 0 ];
             $method = isset( $parts[ 1 ] ) ? $parts[ 1 ] : ConfiguredRoute::DEFAULT_ACTION;
 
-            $configuredRoute = new ConfiguredRoute( $id, $path, $httpMethods, $controller, $method );
+            $configuredRoute = new ConfiguredRoute( $id, $path, $httpMethods, $controller, $method, (string)$authorization );
 
             $configuredRoute->setRegularExpressionPattern( $this->compileRouteToRegex( $path ) );
             $this->routesContainer->set( $configuredRoute->getPath(), $configuredRoute );

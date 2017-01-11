@@ -34,7 +34,7 @@ class Error extends BaseController
     {
         return new Response(
             $this->renderWebPage( 'site:error', [
-                'errorMessage' => '<h1>Error 401</h1>U heeft niet de juiste authorizatie om deze pagina te bekijken<a href="home">hier</a> om terug te gaan naar home.'
+                'errorMessage' => '<h1>Error 401</h1>U heeft niet de juiste authorizatie om deze pagina te bekijken klik <a href="home">hier</a> om terug te gaan naar home.'
             ] ),
             Response::HTTP_STATUS_UNAUTHORIZED
         );
