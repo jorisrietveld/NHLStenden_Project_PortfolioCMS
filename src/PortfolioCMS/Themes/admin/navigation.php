@@ -17,25 +17,25 @@
 
             <ul class="nav">
                 <li <?php if ($isOnAdminPage == 'overzicht') {?>class="active"<?php } ?>>
-                    <a href="overzicht">
+                    <a href="./overzicht">
                         <i class="fa fa-list"></i>
                         <p>Gebruikers</p>
                     </a>
                 </li>
                 <li <?php if ($isOnAdminPage == 'portfolio') {?>class="active"<?php } ?>>
-                    <a href="portfolio">
+                    <a href="./portfolio">
                         <i class="fa fa-user-circle-o"></i>
                         <p>Portfolio</p>
                     </a>
                 </li>
                 <li <?php if ($isOnAdminPage == 'thema') {?>class="active"<?php } ?>>
-                    <a href="thema">
+                    <a href="./thema">
                         <i class="fa fa-cube"></i>
                         <p>Thema</p>
                     </a>
                 </li>
                 <li <?php if ($isOnAdminPage == 'cijferregistratie') {?>class="active"<?php } ?>>
-                    <a href="cijferregistratie">
+                    <a href="./cijferregistratie">
                         <i class="fa fa-area-chart"></i>
                         <p>Cijferregistratie</p>
                     </a>
@@ -82,7 +82,7 @@
                             </ul>
                         </li> -->
                         <li>
-                            <a href="#">
+                            <a href="../logout">
                                 <i class="fa fa-sign-out"></i> Uitloggen
                             </a>
                         </li>

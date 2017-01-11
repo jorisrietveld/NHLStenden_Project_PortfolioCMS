@@ -63,6 +63,7 @@ class Portfolio extends BaseController
                     'hobbies' => $portfolioEntity->getHobbies(),
                     'projects' => $portfolioEntity->getProjects(),
                     'pages' => $portfolioEntity->getPages(),
+                    'httpRequest' => $request,
                 ] );
 
                 return new Response(

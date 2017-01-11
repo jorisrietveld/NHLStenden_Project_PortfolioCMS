@@ -120,7 +120,7 @@ class JobExperienceRepository extends Repository
             $statement->execute( [
                 ':location' => $jobExperience->getLocation(),
                 ':startedAt' => $jobExperience->getStartedAt()->format( 'Y-m-d H:i:s' ),
-                ':endedAt' => $jobExperience->getEndedAt()->format( 'Y/m/d H:i:s' ),
+                ':endedAt' => $jobExperience->getEndedAt()->format( 'Y-m-d H:i:s' ),
                 ':description' => $jobExperience->getDescription(),
                 ':isInternship' => (int)$jobExperience->getIsInternship(),
                 ':portfolioId' => (int)$jobExperience->getPortfolioId(),

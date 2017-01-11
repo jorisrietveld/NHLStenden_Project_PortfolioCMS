@@ -51,7 +51,7 @@ class Error extends BaseController
             $this->renderWebPage( 'site:error', [
                 'errorMessage' => '<h1>Error 404</h1>De door u opgevraagde web pagina bestaat niet Klik <a href="home">hier</a> om terug te gaan naar home.'
             ] ),
-            Response::HTTP_STATUS_NOT_FOUND
+            404
         );
     }
 

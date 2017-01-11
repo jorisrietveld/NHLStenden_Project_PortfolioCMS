@@ -131,6 +131,8 @@ class ParameterContainer implements \IteratorAggregate, \Countable, \ArrayAccess
     /**
      * Filter an parameter from the container.
      *
+     * The symfony framework is author of this method I only lend it for educational usage!
+     *
      * @see filters <http://php.net/manual/en/filter.filters.php>
      * @see filter flags <http://php.net/manual/en/filter.filters.flags.php>
      *
