@@ -11,6 +11,7 @@ namespace StendenINF1B\PortfolioCMS\Kernel;
 
 use StendenINF1B\PortfolioCMS\Kernel\Database\EntityManager;
 use StendenINF1B\PortfolioCMS\Kernel\Helper\ConfigLoader;
+use StendenINF1B\PortfolioCMS\Kernel\Http\Request;
 use StendenINF1B\PortfolioCMS\Kernel\TemplateEngine\TemplateEngine;
 
 abstract class BaseController
@@ -83,5 +84,5 @@ abstract class BaseController
         return $this->application->handleFromRoute( $toRoute );
     }
 
-    abstract public function index();
+    abstract public function index( Request $request );
 }

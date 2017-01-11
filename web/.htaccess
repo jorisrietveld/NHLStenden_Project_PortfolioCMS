@@ -1,7 +1,14 @@
 <IfModule mod_rewrite.c>
     Options +FollowSymlinks
+
+    # Enable the rewrite engine.
     RewriteEngine On
+
+    # Ignore the vendor and assets directories.
     RewriteRule ^(vendor|assets)($|/) - [L]
+
+    # Pass anny path after the root to the front controller
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^(.*)$ index.php [QSA,L]
+
 </IfModule>

@@ -37,7 +37,7 @@ class Portfolio extends BaseController
      * @param null         $portfolioPageName
      * @return Response
      */
-    public function index( Request $request = null, $studentName = null, $portfolioPageName = null )
+    public function index( Request $request, $studentName = null, $portfolioPageName = null )
     {
         if ( $studentName !== null )
         {

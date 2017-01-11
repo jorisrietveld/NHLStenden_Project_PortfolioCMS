@@ -23,13 +23,29 @@ class Authentication extends BaseController
      * @param Request|null $request
      * @return Response
      */
-    public function index( Request $request = null )
+    public function index( Request $request )
     {
-        if ( $request->postParams->has( 'username' ) && $request->postParams->has( 'password' ) )
+        if ( $request->postParams->has( 'email' ) && $request->postParams->has( 'password' ) )
         {
-            // todo handle login.
+            if( $this->validateUser(
+                (string)$request->getPostParams()->get( 'email' ),
+                (string)$request->getPostParams()->get( 'password' )
+            )){
+                // User authenticated so redirect to admin page.
+                $this->redirect( '/admin' );
+            }
+            else
+            {
+                // Not an valid user so give feedback.
+                return new Response(
+                    $this->renderWebPage( 'site:login', [
+                        'portfolioMenuLinks' => $this->renderMenuLinks()
+                    ] ),
+                    Response::HTTP_STATUS_OK
+                );
+            }
         }
-
+        // Normal login request so render the login page.
         return new Response(
             $this->renderWebPage( 'site:login', [
                 'portfolioMenuLinks' => $this->renderMenuLinks()
@@ -38,13 +54,27 @@ class Authentication extends BaseController
         );
     }
 
+    protected function validateUser( string $email, string $password )
+    {
+        $teacherRepository = $this->getEntityManager()->getRepository( 'Teacher' );
+        $studentRepository = $this->getEntityManager()->getRepository( 'Student' );
+
+        $user = $studentRepository->getByEmail( $email );
+
+        if( $user->getId() > 0 )
+        {
+            $_SESSION['userId'];
+        }
+
+    }
+
     /**
      * This action if for handling the register route.
      *
      * @param Request|null $request
      * @return Response
      */
-    public function register( Request $request = null )
+    public function register( Request $request )
     {
         if ( $request->postParams->has( 'email' ) &&
             $request->postParams->has( 'password' ) &&

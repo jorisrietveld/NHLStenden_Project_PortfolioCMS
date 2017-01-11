@@ -17,7 +17,7 @@ class Error extends BaseController
 {
     use SiteHelper;
 
-    public function index(  )
+    public function index( Request $request = NULL )
     {
         return new Response(
             '<h1>Er ging iets mis... probeer later opnieuw</h1>',
@@ -30,7 +30,7 @@ class Error extends BaseController
      *
      * @return Response
      */
-    public function error401(  )
+    public function error401( Request $request = NULL )
     {
         return new Response(
             $this->renderWebPage( 'site:error', [
@@ -45,7 +45,7 @@ class Error extends BaseController
      *
      * @return Response
      */
-    public function error404(  )
+    public function error404( Request $request = NULL )
     {
         return new Response(
             $this->renderWebPage( 'site:error', [
@@ -62,7 +62,7 @@ class Error extends BaseController
      * @param null         $exception
      * @return Response
      */
-    public function error500( Request $request = NULL, $exception = NULL )
+    public function error500( Request $request, $exception = NULL )
     {
         if( DEBUG )
         {
@@ -99,7 +99,7 @@ class Error extends BaseController
      * @param Request|null $request
      * @return Response
      */
-    public function error405( Request $request = NULL )
+    public function error405( Request $request )
     {
         $method = $request ? $request->getMethod() : '';
         Debug::error( 'Error 405: HTTP method not allowed.' );

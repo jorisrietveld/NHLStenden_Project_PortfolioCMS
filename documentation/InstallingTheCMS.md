@@ -95,9 +95,16 @@ path to the PortfolioCMS root directory and {the_hostname_of_your_server} with t
         # The /web folder also includes an .htaccess that rewrites the urls.
         <IfModule mod_rewrite.c>
             Options +FollowSymlinks
+        
+            # Enable the rewrite engine.
             RewriteEngine On
-             RewriteCond %{REQUEST_FILENAME} !-f
-             RewriteRule ^(.*)$ index.php [QSA,L]
+        
+            # Ignore the vendor and assets directories.
+            RewriteRule ^(vendor|assets)($|/) - [L]
+        
+            # Pass anny path after the root to the front controller
+            RewriteCond %{REQUEST_FILENAME} !-f
+            RewriteRule ^(.*)$ index.php [QSA,L]
         </IfModule>
     </Directory>
 

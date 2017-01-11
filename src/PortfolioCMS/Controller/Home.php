@@ -22,7 +22,7 @@ class Home extends BaseController
      * @param Request|null $request
      * @return Response
      */
-    public function index( Request $request = null )
+    public function index( Request $request )
     {
         return new Response(
             $this->renderWebPage( 'site:home', [

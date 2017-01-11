@@ -19,7 +19,7 @@ class Raw extends BaseController
 
     const DEFAULT_PORTFOLIO_PAGE = 'index';
 
-    public function index( Request $request = NULL, $studentName = NULL, $portfolioPageName = NULL  )
+    public function index( Request $request, $studentName = NULL, $portfolioPageName = NULL  )
     {
         if( DEBUG == FALSE )
         {

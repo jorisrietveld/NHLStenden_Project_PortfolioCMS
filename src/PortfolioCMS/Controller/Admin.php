@@ -16,34 +16,50 @@ use StendenINF1B\PortfolioCMS\Kernel\Http\Response;
 
 class Admin extends BaseController 
 {
-    public function index( Request $request = NULL )
+    public function index( Request $request )
     {
         ob_start();
         dump($request);
         return new Response( '<h1>Admin page</h1>'.ob_get_clean(), 200 );
     }
 
-    public function insertStudent( Request $request = NULL )
+    public function insertStudent( Request $request )
     {
-        $student = new Student();
-        $student->setHashedPassword(   );
-        $student->setEmail( $request->getPostParams()->get('email') );
-        $student->setAccountCreated( );
-        $student->setLastLogin(  );
-        $student->setLastIpAddress(  );
-        $student->setFirstName(  );
-        $student->setLastName( );
-        $student->setIsAdmin( );
-        $student->setActive( );
-        $student->setAddress( );
-        $student->setZipCode( );
-        $student->setLocation( );
-        $student->setDateOfBirth( );
-        $student->setStudentCode( );
-        $student->setPhoneNumber( );
+        $postParams = $request->getPostParams();
 
-        $studentRepo = $this->getEntityManager()->getRepository( 'Student' );
-        $studentRepo->insert( $student );
+        if ( $postParams->has( 'password' ) &&
+            $postParams->has( 'email' ) &&
+            $postParams->has( 'firstName' ) &&
+            $postParams->has( 'lastName' ) &&
+            $postParams->has( 'isAdmin' ) &&
+            $postParams->has( 'address' ) &&
+            $postParams->has( 'zipCode' ) &&
+            $postParams->has( 'location' ) &&
+            $postParams->has( 'dateOfBirth' ) &&
+            $postParams->has( 'studentCode' ) &&
+            $postParams->has( 'phoneNumber' )
+        ){
+            $student = new Student();
+            $student->setHashedPassword( password_hash( $postParams->get( 'password' ), PASSWORD_BCRYPT ) );
+            $student->setEmail( (string)$postParams->get('email') );
+            $student->setLastIpAddress( $request->getClientIp() );
+            $student->setFirstName( (string)$postParams->get( 'firstName' ) );
+            $student->setLastName( (string)$postParams->get( 'lastName' ) );
+            $student->setIsAdmin( (bool)$postParams->get( 'isAdmin' ) );
+            $student->setAddress( (string)$postParams->get( 'address' ) );
+            $student->setZipCode( (string)$postParams->get( 'zipCode' ) );
+            $student->setLocation( (string)$postParams->get( 'location' ) );
+            $student->setDateOfBirth( new \DateTime( $postParams->get( 'dateOfBirth' )) );
+            $student->setStudentCode( (string)$postParams->get( 'studentCode' ) );
+            $student->setPhoneNumber( (string)$postParams->get( 'phoneNumber' ) );
+
+            $studentRepo = $this->getEntityManager()->getRepository( 'Student' );
+            $studentRepo->insert( $student );
+        }
+        else
+        {
+            //
+        }
     }
 
 

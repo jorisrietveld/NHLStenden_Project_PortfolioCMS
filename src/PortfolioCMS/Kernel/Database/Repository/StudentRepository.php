@@ -16,6 +16,11 @@ use StendenINF1B\PortfolioCMS\Kernel\Exception\RepositoryException;
 class StudentRepository extends Repository
 {
     /**
+     * An simple trait with some helper methods for getting an user.
+     */
+    use UserHelper;
+
+    /**
      * This holds an SQL statement for selecting an Student entity from the database by its id.
      *
      * @var string

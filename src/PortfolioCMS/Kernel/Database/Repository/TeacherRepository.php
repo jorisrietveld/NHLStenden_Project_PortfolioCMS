@@ -16,6 +16,11 @@ use StendenINF1B\PortfolioCMS\Kernel\Exception\RepositoryException;
 class TeacherRepository extends Repository
 {
     /**
+     * An simple trait with some helper methods for getting an user.
+     */
+    use UserHelper;
+
+    /**
      * This holds an SQL statement for selecting an Teacher entity from the database by its id.
      *
      * @var string
@@ -64,7 +69,7 @@ class TeacherRepository extends Repository
      * @var string
      */
     protected $insertUserSql = '
-            INSERT INTO `DigitalPortfolio`.`User`( 
+          INSERT INTO `DigitalPortfolio`.`User`( 
             `password`,
             `email`,
             `lastIpAddress`,

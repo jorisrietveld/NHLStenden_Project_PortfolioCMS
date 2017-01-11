@@ -188,7 +188,7 @@ abstract class Repository
      * @return mixed
      * @throws RepositoryException
      */
-    public function getOneByCondition( $whereClause, $params )
+    public function getOneByCondition( $whereClause, $params ) : EntityInterface
     {
         $query = $this->getBySql . $whereClause;
         try

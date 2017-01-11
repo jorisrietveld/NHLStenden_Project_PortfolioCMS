@@ -132,3 +132,5 @@ COMMIT;
  */
 INSERT INTO DigitalPortfolio.Project(name, description, link, imageId, portfolioId, grade)
 VALUES ( 'Professionele website', 'Some school project', 'http://146.185.141.142/project/', 1, 1, 6.8 );
+
+SELECT * FROM DigitalPortfolio.User WHERE lastLogin BETWEEN '2017-01-05 15:17:06' AND NOW();
