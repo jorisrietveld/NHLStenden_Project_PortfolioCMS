@@ -31,4 +31,13 @@ class Home extends BaseController
             Response::HTTP_STATUS_OK
         );
     }
+      public function contact( Request $request )
+    {
+        return new Response(
+            $this->renderWebPage( 'site:contact', [
+                'portfolioMenuLinks' => $this->renderMenuLinks(),
+            ] ),
+            Response::HTTP_STATUS_OK
+        );
+    }
 }

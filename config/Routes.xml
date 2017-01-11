@@ -8,6 +8,9 @@
     <route id="Login" path="/login" methods="GET|POST" authorization="ANONYMOUS_USER">
            <action id="controller">Authentication:index</action>
     </route>
+    <route id="Contact" path="/contact" methods="GET|POST" authorization="ANONYMOUS_USER">
+           <action id="controller">Home:contact</action>
+    </route>
 
     <route id="Register" path="/register" methods="GET|POST" authorization="ANONYMOUS_USER">
         <action id="controller">Authentication:register</action>

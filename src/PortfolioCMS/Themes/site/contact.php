@@ -32,6 +32,10 @@
 </head>
 
 <body>
+     <?php
+    $verstuurd="";
+    
+    ?>
 <div class="site-wrapper">
     <div class="site-wrapper-inner">
 
@@ -75,13 +79,29 @@
             </div>
 
             <div class="inner cover custom-main">
-                <h1 class="cover-heading">Inloggen</h1>
+                <h1 class="cover-heading">Contact</h1>
                 <form action="#" class="custom-form" method="POST">
 
-                    <input type="text" class="inputfield" placeholder="Username"/>
-                    <input type="password" class="inputfield" name="password" placeholder="Password"/>
-                    <input type="submit" class="inputsubmit btn btn-primary btn-default" name="submit" value="Inloggen"/>
-
+                    <input type="text" class="inputfield" name="name" placeholder="Naam"/>
+                    <input type ="text" class="inputfield" name="onderwerp" placeholder="Onderwerp">
+                    <textarea rows="6" cols="35" placeholder="Hallo" name="bericht" id="message" style="color:black; margin-left:16px;">                        
+                    </textarea>
+                    <input type="submit" class="inputsubmit btn btn-primary btn-default" name="submit" value="Verstuur bericht"/>
+                    
+                    <?php
+                    echo $verstuurd; 
+                    ?>
+                    <?php                    
+                    
+                    if(htmlentities(isset($_POST['submit'])))
+                        {
+                            if(htmlentities(!empty($_POST['name']) && ($_POST['bericht'])))
+                                    {   
+                                       $verstuurd = "Uw bericht is verstuurd!";                                  
+                                    }
+                        }
+                    
+                    ?>
 
                 </form>
             </div>
