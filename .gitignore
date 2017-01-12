@@ -75,7 +75,6 @@ composer.phar
 ### Eclipse template
 
 .metadata
-bin/
 tmp/
 *.tmp
 *.bak
