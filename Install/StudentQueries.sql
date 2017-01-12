@@ -1,5 +1,5 @@
 /**
- * Insert student transaction
+ * Insert student transaction.
  */
 BEGIN;
 INSERT INTO DigitalPortfolio.User (password, email, lastIpAddress, firstName, lastName, isAdmin)
@@ -10,29 +10,30 @@ VALUES (LAST_INSERT_ID(), :address, :zipCode, :location, :dateOfBirth, :studentC
 COMMIT;
 
 /**
- * Update Student
+ * Update an Student transaction.
  */
 BEGIN;
+
 UPDATE `DigitalPortfolio`.`User`
 SET
-`id` = :id,
-`password` = :password,
-`accountCreated` = :accountCreated,
-`email` = :email,
-`lastIpAddress` = :lastIpAddress,
-`firstName` = :firstName,
-`lastName` = :lastName,
-`isAdmin` = :isAdmin,
-`active` = :active
+  `password` = :password,
+  `accountCreated` = :accountCreated,
+  `email` = :email,
+  `lastIpAddress` = :lastIpAddress,
+  `firstName` = :firstName,
+  `lastName` = :lastName,
+  `isAdmin` = :isAdmin,
+  `active` = :active
 WHERE `id` = :id;
 
 UPDATE `DigitalPortfolio`.`Student`
 SET
-`userId` = <{userId: }>,
-`address` = <{address: }>,
-`zipCode` = <{zipCode: }>,
-`location` = <{location: }>,
-`dateOfBirth` = <{dateOfBirth: }>,
-`studentCode` = <{studentCode: }>,
-`phoneNumber` = <{phoneNumber: }>
-WHERE `userId` = <{expr}>;
+  `address` = :address,
+  `zipCode` = :zipCode,
+  `location` = :location,
+  `dateOfBirth` = :dateOfBirth,
+  `studentCode` = :studentCode,
+  `phoneNumber` = :phoneNumber;
+
+COMMIT;
+

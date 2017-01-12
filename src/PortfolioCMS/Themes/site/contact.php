@@ -10,8 +10,10 @@
     <link rel="icon" href="../../favicon.ico">
     <title>INF1B Portfolio's</title>
 
+    <!-- Bootstrap Cascading style sheet -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="<?=$dataProvider->get('request-uri')?>assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <!-- Cover Cascading style sheet -->
     <link href="<?=$dataProvider->get('request-uri')?>assets/site/lib/cover.css" rel="stylesheet">
     <?= $dataProvider->call( 'debugBarRenderer', 'renderHead' ) ?>
 </head>
@@ -53,7 +55,7 @@
                                         </ul>
                                     </li>
                                     <li>
-                                        <a href="#">Contact</a>
+                                        <a href="./contact.php">Contact</a>
                                     </li>
                                 </ul>
                                 <ul class="nav navbar-nav navbar-right">

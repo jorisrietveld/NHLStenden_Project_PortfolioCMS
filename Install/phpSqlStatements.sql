@@ -1,3 +1,8 @@
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * This file contains all insert, update, delete, select and select by id statements with named placeholders. *
+ *																																																						*
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * **/
+
 /*****************************************************************************************
  * Insert, update, delete and select statements for the table GuestBookMessage.
  ****************************************************************************************/
@@ -19,8 +24,7 @@ FROM `DigitalPortfolio`.`GuestBookMessage`
 /**
  * Update statement for GuestBookMessage
 */
-UPDATE GuestBookMessage SET 
-	`id` = :id,
+UPDATE GuestBookMessage SET
 	`sender` = :sender,
 	`title` = :title,
 	`message` = :message,
@@ -53,16 +57,14 @@ WHERE `GuestBookMessage`.`id` = :id;
 /**
  * Insert statement for GuestBookMessage
 */
-INSERT INTO `DigitalPortfolio`.`GuestBookMessage`( 
-	`id`,
+INSERT INTO `DigitalPortfolio`.`GuestBookMessage`(
 	`sender`,
 	`title`,
 	`message`,
 	`sendAt`,
 	`studentId`,
 	`accsepted`
-) VALUES ( 
-	:id,
+) VALUES (
 	:sender,
 	:title,
 	:message,
@@ -88,8 +90,7 @@ FROM `DigitalPortfolio`.`Hobby`
 /**
  * Update statement for Hobby
 */
-UPDATE Hobby SET 
-	`id` = :id,
+UPDATE Hobby SET
 	`name` = :name,
 	`portfolioId` = :portfolioId
 WHERE `Hobby`.`id` = :id;
@@ -114,12 +115,10 @@ WHERE `Hobby`.`id` = :id;
 /**
  * Insert statement for Hobby
 */
-INSERT INTO `DigitalPortfolio`.`Hobby`( 
-	`id`,
+INSERT INTO `DigitalPortfolio`.`Hobby`(
 	`name`,
 	`portfolioId`
-) VALUES ( 
-	:id,
+) VALUES (
 	:name,
 	:portfolioId
 );
@@ -143,8 +142,7 @@ FROM `DigitalPortfolio`.`Image`
 /**
  * Update statement for Image
 */
-UPDATE Image SET 
-	`uploadedFileId` = :uploadedFileId,
+UPDATE Image SET
 	`name` = :name,
 	`description` = :description,
 	`type` = :type,
@@ -173,7 +171,7 @@ WHERE `Image`.`uploadedFileId` = :id;
 /**
  * Insert statement for Image
 */
-INSERT INTO `DigitalPortfolio`.`Image`( 
+INSERT INTO `DigitalPortfolio`.`Image`(
 	`uploadedFileId`,
 	`name`,
 	`description`,
@@ -208,8 +206,7 @@ FROM `DigitalPortfolio`.`JobExperience`
 /**
  * Update statement for JobExperience
 */
-UPDATE JobExperience SET 
-	`id` = :id,
+UPDATE JobExperience SET
 	`location` = :location,
 	`startedAt` = :startedAt,
 	`endedAt` = :endedAt,
@@ -242,16 +239,14 @@ WHERE `JobExperience`.`id` = :id;
 /**
  * Insert statement for JobExperience
 */
-INSERT INTO `DigitalPortfolio`.`JobExperience`( 
-	`id`,
+INSERT INTO `DigitalPortfolio`.`JobExperience`(
 	`location`,
 	`startedAt`,
 	`endedAt`,
 	`description`,
 	`isInternship`,
 	`portfolioId`
-) VALUES ( 
-	:id,
+) VALUES (
 	:location,
 	:startedAt,
 	:endedAt,
@@ -279,8 +274,7 @@ FROM `DigitalPortfolio`.`Language`
 /**
  * Update statement for Language
 */
-UPDATE Language SET 
-	`id` = :id,
+UPDATE Language SET
 	`language` = :language,
 	`level` = :level,
 	`isNative` = :isNative,
@@ -309,14 +303,12 @@ WHERE `Language`.`id` = :id;
 /**
  * Insert statement for Language
 */
-INSERT INTO `DigitalPortfolio`.`Language`( 
-	`id`,
+INSERT INTO `DigitalPortfolio`.`Language`(
 	`language`,
 	`level`,
 	`isNative`,
 	`portfolioId`
-) VALUES ( 
-	:id,
+) VALUES (
 	:language,
 	:level,
 	:isNative,
@@ -343,8 +335,7 @@ FROM `DigitalPortfolio`.`Page`
 /**
  * Update statement for Page
 */
-UPDATE Page SET 
-	`id` = :id,
+UPDATE Page SET
 	`name` = :name,
 	`fileName` = :fileName,
 	`description` = :description,
@@ -375,15 +366,13 @@ WHERE `Page`.`id` = :id;
 /**
  * Insert statement for Page
 */
-INSERT INTO `DigitalPortfolio`.`Page`( 
-	`id`,
+INSERT INTO `DigitalPortfolio`.`Page`(
 	`name`,
 	`fileName`,
 	`description`,
 	`url`,
 	`themeId`
-) VALUES ( 
-	:id,
+) VALUES (
 	:name,
 	:fileName,
 	:description,
@@ -411,8 +400,7 @@ FROM `DigitalPortfolio`.`Portfolio`
 /**
  * Update statement for Portfolio
 */
-UPDATE Portfolio SET 
-	`id` = :id,
+UPDATE Portfolio SET
 	`themeId` = :themeId,
 	`title` = :title,
 	`url` = :url,
@@ -443,15 +431,13 @@ WHERE `Portfolio`.`id` = :id;
 /**
  * Insert statement for Portfolio
 */
-INSERT INTO `DigitalPortfolio`.`Portfolio`( 
-	`id`,
+INSERT INTO `DigitalPortfolio`.`Portfolio`(
 	`themeId`,
 	`title`,
 	`url`,
 	`grade`,
 	`userId`
-) VALUES ( 
-	:id,
+) VALUES (
 	:themeId,
 	:title,
 	:url,
@@ -480,8 +466,7 @@ FROM `DigitalPortfolio`.`Project`
 /**
  * Update statement for Project
 */
-UPDATE Project SET 
-	`id` = :id,
+UPDATE Project SET
 	`name` = :name,
 	`description` = :description,
 	`link` = :link,
@@ -514,16 +499,14 @@ WHERE `Project`.`id` = :id;
 /**
  * Insert statement for Project
 */
-INSERT INTO `DigitalPortfolio`.`Project`( 
-	`id`,
+INSERT INTO `DigitalPortfolio`.`Project`(
 	`name`,
 	`description`,
 	`link`,
 	`imageId`,
 	`portfolioId`,
 	`grade`
-) VALUES ( 
-	:id,
+) VALUES (
 	:name,
 	:description,
 	:link,
@@ -549,8 +532,7 @@ FROM `DigitalPortfolio`.`SLBAssignment`
 /**
  * Update statement for SLBAssignment
 */
-UPDATE SLBAssignment SET 
-	`uploadedFileId` = :uploadedFileId,
+UPDATE SLBAssignment SET
 	`name` = :name,
 	`feedback` = :feedback
 WHERE `SLBAssignment`.`uploadedFileId` = :id;
@@ -603,8 +585,7 @@ FROM `DigitalPortfolio`.`Skill`
 /**
  * Update statement for Skill
 */
-UPDATE Skill SET 
-	`id` = :id,
+UPDATE Skill SET
 	`name` = :name,
 	`levelOfExperience` = :levelOfExperience,
 	`portfolioId` = :portfolioId
@@ -631,13 +612,11 @@ WHERE `Skill`.`id` = :id;
 /**
  * Insert statement for Skill
 */
-INSERT INTO `DigitalPortfolio`.`Skill`( 
-	`id`,
+INSERT INTO `DigitalPortfolio`.`Skill`(
 	`name`,
 	`levelOfExperience`,
 	`portfolioId`
-) VALUES ( 
-	:id,
+) VALUES (
 	:name,
 	:levelOfExperience,
 	:portfolioId
@@ -664,8 +643,7 @@ FROM `DigitalPortfolio`.`Student`
 /**
  * Update statement for Student
 */
-UPDATE Student SET 
-	`userId` = :userId,
+UPDATE Student SET
 	`address` = :address,
 	`zipCode` = :zipCode,
 	`location` = :location,
@@ -732,8 +710,7 @@ FROM `DigitalPortfolio`.`Teacher`
 /**
  * Update statement for Teacher
 */
-UPDATE Teacher SET 
-	`userId` = :userId,
+UPDATE Teacher SET
 	`isSLBer` = :isSLBer
 WHERE `Teacher`.`userId` = :id;
 
@@ -782,8 +759,7 @@ FROM `DigitalPortfolio`.`Theme`
 /**
  * Update statement for Theme
 */
-UPDATE Theme SET 
-	`id` = :id,
+UPDATE Theme SET
 	`author` = :author,
 	`description` = :description,
 	`directoryName` = :directoryName
@@ -810,13 +786,11 @@ WHERE `Theme`.`id` = :id;
 /**
  * Insert statement for Theme
 */
-INSERT INTO `DigitalPortfolio`.`Theme`( 
-	`id`,
+INSERT INTO `DigitalPortfolio`.`Theme`(
 	`author`,
 	`description`,
 	`directoryName`
-) VALUES ( 
-	:id,
+) VALUES (
 	:author,
 	:description,
 	:directoryName
@@ -846,8 +820,7 @@ FROM `DigitalPortfolio`.`Training`
 /**
  * Update statement for Training
 */
-UPDATE Training SET 
-	`id` = :id,
+UPDATE Training SET
 	`title` = :title,
 	`institution` = :institution,
 	`location` = :location,
@@ -886,8 +859,7 @@ WHERE `Training`.`id` = :id;
 /**
  * Insert statement for Training
 */
-INSERT INTO `DigitalPortfolio`.`Training`( 
-	`id`,
+INSERT INTO `DigitalPortfolio`.`Training`(
 	`title`,
 	`institution`,
 	`location`,
@@ -897,8 +869,7 @@ INSERT INTO `DigitalPortfolio`.`Training`(
 	`obtainedCertificate`,
 	`currentTraining`,
 	`portfolioId`
-) VALUES ( 
-	:id,
+) VALUES (
 	:title,
 	:institution,
 	:location,
@@ -929,8 +900,7 @@ FROM `DigitalPortfolio`.`UploadedFile`
 /**
  * Update statement for UploadedFile
 */
-UPDATE UploadedFile SET 
-	`id` = :id,
+UPDATE UploadedFile SET
 	`fileName` = :fileName,
 	`mimeType` = :mimeType,
 	`filePath` = :filePath,
@@ -959,14 +929,12 @@ WHERE `UploadedFile`.`id` = :id;
 /**
  * Insert statement for UploadedFile
 */
-INSERT INTO `DigitalPortfolio`.`UploadedFile`( 
-	`id`,
+INSERT INTO `DigitalPortfolio`.`UploadedFile`(
 	`fileName`,
 	`mimeType`,
 	`filePath`,
 	`portfolioId`
-) VALUES ( 
-	:id,
+) VALUES (
 	:fileName,
 	:mimeType,
 	:filePath,
@@ -997,8 +965,7 @@ FROM `DigitalPortfolio`.`User`
 /**
  * Update statement for User
 */
-UPDATE User SET 
-	`id` = :id,
+UPDATE User SET
 	`password` = :password,
 	`accountCreated` = :accountCreated,
 	`lastLogin` = :lastLogin,
@@ -1037,8 +1004,7 @@ WHERE `User`.`id` = :id;
 /**
  * Insert statement for User
 */
-INSERT INTO `DigitalPortfolio`.`User`( 
-	`id`,
+INSERT INTO `DigitalPortfolio`.`User`(
 	`password`,
 	`accountCreated`,
 	`lastLogin`,
@@ -1048,8 +1014,7 @@ INSERT INTO `DigitalPortfolio`.`User`(
 	`lastName`,
 	`isAdmin`,
 	`active`
-) VALUES ( 
-	:id,
+) VALUES (
 	:password,
 	:accountCreated,
 	:lastLogin,
