@@ -7,7 +7,9 @@
 declare( strict_types = 1 );
 namespace StendenINF1B\PortfolioCMS\Kernel\Http;
 
-
+/**
+ * TODO finish the cookie classes they don't work At the moment so don't use them!
+ */
 class Cookie
 {
     protected $name;

@@ -9,6 +9,9 @@ declare( strict_types = 1 );
 namespace StendenINF1B\PortfolioCMS\Kernel\Http\Session\Handler;
 
 /**
+ * TODO finish the session classes they don't work At the moment so don't use them!
+ */
+/**
  * Class PHPDefaultSessionHandler
  *
  * @package HTTP\Session\Handler
