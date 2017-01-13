@@ -11,9 +11,13 @@ include 'header.php'; ?>
 
 <div class="content">
     <div class="container-fluid">
+        <h3>Portfolio instellingen</h3>
+        <hr>
         <form id="portfolioForm" method="POST" action="">
             <!-- Values still need to be set automatically -->
-            <label>Title:</label><input type="text" name="title" value="#"><br>
+            <label>Titel:</label><input type="text" name="title" value="#">
+
+            <br>
             <label>Url:</label><input type="text" name="url" value="#"><br>
 
             <label></label><select name="theme">
