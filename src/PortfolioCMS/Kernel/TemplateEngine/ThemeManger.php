@@ -8,6 +8,9 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Kernel\TemplateEngine;
 
+/**
+ * TODO write this class... not enough time so do it manually.
+ */
 
 use StendenINF1B\PortfolioCMS\Kernel\Database\EntityManager;
 use StendenINF1B\PortfolioCMS\Kernel\Helper\ConfigLoader;

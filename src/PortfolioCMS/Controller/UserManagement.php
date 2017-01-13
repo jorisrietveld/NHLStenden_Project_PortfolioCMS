@@ -119,7 +119,13 @@ class UserManagement extends BaseController
         }
         else
         {
-            //
+            return new Response(
+                $this->renderWebPage(
+                    '', [
+
+                    ]
+                )
+            );
         }
     }
 
@@ -155,7 +161,13 @@ class UserManagement extends BaseController
         }
         else
         {
+            return new Response(
+                $this->renderWebPage(
+                    '', [
 
+                    ]
+                )
+            );
         }
     }
 
@@ -186,7 +198,23 @@ class UserManagement extends BaseController
             $updatedStudent->setPhoneNumber( $postParams->getString( 'phoneNumber' ) );
 
             $this->studentRepository->update( $updatedStudent );
+
+            return new Response(
+                $this->renderWebPage(
+                    '', [
+
+                    ]
+                )
+            );
         }
+
+        return new Response(
+            $this->renderWebPage(
+                '', [
+
+                ]
+            )
+        );
 
     }
 
@@ -210,8 +238,25 @@ class UserManagement extends BaseController
             $updatedTeacher->setIsSLBer( $postParams->getBoolean( 'isSlber' ) );
             $updatedTeacher->setIsAdmin( $postParams->getBoolean( 'isAdmin' ) );
 
+            // Update the teacher.
             $this->teacherRepository->update( $updatedTeacher );
+
+            return new Response(
+                $this->renderWebPage(
+                    '', [
+
+                    ]
+                )
+            );
         }
+
+        return new Response(
+            $this->renderWebPage(
+                '', [
+
+                ]
+            )
+        );
     }
 
     /**
@@ -226,7 +271,23 @@ class UserManagement extends BaseController
         if ( $this->checkPostParams( $postParams, [ 'id' ] ) )
         {
             $this->studentRepository->delete( $postParams->getInt( 'id' ) );
+
+            return new Response(
+                $this->renderWebPage(
+                    '', [
+
+                    ]
+                )
+            );
         }
+
+        return new Response(
+            $this->renderWebPage(
+                '', [
+
+                ]
+            )
+        );
     }
 
     /**
@@ -241,7 +302,23 @@ class UserManagement extends BaseController
         if ( $this->checkPostParams( $postParams, [ 'id' ] ) )
         {
             $this->teacherRepository->delete( $postParams->getInt( 'id' ) );
+
+            return new Response(
+                $this->renderWebPage(
+                    '', [
+
+                    ]
+                )
+            );
         }
+
+        return new Response(
+            $this->renderWebPage(
+                '', [
+
+                ]
+            )
+        );
     }
 
 }

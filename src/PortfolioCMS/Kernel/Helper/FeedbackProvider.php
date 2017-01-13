@@ -1,7 +1,7 @@
 <?php
 /**
  * Author: Joris Rietveld <jorisrietveld@gmail.com>
- * Created: 04-01-2017 14:02
+ * Created: 13-01-2017 20:17
  * Licence: GNU General Public licence version 3 <https://www.gnu.org/licenses/quick-guide-gplv3.html>
  */
 declare( strict_types = 1 );
@@ -9,11 +9,7 @@ declare( strict_types = 1 );
 namespace StendenINF1B\PortfolioCMS\Kernel\Helper;
 
 
-use StendenINF1B\PortfolioCMS\Kernel\Exception\ConfigurationErrorException;
-use StendenINF1B\PortfolioCMS\Kernel\Exception\FileNotFoundException;
-use StendenINF1B\PortfolioCMS\Kernel\Exception\XMLParserException;
-
-class ConfigLoader
+class FeedbackProvider
 {
     /**
      * @var string
