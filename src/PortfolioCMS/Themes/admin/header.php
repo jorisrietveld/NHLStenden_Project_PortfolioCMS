@@ -18,7 +18,6 @@
     <!--  Light Bootstrap Table core CSS    -->
     <link href="<?=$dataProvider->get('request-uri')?>/assets/admin/css/light-bootstrap-dashboard.css" rel="stylesheet"/>
 
-
     <!--  CSS for Demo Purpose, don't include it in your project     -->
     <link href="<?=$dataProvider->get('request-uri')?>/assets/admin/css/adminstyle.css" rel="stylesheet"/>
 
