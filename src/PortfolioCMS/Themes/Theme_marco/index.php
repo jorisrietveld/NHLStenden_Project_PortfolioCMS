@@ -181,6 +181,10 @@
                     At this moment I am studying informatics at Stenden Universtity in 
                     Emmen.!  My hobbies are playing(and watching basketball), gaming, 
                     listening to music(especially electronic)and travelling.</p>
+                    <?php
+                    $student = $dataProvider->get( 'student' );
+                    echo $student->getFirstName();
+                    ?>
                 </div>
             </div>
         </div>
