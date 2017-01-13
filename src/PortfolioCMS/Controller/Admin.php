@@ -14,12 +14,14 @@ use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\Student;
 use StendenINF1B\PortfolioCMS\Kernel\Http\Request;
 use StendenINF1B\PortfolioCMS\Kernel\Http\Response;
 
-class Admin extends BaseController 
+class Admin extends BaseController
 {
     public function index( Request $request )
     {
         return new Response(
-            $this->renderWebPage( 'admin:overzicht'),
+            $this->renderWebPage( 'admin:overzicht', [
+                'request-uri' => $request->getBaseUri(),
+            ] ),
             Response::HTTP_STATUS_OK
         );
     }
@@ -27,7 +29,9 @@ class Admin extends BaseController
     public function portfolio( Request $request )
     {
         return new Response(
-            $this->renderWebPage( 'admin:portfolio'),
+            $this->renderWebPage( 'admin:portfolio', [
+                'request-uri' => $request->getBaseUri(),
+            ] ),
             Response::HTTP_STATUS_OK
         );
     }
@@ -35,7 +39,9 @@ class Admin extends BaseController
     public function thema( Request $request )
     {
         return new Response(
-            $this->renderWebPage( 'admin:thema'),
+            $this->renderWebPage( 'admin:thema', [
+                'request-uri' => $request->getBaseUri(),
+            ] ),
             Response::HTTP_STATUS_OK
         );
     }
@@ -43,12 +49,12 @@ class Admin extends BaseController
     public function cijferregistratie( Request $request )
     {
         return new Response(
-            $this->renderWebPage( 'admin:cijferregistratie'),
+            $this->renderWebPage( 'admin:cijferregistratie', [
+                'request-uri' => $request->getBaseUri(),
+            ] ),
             Response::HTTP_STATUS_OK
         );
     }
-
-
 
 
     public function insertStudent( Request $request )
@@ -66,10 +72,11 @@ class Admin extends BaseController
             $postParams->has( 'dateOfBirth' ) &&
             $postParams->has( 'studentCode' ) &&
             $postParams->has( 'phoneNumber' )
-        ){
+        )
+        {
             $student = new Student();
             $student->setHashedPassword( password_hash( $postParams->get( 'password' ), PASSWORD_BCRYPT ) );
-            $student->setEmail( (string)$postParams->get('email') );
+            $student->setEmail( (string)$postParams->get( 'email' ) );
             $student->setLastIpAddress( $request->getClientIp() );
             $student->setFirstName( (string)$postParams->get( 'firstName' ) );
             $student->setLastName( (string)$postParams->get( 'lastName' ) );
@@ -77,7 +84,7 @@ class Admin extends BaseController
             $student->setAddress( (string)$postParams->get( 'address' ) );
             $student->setZipCode( (string)$postParams->get( 'zipCode' ) );
             $student->setLocation( (string)$postParams->get( 'location' ) );
-            $student->setDateOfBirth( new \DateTime( $postParams->get( 'dateOfBirth' )) );
+            $student->setDateOfBirth( new \DateTime( $postParams->get( 'dateOfBirth' ) ) );
             $student->setStudentCode( (string)$postParams->get( 'studentCode' ) );
             $student->setPhoneNumber( (string)$postParams->get( 'phoneNumber' ) );
 
