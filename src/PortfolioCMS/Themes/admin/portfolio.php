@@ -11,7 +11,20 @@ include 'header.php'; ?>
 
 <div class="content">
     <div class="container-fluid">
-        Portfolio beheer – toevoegen en verwijderen
+        <form id="portfolioForm" method="POST" action="">
+            <!-- Values still need to be set automatically -->
+            Title:<input type="text" name="title" value="#"><br>
+            Url:<input type="text" name="url" value="#"><br>
+
+            <select name="theme">
+                <option value="theme 1">Theme 1</option>
+                <option value="theme 2">Theme 2</option>
+                <option value="theme 3">Theme 3</option>
+                <option value="theme 4">Theme 4</option>
+                <option value="theme 5">Theme 5</option>
+            </select><br>
+            <input type="submit" value="submit">
+        </form>
     </div>
 </div>
 
