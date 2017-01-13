@@ -129,42 +129,4 @@ class Authentication extends BaseController
         }
         return true;
     }
-
-    /**
-     * This action if for handling the register route.
-     *
-     * @param Request|null $request
-     * @return Response
-     */
-    /*public function register( Request $request )
-    {
-        if ( $request->postParams->has( 'email' ) &&
-            $request->postParams->has( 'password' ) &&
-            $request->postParams->has( 'passwordRepeat' ) &&
-            $request->postParams->has( 'firstName' ) &&
-            $request->postParams->has( 'lastName' ) &&
-            $request->postParams->has( 'name' ) &&
-            $request->postParams->has( 'name' )
-        )
-        {
-            // todo write code to register the user.
-        }
-        else
-        {
-            // Not all fields are filled in so render with error message.
-            return new Response(
-                $this->renderWebPage( 'site:register', [
-                    'message' => 'Je moet alle velden invullen.',
-                ] ),
-                Response::HTTP_STATUS_OK
-            );
-        }
-
-        // Default response renders the register page
-        return new Response(
-            $this->renderWebPage( 'site:register' ),
-            Response::HTTP_STATUS_OK
-        );
-
-    }*/
 }

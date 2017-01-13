@@ -69,4 +69,9 @@ class ThemeManger
     {
         
     }
+
+    public function moveAssetDirs(  )
+    {
+        
+    }
 }

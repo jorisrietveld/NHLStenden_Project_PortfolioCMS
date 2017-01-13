@@ -17,10 +17,3 @@ VALUES ( 'register', 'register.php', 'the register page of the website', '/regis
 
 COMMIT;
 */
-
-/*
-
-
-
-
-*/
