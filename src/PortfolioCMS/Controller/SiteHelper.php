@@ -17,7 +17,7 @@ trait SiteHelper
     /**
      * Render the base menu.
      */
-  /*  public function renderMenuLinks(  )
+    public function renderMenuLinks(  )
     {
         $menuLinks = '';
 
@@ -33,13 +33,13 @@ trait SiteHelper
             );
         }
         return $menuLinks;
-    }*/
+    }
 
     /**
      * Dummy method to show some fake data in the drop down.
      * @return string
      */
-    public function renderMenuLinks(  )
+    /*public function renderMenuLinks(  )
       {
           $menuLinks = '';
 
@@ -65,7 +65,7 @@ trait SiteHelper
               );
           }
           return $menuLinks;
-      }
+      }*/
 
     protected function getPortfolios(  )
     {

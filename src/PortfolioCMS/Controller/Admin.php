@@ -55,47 +55,4 @@ class Admin extends BaseController
             Response::HTTP_STATUS_OK
         );
     }
-
-
-    public function insertStudent( Request $request )
-    {
-        $postParams = $request->getPostParams();
-
-        if ( $postParams->has( 'password' ) &&
-            $postParams->has( 'email' ) &&
-            $postParams->has( 'firstName' ) &&
-            $postParams->has( 'lastName' ) &&
-            $postParams->has( 'isAdmin' ) &&
-            $postParams->has( 'address' ) &&
-            $postParams->has( 'zipCode' ) &&
-            $postParams->has( 'location' ) &&
-            $postParams->has( 'dateOfBirth' ) &&
-            $postParams->has( 'studentCode' ) &&
-            $postParams->has( 'phoneNumber' )
-        )
-        {
-            $student = new Student();
-            $student->setHashedPassword( password_hash( $postParams->get( 'password' ), PASSWORD_BCRYPT ) );
-            $student->setEmail( (string)$postParams->get( 'email' ) );
-            $student->setLastIpAddress( $request->getClientIp() );
-            $student->setFirstName( (string)$postParams->get( 'firstName' ) );
-            $student->setLastName( (string)$postParams->get( 'lastName' ) );
-            $student->setIsAdmin( (bool)$postParams->get( 'isAdmin' ) );
-            $student->setAddress( (string)$postParams->get( 'address' ) );
-            $student->setZipCode( (string)$postParams->get( 'zipCode' ) );
-            $student->setLocation( (string)$postParams->get( 'location' ) );
-            $student->setDateOfBirth( new \DateTime( $postParams->get( 'dateOfBirth' ) ) );
-            $student->setStudentCode( (string)$postParams->get( 'studentCode' ) );
-            $student->setPhoneNumber( (string)$postParams->get( 'phoneNumber' ) );
-
-            $studentRepo = $this->getEntityManager()->getRepository( 'Student' );
-            $studentRepo->insert( $student );
-        }
-        else
-        {
-            //
-        }
-    }
-
-
 }
