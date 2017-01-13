@@ -10,14 +10,21 @@ namespace StendenINF1B\PortfolioCMS\Controller;
 
 
 use StendenINF1B\PortfolioCMS\Kernel\BaseController;
-use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\Teacher;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\Student;
+use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\Teacher;
+use StendenINF1B\PortfolioCMS\Kernel\Database\Repository\StudentRepository;
+use StendenINF1B\PortfolioCMS\Kernel\Database\Repository\TeacherRepository;
+use StendenINF1B\PortfolioCMS\Kernel\Helper\ConfigLoader;
 use StendenINF1B\PortfolioCMS\Kernel\Http\Request;
 use StendenINF1B\PortfolioCMS\Kernel\Http\Response;
+use StendenINF1B\PortfolioCMS\Kernel\TemplateEngine\TemplateEngine;
 
-class UserManagement extends BaseController 
+class UserManagement extends BaseController
 {
-    protected $requiredInsertUserFields = [
+    /**
+     * @var array
+     */
+    protected $requiredUserFields = [
         'password',
         'email',
         'firstName',
@@ -25,7 +32,10 @@ class UserManagement extends BaseController
         'isAdmin',
     ];
 
-    protected $requiredInsertStudentFields = [
+    /**
+     * @var array
+     */
+    protected $requiredStudentFields = [
         'address',
         'zipCode',
         'dateOfBirth',
@@ -33,13 +43,40 @@ class UserManagement extends BaseController
         'phoneNumber',
     ];
 
-    protected $requiredInsertTeacherFields = [
+    /**
+     * @var array
+     */
+    protected $requiredTeacherFields = [
         'isSLBer'
     ];
 
+    /**
+     * @var TeacherRepository
+     */
+    protected $teacherRepository;
+
+    /**
+     * @var StudentRepository
+     */
+    protected $studentRepository;
+
+    /**
+     * UserManagement constructor.
+     *
+     * @param TemplateEngine $templateEngine
+     * @param ConfigLoader   $configLoader
+     */
+    public function __construct( TemplateEngine $templateEngine, ConfigLoader $configLoader )
+    {
+        parent::__construct( $templateEngine, $configLoader );
+
+        $this->studentRepository = $this->getEntityManager()->getRepository( 'Student' );
+        $this->teacherRepository = $this->getEntityManager()->getRepository( 'Teacher' );
+    }
+
     public function index( Request $request )
     {
-        
+
     }
 
     /**
@@ -48,30 +85,28 @@ class UserManagement extends BaseController
      * @param Request $request
      * @return Response
      */
-    public function insertStudent( Request $request )
+    public function insertStudent( Request $request ) : Response
     {
         $postParams = $request->getPostParams();
 
-        if ( $this->checkPostParams( $postParams, array_merge( $this->requiredInsertUserFields, $this->requiredInsertStudentFields ) ) )
+        if ( $this->checkPostParams( $postParams, array_merge( $this->requiredUserFields, $this->requiredStudentFields ) ) )
         {
-            $studentRepo = $this->getEntityManager()->getRepository( 'Student' );
             $newStudent = new Student();
-
-            $newStudent->setHashedPassword( password_hash( $postParams->get( 'password' ), PASSWORD_BCRYPT ) );
-            $newStudent->setEmail( (string)$postParams->get( 'email' ) );
+            $newStudent->setHashedPassword( password_hash( $postParams->getString( 'password' ), PASSWORD_BCRYPT ) );
+            $newStudent->setEmail( $postParams->getString( 'email' ) );
             $newStudent->setLastIpAddress( $request->getClientIp() );
-            $newStudent->setFirstName( (string)$postParams->get( 'firstName' ) );
-            $newStudent->setLastName( (string)$postParams->get( 'lastName' ) );
-            $newStudent->setIsAdmin( (bool)$postParams->get( 'isAdmin' ) );
-            $newStudent->setAddress( (string)$postParams->get( 'address' ) );
-            $newStudent->setZipCode( (string)$postParams->get( 'zipCode' ) );
-            $newStudent->setLocation( (string)$postParams->get( 'location' ) );
-            $newStudent->setDateOfBirth( new \DateTime( $postParams->get( 'dateOfBirth' ) ) );
-            $newStudent->setStudentCode( (string)$postParams->get( 'studentCode' ) );
-            $newStudent->setPhoneNumber( (string)$postParams->get( 'phoneNumber' ) );
+            $newStudent->setFirstName( $postParams->getString( 'firstName' ) );
+            $newStudent->setLastName( $postParams->getString( 'lastName' ) );
+            $newStudent->setIsAdmin( $postParams->getBoolean( 'isAdmin' ) );
+            $newStudent->setAddress( $postParams->getString( 'address' ) );
+            $newStudent->setZipCode( $postParams->getString( 'zipCode' ) );
+            $newStudent->setLocation( $postParams->getString( 'location' ) );
+            $newStudent->setDateOfBirth( $postParams->getDateTime( 'dateOfBirth' ) );
+            $newStudent->setStudentCode( $postParams->getString( 'studentCode' ) );
+            $newStudent->setPhoneNumber( $postParams->getString( 'phoneNumber' ) );
 
             // Insert the new student.
-            $studentRepo->insert( $newStudent );
+            $this->studentRepository->insert( $newStudent );
 
             return new Response(
                 $this->renderWebPage(
@@ -93,23 +128,22 @@ class UserManagement extends BaseController
      *
      * @param Request $request
      */
-    protected function insertTeacher( Request $request )
+    public function insertTeacher( Request $request ) : Response
     {
-        $postParams =  $request->getPostParams();
+        $postParams = $request->getPostParams();
 
-        if ( $this->checkPostParams( $postParams, array_merge( $this->requiredInsertUserFields, $this->requiredInsertTeacherFields ) ) )
+        if ( $this->checkPostParams( $postParams, array_merge( $this->requiredUserFields, $this->requiredTeacherFields ) ) )
         {
-            $teacherRepo = $this->getEntityManager()->getRepository( 'Teacher' );
+            $newTeacher = new Teacher();
+            $newTeacher->setId( $postParams->getInt( 'id' ) );
+            $newTeacher->setLastName( $postParams->getString( 'lastName' ) );
+            $newTeacher->setFirstName( $postParams->getString( 'firstName' ) );
+            $newTeacher->setEmail( $postParams->getString( 'email' ) );
+            $newTeacher->setHashedPassword( password_hash( $postParams->get( 'password' ), PASSWORD_BCRYPT ) );
+            $newTeacher->setIsSLBer( $postParams->getBoolean( 'isSlber' ) );
+            $newTeacher->setIsAdmin( $postParams->getBoolean( 'isAdmin' ) );
 
-            $newTeacher =  new Teacher();
-            $newTeacher->setLastName( (string)$postParams->get( 'lastName' ) );
-            $newTeacher->setFirstName( (string)$postParams->get('firstName' ) );
-            $newTeacher->setEmail( (string)$postParams->get( 'email' ));
-            $newTeacher->setHashedPassword( password_hash( $postParams->get('password'), PASSWORD_BCRYPT ));
-            $newTeacher->setIsSLBer( (bool) $postParams->get('isSlber') );
-            $newTeacher->setIsAdmin( (bool)  $postParams->get( 'isAdmin' ) );
-
-            $teacherRepo->insert( $newTeacher );
+            $this->teacherRepository->insert( $newTeacher );
 
             return new Response(
                 $this->renderWebPage(
@@ -123,6 +157,91 @@ class UserManagement extends BaseController
         {
 
         }
+    }
+
+    /**
+     * Updates an student in the database.
+     *
+     * @param Request $request
+     */
+    public function editStudent( Request $request ) : Response
+    {
+        $postParams = $request->getPostParams();
+
+        if ( $this->checkPostParams( $postParams, array_merge( $this->requiredUserFields, $this->requiredStudentFields, [ 'id' ] ) ) )
+        {
+            $updatedStudent = new Student();
+            $updatedStudent->setId( $postParams->getInt( 'id' ) );
+            $updatedStudent->setHashedPassword( password_hash( $postParams->getString( 'password' ), PASSWORD_BCRYPT ) );
+            $updatedStudent->setEmail( $postParams->getString( 'email' ) );
+            $updatedStudent->setLastIpAddress( $request->getClientIp() );
+            $updatedStudent->setFirstName( $postParams->getString( 'firstName' ) );
+            $updatedStudent->setLastName( $postParams->getString( 'lastName' ) );
+            $updatedStudent->setIsAdmin( $postParams->getBoolean( 'isAdmin' ) );
+            $updatedStudent->setAddress( $postParams->getString( 'address' ) );
+            $updatedStudent->setZipCode( $postParams->getString( 'zipCode' ) );
+            $updatedStudent->setLocation( $postParams->getString( 'location' ) );
+            $updatedStudent->setDateOfBirth( $postParams->getDateTime( 'dateOfBirth' ) );
+            $updatedStudent->setStudentCode( $postParams->getString( 'studentCode' ) );
+            $updatedStudent->setPhoneNumber( $postParams->getString( 'phoneNumber' ) );
+
+            $this->studentRepository->update( $updatedStudent );
+        }
 
     }
+
+    /**
+     * Updates an teacher in the database.
+     *
+     * @param Request $request
+     */
+    public function editTeacher( Request $request ) : Response
+    {
+        $postParams = $request->getPostParams();
+
+        if ( $this->checkPostParams( $postParams, array_merge( $this->requiredUserFields, $this->requiredTeacherFields, [ 'id' ] ) ) )
+        {
+            $updatedTeacher = new Teacher();
+            $updatedTeacher->setId( $postParams->getInt( 'id' ) );
+            $updatedTeacher->setLastName( $postParams->getString( 'lastName' ) );
+            $updatedTeacher->setFirstName( $postParams->getString( 'firstName' ) );
+            $updatedTeacher->setEmail( $postParams->getString( 'email' ) );
+            $updatedTeacher->setHashedPassword( password_hash( $postParams->get( 'password' ), PASSWORD_BCRYPT ) );
+            $updatedTeacher->setIsSLBer( $postParams->getBoolean( 'isSlber' ) );
+            $updatedTeacher->setIsAdmin( $postParams->getBoolean( 'isAdmin' ) );
+
+            $this->teacherRepository->update( $updatedTeacher );
+        }
+    }
+
+    /**
+     * Deletes an student from the database.
+     *
+     * @param Request $request
+     */
+    public function deleteStudent( Request $request ) : Response
+    {
+        $postParams = $request->getPostParams();
+
+        if ( $this->checkPostParams( $postParams, [ 'id' ] ) )
+        {
+            $this->studentRepository->delete( $postParams->getInt( 'id' ) );
+        }
+    }
+
+    /**
+     * Deletes an teacher from the database.
+     *
+     * @param Request $request
+     */
+    public function deleteTeacher( Request $request ) : Response
+    {
+        $postParams = $request->getPostParams();
+
+        if ( $this->checkPostParams( $postParams, [ 'id' ] ) )
+        {
+            $this->teacherRepository->delete( $postParams->getInt( 'id' ) );
+        }
+    }
+
 }

@@ -186,6 +186,30 @@ class ParameterContainer implements \IteratorAggregate, \Countable, \ArrayAccess
     }
 
     /**
+     * Gets an parameter value as an string.
+     *
+     * @param        $key
+     * @param string $default
+     * @return string
+     */
+    public function getString( $key, $default = '' ) : string
+    {
+        return (string)$this->get( $key, $default );
+    }
+
+    /**
+     * Gets an parameter value as an datetime.
+     *
+     * @param      $key
+     * @param null $default
+     * @return \DateTime
+     */
+    public function getDateTime( $key, $default = NULL ) : \DateTime
+    {
+        return new \DateTime( $this->get( $key, 'NOW' ));
+    }
+
+    /**
      * Add an element to the parameter container using array access.
      * Like $parameterContainer[] = value or $parameterContainer[ 'key' ] = value
      *
