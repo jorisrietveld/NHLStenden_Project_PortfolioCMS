@@ -39,7 +39,7 @@ declare( strict_types = 1 );
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="css/styles.css"/>
+    <link rel="stylesheet" type="text/css" href="<?= $dataProvider->get( 'request-uri' ) ?>/assets/Theme_anouk/css/styles.css"/>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -89,6 +89,9 @@ declare( strict_types = 1 );
                         </li>
                         <li class="page-scroll">
                             <a href="#cijfers">Cijfers</a>
+                        </li>
+                        <li class="page-scroll">
+                            <a href="#galerij">Galerij</a>
                         </li>
                         <li class="page-scroll">
                             <a href="#gastenboek"> <span class="glyphicon glyphicon-pencil"></span> Gastenboek</a>
@@ -214,6 +217,34 @@ declare( strict_types = 1 );
         </div>
     </div>
     
+    <a name="galerij"></a>
+    <div class="content-section-b">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">Galerij</h2>
+                    <p>Hier vind je mijn CV </p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                        Ut metus purus, vestibulum sed neque et, posuere iaculis sem. 
+                        Integer eleifend tortor eget ultrices facilisis. Aenean aliquam luctus quam. </p>
+                    
+                </div>
+                <div class="col-lg-4 col-lg-offset-2 col-sm-6">
+                    <div class="col-lg-6">
+                    <img class="img-thumbnail" src="images/pictureanouk.jpg">
+                    </div>
+                    <div class="row">
+                    <img class="img-thumbnail col-lg-4 float-left" src="images/pictureanouk.jpg">
+                    <img class="img-thumbnail col-lg-4 float-right" src="images/pictureanouk.jpg">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+    </div>
+    </div>
     
     <!-- /.content-section-a -->
     <a name="gastenboek"></a>
