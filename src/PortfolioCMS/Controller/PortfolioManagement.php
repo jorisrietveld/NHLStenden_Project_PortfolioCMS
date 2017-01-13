@@ -16,29 +16,132 @@ use StendenINF1B\PortfolioCMS\Kernel\Http\Response;
 
 class PortfolioManagement extends BaseController 
 {
-    protected $requiredInsertFields = [
+    /**
+     * The require fields to update or insert an portfolio.
+     *
+     * @var array
+     */
+    protected $requiredPortfolioFields = [
         'title',
         'url',
         'themeId',
         'userId',
     ];
 
+    /**
+     * The required fields to update or insert an skill.
+     *
+     * @var array
+     */
+    protected $requiredSkillFields = [
+        'name',
+        'levelOfExperience',
+    ];
 
-    public function index( Request $request )
+    /**
+     * The required fields to update or insert an skill.
+     *
+     * @var array
+     */
+    protected $requiredTrainingFields = [
+        'title',
+        'institution',
+        'location',
+        'description',
+        'obtainedCertificate',
+        'currentTraining'
+    ];
+
+    /**
+     * The required fields to update or insert an hobby.
+     *
+     * @var array
+     */
+    protected $requiredHobbyFields = [
+        'name',
+    ];
+
+    /**
+     * The required fields to update or insert an language.
+     *
+     * @var array
+     */
+    protected $requiredLanguageFields =[
+        'language',
+        'level',
+        'isNative',
+    ];
+
+    /**
+     * The required fields to update or insert an job experience.
+     *
+     * @var array
+     */
+    protected $requiredJobExperienceFields = [
+        'location',
+        'description',
+        'isInternship',
+    ];
+
+    /**
+     * The required fields to update or insert an uploaded file.
+     *
+     * @var array
+     */
+    protected $requiredUploadedFileFields = [
+        'fileName',
+        'mimeType',
+        'filePath',
+    ];
+
+    /**
+     * The required fields to update or insert an skill.
+     *
+     * @var array
+     */
+    protected $requiredSlbAssignmentFields = [
+        'name',
+    ];
+
+    /**
+     * The required fields to update or insert an skill.
+     *
+     * @var array
+     */
+    protected $requiredImageFields = [
+        'name',
+        'type',
+    ];
+
+    /**
+     * The required fields to update or insert an skill.
+     *
+     * @var array
+     */
+    protected $requiredProjectFields = [
+        'name',
+        'description',
+        'link',
+        'thumbnailImageId'
+    ];
+
+    protected function actionHandled( $message ) : Response
     {
-        
+        return new Response(
+            $this->renderWebPage(
+                'admin:editPortfolio', [
+                    'feedback' => $message,
+                ]
+            ),
+            Response::HTTP_STATUS_OK
+        );
     }
 
-    public function remove( Request $request )
-    {
-        
-    }
-
-    public function insert( Request $request )
+    public function insertPortfolio( Request $request ) : Response
     {
         $postParams = $request->getPostParams();
 
-        if( $this->checkPostParams( $postParams, $this->requiredInsertFields ))
+        if( $this->checkPostParams( $postParams, $this->requiredPortfolioFields ))
         {
             $themeRepository = $this->getEntityManager()->getRepository( 'Theme' );
             $studentRepository = $this->getEntityManager()->getRepository( 'Student' );
@@ -52,23 +155,141 @@ class PortfolioManagement extends BaseController
 
             $portfolioRepository->insert( $newPortfolio );
 
-            return new Response(
-                $this->renderWebPage(
-                    'admin:editPortfolio', [
-                        'feedback' => 'Het porfolio is toegevoed.',
-                    ]
-                ),
-                Response::HTTP_STATUS_OK
-            );
+            $message = 'Het portefolio is toegevoegd.';
         }
-        else
-        {
 
-        }
+        return $this->actionHandled( $message ?? 'Niet alle verplichte velden zijn ingevuld.' );
     }
 
-    public function edit( Request $request )
+    public function editPortfolio( Request $request ) : Response
+    {
+        $postParams = $request->getPostParams();
+
+        if( $this->checkPostParams( $postParams, $this->required ))
+        {
+            $message = '';
+        }
+
+        return $this->actionHandled( $message ?? 'Niet alle verplichte velden zijn ingevuld.' );
+    }
+
+    public function removePortfolio( Request $request ) : Response
+    {
+
+    }
+
+    public function insertSkill( Request $request  ) : Response
     {
         
+    }
+
+    public function editSkill( Request $request  ) : Response
+    {
+
+    }
+
+    public function deleteSkill( Request $request  ) : Response
+    {
+        
+    }
+
+    public function insertTraining( Request $request  ) : Response
+    {
+        
+    }
+
+    public function editTraining( Request $request  ) : Response
+    {
+        
+    }
+
+    public function deleteTraining( Request $request  ) : Response
+    {
+        
+    }
+
+    public function insertHobby( Request $request  ) : Response
+    {
+        
+    }
+
+    public function editHobby( Request $request  ) : Response
+    {
+        
+    }
+
+    public function deleteHobby( Request $request  ) : Response
+    {
+        
+    }
+
+    public function insertLanguage( Request $request  ) : Response
+    {
+        
+    }
+
+    public function editLanguage( Request $request  ) : Response
+    {
+        
+    }
+
+    public function deleteLanguage( Request $request  ) : Response
+    {
+        
+    }
+
+    public function insertJobExperience( Request $request  ) : Response
+    {
+        
+    }
+
+    public function editJobExperience( Request $request  ) : Response
+    {
+        
+    }
+
+    public function deleteJobExperience( Request $request  ) : Response
+    {
+        
+    }
+
+    public function insertImage( Request $request  ) : Response
+    {
+        
+    }
+
+    public function editImage( Request $request  ) : Response
+    {
+        
+    }
+
+    public function deleteImage( Request $request  ) : Response
+    {
+        
+    }
+
+    public function insertSlbAssignment( Request $request  ) : Response
+    {
+        
+    }
+
+    public function editSlbAssignment( Request $request  ) : Response
+    {
+        
+    }
+
+    public function deleteSlbAssignment( Request $request  ) : Response
+    {
+        
+    }
+
+    public function insertProject( Request $request  ) : Response
+    {
+        
+    }
+
+    public function editProject( Request $request  ) : Response
+    {
+
     }
 }

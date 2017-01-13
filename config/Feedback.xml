@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<feedbackMessages>
+
+    <feedback controller="Authentication" id="invalid_login_credentials">
+        <nl>De combinatie van wachtwoord gebruikersnaam is niet gevonden in onze database.</nl>
+        <en>The username password combination is not found in the database.</en>
+    </feedback>
+
+    <feedback id="">
+        <nl></nl>
+        <en></en>
+    </feedback>
+
+    <feedback id="">
+        <nl></nl>
+        <en></en>
+    </feedback>
+
+</feedbackMessages>
