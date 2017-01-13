@@ -195,4 +195,13 @@ class ThemeRepository extends Repository
     {
         return new Theme();
     }
+
+    /**
+     * @param string $themeName
+     * @return Theme
+     */
+    public function getByName( string $themeName ) : Theme
+    {
+        return $this->getOneByCondition( 'WHERE name=:whereName', [ ':whereName', $themeName ]);
+    }
 }
