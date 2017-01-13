@@ -14,7 +14,7 @@ declare( strict_types = 1 );
         <!-- Custom css lib -->
         <link rel="stylesheet"
               type="text/css"
-              href="css/styles.css"/>
+              href="<?= $dataProvider->get("request-uri") ?>assets/Theme_kevinTabak/css/styles.css"/>
         
         <title>Portfolio</title>
     </head>
