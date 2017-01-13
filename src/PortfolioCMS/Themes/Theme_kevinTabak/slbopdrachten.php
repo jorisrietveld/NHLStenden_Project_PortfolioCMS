@@ -51,10 +51,16 @@ declare( strict_types = 1 );
                 <div class="row">
                     <div class="col-sm-6">
                         <h2>Over mij</h2>
-                        <p> <?php $student = $dataProvider->get( 'student' );
-                            echo $student->getFirstName();
-                            echo " G";
-                            echo $student->getLastName();?>
+                        <p> Lorem ipsum dolor sit amet, consectetuer adipiscing elit. 
+                            Aenean commodo ligula eget dolor. Aenean massa. 
+                            Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
+                            Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. 
+                            Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. 
+                            In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. 
+                            Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. 
+                            Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. 
+                            Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. 
+                            Curabitur ullamcorper ultricies nisi. Nam eget dui. 
                         </p>
                     </div>
                 </div>
@@ -109,21 +115,21 @@ declare( strict_types = 1 );
                 <div class="row text-center">
                     <div class="col-sm-3">
                         <div class="thumbnail">
-                            <img src="<?= $dataProvider->get("request-uri") ?>assets/Theme_kevinTabak/files/me-1.jpg" alt="WOW">
+                            <img src="files/me-1.jpg" alt="WOW">
                             <p><strong>WOW</strong></p>
                             <p>very wow</p>
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="thumbnail">
-                            <img src="<?= $dataProvider->get("request-uri") ?>assets/Theme_kevinTabak/files/me-2.jpg" alt="WOW">
+                            <img src="files/me-2.jpg" alt="WOW">
                             <p><strong>WOW</strong></p>
                             <p>very wow</p>
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="thumbnail">
-                            <img src="<?= $dataProvider->get("request-uri") ?>assets/Theme_kevinTabak/files/me-3.jpg" alt="WOW">
+                            <img src="files/me-3.jpg" alt="WOW">
                             <p><strong>WOW</strong></p>
                             <p>very wow</p>
                         </div>

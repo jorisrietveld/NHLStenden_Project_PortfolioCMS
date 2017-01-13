@@ -1,14 +1,4 @@
 
-.page-wrapper > .row > div{
-    height: 200px;
-    background-color: blue;
-}
-
-.page-wrapper > .row > div:nth-child(even){
-    background-color: red;
-}
-
-
 body{
     font-family:Wellfleet,'Helvetica Neue',Helvetica,Arial,sans-serif;
     overflow-x:hidden
