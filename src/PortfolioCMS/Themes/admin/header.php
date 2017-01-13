@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
-    <link rel="icon" type="image/png" href="../assets/admin/img/favicon.ico">
+    <link rel="icon" type="image/png" href="<?=$dataProvider->get('request-uri')?>/assets/admin/img/favicon.ico">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 
     <title><?php echo $page_title ?></title>
@@ -16,11 +16,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <!--  Light Bootstrap Table core CSS    -->
-    <link href="../assets/admin/css/light-bootstrap-dashboard.css" rel="stylesheet"/>
+    <link href="<?=$dataProvider->get('request-uri')?>/assets/admin/css/light-bootstrap-dashboard.css" rel="stylesheet"/>
 
 
     <!--  CSS for Demo Purpose, don't include it in your project     -->
-    <link href="../assets/admin/css/adminstyle.css" rel="stylesheet"/>
+    <link href="<?=$dataProvider->get('request-uri')?>/assets/admin/css/adminstyle.css" rel="stylesheet"/>
 
 
     <!--     Fonts and icons     -->

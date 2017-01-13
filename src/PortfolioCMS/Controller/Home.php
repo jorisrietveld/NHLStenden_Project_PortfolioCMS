@@ -27,6 +27,7 @@ class Home extends BaseController
         return new Response(
             $this->renderWebPage( 'site:home', [
                 'portfolioMenuLinks' => $this->renderMenuLinks(),
+                'request-uri' => $request->getBaseUri(),
             ] ),
             Response::HTTP_STATUS_OK
         );
@@ -36,6 +37,7 @@ class Home extends BaseController
         return new Response(
             $this->renderWebPage( 'site:contact', [
                 'portfolioMenuLinks' => $this->renderMenuLinks(),
+                'request-uri' => $request->getBaseUri(),
             ] ),
             Response::HTTP_STATUS_OK
         );

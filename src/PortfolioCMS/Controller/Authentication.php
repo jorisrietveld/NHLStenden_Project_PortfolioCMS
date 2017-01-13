@@ -48,7 +48,8 @@ class Authentication extends BaseController
                 return new Response(
                     $this->renderWebPage( 'site:login', [
                         'portfolioMenuLinks' => $this->renderMenuLinks(),
-                        'login-feedback' => 'De combinatie van wachtwoord gebruikersnaam is niet gevonden in onze database.'
+                        'login-feedback' => 'De combinatie van wachtwoord gebruikersnaam is niet gevonden in onze database.',
+                        'request-uri' => $request->getBaseUri(),
                     ] ),
                     Response::HTTP_STATUS_OK
                 );
@@ -57,7 +58,8 @@ class Authentication extends BaseController
         // Normal login request so render the login page.
         return new Response(
             $this->renderWebPage( 'site:login', [
-                'portfolioMenuLinks' => $this->renderMenuLinks()
+                'portfolioMenuLinks' => $this->renderMenuLinks(),
+                'request-uri' => $request->getBaseUri(),
             ] ),
             Response::HTTP_STATUS_OK
         );

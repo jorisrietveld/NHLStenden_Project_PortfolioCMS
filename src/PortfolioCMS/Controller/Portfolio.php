@@ -64,6 +64,7 @@ class Portfolio extends BaseController
                     'projects' => $portfolioEntity->getProjects(),
                     'pages' => $portfolioEntity->getPages(),
                     'httpRequest' => $request,
+                    'request-uri' => $request->getBaseUri(),
                 ] );
 
                 return new Response(

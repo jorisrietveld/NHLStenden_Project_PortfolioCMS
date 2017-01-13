@@ -16,19 +16,53 @@ use StendenINF1B\PortfolioCMS\Kernel\Helper\ParameterContainer;
 
 class RouteParser
 {
+    /**
+     * An regular expression that will be inserted into the route placeholders.
+     */
     const REGEX_PLACEHOLDER = '([\w]+)';
+
+    /**
+     * An regular expression that will replace all slashes in an route with this before matching.
+     */
     const REGEX_SLASH = '\/';
 
+    /**
+     * The file name of the routes.xml file.
+     *
+     * @var null|string
+     */
     protected $filename;
+
+    /**
+     * The SimpleXMLElement parsed from the routes.xml file.
+     * @var \SimpleXMLElement
+     */
     protected $simpleXMLObject;
+
+    /**
+     * The ParameterContainer containing all configured routes.
+     *
+     * @var ParameterContainer
+     */
     protected $routesContainer;
 
+    /**
+     * RouteParser constructor for initiating the route parser.
+     *
+     * @param string|null $routeConfigFile
+     */
     public function __construct( string $routeConfigFile = null )
     {
         $this->filename = $routeConfigFile ?? ROUTE_CONFIG_FILE;
         $this->routesContainer = new ParameterContainer();
     }
 
+    /**
+     * Parses the routes.xml file into an SimpleXMLElement.
+     *
+     * @throws FileNotFoundException
+     * @throws XMLParserException
+     */
     public function loadXml()
     {
         if ( file_exists( $this->filename ) )
@@ -46,6 +80,11 @@ class RouteParser
         }
     }
 
+    /**
+     * Returnes an SimpleXMLElement parsed from the routes.xml file.
+     *
+     * @return \SimpleXMLElement
+     */
     public function getSimpleXmlObject() : \SimpleXMLElement
     {
         if ( $this->simpleXMLObject == null )
@@ -56,6 +95,11 @@ class RouteParser
         return $this->simpleXMLObject;
     }
 
+    /**
+     * Returnes an Parameter container with ConfiguredRoutes.
+     *
+     * @return ParameterContainer
+     */
     public function getRoutes() : ParameterContainer
     {
         if ( count( $this->routesContainer ) < 1 )
@@ -66,6 +110,11 @@ class RouteParser
         return $this->routesContainer;
     }
 
+    /**
+     * Parses the xml routing file to an parameter container with ConfiguredRoute files.
+     *
+     * @throws ConfigurationErrorException
+     */
     public function parseXmlToRoutes()
     {
         foreach ($this->getSimpleXmlObject() as $route)
@@ -76,7 +125,7 @@ class RouteParser
             }
             if ( empty( $route[ 'path' ] ) )
             {
-                throw new ConfigurationErrorException( 'All configured routes must have an path to.' );
+                throw new ConfigurationErrorException( 'All configured routes must have an path.' );
             }
 
             $id = (string)$route[ 'id' ];
@@ -114,6 +163,12 @@ class RouteParser
         }
     }
 
+    /**
+     * This compiles all routes to an regular expression that can be used to match an request url.
+     *
+     * @param string $url
+     * @return string
+     */
     public function compileRouteToRegex( string $url )
     {
         $url = str_replace( '/', '\/', $url );

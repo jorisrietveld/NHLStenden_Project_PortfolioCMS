@@ -34,7 +34,8 @@ class Error extends BaseController
     {
         return new Response(
             $this->renderWebPage( 'site:error', [
-                'errorMessage' => '<h1>Error 401</h1>U heeft niet de juiste authorizatie om deze pagina te bekijken klik <a href="home">hier</a> om terug te gaan naar home.'
+                'errorMessage' => '<h1>Error 401</h1>U heeft niet de juiste authorizatie om deze pagina te bekijken klik <a href="home">hier</a> om terug te gaan naar home.',
+                'request-uri' => $request->getBaseUri(),
             ] ),
             Response::HTTP_STATUS_UNAUTHORIZED
         );
@@ -49,7 +50,8 @@ class Error extends BaseController
     {
         return new Response(
             $this->renderWebPage( 'site:error', [
-                'errorMessage' => '<h1>Error 404</h1>De door u opgevraagde web pagina bestaat niet Klik <a href="home">hier</a> om terug te gaan naar home.'
+                'request-uri' => $request->getBaseUri(),
+                'errorMessage' => '<h1>Error 404</h1>De door u opgevraagde web pagina bestaat niet Klik <a href="home">hier</a> om terug te gaan naar home.',
             ] ),
             404
         );
@@ -106,6 +108,7 @@ class Error extends BaseController
 
         return new Response(
             $this->renderWebPage( 'site:error', [
+                'request-uri' => $request->getBaseUri(),
                 'errorMessage' => sprintf( '<h1>Error 405</h1>HTTP methode %s niet toegestaan.</h1>', $method ),
             ] ),
             Response::HTTP_STATUS_METHOD_NOT_ALLOWED
