@@ -9,6 +9,7 @@ declare( strict_types = 1 );
 namespace StendenINF1B\PortfolioCMS\Kernel;
 
 use StendenINF1B\PortfolioCMS\Kernel\Debug\Debug;
+use StendenINF1B\PortfolioCMS\Kernel\Exception\ConfigurationErrorException;
 use StendenINF1B\PortfolioCMS\Kernel\Helper\ConfigLoader;
 use StendenINF1B\PortfolioCMS\Kernel\Http\Request;
 use StendenINF1B\PortfolioCMS\Kernel\Http\Response;
@@ -125,6 +126,11 @@ class ApplicationKernel
         $controller = '\\StendenINF1B\\PortfolioCMS\\Controller\\' . $route->getController();
         $controller = new $controller( $this->templateEngine, $this->configLoader );
         $controller->setApplication( $this );
+
+        if( !method_exists( $controller, $route->getMethod() ))
+        {
+            throw new \BadMethodCallException( sprintf( 'The action: %s does not exist in the controller: %s', $route->getMethod(), $route->getController() ));
+        }
 
         // Call the method on the controller and pass it the arguments so we get an response.
         $response = $controller->{$route->getMethod()}( $this->request, ...array_values( $route->getArguments() ) );
