@@ -39,7 +39,7 @@ class TeacherRepository extends Repository
             `User`.`active`, 
             `Teacher`.`isSLBer`
         FROM `DigitalPortfolio`.`Teacher` JOIN `DigitalPortfolio`.`User` ON `Teacher`.`userId` = `User`.`id`
-        WHERE `Student`.`userId` = :id;
+        WHERE `Teacher`.`userId` = :id;
     ';
 
     /**
@@ -247,7 +247,7 @@ class TeacherRepository extends Repository
     public function createEntity( array $databaseTeacher ) : EntityInterface
     {
         $teacher = new Teacher();
-        $teacher->setId( (int)$databaseTeacher[ 'userId' ] );
+        $teacher->setId( (int)$databaseTeacher[ 'id' ] );
         $teacher->setHashedPassword( $databaseTeacher[ 'password' ] );
         $teacher->setEmail( $databaseTeacher[ 'email' ] );
         $teacher->setAccountCreated( new \DateTime( $databaseTeacher[ 'accountCreated' ] ) );
@@ -257,7 +257,7 @@ class TeacherRepository extends Repository
         $teacher->setLastName( $databaseTeacher[ 'lastName' ] );
         $teacher->setIsAdmin( (bool)$databaseTeacher[ 'isAdmin' ] );
         $teacher->setActive( (bool)$databaseTeacher[ 'active' ] );
-        $teacher->setIsSLBer( $databaseTeacher[ 'isSLBer' ] );
+        $teacher->setIsSLBer( (bool)$databaseTeacher[ 'isSLBer' ] );
 
         return $teacher;
     }

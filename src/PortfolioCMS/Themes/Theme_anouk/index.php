@@ -1,23 +1,5 @@
-<?php
-declare( strict_types = 1 );
-?>
-
-<!--<div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">-->
-<!--<div class="col-lg-5 col-sm-6">-->
-<!--<div class="col-lg-5 col-lg-offset-2 col-sm-6">-->
-<!--<div class="col-lg-5 col-sm-pull-6  col-sm-6">-->
 <!DOCTYPE html>
 <html>
-<!--<head>
-     Bootstrap css lib 
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-          crossorigin="anonymous"/>
-
-     Custom css lib 
-    <title>Portfolio</title>
-</head>-->
 <head>
 
     <meta charset="utf-8">
@@ -27,30 +9,21 @@ declare( strict_types = 1 );
     <meta name="author" content="">
 
     <title>Portfolio</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-          crossorigin="anonymous"/>
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet"/>
-
-<!--     Custom CSS 
-    <link href="css/landing-page.css" rel="stylesheet"/>-->
+    <link rel="stylesheet" href="<?= $dataProvider->get( 'lib-path' )?>bootstrap/dist/css/bootstrap.min.css" />
 
     <!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="<?= $dataProvider->get( 'lib-path' )?>font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+<<<<<<< HEAD
     <link rel="stylesheet" type="text/css" href="<?= $dataProvider->get( 'request-uri' ) ?>/assets/Theme_anouk/css/styles.css"/>
+=======
+>>>>>>> f396c7d1ac168b9fe450b9cee04ac41dd05e9e32
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <!-- Page styles -->
+    <link rel="stylesheet" type="text/css" href="<?= $dataProvider->get( 'asset-path' )?>css/styles.css"/>
 
 </head>
 <body>
-
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
         <div class="container">
@@ -314,26 +287,17 @@ declare( strict_types = 1 );
         </div>
     </footer>
 
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
     <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+    <script src="<?= $dataProvider->get( 'lib-path' )?>jquery/dist/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
-<!-- Jquery js lib -->
-<script
-    src="https://code.jquery.com/jquery-2.2.4.min.js"
-    integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-    crossorigin="anonymous"></script>
-    
-
-<!-- Bootstrap js lib -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-        crossorigin="anonymous"></script>
-
-<!-- Custom js lib -->
-<script src="js/script.js"
-        type="text/javascript"></script>
+    <script src="<?= $dataProvider->get( 'lib-path' )?>bootstrap/dist/js/bootstrap.min.js"></script>
 </body>
 </html>

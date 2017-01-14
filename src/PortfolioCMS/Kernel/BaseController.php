@@ -12,54 +12,93 @@ namespace StendenINF1B\PortfolioCMS\Kernel;
 use StendenINF1B\PortfolioCMS\Kernel\Database\EntityManager;
 use StendenINF1B\PortfolioCMS\Kernel\Helper\ConfigLoader;
 use StendenINF1B\PortfolioCMS\Kernel\Http\ParameterContainer;
-use StendenINF1B\PortfolioCMS\Kernel\Http\Request;
+use StendenINF1B\PortfolioCMS\Kernel\Http\Response;
 use StendenINF1B\PortfolioCMS\Kernel\TemplateEngine\TemplateEngine;
 
+/**
+ * Class BaseController
+ *
+ * @package StendenINF1B\PortfolioCMS\Kernel
+ */
 abstract class BaseController
 {
     /**
+     * This holds the entity manager for communication with the database.
+     *
      * @var EntityManager
      */
     protected static $entityManager;
 
     /**
-     * @var ConfigLoader|TemplateEngine
+     * This holds the template engine for rendering web pages.
+     *
+     * @var TemplateEngine
      */
     protected $templateEngine;
 
     /**
+     * This holds the Configuration loader with global configuration.
+     *
      * @var ConfigLoader
      */
     protected $configLoader;
 
     /**
+     * This holds the application kernel.
+     *
      * @var ApplicationKernel
      */
     protected $application;
 
-    public function __construct( TemplateEngine $templateEngine = NULL, ConfigLoader $configLoader = NULL )
+    /**
+     * BaseController constructor for initiating the base controller.
+     *
+     * @param TemplateEngine|null $templateEngine
+     * @param ConfigLoader|null   $configLoader
+     */
+    public function __construct( TemplateEngine $templateEngine = null, ConfigLoader $configLoader = null )
     {
         $this->configLoader = $configLoader ?? new ConfigLoader( CONFIG_FILE );
         $this->templateEngine = $templateEngine ?? new TemplateEngine( $this->configLoader );
     }
 
+    /**
+     * Sets the application kernel.
+     *
+     * @param ApplicationKernel $applicationKernel
+     */
     public function setApplication( ApplicationKernel $applicationKernel )
     {
         $this->application = $applicationKernel;
     }
 
-    public function getEntityManager(  )
+    /**
+     * Returnes the entity manager for communication with the database.
+     *
+     * @return EntityManager
+     */
+    public function getEntityManager()
     {
         self::$entityManager = self::$entityManager ?? new EntityManager();
         return self::$entityManager;
     }
 
-    public function getTemplateEngine(  )
+    /**
+     * Gets the template engine for rendering web pages.
+     *
+     * @return ConfigLoader|TemplateEngine
+     */
+    public function getTemplateEngine()
     {
         return $this->templateEngine;
     }
 
-    public function getConfigLoader(  )
+    /**
+     * Retunes the ConfigLoader that contains global configuration.
+     *
+     * @return ConfigLoader
+     */
+    public function getConfigLoader()
     {
         return $this->configLoader;
     }
@@ -75,6 +114,27 @@ abstract class BaseController
     }
 
     /**
+     * Shortcut to return an response.
+     *
+     * @param string $webPage
+     * @param array  $context
+     * @param int    $httpCode
+     * @return Response
+     */
+    public function createResponse( string $webPage, array $context, $httpCode = Response::HTTP_STATUS_OK ) : Response
+    {
+        return new Response(
+            $this->renderWebPage(
+                $webPage,
+                array_merge( $context, [
+                    'request-uri' => $this->application->getRequest()->getBaseUri(),
+                    'lib-path' => $this->application->getRequest()->getBaseUri() . 'libs/',
+                ] ) ),
+            $httpCode
+        );
+    }
+
+    /**
      * Redirect the user to an different route.
      *
      * @param string $toRoute
@@ -82,7 +142,7 @@ abstract class BaseController
      */
     public function redirect( string $toRoute )
     {
-        header( 'Location: '. $toRoute );
+        header( 'Location: ' . $toRoute );
         //return $this->application->handleFromRoute( $toRoute );
     }
 
@@ -93,9 +153,9 @@ abstract class BaseController
      */
     protected function checkPostParams( ParameterContainer $postParams, array $requiredFields ) : bool
     {
-        foreach ( $requiredFields as $requiredField )
+        foreach ($requiredFields as $requiredField)
         {
-            if( !$postParams->has( $requiredField) )
+            if ( !$postParams->has( $requiredField ) )
             {
                 return false;
             }
@@ -103,5 +163,6 @@ abstract class BaseController
         return true;
     }
 
-    abstract public function index( Request $request );
+    // TODO remove this abstract method from all children where its not necessary.
+    //abstract public function index( Request $request );
 }

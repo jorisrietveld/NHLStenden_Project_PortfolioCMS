@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,7 +11,6 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Theme CSS -->
     <link href="css/freelancer.min.css" rel="stylesheet">
 
@@ -75,13 +72,13 @@
                     <div class="intro-text">
                         <span class="name">Marco Brink
                         </span>
-                        
+
                         <span class="name" style="font-size:20pt;">Welkom!
                         </span>
-                        
+
                         <span class="name" style="font-size:20pt;">Laat me mezelf introduceren
                         </span>
-                        
+
                         <a href="#skip"><i class="fa fa-angle-double-down fa-3x" aria-hidden="true"></i></a>
                     </div>
                 </div>
@@ -101,37 +98,37 @@
             <div class="row">
                 <div class="col-lg-4 col-lg-offset-2">
                     <div class="info">
-                        
+
                         <p class="records">
                             Naam: Marco Brink
-                        </p>    
-            
-                        <p class="records">    
+                        </p>
+
+                        <p class="records">
                             Geboortedatum: 10 mei 1996
                         </p>
-            
-                        <p class="records">    
+
+                        <p class="records">
                             Plaats: Assen
                         </p>
-       
+
                         <p class="records">
                             Nationaliteit: Nederlands
                         </p>
-            
+
                         <p class="records">
-                            E-mailadres: marco.brink@student.stenden.com  
+                            E-mailadres: marco.brink@student.stenden.com
                         </p>
-            
+
                         <p class="records">
-                            Rijbewijs: Ja  
+                            Rijbewijs: Ja
                         </p>
-            
+
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <p> Hallo! Op dit moment ben ik 20 jaar. Ik woon in Assen.
-                    Ik studeer Informatica bij Stenden hogeschool 
-                    in Emmen. Mijn hobby's zijn het spelen van basketbal(en het kijken van basketbal), gamen, 
+                    Ik studeer Informatica bij Stenden hogeschool
+                    in Emmen. Mijn hobby's zijn het spelen van basketbal(en het kijken van basketbal), gamen,
                     luisteren van muziek en reizen.</p>
                 </div>
             </div>
@@ -149,37 +146,37 @@
             <div class="row">
                 <div class="col-lg-4 col-lg-offset-2">
                     <div class="info">
-                        
+
                         <p class="records">
                             Naam: Marco Brink
-                        </p>    
-            
-                        <p class="records">    
+                        </p>
+
+                        <p class="records">
                             Geboortedatum: 10 mei 1996
                         </p>
-            
-                        <p class="records">    
+
+                        <p class="records">
                             Plaats: Assen
                         </p>
-       
+
                         <p class="records">
-                            Nationaliteit: Dutch  
+                            Nationaliteit: Dutch
                         </p>
-            
+
                         <p class="records">
-                            E-mailadres: marco.brink@student.stenden.com  
+                            E-mailadres: marco.brink@student.stenden.com
                         </p>
-            
+
                         <p class="records">
-                            Rijbewijs: Ja  
+                            Rijbewijs: Ja
                         </p>
-            
+
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <p> Hello! I am currently 20 years old. I live in Assen.
-                    At this moment I am studying informatics at Stenden Universtity in 
-                    Emmen.!  My hobbies are playing(and watching basketball), gaming, 
+                    At this moment I am studying informatics at Stenden Universtity in
+                    Emmen.!  My hobbies are playing(and watching basketball), gaming,
                     listening to music(especially electronic)and travelling.</p>
                 </div>
             </div>
@@ -197,37 +194,37 @@
             <div class="row">
                 <div class="col-lg-4 col-lg-offset-2">
                     <div class="info">
-                        
+
                         <p class="records">
                             Naam: Marco Brink
-                        </p>    
-            
-                        <p class="records">    
+                        </p>
+
+                        <p class="records">
                             Geboortedatum: 10 mei 1996
                         </p>
-            
-                        <p class="records">    
+
+                        <p class="records">
                             Plaats: Assen
                         </p>
-       
+
                         <p class="records">
                             Nationaliteit: Nederlands
                         </p>
-            
+
                         <p class="records">
-                            E-mailadres: marco.brink@student.stenden.com  
+                            E-mailadres: marco.brink@student.stenden.com
                         </p>
-            
+
                         <p class="records">
-                            Rijbewijs: Ja  
+                            Rijbewijs: Ja
                         </p>
-            
+
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <p> Hallo! Op dit moment ben ik 20 jaar. Ik woon in Assen.
-                    Ik studeer Informatica bij Stenden hogeschool 
-                    in Emmen. Mijn hobby's zijn het spelen van basketbal(en het kijken van basketbal), gamen, 
+                    Ik studeer Informatica bij Stenden hogeschool
+                    in Emmen. Mijn hobby's zijn het spelen van basketbal(en het kijken van basketbal), gamen,
                     luisteren van muziek en reizen.</p>
                 </div>
             </div>
@@ -245,37 +242,37 @@
             <div class="row">
                 <div class="col-lg-4 col-lg-offset-2">
                     <div class="info">
-                        
+
                         <p class="records">
                             Naam: Marco Brink
-                        </p>    
-            
-                        <p class="records">    
+                        </p>
+
+                        <p class="records">
                             Geboortedatum: 10 mei 1996
                         </p>
-            
-                        <p class="records">    
+
+                        <p class="records">
                             Plaats: Assen
                         </p>
-       
+
                         <p class="records">
-                            Nationaliteit: Dutch  
+                            Nationaliteit: Dutch
                         </p>
-            
+
                         <p class="records">
-                            E-mailadres: marco.brink@student.stenden.com  
+                            E-mailadres: marco.brink@student.stenden.com
                         </p>
-            
+
                         <p class="records">
-                            Rijbewijs: Ja  
+                            Rijbewijs: Ja
                         </p>
-            
+
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <p> Hello! I am currently 20 years old. I live in Assen.
-                    At this moment I am studying informatics at Stenden Universtity in 
-                    Emmen.!  My hobbies are playing(and watching basketball), gaming, 
+                    At this moment I am studying informatics at Stenden Universtity in
+                    Emmen.!  My hobbies are playing(and watching basketball), gaming,
                     listening to music(especially electronic)and travelling.</p>
                 </div>
             </div>
@@ -293,37 +290,37 @@
             <div class="row">
                 <div class="col-lg-4 col-lg-offset-2">
                     <div class="info">
-                        
+
                         <p class="records">
                             Naam: Marco Brink
-                        </p>    
-            
-                        <p class="records">    
+                        </p>
+
+                        <p class="records">
                             Geboortedatum: 10 mei 1996
                         </p>
-            
-                        <p class="records">    
+
+                        <p class="records">
                             Plaats: Assen
                         </p>
-       
+
                         <p class="records">
                             Nationaliteit: Nederlands
                         </p>
-            
+
                         <p class="records">
-                            E-mailadres: marco.brink@student.stenden.com  
+                            E-mailadres: marco.brink@student.stenden.com
                         </p>
-            
+
                         <p class="records">
-                            Rijbewijs: Ja  
+                            Rijbewijs: Ja
                         </p>
-            
+
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <p> Hallo! Op dit moment ben ik 20 jaar. Ik woon in Assen.
-                    Ik studeer Informatica bij Stenden hogeschool 
-                    in Emmen. Mijn hobby's zijn het spelen van basketbal(en het kijken van basketbal), gamen, 
+                    Ik studeer Informatica bij Stenden hogeschool
+                    in Emmen. Mijn hobby's zijn het spelen van basketbal(en het kijken van basketbal), gamen,
                     luisteren van muziek en reizen.</p>
                 </div>
             </div>
@@ -341,37 +338,37 @@
             <div class="row">
                 <div class="col-lg-4 col-lg-offset-2">
                     <div class="info">
-                        
+
                         <p class="records">
                             Naam: Marco Brink
-                        </p>    
-            
-                        <p class="records">    
+                        </p>
+
+                        <p class="records">
                             Geboortedatum: 10 mei 1996
                         </p>
-            
-                        <p class="records">    
+
+                        <p class="records">
                             Plaats: Assen
                         </p>
-       
+
                         <p class="records">
-                            Nationaliteit: Dutch  
+                            Nationaliteit: Dutch
                         </p>
-            
+
                         <p class="records">
-                            E-mailadres: marco.brink@student.stenden.com  
+                            E-mailadres: marco.brink@student.stenden.com
                         </p>
-            
+
                         <p class="records">
-                            Rijbewijs: Ja  
+                            Rijbewijs: Ja
                         </p>
-            
+
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <p> Hello! I am currently 20 years old. I live in Assen.
-                    At this moment I am studying informatics at Stenden Universtity in 
-                    Emmen.!  My hobbies are playing(and watching basketball), gaming, 
+                    At this moment I am studying informatics at Stenden Universtity in
+                    Emmen.!  My hobbies are playing(and watching basketball), gaming,
                     listening to music(especially electronic)and travelling.</p>
                 </div>
             </div>
@@ -489,7 +486,7 @@
         </a>
     </div>
 
-    
+
 </body>
 
 </html>

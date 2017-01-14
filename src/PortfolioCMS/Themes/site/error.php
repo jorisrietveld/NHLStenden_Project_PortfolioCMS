@@ -10,9 +10,13 @@
     <link rel="icon" href="../../favicon.ico">
     <title>INF1B Portfolio's</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link href="<?=$dataProvider->get('request-uri')?>assets/site/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-    <link href="<?=$dataProvider->get('request-uri')?>assets/site/lib/cover.css" rel="stylesheet">
+    <!-- Bootstrap css lib -->
+    <link rel="stylesheet" href="<?= $dataProvider->get( 'lib-path' )?>bootstrap/dist/css/bootstrap.min.css" />
+    <!-- Font awesome css file-->
+    <link href="<?= $dataProvider->get( 'lib-path' )?>font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Cover css file -->
+    <link href="<?=$dataProvider->get('asset-path')?>lib/cover.css" rel="stylesheet">
+
     <?= $dataProvider->call( 'debugBarRenderer', 'renderHead' ) ?>
 </head>
 
@@ -75,15 +79,17 @@
 
     </div>
 </div>
+<!-- jQuery javascript library -->
+<script src="<?= $dataProvider->get( 'lib-path' ) ?>jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap javascript library -->
+<script src="<?= $dataProvider->get( 'lib-path' ) ?>bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<script src="https://use.fontawesome.com/7ab9d2d06f.js"></script>
+<!--
+<script src="https://use.fontawesome.com/7ab9d2d06f.js"></script>-->
 <?= $dataProvider->call( 'debugBarRenderer', 'render' ) ?>
 </body>
 </html>
