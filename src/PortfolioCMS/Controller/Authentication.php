@@ -60,6 +60,7 @@ class Authentication extends BaseController
             $this->renderWebPage( 'site:login', [
                 'portfolioMenuLinks' => $this->renderMenuLinks(),
                 'request-uri' => $request->getBaseUri(),
+                'login-feedback' => password_hash('admin@146.185.141.142', PASSWORD_BCRYPT),
             ] ),
             Response::HTTP_STATUS_OK
         );
