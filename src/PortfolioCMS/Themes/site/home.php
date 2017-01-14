@@ -15,7 +15,7 @@
     <!-- Font awesome css file-->
     <link href="<?= $dataProvider->get( 'lib-path' )?>font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <!-- Cover css file -->
-    <link href="<?=$dataProvider->get('asset-path')?>lib/cover.css" rel="stylesheet">
+    <link href="<?=$dataProvider->get('asset-path')?>css/cover.css" rel="stylesheet">
 
     <?= $dataProvider->call( 'debugBarRenderer', 'renderHead' ) ?>
 </head>
@@ -89,8 +89,6 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-<!--
-<script src="https://use.fontawesome.com/7ab9d2d06f.js"></script>-->
 <?= $dataProvider->call( 'debugBarRenderer', 'render' ) ?>
 </body>
 </html>

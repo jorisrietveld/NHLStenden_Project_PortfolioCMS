@@ -21,7 +21,7 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Wellfleet" rel="stylesheet">
-
+    <?= $dataProvider->call( 'debugBarRenderer', 'renderHead' ) ?>
 </head>
 
 <body id="page-top" class="index">
@@ -495,5 +495,6 @@
     <script src="<?= $dataProvider->get( 'lib-path' ) ?>jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap js lib plugin -->
     <script src="<?= $dataProvider->get( 'lib-path' ) ?>bootstrap/dist/js/bootstrap.min.js"></script>
+    <?= $dataProvider->call( 'debugBarRenderer', 'render' ) ?>
 </body>
 </html>

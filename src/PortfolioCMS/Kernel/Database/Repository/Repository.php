@@ -13,6 +13,7 @@ use DebugBar\DataCollector\PDO\TraceablePDO;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\EntityInterface;
 use StendenINF1B\PortfolioCMS\Kernel\Database\EntityManager;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Helper\EntityCollection;
+use StendenINF1B\PortfolioCMS\Kernel\Debug\Debug;
 use StendenINF1B\PortfolioCMS\Kernel\Exception\RepositoryException;
 
 abstract class Repository

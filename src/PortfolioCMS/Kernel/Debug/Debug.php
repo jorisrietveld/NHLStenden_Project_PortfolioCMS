@@ -8,8 +8,8 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Kernel\Debug;
 
-
-use DebugBar\DebugBar;
+use DebugBar\DataCollector\PDO\PDOCollector;
+use DebugBar\DataCollector\PDO\TraceablePDO;
 use DebugBar\StandardDebugBar;
 
 /**
@@ -199,5 +199,15 @@ class Debug
             self::init();
             self::$debugBar['exceptions']->addException( $exception );
         }
+    }
+
+    public static function addPdoTracer( TraceablePDO $traceablePDO )
+    {
+        //dump( self::$debugBar->addCollector( new PDOCollector( $traceablePDO )) );
+       // dump( self::$debugBar->addCollector( new PDOCollector( $traceablePDO) ) );
+    }
+
+    public static function addConfigCollector( $data )
+    {
     }
 }

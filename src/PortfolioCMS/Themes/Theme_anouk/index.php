@@ -17,7 +17,7 @@
 
     <!-- Page styles -->
     <link rel="stylesheet" type="text/css" href="<?= $dataProvider->get( 'asset-path' )?>css/styles.css"/>
-
+    <?= $dataProvider->call( 'debugBarRenderer', 'renderHead' ) ?>
 </head>
 <body>
     <!-- Navigation -->
@@ -261,8 +261,8 @@
 
     <!-- jQuery -->
     <script src="<?= $dataProvider->get( 'lib-path' )?>jquery/dist/jquery.min.js"></script>
-
     <!-- Bootstrap Core JavaScript -->
     <script src="<?= $dataProvider->get( 'lib-path' )?>bootstrap/dist/js/bootstrap.min.js"></script>
+    <?= $dataProvider->call( 'debugBarRenderer', 'render' ) ?>
 </body>
 </html>

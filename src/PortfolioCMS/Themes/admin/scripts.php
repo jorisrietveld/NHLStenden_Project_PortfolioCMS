@@ -13,3 +13,4 @@
 
 <!-- Navbar scripting -->
 <script src="<?= $dataProvider->get( 'asset-path' )?>js/light-bootstrap-dashboard.js"></script>
+<?= $dataProvider->call( 'debugBarRenderer', 'render' ) ?>
