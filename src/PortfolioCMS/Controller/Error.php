@@ -22,10 +22,11 @@ class Error extends BaseController
      *
      * @return Response
      */
-    public function error401() : Response
+    public function error401( Request $request ) : Response
     {
         return $this->createResponse( 'site:error', [
             'errorMessage' => '<h1>Error 401</h1>U heeft niet de juiste authorizatie om deze pagina te bekijken klik <a href="home">hier</a> om terug te gaan naar home.',
+            'asset-path' => 'assets/site/',
         ] );
     }
 
@@ -39,6 +40,7 @@ class Error extends BaseController
         return $this->createResponse(
             'site:error', [
             'errorMessage' => '<h1>Error 404</h1>De door u opgevraagde web pagina bestaat niet Klik <a href="home">hier</a> om terug te gaan naar home.',
+            'asset-path' => 'assets/site/',
         ],
             Response::HTTP_STATUS_NOT_FOUND
         );

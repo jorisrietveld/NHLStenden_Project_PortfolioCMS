@@ -10,49 +10,37 @@ namespace StendenINF1B\PortfolioCMS\Controller;
 
 
 use StendenINF1B\PortfolioCMS\Kernel\BaseController;
-use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\Student;
 use StendenINF1B\PortfolioCMS\Kernel\Http\Request;
-use StendenINF1B\PortfolioCMS\Kernel\Http\Response;
 
 class Admin extends BaseController
 {
     public function index( Request $request )
     {
-        return new Response(
-            $this->renderWebPage( 'admin:overzicht', [
-                'request-uri' => $request->getBaseUri(),
-            ] ),
-            Response::HTTP_STATUS_OK
-        );
+        return $this->createResponse( 'admin:overzicht', [
+            'asset-path' => $request->getBaseUri().'assets/admin/',
+        ] );
     }
 
     public function portfolio( Request $request )
     {
-        return new Response(
-            $this->renderWebPage( 'admin:portfolio', [
-                'request-uri' => $request->getBaseUri(),
-            ] ),
-            Response::HTTP_STATUS_OK
-        );
+        return $this->createResponse( 'admin:portfolio', [
+            'asset-path' => $request->getBaseUri().'assets/admin/',
+        ] );
     }
 
     public function thema( Request $request )
     {
-        return new Response(
-            $this->renderWebPage( 'admin:thema', [
-                'request-uri' => $request->getBaseUri(),
-            ] ),
-            Response::HTTP_STATUS_OK
-        );
+        return $this->createResponse( 'admin:thema', [
+            'asset-path' => $request->getBaseUri().'assets/admin/',
+        ] );
+
     }
 
     public function cijferregistratie( Request $request )
     {
-        return new Response(
-            $this->renderWebPage( 'admin:cijferregistratie', [
-                'request-uri' => $request->getBaseUri(),
-            ] ),
-            Response::HTTP_STATUS_OK
-        );
+        return $this->createResponse( 'admin:cijferregistratie', [
+            'asset-path' => $request->getBaseUri().'assets/admin/',
+        ] );
+
     }
 }

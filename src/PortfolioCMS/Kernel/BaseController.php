@@ -128,6 +128,7 @@ abstract class BaseController
                 $webPage,
                 array_merge( $context, [
                     'request-uri' => $this->application->getRequest()->getBaseUri(),
+                    'lib-path' => $this->application->getRequest()->getBaseUri() . 'libs/',
                 ] ) ),
             $httpCode
         );

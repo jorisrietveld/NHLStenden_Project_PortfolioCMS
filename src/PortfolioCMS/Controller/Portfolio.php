@@ -47,7 +47,6 @@ class Portfolio extends BaseController
             {
                 $portfolioPageName = $portfolioPageName ?? self::DEFAULT_PORTFOLIO_PAGE;
                 $theme = $portfolioEntity->getTheme();
-
                 return $this->createResponse(
                     $theme->getDirectoryName() . ':' . $portfolioPageName, [
                         'title' => $portfolioEntity->getTitle(),
@@ -65,6 +64,7 @@ class Portfolio extends BaseController
                         'projects' => $portfolioEntity->getProjects(),
                         'pages' => $portfolioEntity->getPages(),
                         'httpRequest' => $request,
+                        'asset-path' => $request->getBaseUri().'assets/'.$theme->getDirectoryName().'/',
                     ]
                 );
             }

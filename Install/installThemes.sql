@@ -21,18 +21,19 @@ COMMIT;
 BEGIN;
 INSERT INTO `DigitalPortfolio`.`Theme`(name, author, description, directoryName)
 VALUES ( 'joris\'s thema', 'Joris Rietveld', 'Het thema gemaakt door Joris Rietveld', 'Theme_joris' );
+SET @portfolioId = LAST_INSERT_ID();
 
 INSERT INTO `DigitalPortfolio`.`Page`(name, fileName, description, url, themeId)
-VALUES ( 'index', 'index.php', 'De portefolio pagina', '/index', LAST_INSERT_ID() );
+VALUES ( 'index', 'index.php', 'De portefolio pagina', '/index', @portfolioId );
 
 INSERT INTO `DigitalPortfolio`.`Page`(name, fileName, description, url, themeId)
-VALUES ( 'projecten', 'projecten.php', 'De projecten pagina', '/projects', LAST_INSERT_ID() );
+VALUES ( 'projecten', 'projecten.php', 'De projecten pagina', '/projects', @portfolioId );
 
 INSERT INTO `DigitalPortfolio`.`Page`(name, fileName, description, url, themeId)
-VALUES ( 'guestbook', 'guestbook.php', 'De gastenboek pagina', '/guestbook', LAST_INSERT_ID() );
+VALUES ( 'guestbook', 'guestbook.php', 'De gastenboek pagina', '/guestbook', @portfolioId );
 
 INSERT INTO `DigitalPortfolio`.`Page`(name, fileName, description, url, themeId)
-VALUES ( 'slbAssignments', 'slbOpdrachten.php', 'De slbOpdrachten pagina', '/slb_assignments', LAST_INSERT_ID() );
+VALUES ( 'slbAssignments', 'slbOpdrachten.php', 'De slbOpdrachten pagina', '/slb_assignments', @portfolioId );
 COMMIT;
 
 BEGIN;
@@ -54,6 +55,14 @@ COMMIT;
 BEGIN;
 INSERT INTO `DigitalPortfolio`.`Theme`(name, author, description, directoryName)
 VALUES ( 'generics', 'Kevin Veldman', 'Het thema gemaakt door Kevin Veldman', 'kevin_theme' );
+
+INSERT INTO `DigitalPortfolio`.`Page`(name, fileName, description, url, themeId)
+VALUES ( 'index', 'index.php', 'De portefolio pagina', '/index', LAST_INSERT_ID() );
+COMMIT;
+
+BEGIN;
+INSERT INTO `DigitalPortfolio`.`Theme`(name, author, description, directoryName)
+VALUES ( 'Esmee\'s thema', 'Esmee Lunenborg', 'Het thema gemaakt door Esmee Lunenborg', 'Theme_Esmee' );
 
 INSERT INTO `DigitalPortfolio`.`Page`(name, fileName, description, url, themeId)
 VALUES ( 'index', 'index.php', 'De portefolio pagina', '/index', LAST_INSERT_ID() );
