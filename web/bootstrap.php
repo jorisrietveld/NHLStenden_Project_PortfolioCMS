@@ -7,16 +7,6 @@
 declare( strict_types = 1 );
 
 /**
- * Never set debug to TRUE on an production server!
- */
-define( 'DEBUG', TRUE );
-
-/**
- * This file contains an error and exception handler that are needed when things go wrong...
- */
-require WEB_ROOT . 'panic.php';
-
-/**
  * Define some constants that hold the paths for the project.
  */
 define( 'DIR_SEP', DIRECTORY_SEPARATOR );
@@ -35,6 +25,16 @@ define( 'CONFIG_FILE', CONFIG_ROOT . 'config.xml' );
 define( 'ROUTE_CONFIG_FILE', CONFIG_ROOT . 'Routes.xml' );
 define( 'FEEDBACK_CONFIG_FILE', CONFIG_ROOT . 'Feedback.xml' );
 define( 'DATABASE_CONFIG_FILE', CONFIG_ROOT . 'Database.xml' );
+
+/**
+ * Never set debug to TRUE on an production server!
+ */
+define( 'DEBUG', TRUE );
+
+/**
+ * This file contains an error and exception handler that are needed when things go wrong...
+ */
+require WEB_ROOT . 'panic.php';
 
 
 /**

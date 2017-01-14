@@ -114,8 +114,7 @@ class ApplicationKernel
     /**
      * This method will call the controller matched by the route.
      *
-     * @param $controller
-     * @param $method
+     * @param $route
      * @return Response
      */
     protected function callController( ConfiguredRoute $route ) : Response
@@ -125,6 +124,7 @@ class ApplicationKernel
         // Construct the controller that handles the request.
         $controller = '\\StendenINF1B\\PortfolioCMS\\Controller\\' . $route->getController();
         $controller = new $controller( $this->templateEngine, $this->configLoader );
+
         $controller->setApplication( $this );
 
         if( !method_exists( $controller, $route->getMethod() ))

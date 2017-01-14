@@ -9,11 +9,10 @@ declare( strict_types = 1 );
 namespace StendenINF1B\PortfolioCMS\Controller;
 
 
-use StendenINF1B\PortfolioCMS\Kernel\Authorization\User;
+use StendenINF1B\PortfolioCMS\Kernel\Authorization\User as AuthorizedUser;
 use StendenINF1B\PortfolioCMS\Kernel\BaseController;
 use StendenINF1B\PortfolioCMS\Kernel\Http\Request;
 use StendenINF1B\PortfolioCMS\Kernel\Http\Response;
-use StendenINF1B\PortfolioCMS\Kernel\Authorization\User as AuthorizedUser;
 
 class Authentication extends BaseController
 {
@@ -25,6 +24,11 @@ class Authentication extends BaseController
     const SLB_TEACHER = 3;
     const ADMIN = 4;
 
+    protected $requiredLoginFields = [
+        'email',
+        'password',
+    ];
+
     /**
      * This action is for handling the Login route.
      *
@@ -35,37 +39,32 @@ class Authentication extends BaseController
     {
         if ( $request->postParams->has( 'email' ) && $request->postParams->has( 'password' ) )
         {
-            if( $this->validateUser(
-                (string)$request->getPostParams()->get( 'email' ),
-                (string)$request->getPostParams()->get( 'password' )
-            )){
+            if ( $this->validateUser( $request->getPostParams()->getString( 'email' ), $request->getPostParams()->getString( 'password' ) ) )
+            {
                 // User authenticated so redirect to admin page.
                 return $this->redirect( '/admin/overzicht' );
             }
             else
             {
-                // Not an valid user so give feedback.
-                return new Response(
-                    $this->renderWebPage( 'site:login', [
+                return $this->createResponse( 'site:login', [
                         'portfolioMenuLinks' => $this->renderMenuLinks(),
                         'login-feedback' => 'De combinatie van wachtwoord gebruikersnaam is niet gevonden in onze database.',
-                        'request-uri' => $request->getBaseUri(),
-                    ] ),
-                    Response::HTTP_STATUS_OK
+                    ]
                 );
             }
         }
         // Normal login request so render the login page.
-        return new Response(
-            $this->renderWebPage( 'site:login', [
-                'portfolioMenuLinks' => $this->renderMenuLinks(),
-                'request-uri' => $request->getBaseUri(),
-                'login-feedback' => password_hash('admin@146.185.141.142', PASSWORD_BCRYPT),
-            ] ),
-            Response::HTTP_STATUS_OK
-        );
+        return $this->createResponse( 'site:login', [
+            'portfolioMenuLinks' => $this->renderMenuLinks(),
+        ] );
     }
 
+    /**
+     * This method de authenticates an user.
+     *
+     * @param Request $request
+     * @return Response
+     */
     public function logout( Request $request )
     {
         // Destroy the session and remove the session cookie.
@@ -75,16 +74,23 @@ class Authentication extends BaseController
             session_name(),
             '',
             time() - 42000,
-            $cookieParams["path"],
-            $cookieParams["domain"],
-            $cookieParams["secure"],
-            $cookieParams["httponly"]
+            $cookieParams[ "path" ],
+            $cookieParams[ "domain" ],
+            $cookieParams[ "secure" ],
+            $cookieParams[ "httponly" ]
         );
         session_destroy();
 
         return $this->redirect( '/login' );
     }
 
+    /**
+     * This method checks if the user used valid authentication credentials.
+     *
+     * @param string $email
+     * @param string $password
+     * @return bool
+     */
     protected function validateUser( string $email, string $password )
     {
         $teacherRepository = $this->getEntityManager()->getRepository( 'Teacher' );
@@ -93,41 +99,35 @@ class Authentication extends BaseController
         $user = $studentRepository->getByEmail( $email );
 
         // Check if the user is found in the database.
-        if( $user->getId() < 1 )
+        if ( $user->getId() < 1 )
         {
             return false;
         }
 
         // Check the inputted passwoord with the stored hash.
-        if( !password_verify( $password, $user->getHashedPassword() ))
+        if ( !password_verify( $password, $user->getHashedPassword() ) )
         {
             return false;
         }
 
-        $_SESSION['userId'] = $user->getId();
+        $_SESSION[ 'userId' ] = $user->getId();
 
-        if( $user->getIsAdmin() )
-        {
-            $_SESSION['authorizationLevel'] = AuthorizedUser::ADMIN;
-        }
-        else
-        {
-            $student = $studentRepository->getById();
-            $teacher = $teacherRepository->getById();
+        $student = $studentRepository->getById( $user->getId() );
+        $teacher = $teacherRepository->getById( $user->getId() );
 
-            if( $student->getId() == $user->getId() )
-            {
-                $_SESSION['authorizationLevel'] = AuthorizedUser::STUDENT;
-            }
-            elseif ( $teacher->getIsSLBer() )
-            {
-                $_SESSION['authorizationLevel'] = AuthorizedUser::SLB_TEACHER;
-            }
-            else
-            {
-                $_SESSION['authorizationLevel'] = AuthorizedUser::TEACHER;
-            }
+        switch ( true )
+        {
+            case $user->getIsAdmin():
+                return $_SESSION[ 'authorizationLevel' ] = AuthorizedUser::ADMIN;
+
+            case $student->getId() == $user->getId():
+                return $_SESSION[ 'authorizationLevel' ] = AuthorizedUser::STUDENT;
+
+            case $teacher->getIsSLBer():
+                return $_SESSION[ 'authorizationLevel' ] = AuthorizedUser::SLB_TEACHER;
+
+            default:
+                return $_SESSION[ 'authorizationLevel' ] = AuthorizedUser::TEACHER;
         }
-        return true;
     }
 }

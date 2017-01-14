@@ -17,29 +17,28 @@ class Home extends BaseController
     use SiteHelper;
 
     /**
-     * This action if for handling the home route.
+     * This action is for handling the home route.
      *
-     * @param Request|null $request
      * @return Response
      */
-    public function index( Request $request )
+    public function index() : Response
     {
-        return new Response(
-            $this->renderWebPage( 'site:home', [
-                'portfolioMenuLinks' => $this->renderMenuLinks(),
-                'request-uri' => $request->getBaseUri(),
-            ] ),
-            Response::HTTP_STATUS_OK
-        );
+        return $this->createResponse(
+            'site:home', [
+            'portfolioMenuLinks' => $this->renderMenuLinks(),
+        ] );
     }
-      public function contact( Request $request )
+
+    /**
+     * This action is for handling the contact route.
+     *
+     * @return Response
+     */
+    public function contact(  ) : Response
     {
-        return new Response(
-            $this->renderWebPage( 'site:contact', [
-                'portfolioMenuLinks' => $this->renderMenuLinks(),
-                'request-uri' => $request->getBaseUri(),
-            ] ),
-            Response::HTTP_STATUS_OK
-        );
+        return $this->createResponse(
+            'site:contact', [
+            'portfolioMenuLinks' => $this->renderMenuLinks(),
+        ] );
     }
 }
