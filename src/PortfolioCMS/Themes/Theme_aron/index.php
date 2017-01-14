@@ -21,7 +21,7 @@
     <!-- Custom Fonts -->
     <link href="<?= $dataProvider->get( 'lib-path' )?>font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link href="<?= $dataProvider->get( 'lib-path' )?>google-fonts/aron_fonts.css" rel="stylesheet" type="text/css" />
-
+    <?= $dataProvider->call( 'debugBarRenderer', 'renderHead' ) ?>
 </head>
 
 <body id="page-top" class="index">
@@ -300,5 +300,6 @@
 <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
+<?= $dataProvider->call( 'debugBarRenderer', 'render' ) ?>
 </body>
 </html>

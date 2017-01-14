@@ -19,5 +19,5 @@
     <link href="<?=$dataProvider->get('asset-path')?>css/light-bootstrap-dashboard.css" rel="stylesheet"/>
     <!-- Fonts and icons -->
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
-
+    <?= $dataProvider->call( 'debugBarRenderer', 'renderHead' ) ?>
 </head>

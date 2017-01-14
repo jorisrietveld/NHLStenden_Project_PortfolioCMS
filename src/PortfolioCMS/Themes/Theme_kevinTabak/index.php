@@ -8,6 +8,7 @@
         <link rel="stylesheet" type="text/css" href="<?= $dataProvider->get( 'asset-path' ) ?>css/styles.css"/>
         
         <title>Portfolio</title>
+        <?= $dataProvider->call( 'debugBarRenderer', 'renderHead' ) ?>
     </head>
     <body>       
         <main class="page-content">
@@ -152,5 +153,6 @@
         <script src="<?= $dataProvider->get( 'lib-path' ) ?>jquery/dist/jquery.min.js"></script>
         <!-- Bootstrap js lib plugin -->
         <script src="<?= $dataProvider->get( 'lib-path' ) ?>bootstrap/dist/js/bootstrap.min.js"></script>
+        <?= $dataProvider->call( 'debugBarRenderer', 'render' ) ?>
     </body>
 </html>
