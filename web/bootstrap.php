@@ -14,18 +14,32 @@ define( 'DIR_UP', '..'.DIR_SEP );
 define( 'WEB_ROOT', __DIR__ . DIR_SEP  );
 define( 'PROJECT_ROOT', WEB_ROOT . DIR_UP );
 define( 'PROJECT_SRC', PROJECT_ROOT . 'src' . DIR_SEP );
-define( 'CONFIG_ROOT', PROJECT_ROOT . 'config' . DIR_SEP );
-define( 'ROUTE_CONFIG_FILE', CONFIG_ROOT . 'Routes.xml' );
-define( 'CONFIG_FILE', CONFIG_ROOT . 'config.xml' );
-define( 'DATABASE_CONFIG_FILE', CONFIG_ROOT . 'Database.xml' );
 define( 'THEMES_DIR', PROJECT_SRC . 'PortfolioCMS'. DIR_SEP . 'Themes' .DIR_SEP );
 define( 'ASSET_BASE_PATH', WEB_ROOT . 'assets' . DIR_SEP );
+
+/**
+ * Define constants for all configuration paths/files.
+ */
+define( 'CONFIG_ROOT', PROJECT_ROOT . 'config' . DIR_SEP );
+define( 'CONFIG_FILE', CONFIG_ROOT . 'config.xml' );
+define( 'ROUTE_CONFIG_FILE', CONFIG_ROOT . 'Routes.xml' );
+define( 'FEEDBACK_CONFIG_FILE', CONFIG_ROOT . 'Feedback.xml' );
+define( 'DATABASE_CONFIG_FILE', CONFIG_ROOT . 'Database.xml' );
 
 /**
  * Never set debug to TRUE on an production server!
  */
 define( 'DEBUG', TRUE );
 
+/**
+ * This file contains an error and exception handler that are needed when things go wrong...
+ */
+require WEB_ROOT . 'panic.php';
+
+
+/**
+ * Todo: replace this un secure session start with the ^/Http/Session libs (not enough time to implement)
+ */
 session_start();
 
 /**

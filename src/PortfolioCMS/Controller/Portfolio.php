@@ -42,34 +42,30 @@ class Portfolio extends BaseController
         if ( $studentName !== null )
         {
             $portfolioEntity = $this->getPortfolios()->getEntityWith( 'url', $studentName );
+
             if ( $portfolioEntity )
             {
                 $portfolioPageName = $portfolioPageName ?? self::DEFAULT_PORTFOLIO_PAGE;
                 $theme = $portfolioEntity->getTheme();
-
-                $renderedOutput = $this->templateEngine->render(
+                return $this->createResponse(
                     $theme->getDirectoryName() . ':' . $portfolioPageName, [
-                    'title' => $portfolioEntity->getTitle(),
-                    'id' => $portfolioEntity->getId(),
-                    'grade' => $portfolioEntity->getGrade(),
-                    'url' => $portfolioEntity->getUrl(),
-                    'student' => new DisplayStudent( $portfolioEntity->getStudent() ),
-                    'jobExperiences' => $portfolioEntity->getJobExperience(),
-                    'languages' => $portfolioEntity->getLanguage(),
-                    'trainings' => $portfolioEntity->getTrainings(),
-                    'slbAssignments' => $portfolioEntity->getSlbAssignments(),
-                    'images' => $portfolioEntity->getImages(),
-                    'skills' => $portfolioEntity->getSkills(),
-                    'hobbies' => $portfolioEntity->getHobbies(),
-                    'projects' => $portfolioEntity->getProjects(),
-                    'pages' => $portfolioEntity->getPages(),
-                    'httpRequest' => $request,
-                    'request-uri' => $request->getBaseUri(),
-                ] );
-
-                return new Response(
-                    $renderedOutput,
-                    Response::HTTP_STATUS_OK
+                        'title' => $portfolioEntity->getTitle(),
+                        'id' => $portfolioEntity->getId(),
+                        'grade' => $portfolioEntity->getGrade(),
+                        'url' => $portfolioEntity->getUrl(),
+                        'student' => new DisplayStudent( $portfolioEntity->getStudent() ),
+                        'jobExperiences' => $portfolioEntity->getJobExperience(),
+                        'languages' => $portfolioEntity->getLanguage(),
+                        'trainings' => $portfolioEntity->getTrainings(),
+                        'slbAssignments' => $portfolioEntity->getSlbAssignments(),
+                        'images' => $portfolioEntity->getImages(),
+                        'skills' => $portfolioEntity->getSkills(),
+                        'hobbies' => $portfolioEntity->getHobbies(),
+                        'projects' => $portfolioEntity->getProjects(),
+                        'pages' => $portfolioEntity->getPages(),
+                        'httpRequest' => $request,
+                        'asset-path' => $request->getBaseUri().'assets/'.$theme->getDirectoryName().'/',
+                    ]
                 );
             }
 
@@ -79,8 +75,6 @@ class Portfolio extends BaseController
             // No name is set for the repository so redirect the user to home.
             return $this->redirect( '/home' );
         }
-
-        return new Response( '<h1>No Portfolio found!</h1>', 200 );
     }
 
 }
