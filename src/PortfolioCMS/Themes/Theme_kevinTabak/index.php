@@ -1,20 +1,11 @@
-<?php
-declare( strict_types = 1 );
-?>
-
 <!DOCTYPE html>
 <html>
     <head>
         <!-- Bootstrap css lib -->
-        <link rel="stylesheet"
-              href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-              integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-              crossorigin="anonymous"/>
+        <link rel="stylesheet" href="<?= $dataProvider->get("lib-path") ?>bootstrap/dist/css/bootstrap.min.css" />
 
         <!-- Custom css lib -->
-        <link rel="stylesheet"
-              type="text/css"
-              href="<?= $dataProvider->get("request-uri") ?>assets/Theme_kevinTabak/css/styles.css"/>
+        <link rel="stylesheet" type="text/css" href="<?= $dataProvider->get( 'asset-path' ) ?>css/styles.css"/>
         
         <title>Portfolio</title>
     </head>
@@ -109,21 +100,21 @@ declare( strict_types = 1 );
                 <div class="row text-center">
                     <div class="col-sm-3">
                         <div class="thumbnail">
-                            <img src="<?= $dataProvider->get("request-uri") ?>assets/Theme_kevinTabak/files/me-1.jpg" alt="WOW">
+                            <img src="<?= $dataProvider->get( 'asset-path' ) ?>files/me-1.jpg" alt="WOW">
                             <p><strong>WOW</strong></p>
                             <p>very wow</p>
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="thumbnail">
-                            <img src="<?= $dataProvider->get("request-uri") ?>assets/Theme_kevinTabak/files/me-2.jpg" alt="WOW">
+                            <img src="<?= $dataProvider->get( 'asset-path' ) ?>files/me-2.jpg" alt="WOW">
                             <p><strong>WOW</strong></p>
                             <p>very wow</p>
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="thumbnail">
-                            <img src="<?= $dataProvider->get("request-uri") ?>assets/Theme_kevinTabak/files/me-3.jpg" alt="WOW">
+                            <img src="<?= $dataProvider->get( 'asset-path' ) ?>files/me-3.jpg" alt="WOW">
                             <p><strong>WOW</strong></p>
                             <p>very wow</p>
                         </div>
@@ -157,19 +148,9 @@ declare( strict_types = 1 );
                 </div>
             </div>
         </main>
-        
-    <!-- Jquery js lib -->
-    <script
-        src="https://code.jquery.com/jquery-2.2.4.min.js"
-        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-        crossorigin="anonymous"></script>
-
-
-    <!-- Bootstrap js lib -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-            crossorigin="anonymous"></script>
-
-
+        <!-- jQuery -->
+        <script src="<?= $dataProvider->get( 'lib-path' ) ?>jquery/dist/jquery.min.js"></script>
+        <!-- Bootstrap js lib plugin -->
+        <script src="<?= $dataProvider->get( 'lib-path' ) ?>bootstrap/dist/js/bootstrap.min.js"></script>
     </body>
 </html>

@@ -12,27 +12,15 @@
     <title>Portfolio Aron Soppe</title>
 
     <!-- Bootstrap css lib -->
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-          crossorigin="anonymous"/>
+    <link rel="stylesheet" href="<?= $dataProvider->get( 'lib-path' )?>bootstrap/dist/css/bootstrap.min.css" />
 
     <!-- CSS -->
-    <link href="css/freelancer.css" rel="stylesheet">
-    <link href="css/styles.css" rel="stylesheet">
+    <link href="<?= $dataProvider->get( 'asset-path' )?>css/freelancer.css" rel="stylesheet" />
+    <link href="<?= $dataProvider->get( 'asset-path' )?>css/styles.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet"
-          type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <link href="<?= $dataProvider->get( 'lib-path' )?>font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?= $dataProvider->get( 'lib-path' )?>google-fonts/aron_fonts.css" rel="stylesheet" type="text/css" />
 
 </head>
 
@@ -300,23 +288,17 @@
     </div>
 </div>
 <!-- jQuery -->
-<script src="vendor/jquery/jquery.min.js"></script>
-
+<script src="<?= $dataProvider->get( 'lib-path' ) ?>jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap js lib plugin -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-        crossorigin="anonymous"></script>
-
+<script src="<?= $dataProvider->get( 'lib-path' ) ?>bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- Plugin JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+<script src="<?= $dataProvider->get( 'lib-path' ) ?>jquery.easing/js/jquery.easing.min.js"></script>
 
-<!-- Contact Form JavaScript (mag geen javascript gebruiken)-->
-<!-- <script src="js/jqBootstrapValidation.js"></script> -->
-<!-- <script src="js/contact_me.js"></script> -->
-
-<!-- Theme JavaScript -->
-<!-- <script src="js/freelancer.js"></script> -->
-
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
 </body>
-
 </html>

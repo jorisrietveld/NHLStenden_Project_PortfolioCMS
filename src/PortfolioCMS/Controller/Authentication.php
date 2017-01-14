@@ -49,6 +49,7 @@ class Authentication extends BaseController
                 return $this->createResponse( 'site:login', [
                         'portfolioMenuLinks' => $this->renderMenuLinks(),
                         'login-feedback' => 'De combinatie van wachtwoord gebruikersnaam is niet gevonden in onze database.',
+                        'asset-path' => $request->getBaseUri() . 'assets/site/',
                     ]
                 );
             }
@@ -56,6 +57,7 @@ class Authentication extends BaseController
         // Normal login request so render the login page.
         return $this->createResponse( 'site:login', [
             'portfolioMenuLinks' => $this->renderMenuLinks(),
+            'asset-path' => $request->getBaseUri() . 'assets/site/',
         ] );
     }
 
@@ -96,15 +98,18 @@ class Authentication extends BaseController
         $teacherRepository = $this->getEntityManager()->getRepository( 'Teacher' );
         $studentRepository = $this->getEntityManager()->getRepository( 'Student' );
 
-        $user = $studentRepository->getByEmail( $email );
+        $student = $studentRepository->getByEmail( $email );
+        $teacher = $teacherRepository->getByEmail( $email );
 
         // Check if the user is found in the database.
-        if ( $user->getId() < 1 )
+        if ( $student->getId() < 1 && $teacher->getId() < 1 )
         {
             return false;
         }
 
-        // Check the inputted passwoord with the stored hash.
+        $user = ( $student->getId() < 1 ) ? $teacher : $student;
+
+        // Check the inputted password with the stored hash.
         if ( !password_verify( $password, $user->getHashedPassword() ) )
         {
             return false;
@@ -112,18 +117,15 @@ class Authentication extends BaseController
 
         $_SESSION[ 'userId' ] = $user->getId();
 
-        $student = $studentRepository->getById( $user->getId() );
-        $teacher = $teacherRepository->getById( $user->getId() );
-
         switch ( true )
         {
             case $user->getIsAdmin():
                 return $_SESSION[ 'authorizationLevel' ] = AuthorizedUser::ADMIN;
 
-            case $student->getId() == $user->getId():
+            case $user->getId() == $user->getId():
                 return $_SESSION[ 'authorizationLevel' ] = AuthorizedUser::STUDENT;
 
-            case $teacher->getIsSLBer():
+            case $user->getIsSLBer():
                 return $_SESSION[ 'authorizationLevel' ] = AuthorizedUser::SLB_TEACHER;
 
             default:
