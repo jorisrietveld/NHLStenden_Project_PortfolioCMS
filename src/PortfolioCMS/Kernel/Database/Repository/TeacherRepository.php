@@ -39,7 +39,7 @@ class TeacherRepository extends Repository
             `User`.`active`, 
             `Teacher`.`isSLBer`
         FROM `DigitalPortfolio`.`Teacher` JOIN `DigitalPortfolio`.`User` ON `Teacher`.`userId` = `User`.`id`
-        WHERE `Student`.`userId` = :id;
+        WHERE `Teacher`.`userId` = :id;
     ';
 
     /**

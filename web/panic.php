@@ -18,16 +18,16 @@ function highlightErrorInFile( string $fileName, int $lineNumber )
     if ( file_exists( $fileName ) )
     {
         $fileLines = file( $fileName );
-        $range = range( $lineNumber - 10, $lineNumber + 10 );
+        $range = range( $lineNumber - 10, $lineNumber +10 );
         foreach ($range as $line)
         {
             if ( array_key_exists( $line, $fileLines ) )
             {
-                $returnString .= $fileLines[ $line ] . "\n";
+                $returnString .= $fileLines[ $line ];
             }
         }
     }
-    return $returnString;
+    return str_replace( ['&lt;?php&nbsp;&nbsp;&nbsp;&nbsp;', '?&gt;'], ['',''],  highlight_string( '<?php'. $returnString . '?>', true ));
 }
 
 /**
@@ -49,6 +49,7 @@ set_exception_handler( function ( $exception )
             var_dump( $exception );
         }
 
+        echo '<h3>It happened somewhere in this part of the code</h3>';
         echo highlightErrorInFile( $exception->getFile(), $exception->getLine() );
 
         echo '</body>';
@@ -75,6 +76,7 @@ set_error_handler( function ( $errorCode, $errorMessage, $inFile, $onLineNumber 
         echo "<p>";
         printf( "Error code: %s \n", $errorCode );
         printf( "Error message: %s \n", $errorMessage );
+        echo '<h3>It happened somewhere in this part of the code</h3>';
         echo highlightErrorInFile( $inFile, $onLineNumber );
         echo "<p>";
         echo '</body>';
