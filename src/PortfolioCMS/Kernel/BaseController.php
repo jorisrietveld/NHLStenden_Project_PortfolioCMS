@@ -11,6 +11,7 @@ namespace StendenINF1B\PortfolioCMS\Kernel;
 
 use StendenINF1B\PortfolioCMS\Kernel\Database\EntityManager;
 use StendenINF1B\PortfolioCMS\Kernel\Helper\ConfigLoader;
+use StendenINF1B\PortfolioCMS\Kernel\Http\ParameterContainer;
 use StendenINF1B\PortfolioCMS\Kernel\Http\Request;
 use StendenINF1B\PortfolioCMS\Kernel\TemplateEngine\TemplateEngine;
 
@@ -83,6 +84,23 @@ abstract class BaseController
     {
         header( 'Location: '. $toRoute );
         //return $this->application->handleFromRoute( $toRoute );
+    }
+
+    /**
+     * @param ParameterContainer $postParams
+     * @param array              $requiredFields
+     * @return bool
+     */
+    protected function checkPostParams( ParameterContainer $postParams, array $requiredFields ) : bool
+    {
+        foreach ( $requiredFields as $requiredField )
+        {
+            if( !$postParams->has( $requiredField) )
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     abstract public function index( Request $request );

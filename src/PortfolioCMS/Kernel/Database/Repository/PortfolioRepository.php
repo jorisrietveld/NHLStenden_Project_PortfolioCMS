@@ -54,7 +54,7 @@ class PortfolioRepository extends Repository
      *
      * @var string
      */
-    protected $insertHobbySql = '
+    protected $insertPortfolioSql = '
         INSERT INTO `DigitalPortfolio`.`Portfolio`( 
             `themeId`,
             `title`,
@@ -75,7 +75,7 @@ class PortfolioRepository extends Repository
      *
      * @var string
      */
-    protected $updateHobbySql = '
+    protected $updatePortfolioSQL = '
         UPDATE Portfolio SET 
             `themeId` = :themeId,
             `title` = :title,
@@ -115,7 +115,7 @@ class PortfolioRepository extends Repository
     {
         try
         {
-            $statement = $this->connection->prepare( $this->insertHobbySql );
+            $statement = $this->connection->prepare( $this->insertPortfolioSql );
 
             $statement->execute( [
                 ':themeId' => $portfolio->getTheme()->getId(),
@@ -147,7 +147,7 @@ class PortfolioRepository extends Repository
     {
         try
         {
-            $statement = $this->connection->prepare( $this->updateHobbySql );
+            $statement = $this->connection->prepare( $this->updatePortfolioSQL );
 
             $statement->execute( [
                 ':themeId' => $portfolio->getTheme()->getId(),
