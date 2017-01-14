@@ -63,7 +63,7 @@ COMMIT;
  */
 BEGIN;
 INSERT INTO DigitalPortfolio.User (password, email, lastIpAddress, firstName, lastName, isAdmin, active)
-VALUES ('$2y$10$AcVISNdt9GcEbBfI8VYB6uwPdZwNZRdl3FeuPBSVB6b8TwEX65p4W', 'marco.brink@student.stenden.com', '127.0.0.1', 'Esmée', 'Lunenborg', FALSE, TRUE);
+VALUES ('$2y$10$AcVISNdt9GcEbBfI8VYB6uwPdZwNZRdl3FeuPBSVB6b8TwEX65p4W', 'esmee.lunenborg@student.stenden.com', '127.0.0.1', 'Esmée', 'Lunenborg', FALSE, TRUE);
 INSERT INTO DigitalPortfolio.Student (userId, address, zipCode, location, dateOfBirth, studentCode, phoneNumber)
 VALUES (LAST_INSERT_ID(), 'Langedijk 15', '7913VG', ' Hollandscheveld', '12-08-1995', '550035', '0642448330');
 COMMIT;
