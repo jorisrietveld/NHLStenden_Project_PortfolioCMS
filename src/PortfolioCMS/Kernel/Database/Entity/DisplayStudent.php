@@ -106,7 +106,8 @@ class DisplayStudent
             ->setFirstName( $student->getFirstName() )
             ->setLastName( $student->getLastName() )
             ->setActive( $student->getIsActive() )
-            ->setIsAdmin( $student->getIsAdmin() );
+            ->setIsAdmin( $student->getIsAdmin() )
+            ->setEmail( $student->getEmail() );
     }
 
     /**

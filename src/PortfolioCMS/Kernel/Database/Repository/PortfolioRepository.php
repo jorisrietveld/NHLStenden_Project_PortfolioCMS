@@ -8,12 +8,18 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Repository;
 
-
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\EntityInterface;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\Portfolio;
+use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\PortfolioMetadata;
 use StendenINF1B\PortfolioCMS\Kernel\Database\EntityManager;
+use StendenINF1B\PortfolioCMS\Kernel\Database\Helper\EntityCollection;
 use StendenINF1B\PortfolioCMS\Kernel\Exception\RepositoryException;
 
+/**
+ * Class PortfolioRepository
+ *
+ * @package StendenINF1B\PortfolioCMS\Kernel\Database\Repository
+ */
 class PortfolioRepository extends Repository
 {
     /**
@@ -86,6 +92,22 @@ class PortfolioRepository extends Repository
     ';
 
     /**
+     * This holds an SQL statement for selecting metadata about all portfolio's.
+     *
+     * @var string
+     */
+    protected $getPortfolioMetaData = '
+        SELECT
+            `Portfolio`.`id`,
+            `Portfolio`.`title`,
+            `Portfolio`.`url`,
+            `Portfolio`.`themeId`,
+            `User`.`firstName`,
+            `User`.`lastName`
+        FROM `DigitalPortfolio`.`Portfolio` JOIN `DigitalPortfolio`.`User` ON Portfolio.userId = User.id
+    ';
+
+    /**
      * This holds an SQL statement for deleting an Portfolio entity from the database.
      *
      * @var string
@@ -119,17 +141,18 @@ class PortfolioRepository extends Repository
 
             $statement->execute( [
                 ':themeId' => $portfolio->getTheme()->getId(),
-                ':title' => $portfolio->getTitle(),
-                ':url' => $portfolio->getUrl(),
-                ':grade' => $portfolio->getGrade(),
-                ':userId' => $portfolio->getStudent()->getId(),
+                ':title'   => $portfolio->getTitle(),
+                ':url'     => $portfolio->getUrl(),
+                ':grade'   => $portfolio->getGrade(),
+                ':userId'  => $portfolio->getStudent()->getId(),
             ] );
 
             $id = (int)$this->connection->lastInsertId();
 
             return $this->getById( $id );
 
-        } catch ( \PDOException $exception )
+        }
+        catch ( \PDOException $exception )
         {
             $this->connection->rollBack();
             throw new RepositoryException( 'The portfolio could not be inserted: ' . $exception->getMessage() );
@@ -151,19 +174,55 @@ class PortfolioRepository extends Repository
 
             $statement->execute( [
                 ':themeId' => $portfolio->getTheme()->getId(),
-                ':title' => $portfolio->getTitle(),
-                ':url' => $portfolio->getUrl(),
-                ':grade' => $portfolio->getGrade(),
-                ':userId' => $portfolio->getStudent()->getId(),
+                ':title'   => $portfolio->getTitle(),
+                ':url'     => $portfolio->getUrl(),
+                ':grade'   => $portfolio->getGrade(),
+                ':userId'  => $portfolio->getStudent()->getId(),
             ] );
 
             return $this->getById( $portfolio->getId() );
 
-        } catch ( \PDOException $exception )
+        }
+        catch ( \PDOException $exception )
         {
             $this->connection->rollBack();
             throw new RepositoryException( 'The Portfolio could not be updated: ' . $exception->getMessage() );
         }
+    }
+
+    /**
+     * Gets metadata about the portfolios.
+     *
+     * @return EntityCollection
+     * @throws RepositoryException
+     */
+    public function getPortfolioMetaData() : EntityCollection
+    {
+        $statement = $this->connection->prepare( $this->getPortfolioMetaData );
+
+        if ( $statement->execute() )
+        {
+            $metaDataCollection = new EntityCollection();
+
+            $pagesRepository = $this->entityManager->getRepository( 'Page' );
+            $pages = $pagesRepository->getAll();
+
+            foreach ($statement->fetchAll( \PDO::FETCH_CLASS, '\\StendenINF1B\\PortfolioCMS\\Kernel\\Database\\Helper\\ResultSet' ) as $resultSet)
+            {
+                $portfolioPages = $pages->getEntitiesWith( 'themeId', $resultSet->getInt( 'themeId' ) );
+
+                $portfolioMetadata = new PortfolioMetadata();
+                $portfolioMetadata->setId( $resultSet->getInt( 'id' ) );
+                $portfolioMetadata->setUrl( $resultSet->getString( 'url' ) );
+                $portfolioMetadata->setTitle( $resultSet->getString( 'title' ) );
+                $portfolioMetadata->setStudentFirstName( $resultSet->getString( 'firstName' ) );
+                $portfolioMetadata->setStudentLastName( $resultSet->getString( 'lastName' ) );
+                $portfolioMetadata->setPortfolioSubPages( $portfolioPages );
+                $metaDataCollection->set( $portfolioMetadata->getId(), $portfolioMetadata );
+            }
+            return $metaDataCollection;
+        }
+        throw new RepositoryException( sprintf( 'The query: %s could not be executed.', $this->getByIdSql ) );
     }
 
     /**
@@ -187,24 +246,24 @@ class PortfolioRepository extends Repository
         $studentManager = $this->entityManager->getRepository( 'Student' );
 
         $whereClause = '`portfolioId` = :wherePortfolioId';
-        $param = [ ':wherePortfolioId' => $databaseData['id'] ];
+        $param = [ ':wherePortfolioId' => $databaseData[ 'id' ] ];
 
         $portfolio = new Portfolio();
 
         $portfolio->setId(
-            $databaseData['id']
+            $databaseData[ 'id' ]
         );
         $portfolio->setTitle(
-            $databaseData['title']
+            $databaseData[ 'title' ]
         );
         $portfolio->setUrl(
-            $databaseData['url']
+            $databaseData[ 'url' ]
         );
         $portfolio->setGrade(
-            (float)$databaseData['grade']
+            (float)$databaseData[ 'grade' ]
         );
         $portfolio->setTheme(
-            $themeManager->getById( $databaseData['themeId'] )
+            $themeManager->getById( $databaseData[ 'themeId' ] )
         );
         $portfolio->setImages(
             $imageManager->getByCondition( '`UploadedFile`.`portfolioId` = :wherePortfolioId', $param )
@@ -228,13 +287,13 @@ class PortfolioRepository extends Repository
             $trainingManager->getByCondition( $whereClause, $param )
         );
         $portfolio->setStudent(
-            $studentManager->getbyId( $databaseData['userId'] )
+            $studentManager->getbyId( $databaseData[ 'userId' ] )
         );
         $portfolio->setHobbies(
             $hobbyManager->getByCondition( $whereClause, $param )
         );
         $portfolio->setPages(
-            $themeManager->getPagesByThemeId( $databaseData['themeId'] )
+            $themeManager->getPagesByThemeId( $databaseData[ 'themeId' ] )
         );
 
         return $portfolio;
@@ -242,6 +301,7 @@ class PortfolioRepository extends Repository
 
     /**
      * Creates an new empty Portfolio object.
+     *
      * @return EntityInterface
      */
     public function createEmptyEntity() : EntityInterface

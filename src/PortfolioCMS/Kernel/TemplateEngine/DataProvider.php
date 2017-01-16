@@ -9,6 +9,7 @@ declare( strict_types = 1 );
 namespace StendenINF1B\PortfolioCMS\Kernel\TemplateEngine;
 
 
+use StendenINF1B\PortfolioCMS\Controller\Authentication;
 use StendenINF1B\PortfolioCMS\Kernel\Authorization\User;
 use StendenINF1B\PortfolioCMS\Kernel\Helper\ParameterContainer;
 
@@ -21,13 +22,143 @@ class DataProvider extends ParameterContainer
 
     }
 
+    /**
+     * Gets stored data in the parameter property.
+     * 
+     * @param      $key
+     * @param null $default
+     * @return mixed|null
+     */
     public function get( $key, $default = NULL )
     {
-        // todo write check if the user is allowed to view that data.
         return parent::get( $key , 'Data not found.' );
     }
 
-    public function isAllowedToViewGrade(  )
+    /**
+     * Checks if the session stored authorization level is one from an administrator.
+     *
+     * @return bool
+     */
+    public function isAdmin(  )
+    {
+        if( isset( $_SESSION[ 'id' ], $_SESSION[ 'authorizationLevel' ] ))
+        {
+            if( $_SESSION[ 'authorizationLevel' ] == Authentication::ADMIN )
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the session stored authorization level is one from an SLB teacher.
+     *
+     * @return bool
+     */
+    public function isSlbTeacher(  )
+    {
+        if( isset( $_SESSION[ 'id' ], $_SESSION[ 'authorizationLevel' ] ))
+        {
+            if( $_SESSION[ 'authorizationLevel' ] == Authentication::SLB_TEACHER )
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the session stored authorization level one from an teacher.
+     *
+     * @return bool
+     */
+    public function isTeacher(  )
+    {
+        if( isset( $_SESSION[ 'id' ], $_SESSION[ 'authorizationLevel' ] ))
+        {
+            if( $_SESSION[ 'authorizationLevel' ] == Authentication::TEACHER )
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the session stored authorization level one from an student.
+     *
+     * @return bool
+     */
+    public function isStudent(  )
+    {
+        if( isset( $_SESSION[ 'id' ], $_SESSION[ 'authorizationLevel' ] ))
+        {
+            if( $_SESSION[ 'authorizationLevel' ] == Authentication::STUDENT  )
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the session stored authorization level is one from an SLB teacher or above.
+     *
+     * @return bool
+     */
+    public function isAtLeasedSlbTeacher(  )
+    {
+        if( isset( $_SESSION[ 'id' ], $_SESSION[ 'authorizationLevel' ] ))
+        {
+            if( $_SESSION[ 'authorizationLevel' ] >= Authentication::SLB_TEACHER )
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the session stored authorization level one from an teacher or above.
+     *
+     * @return bool
+     */
+    public function isAtLeasedTeacher(  )
+    {
+        if( isset( $_SESSION[ 'id' ], $_SESSION[ 'authorizationLevel' ] ))
+        {
+            if( $_SESSION[ 'authorizationLevel' ] >= Authentication::TEACHER )
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the session stored authorization level one from an student or above.
+     *
+     * @return bool
+     */
+    public function isAtLeasedStudent(  )
+    {
+        if( isset( $_SESSION[ 'id' ], $_SESSION[ 'authorizationLevel' ] ))
+        {
+            if( $_SESSION[ 'authorizationLevel' ] >= Authentication::STUDENT  )
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the session stored authorization level is from the students own id or if the authorization level is SLB teacher or admin.
+     *
+     * @return bool
+     */
+    public function isOwnOrSlbTeacher(  )
     {
         if( isset( $_SESSION[ 'id' ], $_SESSION[ 'authorizationLevel' ] ))
         {
@@ -35,6 +166,20 @@ class DataProvider extends ParameterContainer
             {
                 return true;
             }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if its there is no session stored authorization level.
+     *
+     * @return bool
+     */
+    public function isGuest(  )
+    {
+        if( !isset( $_SESSION[ 'id' ], $_SESSION[ 'authorizationLevel' ] ))
+        {
+            return true;
         }
         return false;
     }

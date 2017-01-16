@@ -11,7 +11,7 @@ namespace StendenINF1B\PortfolioCMS\Kernel\Database\Helper;
 
 use StendenINF1B\PortfolioCMS\Kernel\Helper\ParameterContainer;
 
-class EntityCollection extends ParameterContainer
+class EntityCollection extends ParameterContainer implements \ArrayAccess, \IteratorAggregate
 {
     /**
      * Gets an new EntityCollection filtered by the entities which field has an certain value.
