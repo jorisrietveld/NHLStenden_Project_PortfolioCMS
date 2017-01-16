@@ -89,6 +89,11 @@ Below there is an list of the pages avalilable grouped by the authorization leve
 * admin - manage students grades
 # Administration pages per authorization level
 
+# Admin actions for each authorization level
+
+### Guest :cop:
+* none
+
 ### Student
 * Edit account
 * Edit portfolio
