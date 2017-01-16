@@ -22,4 +22,3 @@ $response = $application->handle( $request );
 
 // Send the generated response.
 $response->send();
-
