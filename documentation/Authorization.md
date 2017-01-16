@@ -73,10 +73,8 @@ Below there is an list of the pages avalilable grouped by the authorization leve
 * view contact
 * view login
 * view all portfolio's
-
 * admin - manage own account
 * admin - mangage portfolio grades
-
 * admin - manage students SLB assignment feedback
 * admin - view students portfolio/slbAssignment students grades
 * admin - view students SLB assingments
@@ -86,13 +84,11 @@ Below there is an list of the pages avalilable grouped by the authorization leve
 * view contact
 * view login
 * view all portfolio's
-
 * admin - manage teacher/student/admin accounts
 * admin - manage students guestbook messages
 * admin - manage students portfolios
 * admin - manage students SLB assingments
 * admin - manage students grades
-
 # Administration pages per authorization level
 
 ### Student
@@ -118,7 +114,6 @@ Below there is an list of the pages avalilable grouped by the authorization leve
 * Edit/add/delete grades
 
 # Pages needed
-
  - Accounts overview (admin) 
     - Edit account (admin | SLB teacher | teacher | student)
  - Portfolios overview ( admin | SLB teacher | teacher )
