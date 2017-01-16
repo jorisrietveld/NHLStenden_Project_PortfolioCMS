@@ -62,10 +62,8 @@ Below there is an list of the pages avalilable grouped by the authorization leve
 * view contact
 * view login
 * view all portfolio's
-
 * admin - manage own account
 * admin - manage student project grades
-
 * admin - view students portfolio/slbAssignment students grades
 
 ### SLB Teacher
