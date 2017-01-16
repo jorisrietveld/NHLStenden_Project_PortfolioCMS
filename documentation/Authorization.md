@@ -10,7 +10,8 @@
     - [Teacher](#teacher)
     - [SLB Teacher](#slb-teacher)
     - [Admin](#admin)
-- [Administration pages per authorization level](#administration-pages-per-authorization-level)
+- [Administration actions for authorization level](#administration-actions-for-authorization-level)
+    - [Guest](#guest-1)
     - [Student](#student-1)
     - [Teacher](#teacher-1)
     - [SLB Teacher](#slb-teacher-1)
@@ -89,10 +90,10 @@ Below there is an list of the pages avalilable grouped by the authorization leve
 * admin - manage students grades
 # Administration pages per authorization level
 
-# Admin actions for each authorization level
+# Administration actions for authorization level
 
-### Guest :cop:
-* none
+### Guest 
+* none :cop:
 
 ### Student
 * Edit account
