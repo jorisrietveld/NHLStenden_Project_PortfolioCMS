@@ -21,6 +21,21 @@ class Admin extends BaseController
         ] );
     }
 
+    public function add_user( Request $request )
+    {
+        return $this->createResponse( 'admin:add_user', [
+            'asset-path' => $request->getBaseUri().'assets/admin/',
+        ] );
+    }
+
+    public function edit_user( Request $request )
+    {
+        return $this->createResponse( 'admin:edit_user', [
+            'asset-path' => $request->getBaseUri().'assets/admin/',
+        ] );
+    }
+
+
     public function portfolio( Request $request )
     {
         return $this->createResponse( 'admin:portfolio', [
