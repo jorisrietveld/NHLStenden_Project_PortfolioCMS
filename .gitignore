@@ -67,8 +67,8 @@ crashlytics-build.properties
 fabric.properties
 ### Composer template
 composer.phar
-vendor/*
-/vendor
+#vendor/*
+#/vendor
 
 
 
