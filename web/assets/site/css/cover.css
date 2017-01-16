@@ -27,7 +27,7 @@ html,
 body {
     height: 100%;
     background-color: rgba(74, 151, 255, 1);
-    background-image: url("../lib/img/sea_bg.jpg");
+    background-image: url("../images/sea_bg.jpg");
     background-size: cover;
 
 }
