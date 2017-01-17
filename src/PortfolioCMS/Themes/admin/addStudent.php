@@ -18,7 +18,7 @@ include 'header.php';
                         </h4>
                         <hr class="style-one"/>
                         <div class="col-sm-5 custom-buttons">
-                            <a href="overzicht">
+                            <a href="../gebruikersOverzicht">
                                 <button class="btn btn-md btn-primary btn-block btn-custom">
                                     <i class="fa fa-arrow-left"></i> Terug
                                 </button>

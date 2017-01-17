@@ -16,12 +16,13 @@ include 'header.php';
                 <div class="card">
                     <div class="header">
                         <h4 class="title text-center">
-                            <strong><i class="fa fa-fa-pencil-square-o"></i> Docent aanpassen
-                        </strong>
+                            <strong>
+                                <i class="fa fa-pencil-square-o"></i><?= $dataProvider->isAdmin() ? 'Docent aanpassen':'Account aanpassen'?>
+                            </strong>
                         </h4>
                         <hr class="style-one"/>
                         <div class="col-sm-5 custom-buttons">
-                            <a href="overzicht">
+                            <a href="../gebruikersOverzicht">
                                 <button class="btn btn-md btn-primary btn-block btn-custom">
                                     <i class="fa fa-arrow-left"></i> Terug
                                 </button>

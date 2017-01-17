@@ -173,6 +173,12 @@ class UserManagement extends BaseController
      */
     public function editStudent( Request $request, string $id = '' ) : Response
     {
+        // Check if the user is allowed to edit the account.
+        if( $id != $_SESSION['userId'] && $_SESSION['authorizationLevel'] !== AuthorizedUser::ADMIN  )
+        {
+            $this->redirect( '/401' );
+        }
+
         $currentStudent = $this->studentRepository->getById( (int)$id );
         $postParams = $request->getPostParams();
 
@@ -221,7 +227,7 @@ class UserManagement extends BaseController
 
         return $this->createResponse( 'admin:editStudent', [
                 'asset-path'   => $request->getBaseUri() . 'assets/admin/',
-                'student-data' => $currentStudent,
+                'student-data' => ( $currentStudent->getId() !== 0 ) ? $currentStudent : NULL,
                 'feedback'     => ( $currentStudent->getId() !== 0 ) ? '' : 'De student bestaat niet.',
             ]
         );
@@ -235,6 +241,12 @@ class UserManagement extends BaseController
      */
     public function editTeacher( Request $request, string $id = '' ) : Response
     {
+        // Check if the user is allowed to edit the account.
+        if( $id != $_SESSION['userId'] && $_SESSION['authorizationLevel'] !== AuthorizedUser::ADMIN  )
+        {
+            $this->redirect( '/401' );
+        }
+
         $currentTeacher = $this->teacherRepository->getById( (int)$id );
         $postParams = $request->getPostParams();
 

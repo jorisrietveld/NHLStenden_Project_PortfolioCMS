@@ -8,30 +8,29 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Kernel\TemplateEngine;
 
-
 use StendenINF1B\PortfolioCMS\Controller\Authentication;
-use StendenINF1B\PortfolioCMS\Kernel\Authorization\User;
+use StendenINF1B\PortfolioCMS\Kernel\Debug\Debug;
 use StendenINF1B\PortfolioCMS\Kernel\Helper\ParameterContainer;
 
-class DataProvider extends ParameterContainer 
+class DataProvider extends ParameterContainer
 {
     protected $user;
 
-    public function __construct( )
+    public function __construct()
     {
 
     }
 
     /**
      * Gets stored data in the parameter property.
-     * 
+     *
      * @param      $key
      * @param null $default
      * @return mixed|null
      */
     public function get( $key, $default = NULL )
     {
-        return parent::get( $key , 'Data not found.' );
+        return parent::get( $key, 'Data not found.' );
     }
 
     /**
@@ -39,16 +38,16 @@ class DataProvider extends ParameterContainer
      *
      * @return bool
      */
-    public function isAdmin(  )
+    public function isAdmin()
     {
-        if( isset( $_SESSION[ 'userId' ], $_SESSION[ 'authorizationLevel' ] ))
+        if ( isset( $_SESSION[ 'userId' ], $_SESSION[ 'authorizationLevel' ] ) )
         {
-            if( $_SESSION[ 'authorizationLevel' ] == Authentication::ADMIN )
+            if ( $_SESSION[ 'authorizationLevel' ] == Authentication::ADMIN )
             {
-                return true;
+                return TRUE;
             }
         }
-        return false;
+        return FALSE;
     }
 
     /**
@@ -56,16 +55,16 @@ class DataProvider extends ParameterContainer
      *
      * @return bool
      */
-    public function isSlbTeacher(  )
+    public function isSlbTeacher()
     {
-        if( isset( $_SESSION[ 'userId' ], $_SESSION[ 'authorizationLevel' ] ))
+        if ( isset( $_SESSION[ 'userId' ], $_SESSION[ 'authorizationLevel' ] ) )
         {
-            if( $_SESSION[ 'authorizationLevel' ] == Authentication::SLB_TEACHER )
+            if ( $_SESSION[ 'authorizationLevel' ] == Authentication::SLB_TEACHER )
             {
-                return true;
+                return TRUE;
             }
         }
-        return false;
+        return FALSE;
     }
 
     /**
@@ -73,16 +72,16 @@ class DataProvider extends ParameterContainer
      *
      * @return bool
      */
-    public function isTeacher(  )
+    public function isTeacher()
     {
-        if( isset( $_SESSION[ 'userId' ], $_SESSION[ 'authorizationLevel' ] ))
+        if ( isset( $_SESSION[ 'userId' ], $_SESSION[ 'authorizationLevel' ] ) )
         {
-            if( $_SESSION[ 'authorizationLevel' ] == Authentication::TEACHER )
+            if ( $_SESSION[ 'authorizationLevel' ] == Authentication::TEACHER )
             {
-                return true;
+                return TRUE;
             }
         }
-        return false;
+        return FALSE;
     }
 
     /**
@@ -90,16 +89,16 @@ class DataProvider extends ParameterContainer
      *
      * @return bool
      */
-    public function isStudent(  )
+    public function isStudent()
     {
-        if( isset( $_SESSION[ 'userId' ], $_SESSION[ 'authorizationLevel' ] ))
+        if ( isset( $_SESSION[ 'userId' ], $_SESSION[ 'authorizationLevel' ] ) )
         {
-            if( $_SESSION[ 'authorizationLevel' ] == Authentication::STUDENT  )
+            if ( $_SESSION[ 'authorizationLevel' ] == Authentication::STUDENT )
             {
-                return true;
+                return TRUE;
             }
         }
-        return false;
+        return FALSE;
     }
 
     /**
@@ -107,16 +106,16 @@ class DataProvider extends ParameterContainer
      *
      * @return bool
      */
-    public function isAtLeasedTeacher(  )
+    public function isAtLeasedTeacher()
     {
-        if( isset( $_SESSION[ 'userId' ], $_SESSION[ 'authorizationLevel' ] ))
+        if ( isset( $_SESSION[ 'userId' ], $_SESSION[ 'authorizationLevel' ] ) )
         {
-            if( $_SESSION[ 'authorizationLevel' ] >= Authentication::TEACHER )
+            if ( $_SESSION[ 'authorizationLevel' ] >= Authentication::TEACHER )
             {
-                return true;
+                return TRUE;
             }
         }
-        return false;
+        return FALSE;
     }
 
     /**
@@ -124,16 +123,16 @@ class DataProvider extends ParameterContainer
      *
      * @return bool
      */
-    public function isAtLeasedStudent(  )
+    public function isAtLeasedStudent()
     {
-        if( isset( $_SESSION[ 'userId' ], $_SESSION[ 'authorizationLevel' ] ))
+        if ( isset( $_SESSION[ 'userId' ], $_SESSION[ 'authorizationLevel' ] ) )
         {
-            if( $_SESSION[ 'authorizationLevel' ] >= Authentication::STUDENT  )
+            if ( $_SESSION[ 'authorizationLevel' ] >= Authentication::STUDENT )
             {
-                return true;
+                return TRUE;
             }
         }
-        return false;
+        return FALSE;
     }
 
     /**
@@ -141,16 +140,16 @@ class DataProvider extends ParameterContainer
      *
      * @return bool
      */
-    public function isOwnOrSlbTeacher(  )
+    public function isOwnOrSlbTeacher()
     {
-        if( isset( $_SESSION[ 'userId' ], $_SESSION[ 'authorizationLevel' ] ))
+        if ( isset( $_SESSION[ 'userId' ], $_SESSION[ 'authorizationLevel' ] ) )
         {
-            if( $this->call( 'student', 'getId' ) == $_SESSION[ 'id' ] || $_SESSION[ 'authorizationLevel' ] > 2 )
+            if ( $this->call( 'student', 'getId' ) == $_SESSION[ 'id' ] || $_SESSION[ 'authorizationLevel' ] > 2 )
             {
-                return true;
+                return TRUE;
             }
         }
-        return false;
+        return FALSE;
     }
 
     /**
@@ -158,13 +157,13 @@ class DataProvider extends ParameterContainer
      *
      * @return bool
      */
-    public function isGuest(  )
+    public function isGuest()
     {
-        if( !isset( $_SESSION[ 'userId' ], $_SESSION[ 'authorizationLevel' ] ))
+        if ( !isset( $_SESSION[ 'userId' ], $_SESSION[ 'authorizationLevel' ] ) )
         {
-            return true;
+            return TRUE;
         }
-        return false;
+        return FALSE;
     }
 
     /**
@@ -175,18 +174,71 @@ class DataProvider extends ParameterContainer
      */
     public function call( $key, string $method, array $passParams = [] )
     {
-        if( $this->has( $key ) )
+        try
         {
-            $object = $this->get( $key );
-
-            if( method_exists( $object, $method ) )
+            if ( $this->has( $key ) )
             {
-                return $object->{$method}( ...array_values( $passParams ) );
+                $object = $this->get( $key );
+
+                if ( method_exists( $object, $method ) )
+                {
+                    return $object->{$method}( ...array_values( $passParams ) );
+                }
             }
+        }
+        catch ( \Exception $e )
+        {
+            Debug::addException( $e );
         }
 
         return NULL;
     }
-    
-    
+
+    /**
+     * Calling an nested method on an object stored in the data provider.
+     * Example:
+     * The following call:
+     * $dp->nestedCall( 'Users', 'getById:getAsAn', [ [1], ['object'] ] );
+     * Will execute this code:
+     * Users->getById( 1 )->getAsAn( 'object' );
+     *
+     * @param        $key
+     * @param string $methods
+     * @param array  $passParams
+     * @return null
+     */
+    public function nestedCall( $key, string $methods, array $passParams = [] )
+    {
+        $methods = explode( ':', $methods );
+        try
+        {
+            if ( $this->has( $key ) )
+            {
+                $object = $this->get( $key );
+
+                foreach ( $methods as $index => $method)
+                {
+                    if ( method_exists( $object, $method ) )
+                    {
+                        if ( array_key_exists( $index, $passParams ) )
+                        {
+                            $object = $object->{$method}( ...array_values( $passParams[$index] ) );
+                        }
+                        else
+                        {
+                            $object = $object->{$method}();
+                        }
+                    }
+                }
+                return $object;
+            }
+        }
+        catch ( \Exception $e )
+        {
+            Debug::addException( $e );
+        }
+
+        return NULL;
+    }
+
 }

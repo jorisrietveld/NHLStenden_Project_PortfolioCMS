@@ -48,11 +48,11 @@ class Authentication extends BaseController
                 }
                 elseif( $authorizationLevel == AuthorizedUser::STUDENT )
                 {
-                    $this->redirect( '/admin/editStudent' );
+                    $this->redirect( '/admin/editStudent/'.$_SESSION['userId'] );
                 }
                 else
                 {
-                    $this->redirect( '/admin/editTeacher' );
+                    $this->redirect( '/admin/editTeacher/'.$_SESSION['userId'] );
                 }
             }
             else

@@ -10,33 +10,44 @@
 
             <ul class="nav">
                 <?php if( $dataProvider->isAdmin() ): ?>
-                <li <?php if ($isOnAdminPage == 'overzicht') {?>class="active"<?php } ?>>
-                    <a href="./gebruikersOverzicht">
-                        <i class="fa fa-list"></i>
-                        <p>Gebruikers</p>
-                    </a>
-                </li>
+                    <li <?php if ($isOnAdminPage == 'overzicht') {?>class="active"<?php } ?>>
+                        <a href="./gebruikersOverzicht">
+                            <i class="fa fa-list"></i>
+                            <p>Gebruikers</p>
+                        </a>
+                    </li>
                 <?php else: ?>
-                <li <?php if ($isOnAdminPage == 'overzicht') {?>class="active"<?php } ?>>
-                    <a href="./overzicht">
-                        <i class="fa fa-list"></i>
-                        <p>Mijn account</p>
-                    </a>
-                </li>
+                    <li <?php if ($isOnAdminPage == 'overzicht') {?>class="active"<?php } ?>>
+                        <a href="./overzicht">
+                            <i class="fa fa-list"></i>
+                            <p>Mijn account</p>
+                        </a>
+                    </li>
                 <?php endif; ?>
 
-                <li <?php if ($isOnAdminPage == 'portfolio') {?>class="active"<?php } ?>>
-                    <a href="./portfolio">
-                        <i class="fa fa-user-circle-o"></i>
-                        <p>Portfolio</p>
-                    </a>
-                </li>
-                <li <?php if ($isOnAdminPage == 'thema') {?>class="active"<?php } ?>>
+                <?php if( $dataProvider->isStudent() ): ?>
+                    <li <?php if ($isOnAdminPage == 'portfolio') {?>class="active"<?php } ?>>
+                        <a href="./portfolio">
+                            <i class="fa fa-user-circle-o"></i>
+                            <p>Mijn Portfolio</p>
+                        </a>
+                    </li>
+                <?php elseif( $dataProvider->isAtLeasedTeacher() ): ?>
+                    <li <?php if ($isOnAdminPage == 'portfolio') {?>class="active"<?php } ?>>
+                        <a href="./portfolio">
+                            <i class="fa fa-user-circle-o"></i>
+                            <p>Portfolios</p>
+                        </a>
+                    </li>
+                <?php endif; ?>
+
+               <!-- <li <?php /*if ($isOnAdminPage == 'thema') {*/?>class="active"<?php /*} */?>>
                     <a href="./thema">
                         <i class="fa fa-cube"></i>
                         <p>Thema</p>
                     </a>
-                </li>
+                </li>-->
+
                 <li <?php if ($isOnAdminPage == 'cijferregistratie') {?>class="active"<?php } ?>>
                     <a href="./cijferregistratie">
                         <i class="fa fa-area-chart"></i>

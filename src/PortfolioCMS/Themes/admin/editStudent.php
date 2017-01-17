@@ -14,11 +14,14 @@ include 'header.php';
             <div class="col-md-12">
                 <div class="card">
                     <div class="header">
-                        <h4 class="title text-center"><strong><i class="fa fa-plus"></i> Student toevoegen</strong>
+                        <h4 class="title text-center">
+                            <strong>
+                                <i class="fa fa-pencil-square-o"></i>&nbsp;&nbsp;<?= $dataProvider->isAdmin() ? 'Student aanpassen' : 'Account aanpassen' ?>
+                            </strong>
                         </h4>
                         <hr class="style-one"/>
                         <div class="col-sm-5 custom-buttons">
-                            <a href="overzicht">
+                            <a href="../gebruikersOverzicht">
                                 <button class="btn btn-md btn-primary btn-block btn-custom">
                                     <i class="fa fa-arrow-left"></i> Terug
                                 </button>
@@ -39,7 +42,9 @@ include 'header.php';
                                                        class="form-control"
                                                        id="inputEmail"
                                                        placeholder="Email"
-                                                       value="<?= $dataProvider->call( 'student-data', 'getEmail' ) ?>">
+                                                       title="Ongeldig email adres"
+                                                       value="<?= $dataProvider->call( 'student-data', 'getEmail' ) ?>"
+                                                       required>
                                             </div>
 
                                             <div class="form-group">
@@ -53,7 +58,8 @@ include 'header.php';
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputPassword">Wachtwoord opnieuw</label>
+                                                <label class="form-label col-lg-3" for="inputPassword">Wachtwoord
+                                                    opnieuw</label>
                                                 <input type="password"
                                                        name="password"
                                                        class="form-control"
@@ -69,7 +75,10 @@ include 'header.php';
                                                        class="form-control"
                                                        id="inputFirstName"
                                                        placeholder="Voornaam"
-                                                       value="<?= $dataProvider->call('student-data','getEmail')?>">
+                                                       pattern="[a-zA-Z]"
+                                                       title="Ongeldige voornaam"
+                                                       value="<?= $dataProvider->call( 'student-data', 'getEmail' ) ?>"
+                                                       required>
                                             </div>
 
                                             <div class="form-group">
@@ -79,7 +88,10 @@ include 'header.php';
                                                        class="form-control"
                                                        id="inputLastName"
                                                        placeholder="Achternaam"
-                                                       value="<?= $dataProvider->call('student-data','getLastName')?>">
+                                                       pattern="[a-zA-Z]"
+                                                       title="Ongeldige achternaam"
+                                                       value="<?= $dataProvider->call( 'student-data', 'getLastName' ) ?>"
+                                                       required>
                                             </div>
 
                                             <div class="form-group">
@@ -89,7 +101,10 @@ include 'header.php';
                                                        class="form-control"
                                                        id="inputAddress"
                                                        placeholder="Addres"
-                                                       value="<?= $dataProvider->call('student-data','getAddress')?>">
+                                                       pattern="[a-zA-Z0-9]"
+                                                       title="Ongeldig adres"
+                                                       value="<?= $dataProvider->call( 'student-data', 'getAddress' ) ?>"
+                                                       required>
                                             </div>
 
                                             <div class="form-group">
@@ -99,9 +114,10 @@ include 'header.php';
                                                        class="form-control"
                                                        id="inputZipCode"
                                                        placeholder="postcode"
-                                                       pattern="A[1-9]\d{3} ?[a-zA-Z]{2}"
+                                                       pattern="[1-9]\d{3} ?[a-zA-Z]{2}"
                                                        title="Ongeldige postcode"
-                                                       value="<?= $dataProvider->call('student-data','getZipCode')?>">
+                                                       value="<?= $dataProvider->call( 'student-data', 'getZipCode' ) ?>"
+                                                       required>
                                             </div>
 
                                             <div class="form-group">
@@ -111,7 +127,10 @@ include 'header.php';
                                                        class="form-control"
                                                        id="inputLocation"
                                                        placeholder="Woonplaats"
-                                                       value="<?= $dataProvider->call( 'student-data', 'getLocation' ) ?>">
+                                                       pattern="[a-zA-Z]"
+                                                       title="Ongeldige woonplaats"
+                                                       value="<?= $dataProvider->call( 'student-data', 'getLocation' ) ?>"
+                                                       required>
                                             </div>
 
                                             <div class="form-group">
@@ -121,17 +140,21 @@ include 'header.php';
                                                        class="form-control"
                                                        id="inputDateOfBirth"
                                                        placeholder="geboorte datum"
-                                                       value="<?= $dataProvider->call( 'student-data', 'getDateOfBirth' )->format( 'Y-m-d') ?>">
+                                                       value="<?= $dataProvider->nestedCall( 'student-data', 'getDateOfBirth:format', [ [], [ 'Y-m-d' ], ] ) ?>"
+                                                       required>
                                             </div>
 
                                             <div class="form-group">
                                                 <label class="form-label col-lg-3" for="inputPassword">student code</label>
-                                                    <input type="text"
-                                                           name="studentCode"
-                                                           class="form-control <?= $dataProvider->isAdmin() ? '':'disabled'?>"
-                                                           id="inputStudentCode"
-                                                           placeholder="student code"
-                                                           value="<?= $dataProvider->call( 'student-data', 'getStudentCode' ) ?>">
+                                                <input type="text"
+                                                       name="studentCode"
+                                                       class="form-control <?= $dataProvider->isAdmin() ? '' : 'disabled' ?>"
+                                                       id="inputStudentCode"
+                                                       placeholder="student code"
+                                                       pattern="[1-9]\d{4}"
+                                                       title="Ongeldige student code"
+                                                       value="<?= $dataProvider->call( 'student-data', 'getStudentCode' ) ?>"
+                                                       required>
                                             </div>
 
                                             <div class="form-group">
@@ -141,7 +164,8 @@ include 'header.php';
                                                        class="form-control"
                                                        id="inputLastName"
                                                        placeholder="telefoon nummer"
-                                                       value="<?= $dataProvider->call( 'student-data', 'getTelephoneNumber' ) ?>">
+                                                       value="<?= $dataProvider->call( 'student-data', 'getPhoneNumber' ) ?>"
+                                                       required>
                                             </div>
 
 
