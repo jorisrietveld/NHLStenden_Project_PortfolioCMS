@@ -57,8 +57,18 @@ include 'header.php'; ?>
                                     <td><?= $user->getLastName() ?></td>
                                     <td class="word-break"><?= $user->getEmail() ?></td>
                                     <td><?= $user->getType() ?></td>
-                                    <td><?= $user->getIsAdmin() ?></td>
-                                    <td><?= $user->getActive() ?></td>
+                                    <td><?php
+                                        $admin = $user->getIsAdmin();
+                                        if($admin == 1){echo"Ja";}
+                                        else{
+                                            echo"Nee";
+                                        }?></td>
+                                    <td><?php
+                                        $active = $user->getActive();
+                                        if($active == 1){
+                                            echo"Actief";
+                                        }
+                                        else{echo "Inactief";}?></td>
                                     <td><a href="edit_<?= $user->getType() ?>"><button class="btn btn-md btn-primary btn-block btn-custom"><i class="fa fa-edit"></i><span class="out_window">Bewerk</span></button></a></td>
                                     <td><button type="submit" class="btn btn-md btn-primary btn-block btn-custom"><i class="fa fa-remove"></i><span class="out_window">Verwijder</span></button></td>
                                 </tr>
