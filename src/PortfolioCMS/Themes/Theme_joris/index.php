@@ -37,7 +37,7 @@ $student = $dataProvider->get('student');
                 <ul class="nav navbar-nav">
                     <?php foreach ( $dataProvider->get( 'pages' ) as $page ): ?>
                         <li>
-                            <a href="<?= $dataProvider->get( 'url' ) .  $page->getUrl() ?>"><?= $page->getName() ?></a>
+                            <a href=".<?= $page->getUrl() ?>"><?= $page->getName() ?></a>
                         </li>
                     <?php endforeach; ?>
                 </ul>

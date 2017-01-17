@@ -41,7 +41,7 @@ class DataProvider extends ParameterContainer
      */
     public function isAdmin(  )
     {
-        if( isset( $_SESSION[ 'id' ], $_SESSION[ 'authorizationLevel' ] ))
+        if( isset( $_SESSION[ 'userId' ], $_SESSION[ 'authorizationLevel' ] ))
         {
             if( $_SESSION[ 'authorizationLevel' ] == Authentication::ADMIN )
             {
@@ -58,7 +58,7 @@ class DataProvider extends ParameterContainer
      */
     public function isSlbTeacher(  )
     {
-        if( isset( $_SESSION[ 'id' ], $_SESSION[ 'authorizationLevel' ] ))
+        if( isset( $_SESSION[ 'userId' ], $_SESSION[ 'authorizationLevel' ] ))
         {
             if( $_SESSION[ 'authorizationLevel' ] == Authentication::SLB_TEACHER )
             {
@@ -75,7 +75,7 @@ class DataProvider extends ParameterContainer
      */
     public function isTeacher(  )
     {
-        if( isset( $_SESSION[ 'id' ], $_SESSION[ 'authorizationLevel' ] ))
+        if( isset( $_SESSION[ 'userId' ], $_SESSION[ 'authorizationLevel' ] ))
         {
             if( $_SESSION[ 'authorizationLevel' ] == Authentication::TEACHER )
             {
@@ -92,26 +92,9 @@ class DataProvider extends ParameterContainer
      */
     public function isStudent(  )
     {
-        if( isset( $_SESSION[ 'id' ], $_SESSION[ 'authorizationLevel' ] ))
+        if( isset( $_SESSION[ 'userId' ], $_SESSION[ 'authorizationLevel' ] ))
         {
             if( $_SESSION[ 'authorizationLevel' ] == Authentication::STUDENT  )
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Checks if the session stored authorization level is one from an SLB teacher or above.
-     *
-     * @return bool
-     */
-    public function isAtleasedSlbTeacher(  )
-    {
-        if( isset( $_SESSION[ 'id' ], $_SESSION[ 'authorizationLevel' ] ))
-        {
-            if( $_SESSION[ 'authorizationLevel' ] >= Authentication::SLB_TEACHER )
             {
                 return true;
             }
@@ -126,7 +109,7 @@ class DataProvider extends ParameterContainer
      */
     public function isAtLeasedTeacher(  )
     {
-        if( isset( $_SESSION[ 'id' ], $_SESSION[ 'authorizationLevel' ] ))
+        if( isset( $_SESSION[ 'userId' ], $_SESSION[ 'authorizationLevel' ] ))
         {
             if( $_SESSION[ 'authorizationLevel' ] >= Authentication::TEACHER )
             {
@@ -143,7 +126,7 @@ class DataProvider extends ParameterContainer
      */
     public function isAtLeasedStudent(  )
     {
-        if( isset( $_SESSION[ 'id' ], $_SESSION[ 'authorizationLevel' ] ))
+        if( isset( $_SESSION[ 'userId' ], $_SESSION[ 'authorizationLevel' ] ))
         {
             if( $_SESSION[ 'authorizationLevel' ] >= Authentication::STUDENT  )
             {
@@ -160,7 +143,7 @@ class DataProvider extends ParameterContainer
      */
     public function isOwnOrSlbTeacher(  )
     {
-        if( isset( $_SESSION[ 'id' ], $_SESSION[ 'authorizationLevel' ] ))
+        if( isset( $_SESSION[ 'userId' ], $_SESSION[ 'authorizationLevel' ] ))
         {
             if( $this->call( 'student', 'getId' ) == $_SESSION[ 'id' ] || $_SESSION[ 'authorizationLevel' ] > 2 )
             {
@@ -177,7 +160,7 @@ class DataProvider extends ParameterContainer
      */
     public function isGuest(  )
     {
-        if( !isset( $_SESSION[ 'id' ], $_SESSION[ 'authorizationLevel' ] ))
+        if( !isset( $_SESSION[ 'userId' ], $_SESSION[ 'authorizationLevel' ] ))
         {
             return true;
         }

@@ -9,12 +9,22 @@
             </div>
 
             <ul class="nav">
+                <?php if( $dataProvider->isAdmin() ): ?>
                 <li <?php if ($isOnAdminPage == 'overzicht') {?>class="active"<?php } ?>>
-                    <a href="./overzicht">
+                    <a href="./gebruikersOverzicht">
                         <i class="fa fa-list"></i>
                         <p>Gebruikers</p>
                     </a>
                 </li>
+                <?php else: ?>
+                <li <?php if ($isOnAdminPage == 'overzicht') {?>class="active"<?php } ?>>
+                    <a href="./overzicht">
+                        <i class="fa fa-list"></i>
+                        <p>Mijn account</p>
+                    </a>
+                </li>
+                <?php endif; ?>
+
                 <li <?php if ($isOnAdminPage == 'portfolio') {?>class="active"<?php } ?>>
                     <a href="./portfolio">
                         <i class="fa fa-user-circle-o"></i>

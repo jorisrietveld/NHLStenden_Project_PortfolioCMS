@@ -8,12 +8,14 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Controller;
 
+use StendenINF1B\PortfolioCMS\Kernel\Authorization\User as AuthorizedUser;
 use StendenINF1B\PortfolioCMS\Kernel\BaseController;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\Student;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\Teacher;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Repository\StudentRepository;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Repository\TeacherRepository;
 use StendenINF1B\PortfolioCMS\Kernel\Helper\ConfigLoader;
+use StendenINF1B\PortfolioCMS\Kernel\Helper\Validate;
 use StendenINF1B\PortfolioCMS\Kernel\Http\Request;
 use StendenINF1B\PortfolioCMS\Kernel\Http\Response;
 use StendenINF1B\PortfolioCMS\Kernel\TemplateEngine\TemplateEngine;
@@ -24,7 +26,6 @@ class UserManagement extends BaseController
      * @var array
      */
     protected $requiredUserFields = [
-        'password',
         'email',
         'firstName',
         'lastName',
@@ -80,9 +81,9 @@ class UserManagement extends BaseController
 
         $users = $students->mergeWith( $teachers );
 
-        return $this->createResponse( 'admin:overzicht', [
-            'asset-path' => $request->getBaseUri().'assets/admin/',
-            'users' => $users,
+        return $this->createResponse( 'admin:gebruikersOverzicht', [
+            'asset-path' => $request->getBaseUri() . 'assets/admin/',
+            'users'      => $users,
         ] );
     }
 
@@ -115,14 +116,14 @@ class UserManagement extends BaseController
             // Insert the new student.
             $this->studentRepository->insert( $newStudent );
 
-            return $this->createResponse( 'admin:add_student', [
+            return $this->createResponse( 'admin:addStudent', [
                     'asset-path' => $request->getBaseUri() . 'assets/admin/',
                 ]
             );
         }
         else
         {
-            return $this->createResponse( 'admin:add_student', [
+            return $this->createResponse( 'admin:addStudent', [
                     'asset-path' => $request->getBaseUri() . 'assets/admin/',
                 ]
             );
@@ -151,14 +152,14 @@ class UserManagement extends BaseController
 
             $this->teacherRepository->insert( $newTeacher );
 
-            return $this->createResponse( 'admin:add_teacher', [
+            return $this->createResponse( 'admin:addTeacher', [
                     'asset-path' => $request->getBaseUri() . 'assets/admin/',
                 ]
             );
         }
         else
         {
-            return $this->createResponse( 'admin:add_teacher', [
+            return $this->createResponse( 'admin:addTeacher', [
                     'asset-path' => $request->getBaseUri() . 'assets/admin/',
                 ]
             );
@@ -170,20 +171,20 @@ class UserManagement extends BaseController
      *
      * @param Request $request
      */
-    public function editStudent( Request $request ) : Response
+    public function editStudent( Request $request, string $id = '' ) : Response
     {
+        $currentStudent = $this->studentRepository->getById( (int)$id );
         $postParams = $request->getPostParams();
 
         if ( $this->checkPostParams( $postParams, array_merge( $this->requiredUserFields, $this->requiredStudentFields, [ 'id' ] ) ) )
         {
+            $feedback = 'Het account is aangepast.';
+
             $updatedStudent = new Student();
             $updatedStudent->setId( $postParams->getInt( 'id' ) );
-            $updatedStudent->setHashedPassword( password_hash( $postParams->getString( 'password' ), PASSWORD_BCRYPT ) );
             $updatedStudent->setEmail( $postParams->getString( 'email' ) );
-            $updatedStudent->setLastIpAddress( $request->getClientIp() );
             $updatedStudent->setFirstName( $postParams->getString( 'firstName' ) );
             $updatedStudent->setLastName( $postParams->getString( 'lastName' ) );
-            $updatedStudent->setIsAdmin( $postParams->getBoolean( 'isAdmin' ) );
             $updatedStudent->setAddress( $postParams->getString( 'address' ) );
             $updatedStudent->setZipCode( $postParams->getString( 'zipCode' ) );
             $updatedStudent->setLocation( $postParams->getString( 'location' ) );
@@ -191,18 +192,40 @@ class UserManagement extends BaseController
             $updatedStudent->setStudentCode( $postParams->getString( 'studentCode' ) );
             $updatedStudent->setPhoneNumber( $postParams->getString( 'phoneNumber' ) );
 
-            $this->studentRepository->update( $updatedStudent );
+            if ( $_SESSION[ 'authorizationLevel' ] == AuthorizedUser::ADMIN )
+            {
+                $updatedStudent->setIsAdmin( $postParams->getBoolean( 'isAdmin' ) );
+            }
 
-            return $this->createResponse( 'admin:add_student', [
-                    'asset-path' => $request->getBaseUri() . 'assets/admin/',
+            if ( $postParams->has( 'password' ) && $postParams->has( 'passwordRepeat' ) )
+            {
+                if ( $newPassword = $this->updatePassword( $postParams->getString( 'password' ), $postParams->getString( 'passwordRepeat' ) ) )
+                {
+                    $updatedStudent->setHashedPassword( $newPassword );
+                }
+                else
+                {
+                    $feedback = 'Het wachtwoord is incorrect.';
+                }
+            }
+
+            $updatedStudent = $this->studentRepository->update( $updatedStudent );
+
+            return $this->createResponse( 'admin:editStudent', [
+                    'asset-path'   => $request->getBaseUri() . 'assets/admin/',
+                    'student-data' => $updatedStudent,
+                    'feedback'     => $feedback,
                 ]
             );
         }
 
-        return $this->createResponse( 'admin:add_student', [
-                'asset-path' => $request->getBaseUri() . 'assets/admin/',
+        return $this->createResponse( 'admin:editStudent', [
+                'asset-path'   => $request->getBaseUri() . 'assets/admin/',
+                'student-data' => $currentStudent,
+                'feedback'     => ( $currentStudent->getId() !== 0 ) ? '' : 'De student bestaat niet.',
             ]
         );
+
     }
 
     /**
@@ -210,39 +233,54 @@ class UserManagement extends BaseController
      *
      * @param Request $request
      */
-    public function editTeacher( Request $request ) : Response
+    public function editTeacher( Request $request, string $id = '' ) : Response
     {
+        $currentTeacher = $this->teacherRepository->getById( (int)$id );
         $postParams = $request->getPostParams();
 
         if ( $this->checkPostParams( $postParams, array_merge( $this->requiredUserFields, $this->requiredTeacherFields, [ 'id' ] ) ) )
         {
+            $feedback = 'Het account is aangepast.';
             $updatedTeacher = new Teacher();
             $updatedTeacher->setId( $postParams->getInt( 'id' ) );
             $updatedTeacher->setLastName( $postParams->getString( 'lastName' ) );
             $updatedTeacher->setFirstName( $postParams->getString( 'firstName' ) );
             $updatedTeacher->setEmail( $postParams->getString( 'email' ) );
-            $updatedTeacher->setHashedPassword( password_hash( $postParams->get( 'password' ), PASSWORD_BCRYPT ) );
-            $updatedTeacher->setIsSLBer( $postParams->getBoolean( 'isSlber' ) );
-            $updatedTeacher->setIsAdmin( $postParams->getBoolean( 'isAdmin' ) );
+
+            if ( $_SESSION[ 'authorizationLevel' ] == AuthorizedUser::ADMIN )
+            {
+                $updatedTeacher->setIsSLBer( $postParams->getBoolean( 'isSlber' ) );
+                $updatedTeacher->setIsAdmin( $postParams->getBoolean( 'isAdmin' ) );
+            }
+
+            if ( $postParams->has( 'password' ) && $postParams->has( 'passwordRepeat' ) )
+            {
+                if ( $newPassword = $this->updatePassword( $postParams->getString( 'password' ), $postParams->getString( 'passwordRepeat' ) ) )
+                {
+                    $updatedTeacher->setHashedPassword( $newPassword );
+                }
+                else
+                {
+                    $feedback = 'Het wachtwoord is incorrect.';
+                }
+            }
 
             // Update the teacher.
-            $this->teacherRepository->update( $updatedTeacher );
+            $updatedTeacher = $this->teacherRepository->update( $updatedTeacher );
 
-            return new Response(
-                $this->renderWebPage(
-                    '', [
-
-                    ]
-                )
+            return $this->createResponse( 'admin:editTeacher', [
+                    'asset-path' => $request->getBaseUri() . 'assets/admin/',
+                    'teacher-data' => $updatedTeacher,
+                    'feedback'     => $feedback,
+                ]
             );
         }
 
-        return new Response(
-            $this->renderWebPage(
-                '', [
-
-                ]
-            )
+        return $this->createResponse( 'admin:editTeacher', [
+                'asset-path' => $request->getBaseUri() . 'assets/admin/',
+                'teacher-data' => $currentTeacher,
+                'feedback'     => ( $currentTeacher->getId() !== 0 ) ? '' : 'De student bestaat niet.',
+            ]
         );
     }
 
@@ -306,6 +344,15 @@ class UserManagement extends BaseController
                 ]
             )
         );
+    }
+
+    protected function updatePassword( string $password, string $secondPassword )
+    {
+        if ( Validate::password( $password, $secondPassword ) )
+        {
+            return password_hash( $password, PASSWORD_BCRYPT );
+        }
+        return FALSE;
     }
 
 }
