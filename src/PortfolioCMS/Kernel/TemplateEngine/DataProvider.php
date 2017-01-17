@@ -107,7 +107,7 @@ class DataProvider extends ParameterContainer
      *
      * @return bool
      */
-    public function isAtLeasedSlbTeacher(  )
+    public function isAtleasedSlbTeacher(  )
     {
         if( isset( $_SESSION[ 'id' ], $_SESSION[ 'authorizationLevel' ] ))
         {

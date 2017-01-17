@@ -15,7 +15,7 @@ include 'header.php';
             <div class="col-md-12">
                 <div class="card">
                     <div class="header">
-                        <h4 class="title text-center"><strong><i class="fa fa-plus"></i> Gebruiker toevoegen</strong>
+                        <h4 class="title text-center"><strong><i class="fa fa-plus"></i> Docent toevoegen</strong>
                         </h4>
                         <hr class="style-one"/>
                         <div class="col-sm-5 custom-buttons">
@@ -31,7 +31,7 @@ include 'header.php';
                             <div class="container-fluid">
                                 <div class="row">
                                     <div class="col-sm-6 col-sm-offset-3">
-                                        <form class="form-custom float-left" action="" method="POST">
+                                        <form class="form-custom float-left" action="admin/add_user/teacher" method="POST">
                                             <div class="form-group">
                                                 <label class="form-label" for="inputEmail">Email</label>
                                                 <input type="email" name="email" class="form-control" id="inputEmail"
@@ -60,12 +60,12 @@ include 'header.php';
                                                     <p class="centertext">Admin</p><br/>
                                                     <label><input type="radio" name="isAdmin" value="1"
                                                                   class="radio-custom"><span
-                                                                class="isSelected"> Ja</span></input></label>
+                                                            class="isSelected"> Ja</span></input></label>
                                                     <label><input type="radio" name="isAdmin" value="0"
                                                                   class="radio-custom"
                                                                   id="inputLastName"
                                                                   placeholder="Achternaam" checked><span
-                                                                class="isSelected"> Nee</span></input></label>
+                                                            class="isSelected"> Nee</span></input></label>
                                                 </div>
                                             </div>
                                             <div class="clearfix"></div>
@@ -76,12 +76,12 @@ include 'header.php';
                                                     <label>
                                                         <input type="radio" name="active" value="1"
                                                                class="radio-custom" checked><span
-                                                                class="isSelected"> Ja</span></input></label>
+                                                            class="isSelected"> Ja</span></input></label>
                                                     <label><input type="radio" name="active" value="0"
                                                                   class="radio-custom"
                                                                   id="inputLastName"
                                                                   placeholder="Achternaam"><span
-                                                                class="isSelected"> Nee</span></input></label>
+                                                            class="isSelected"> Nee</span></input></label>
                                                 </div>
                                             </div>
                                             <div class="row">

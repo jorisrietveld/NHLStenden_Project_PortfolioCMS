@@ -3,7 +3,6 @@
 $page_title = "Overzicht | Admin";
 $isOnAdminPage = "overzicht";
 include 'header.php';
-
 ?>
 <body>
 
@@ -15,7 +14,7 @@ include 'header.php';
             <div class="col-md-12">
                 <div class="card">
                     <div class="header">
-                        <h4 class="title text-center"><strong><i class="fa fa-plus"></i> Gebruiker toevoegen</strong>
+                        <h4 class="title text-center"><strong><i class="fa fa-plus"></i> Student toevoegen</strong>
                         </h4>
                         <hr class="style-one"/>
                         <div class="col-sm-5 custom-buttons">
@@ -60,12 +59,12 @@ include 'header.php';
                                                     <p class="centertext">Admin</p><br/>
                                                     <label><input type="radio" name="isAdmin" value="1"
                                                                   class="radio-custom"><span
-                                                                class="isSelected"> Ja</span></input></label>
+                                                            class="isSelected"> Ja</span></input></label>
                                                     <label><input type="radio" name="isAdmin" value="0"
                                                                   class="radio-custom"
                                                                   id="inputLastName"
                                                                   placeholder="Achternaam" checked><span
-                                                                class="isSelected"> Nee</span></input></label>
+                                                            class="isSelected"> Nee</span></input></label>
                                                 </div>
                                             </div>
                                             <div class="clearfix"></div>
@@ -76,12 +75,12 @@ include 'header.php';
                                                     <label>
                                                         <input type="radio" name="active" value="1"
                                                                class="radio-custom" checked><span
-                                                                class="isSelected"> Ja</span></input></label>
+                                                            class="isSelected"> Ja</span></input></label>
                                                     <label><input type="radio" name="active" value="0"
                                                                   class="radio-custom"
                                                                   id="inputLastName"
                                                                   placeholder="Achternaam"><span
-                                                                class="isSelected"> Nee</span></input></label>
+                                                            class="isSelected"> Nee</span></input></label>
                                                 </div>
                                             </div>
                                             <div class="row">

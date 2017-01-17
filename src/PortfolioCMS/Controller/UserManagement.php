@@ -8,7 +8,6 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Controller;
 
-
 use StendenINF1B\PortfolioCMS\Kernel\BaseController;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\Student;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\Teacher;
@@ -47,7 +46,7 @@ class UserManagement extends BaseController
      * @var array
      */
     protected $requiredTeacherFields = [
-        'isSLBer'
+        'isSLBer',
     ];
 
     /**
@@ -74,9 +73,17 @@ class UserManagement extends BaseController
         $this->teacherRepository = $this->getEntityManager()->getRepository( 'Teacher' );
     }
 
-    public function index( Request $request )
+    public function userOverview( Request $request )
     {
+        $students = $this->studentRepository->getAll();
+        $teachers = $this->teacherRepository->getAll();
 
+        $users = $students->mergeWith( $teachers );
+
+        return $this->createResponse( 'admin:overzicht', [
+            'asset-path' => $request->getBaseUri().'assets/admin/',
+            'users' => $users,
+        ] );
     }
 
     /**
@@ -108,23 +115,16 @@ class UserManagement extends BaseController
             // Insert the new student.
             $this->studentRepository->insert( $newStudent );
 
-            return new Response(
-                $this->renderWebPage(
-                    '', [
-
-                    ]
-                )
+            return $this->createResponse( 'admin:add_student', [
+                    'asset-path' => $request->getBaseUri() . 'assets/admin/',
+                ]
             );
-
         }
         else
         {
-            return new Response(
-                $this->renderWebPage(
-                    '', [
-
-                    ]
-                )
+            return $this->createResponse( 'admin:add_student', [
+                    'asset-path' => $request->getBaseUri() . 'assets/admin/',
+                ]
             );
         }
     }
@@ -151,22 +151,16 @@ class UserManagement extends BaseController
 
             $this->teacherRepository->insert( $newTeacher );
 
-            return new Response(
-                $this->renderWebPage(
-                    '', [
-
-                    ]
-                )
+            return $this->createResponse( 'admin:add_teacher', [
+                    'asset-path' => $request->getBaseUri() . 'assets/admin/',
+                ]
             );
         }
         else
         {
-            return new Response(
-                $this->renderWebPage(
-                    '', [
-
-                    ]
-                )
+            return $this->createResponse( 'admin:add_teacher', [
+                    'asset-path' => $request->getBaseUri() . 'assets/admin/',
+                ]
             );
         }
     }
@@ -199,23 +193,16 @@ class UserManagement extends BaseController
 
             $this->studentRepository->update( $updatedStudent );
 
-            return new Response(
-                $this->renderWebPage(
-                    '', [
-
-                    ]
-                )
+            return $this->createResponse( 'admin:add_student', [
+                    'asset-path' => $request->getBaseUri() . 'assets/admin/',
+                ]
             );
         }
 
-        return new Response(
-            $this->renderWebPage(
-                '', [
-
-                ]
-            )
+        return $this->createResponse( 'admin:add_student', [
+                'asset-path' => $request->getBaseUri() . 'assets/admin/',
+            ]
         );
-
     }
 
     /**

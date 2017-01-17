@@ -18,9 +18,15 @@ include 'header.php'; ?>
                         <h4 class="title text-center"><strong>Gebruikersoverzicht</strong></h4>
                         <hr class="style-one"/>
                         <div class="col-sm-5 custom-buttons">
-                            <a href="add_user">
+                            <a href="add_teacher">
                                 <button class="btn btn-md btn-primary btn-block btn-custom">
-                                    <i class="fa fa-plus"></i> Gebruiker toevoegen
+                                    <i class="fa fa-plus"></i> Docent toevoegen
+                                </button>
+                            </a>
+
+                            <a href="add_student">
+                                <button class="btn btn-md btn-primary btn-block btn-custom">
+                                    <i class="fa fa-plus"></i> Student toevoegen
                                 </button>
                             </a>
 
@@ -44,28 +50,19 @@ include 'header.php'; ?>
                                 <th></th>
                                 </thead>
                                 <tbody>
+                                <?php foreach ( $dataProvider->get( 'users' ) as $user ): ?>
                                 <tr>
-                                    <td>1</td>
-                                    <td>Joris</td>
-                                    <td>Rietveld</td>
-                                    <td class="word-break">jorisrietveld@gmail.com</td>
-                                    <td>Student</td>
-                                    <td>Nee</td>
-                                    <td>Ja</td>
-                                    <td><a href="edit_user"><button class="btn btn-md btn-primary btn-block btn-custom"><i class="fa fa-edit"></i><span class="out_window">Bewerk</span></button></a></td>
+                                    <td><?= $user->getId() ?></td>
+                                    <td><?= $user->getFirstName() ?></td>
+                                    <td><?= $user->getLastName() ?></td>
+                                    <td class="word-break"><?= $user->getEmail() ?></td>
+                                    <td><?= $user->getType() ?></td>
+                                    <td><?= $user->getIsAdmin() ?></td>
+                                    <td><?= $user->getActive() ?></td>
+                                    <td><a href="edit_<?= $user->getType() ?>"><button class="btn btn-md btn-primary btn-block btn-custom"><i class="fa fa-edit"></i><span class="out_window">Bewerk</span></button></a></td>
                                     <td><button type="submit" class="btn btn-md btn-primary btn-block btn-custom"><i class="fa fa-remove"></i><span class="out_window">Verwijder</span></button></td>
                                 </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Anouk</td>
-                                    <td>Van der Veen</td>
-                                    <td class="word-break">anouk.van.der.veen@student.stenden.com</td>
-                                    <td>Student</td>
-                                    <td>Nee</td>
-                                    <td>Ja</td>
-                                    <td><a href="edit_user"><button type="submit" class="btn btn-md btn-primary btn-block btn-custom"><i class="fa fa-edit"></i><span class="out_window">Bewerk</span></button></a></td>
-                                    <td><button type="submit" class="btn btn-md btn-primary btn-block btn-custom"><i class="fa fa-remove"></i><span class="out_window">Verwijder</span></button></td>
-                                </tr>
+                                <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
