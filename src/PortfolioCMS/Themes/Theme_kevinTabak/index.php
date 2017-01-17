@@ -1,3 +1,7 @@
+<?php 
+$student = $dataProvider->get( 'student' );
+$images = $dataProvider->get( 'images', [] );
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -36,17 +40,20 @@
             <div class="jumbotron text-center">
                 <div id="title">
                     <h1>Portefolio</h1>
-                    <p>Kevin Tabak</p>
+                    <p><?php echo $student->getFirstName(); echo " "; echo $student->getLastName(); ?></p>
                 </div>
             </div>
             <div id="over" class="container-fluid">
                 <div class="row">
                     <div class="col-sm-6">
                         <h2>Over mij</h2>
-                        <p> <?php $student = $dataProvider->get( 'student' );
-                            echo $student->getFirstName();
-                            echo " G";
-                            echo $student->getLastName();?>
+                        <p> 
+                        <?php 
+                        foreach( $images as $image )
+                        {
+                            echo $image->getSomeProperty();
+                        }  
+                        ?>
                         </p>
                     </div>
                 </div>
