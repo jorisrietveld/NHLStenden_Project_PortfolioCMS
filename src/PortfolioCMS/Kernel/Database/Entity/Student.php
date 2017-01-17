@@ -42,6 +42,16 @@ class Student extends User implements EntityInterface
     protected $phoneNumber;
 
     /**
+     * Student constructor that initiates the default classes properties.
+     *
+     *
+     */
+    public function __construct(  )
+    {
+        $this->type = 'student';
+    }
+
+    /**
      * @return string
      */
     public function getAddress(): string

@@ -23,8 +23,23 @@
 <body>
      <?php
     $verstuurd="";
-    
-    ?>
+   
+                        
+    if(htmlentities(isset($_POST['submit'])))
+        {
+        if(htmlentities(!empty($_POST['name']) || ($_POST['bericht']) ||  ($_POST['email'])))
+            {   
+                $verstuurd = "Uw bericht is verstuurd!";                                  
+                
+            }else{
+                
+                $verstuurd="Vul alle verplichte velden in!";
+                
+            }
+        }
+                    
+     ?>
+   
 <div class="site-wrapper">
     <div class="site-wrapper-inner">
 
@@ -57,7 +72,7 @@
                                         </ul>
                                     </li>
                                     <li>
-                                        <a href="./contact.php">Contact</a>
+                                        <a href="contact">Contact</a>
                                     </li>
                                 </ul>
                                 <ul class="nav navbar-nav navbar-right">
@@ -82,27 +97,29 @@
 
             <div class="inner cover custom-main">
                 <h1 class="cover-heading">Contact</h1>
-                <form action="#" class="custom-form" method="POST">
+              
+                <?php
+                    echo $verstuurd; 
+                ?>
+              
+                
+                <form action="contact" class="custom-form" method="POST">
 
                     <input type="text" class="inputfield" name="name" placeholder="Naam"/>
+                    
+                    
                     <input type ="text" class="inputfield" name="onderwerp" placeholder="Onderwerp">
+                    
+                    <input type ="email" class="inputfield" name="email" placeholder="Uw emailadres">
+                    
                     <textarea rows="6" cols="35" placeholder="Schrijf uw bericht hier.." name="bericht" id="message" style="color:black; margin-left:16px;"></textarea>
+                    
+                    
                     <input type="submit" class="inputsubmit btn btn-primary btn-default" name="submit" value="Verstuur bericht"/>
                     
-                    <?php
-                    echo $verstuurd; 
-                    ?>
-                    <?php                    
                     
-                    if(htmlentities(isset($_POST['submit'])))
-                        {
-                            if(htmlentities(!empty($_POST['name']) && ($_POST['bericht'])))
-                                    {   
-                                       $verstuurd = "Uw bericht is verstuurd!";                                  
-                                    }
-                        }
                     
-                    ?>
+                 
 
                 </form>
             </div>

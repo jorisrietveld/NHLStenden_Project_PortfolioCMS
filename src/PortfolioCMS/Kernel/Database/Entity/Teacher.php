@@ -17,6 +17,14 @@ class Teacher extends User implements EntityInterface
     protected $isSLBer;
 
     /**
+     * Teacher constructor that initiates the default classes properties.
+     */
+    public function __construct(  )
+    {
+        $this->type = 'teacher';
+    }
+
+    /**
      * @return boolean
      */
     public function getIsSLBer(): bool

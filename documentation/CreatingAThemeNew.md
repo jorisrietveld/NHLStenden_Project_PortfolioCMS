@@ -1,4 +1,4 @@
-# Creating a new theme
+# Creating a theme guide
 This guide explains how to create a new theme in PortfolioCMS for your portfolio.
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -9,6 +9,7 @@ This guide explains how to create a new theme in PortfolioCMS for your portfolio
 - [Rendering portfolio data](#rendering-portfolio-data)
 - [hint](#hint)
   - [DataProvider implements ParameterContainer](#dataprovider-implements-parametercontainer)
+  - [Authorization](#authorization)
   - [Student](#student)
   - [JobExperience](#jobexperience)
   - [Language](#language)
@@ -141,6 +142,55 @@ Using the data provider -> isAllowedToViewGrade method with alternative php synt
                 </div>
             <?php endif; ?>
         </div>
+    </body>
+</html>
+```
+
+### Authorization
+To determine if an user is allowed to view content you can use the authorization methods from the `DataProvider`.
+```php
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+    
+        <?php if( $dataProvider->isAdmin() ) : ?>
+            <div>
+                This will only be showed when an user is logged in and an administrator.
+            </div>
+        <?php endif; ?>
+        
+         <?php if( $dataProvider->isSlbTeacher() ) : ?>
+            <div>
+                This will only be showed when an user is logged in and an slb teacher or above.
+            </div>
+        <?php endif; ?>
+        
+        <?php if( $dataProvider->isTeacher() ) : ?>
+            <div>
+                This will only be showed when an user is logged in and an teacher or above.
+            </div>
+        <?php endif; ?>
+        
+        <?php if( $dataProvider->isStudent() ) : ?>
+            <div>
+                This will only be showed when an user is logged in and an student or above.
+            </div>
+        <?php endif; ?>
+       
+        <?php if( $dataProvider->isOwnOrSlbTeacher() ) : ?>
+            <div>
+              This will only be showed when an user is logged in and an student or above.
+            </div>
+        <?php endif; ?>
+        
+        <?php if( $dataProvider->isGuest() ) : ?>
+            <div>
+              This will only be showed when an user is logged in and an student or above.
+            </div>
+        <?php endif; ?>
+        
     </body>
 </html>
 ```

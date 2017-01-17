@@ -34,7 +34,23 @@
     </route>
 
     <route id="Admin" path="/admin/overzicht" methods="GET" authorization="ADMIN">
-        <action id="controller">Admin:index</action>
+        <action id="controller">UserManagement:userOverview</action>
+    </route>
+
+    <route id="Admin" path="/admin/add_user" methods="GET" authorization="ADMIN">
+        <action id="controller">Admin:add_user</action>
+    </route>
+
+    <route id="Admin" path="admin/add_teacher" methods="GET|POST" authorization="ADMIN">
+        <action id="controller">UserManagement:insertTeacher</action>
+    </route>
+
+    <route id="Admin" path="admin/add_student" methods="GET|POST" authorization="ADMIN">
+        <action id="controller">UserManagement:insertStudent</action>
+    </route>
+
+    <route id="Admin" path="/admin/edit_user" methods="GET" authorization="ADMIN">
+        <action id="controller">Admin:edit_user</action>
     </route>
 
     <route id="Admin" path="/admin/some" methods="GET" authorization="ADMIN">

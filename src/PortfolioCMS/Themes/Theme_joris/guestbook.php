@@ -5,3 +5,6 @@
  * Licence: GNU General Public licence version 3 <https://www.gnu.org/licenses/quick-guide-gplv3.html>
  */
 declare( strict_types = 1 );
+
+?>
+<h1>Guestbook</h1>

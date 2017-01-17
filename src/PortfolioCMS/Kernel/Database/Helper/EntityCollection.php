@@ -11,7 +11,7 @@ namespace StendenINF1B\PortfolioCMS\Kernel\Database\Helper;
 
 use StendenINF1B\PortfolioCMS\Kernel\Helper\ParameterContainer;
 
-class EntityCollection extends ParameterContainer
+class EntityCollection extends ParameterContainer implements \IteratorAggregate
 {
     /**
      * Gets an new EntityCollection filtered by the entities which field has an certain value.
@@ -67,4 +67,15 @@ class EntityCollection extends ParameterContainer
         }
         return false;
     }
+
+    public function mergeWith( EntityCollection $collection )
+    {
+        return array_merge( $this->parameters, $collection->getAsArray() );
+    }
+
+    public function getIterator()
+    {
+        return parent::getIterator();
+    }
+
 }

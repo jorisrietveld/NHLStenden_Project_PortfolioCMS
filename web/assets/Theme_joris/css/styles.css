@@ -1,3 +1,34 @@
+@import url('https://fonts.googleapis.com/css?family=Ubuntu+Mono');
+:root{
+    --color-purple: #772953;
+    --color-orange: #e95420;
+    --color-white-transparant: rgba( 255,255,255,0.5 );
+}
 
+body{
+    margin-top: 70px;
+    background: url("../images/shattered.png") repeat;
+}
 
-/*# sourceMappingURL=styles.css.map */
+#form-submit{
+    width: 100%;
+}
+
+.jumbotron{
+    background-color: rgba( 255,255,255,0.5 );
+}
+.header-profile-picture{
+
+}
+
+.color-purple{
+    color: var( --color-purple );
+}
+
+.color-orange{
+    color: var( --color-orange );
+}
+
+.text-mono{
+    font-family: 'Ubuntu Mono', monospace !important;
+}

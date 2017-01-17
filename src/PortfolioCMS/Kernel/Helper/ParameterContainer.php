@@ -209,6 +209,11 @@ class ParameterContainer implements \IteratorAggregate, \Countable, \ArrayAccess
         return new \DateTime( $this->get( $key, 'NOW' ));
     }
 
+    public function getAsArray( ) : array
+    {
+        return $this->parameters;
+    }
+
     /**
      * Add an element to the parameter container using array access.
      * Like $parameterContainer[] = value or $parameterContainer[ 'key' ] = value

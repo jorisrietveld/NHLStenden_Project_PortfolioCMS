@@ -62,6 +62,11 @@ abstract class User
     protected $isAdmin;
 
     /**
+     * @var string
+     */
+    protected $type;
+
+    /**
      * @return int
      */
     public function getId(): int
@@ -223,5 +228,24 @@ abstract class User
         $this->isAdmin = $isAdmin;
     }
 
+    /**
+     * This method gets the Type property.
+     *
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    /**
+     * This method sets the type property.
+     *
+     * @param string $type
+     */
+    public function setType( string $type )
+    {
+        $this->type = $type;
+    }
 
 }
