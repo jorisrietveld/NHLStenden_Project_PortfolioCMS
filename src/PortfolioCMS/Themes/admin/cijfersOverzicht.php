@@ -17,11 +17,7 @@ include 'header.php'; ?>
                     <div class="header">
                         <h4 class="title text-center">
                             <strong>
-                                <?php if( $dataProvider->isAtLeasedTeacher() ):?>
-                                    Cijfers van <?= $dataProvider->call( 'student', 'getFirstName' ) . ' ' . $dataProvider->call( 'student', 'getFirstName' ) ?>
-                                <?php else : ?>
-                                    Mijn cijfers
-                                <?php endif; ?>
+                                Alle portfolios
                             </strong>
                         </h4>
                         <hr class="style-one"/>
@@ -29,7 +25,11 @@ include 'header.php'; ?>
 
                         </div>
                         <div class="content table-responsive table-full-width">
+                            <table class="table table-hover table-custom-portfolio">
+                                <?php foreach ( $dataProvider->get( 'cijfers-data') as $portfolioMetaData ) : ?>
 
+                                <?php endforeach; ?>
+                            </table>
                         </div>
                     </div>
                 </div>

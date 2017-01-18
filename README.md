@@ -8,6 +8,7 @@ Documentation or here:
 [Creating a portfolio theme](https://github.com/stenden-INF1B/PortfolioCMS/blob/master/documentation/CreatingAThemeNew.md)<br>
 [Database structure explained](https://github.com/stenden-INF1B/PortfolioCMS/blob/master/documentation/DatabaseSturctue.md)<br>
 [Authorization levels explained](https://github.com/stenden-INF1B/PortfolioCMS/blob/master/documentation/Authorization.md)<br>
+[Admin pages to be created](https://github.com/stenden-INF1B/PortfolioCMS/blob/master/documentation/PortfolioPages.md)<br>
 
 
 ### Live version

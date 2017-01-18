@@ -8,13 +8,14 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Controller;
 
-
 use StendenINF1B\PortfolioCMS\Kernel\BaseController;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\Portfolio;
+use StendenINF1B\PortfolioCMS\Kernel\Helper\ConfigLoader;
 use StendenINF1B\PortfolioCMS\Kernel\Http\Request;
 use StendenINF1B\PortfolioCMS\Kernel\Http\Response;
+use StendenINF1B\PortfolioCMS\Kernel\TemplateEngine\TemplateEngine;
 
-class PortfolioManagement extends BaseController 
+class PortfolioManagement extends BaseController
 {
     /**
      * The require fields to update or insert an portfolio.
@@ -49,7 +50,7 @@ class PortfolioManagement extends BaseController
         'location',
         'description',
         'obtainedCertificate',
-        'currentTraining'
+        'currentTraining',
     ];
 
     /**
@@ -66,7 +67,7 @@ class PortfolioManagement extends BaseController
      *
      * @var array
      */
-    protected $requiredLanguageFields =[
+    protected $requiredLanguageFields = [
         'language',
         'level',
         'isNative',
@@ -122,174 +123,316 @@ class PortfolioManagement extends BaseController
         'name',
         'description',
         'link',
-        'thumbnailImageId'
+        'thumbnailImageId',
     ];
 
-    protected function actionHandled( $message ) : Response
+    /**
+     * BaseController constructor for initiating the portfolio controller.
+     *
+     * @param TemplateEngine|null $templateEngine
+     * @param ConfigLoader|null   $configLoader
+     */
+    public function __construct( $templateEngine, $configLoader )
     {
-        return new Response(
-            $this->renderWebPage(
-                'admin:editPortfolio', [
-                    'feedback' => $message,
-                ]
-            ),
-            Response::HTTP_STATUS_OK
+        parent::__construct( $templateEngine, $configLoader );
+    }
+
+    /**
+     * Shortcut to return an response.
+     *
+     * @param string $webPage
+     * @param array  $context
+     * @param int    $httpCode
+     * @return Response
+     */
+    public function createResponse( string $webPage, array $context, $httpCode = Response::HTTP_STATUS_OK ) : Response
+    {
+        $context = array_merge( $context, [
+            'asset-path' => $this->application->getRequest()->getBaseUri().'admin/',
+        ]);
+
+        return parent::createResponse( $webPage, $context, $httpCode );
+    }
+
+    /**
+     * This method renders an portfolio overview page for route /admin/portfolioOverview/{id}.
+     *
+     * @param Request $request
+     * @param string  $id
+     * @return Response
+     */
+    public function portfolioOverview( Request $request, string $id ): Response
+    {
+        return $this->createResponse(
+            'admin:portfolioOverzicht', [
+
+            ]
         );
     }
 
-    public function insertPortfolio( Request $request ) : Response
+    /**
+     * This method renders an over view page of all portfolios for the route /admin/portfoliosOverview.
+     *
+     * @param Request $request
+     * @param string  $id
+     * @return Response
+     */
+    public function portfoliosOverview( Request $request, string $id ) : Response
+    {
+        return $this->createResponse(
+            'admin:portfoliosOverzicht', [
+
+            ]
+        );
+    }
+
+    public function addPortfolio( Request $request ) : Response
     {
         $postParams = $request->getPostParams();
 
-        if( $this->checkPostParams( $postParams, $this->requiredPortfolioFields ))
+        if ( $this->checkPostParams( $postParams, $this->requiredPortfolioFields ) )
         {
             $themeRepository = $this->getEntityManager()->getRepository( 'Theme' );
             $studentRepository = $this->getEntityManager()->getRepository( 'Student' );
             $portfolioRepository = $this->getEntityManager()->getRepository( 'Portfolio' );
 
             $newPortfolio = new Portfolio();
-            $newPortfolio->setTitle( (string)$postParams->get( 'title') );
+            $newPortfolio->setTitle( (string)$postParams->get( 'title' ) );
             $newPortfolio->setUrl( (string)$postParams->get( 'url' ) );
             $newPortfolio->setTheme( $themeRepository->getById( (int)$postParams->get( 'themeId' ) ) );
             $newPortfolio->setStudent( $studentRepository->getById( (int)$postParams->get( 'userId' ) ) );
 
             $portfolioRepository->insert( $newPortfolio );
-
-            $message = 'Het portefolio is toegevoegd.';
         }
 
-        return $this->actionHandled( $message ?? 'Niet alle verplichte velden zijn ingevuld.' );
+        return $this->createResponse(
+            'admin:addPortfolio', [
+
+            ]
+        );
     }
 
-    public function editPortfolio( Request $request ) : Response
+    /**
+     * This method updates an skill in the database for the route /admin/editSkill/{id}.
+     *
+     * @param Request $request
+     * @param string  $skillId
+     * @return Response
+     */
+    public function editSkill( Request $request, string $skillId ): Response
     {
-        $postParams = $request->getPostParams();
+        return $this->createResponse(
+            'admin:editSkill', [
 
-        if( $this->checkPostParams( $postParams, $this->required ))
-        {
-            $message = '';
-        }
-
-        return $this->actionHandled( $message ?? 'Niet alle verplichte velden zijn ingevuld.' );
+            ]
+        );
     }
 
-    public function removePortfolio( Request $request ) : Response
+    /**
+     * This method updates an training in the database for the route /admin/editTraining/{id}.
+     *
+     * @param Request $request
+     * @param string  $trainingId
+     * @return Response
+     */
+    public function editTraining( Request $request, string $trainingId ): Response
     {
+        return $this->createResponse(
+            'admin:editTraining', [
 
+            ]
+        );
     }
 
-    public function insertSkill( Request $request  ) : Response
+    /**
+     * This method updates an hobby in the database for the route /admin/editHobby/{id}.
+     *
+     * @param Request $request
+     * @param string  $hobbyId
+     * @return Response
+     */
+    public function editHobby( Request $request, string $hobbyId ): Response
     {
-        
+        return $this->createResponse(
+            'admin:editHobby', [
+
+            ]
+        );
     }
 
-    public function editSkill( Request $request  ) : Response
+    /**
+     * This method updates an language in the database for the route /admin/editLanguage/{id}.
+     *
+     * @param Request $request
+     * @param string  $languageId
+     * @return Response
+     */
+    public function editLanguage( Request $request, string $languageId ): Response
     {
+        return $this->createResponse(
+            'admin:editLanguage', [
 
+            ]
+        );
     }
 
-    public function deleteSkill( Request $request  ) : Response
+    /**
+     * This method updates an slb assignment in the database for the route /admin/editSlbAssignment/{id}.
+     *
+     * @param Request $request
+     * @param string  $skillId
+     * @return Response
+     */
+    public function editSlbAssignment( Request $request, string $slbAssignmentId ): Response
     {
-        
+        return $this->createResponse(
+            'admin:editSlbAssignment', [
+
+            ]
+        );
     }
 
-    public function insertTraining( Request $request  ) : Response
+    /**
+     * This method updates an image in the database for the route /admin/editImage/{id}.
+     *
+     * @param Request $request
+     * @param string  $skillId
+     * @return Response
+     */
+    public function editImage( Request $request, string $imageId ): Response
     {
-        
+        return $this->createResponse(
+            'admin:editImage', [
+
+            ]
+        );
     }
 
-    public function editTraining( Request $request  ) : Response
+    /**
+     * This method updates an image in the database for the route /admin/editProject/{id}.
+     *
+     * @param Request $request
+     * @param string  $projectId
+     * @return Response
+     */
+    public function editProject( Request $request, string $projectId ): Response
     {
-        
+        return $this->createResponse(
+            'admin:editProject', [
+
+            ]
+        );
     }
 
-    public function deleteTraining( Request $request  ) : Response
+    /**
+     * This method adds an skill in the database for the route /admin/addSkill/{id}.
+     *
+     * @param Request $request
+     * @param string  $skillId
+     * @return Response
+     */
+    public function addSkill( Request $request, string $skillId ): Response
     {
-        
+        return $this->createResponse(
+            'admin:addSkill', [
+
+            ]
+        );
     }
 
-    public function insertHobby( Request $request  ) : Response
+    /**
+     * This method adds an training in the database for the route /admin/addTraining/{id}.
+     *
+     * @param Request $request
+     * @param string  $trainingId
+     * @return Response
+     */
+    public function addTraining( Request $request, string $trainingId ): Response
     {
-        
+        return $this->createResponse(
+            'admin:addTraining', [
+
+            ]
+        );
     }
 
-    public function editHobby( Request $request  ) : Response
+    /**
+     * This method adds an hobby in the database for the route /admin/addHobby/{id}.
+     *
+     * @param Request $request
+     * @param string  $hobbyId
+     * @return Response
+     */
+    public function addHobby( Request $request, string $hobbyId ): Response
     {
-        
+        return $this->createResponse(
+            'admin:addHobby', [
+
+            ]
+        );
     }
 
-    public function deleteHobby( Request $request  ) : Response
+    /**
+     * This method adds an language in the database for the route /admin/addLanguage/{id}.
+     *
+     * @param Request $request
+     * @param string  $languageId
+     * @return Response
+     */
+    public function addLanguage( Request $request, string $languageId ): Response
     {
-        
+        return $this->createResponse(
+            'admin:addLanguage', [
+
+            ]
+        );
     }
 
-    public function insertLanguage( Request $request  ) : Response
+    /**
+     * This method adds an slb assignment in the database for the route /admin/addSlbAssignment/{id}.
+     *
+     * @param Request $request
+     * @param string  $skillId
+     * @return Response
+     */
+    public function addSlbAssignment( Request $request, string $slbAssignmentId ): Response
     {
-        
+        return $this->createResponse(
+            'admin:addSlbAssignment', [
+
+            ]
+        );
     }
 
-    public function editLanguage( Request $request  ) : Response
+    /**
+     * This method adds an image in the database for the route /admin/addImage/{id}.
+     *
+     * @param Request $request
+     * @param string  $skillId
+     * @return Response
+     */
+    public function addImage( Request $request, string $imageId ): Response
     {
-        
+        return $this->createResponse(
+            'admin:addImage', [
+
+            ]
+        );
     }
 
-    public function deleteLanguage( Request $request  ) : Response
+    /**
+     * This method adds an image in the database for the route /admin/addProject/{id}.
+     *
+     * @param Request $request
+     * @param string  $projectId
+     * @return Response
+     */
+    public function addProject( Request $request, string $projectId ): Response
     {
-        
-    }
+        return $this->createResponse(
+            'admin:addProject', [
 
-    public function insertJobExperience( Request $request  ) : Response
-    {
-        
-    }
-
-    public function editJobExperience( Request $request  ) : Response
-    {
-        
-    }
-
-    public function deleteJobExperience( Request $request  ) : Response
-    {
-        
-    }
-
-    public function insertImage( Request $request  ) : Response
-    {
-        
-    }
-
-    public function editImage( Request $request  ) : Response
-    {
-        
-    }
-
-    public function deleteImage( Request $request  ) : Response
-    {
-        
-    }
-
-    public function insertSlbAssignment( Request $request  ) : Response
-    {
-        
-    }
-
-    public function editSlbAssignment( Request $request  ) : Response
-    {
-        
-    }
-
-    public function deleteSlbAssignment( Request $request  ) : Response
-    {
-        
-    }
-
-    public function insertProject( Request $request  ) : Response
-    {
-        
-    }
-
-    public function editProject( Request $request  ) : Response
-    {
-
+            ]
+        );
     }
 }

@@ -1,4 +1,19 @@
 # Portfolio pages
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**
+
+- [Portfolio pages](#portfolio-pages)
+    - [Portfolio overzicht ( Admin | student | Teacher | SLB teacher )](#portfolio-overzicht--admin--student--teacher--slb-teacher-)
+    - [edit{itemName} ( Admin | Student )](#edititemname--admin--student-)
+    - [add{itemName} ( Admin | Student )](#additemname--admin--student-)
+    - [Portfolios overzicht ( admin | Teacher | SLB Teacher )](#portfolios-overzicht--admin--teacher--slb-teacher-)
+    - [Cijfer administratie ( Admin | SLB Teacher | Teacher | Student )](#cijfer-administratie--admin--slb-teacher--teacher--student-)
+    - [Cijfers Overzicht ( Admin | SLB Teacher | Teacher )](#cijfers-overzicht--admin--slb-teacher--teacher-)
+- [Table with pages](#table-with-pages)
+- [Data available](#data-available)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ### Portfolio overzicht ( Admin | student | Teacher | SLB teacher )
 __Student__  __Admin__ An page where the student can see lists on all the items in the portfolio and where he can chose to add, edit and delete items. to 
@@ -9,6 +24,11 @@ the whole portfolio ? Maybe we can do this in the portfolio ?
 __Teacher__ An page where he can see all the students projects and can assign an grade to them. 
 
 _Route_ /admin/portfolioOverzicht/{id}
+
+### Add portfolio
+__Admin__ An page where an administrator can add an new portfolio for an user.
+
+_Route_ /admin/addPortfolio
 
 ### edit{itemName} ( Admin | Student )
 __Student__  __Admin__ An page where the student can edit portfolio items.
@@ -38,10 +58,11 @@ __SLB Teacher__ __Teacher__ __Admin__ An page where he can se all students and h
  _Route_ /admin/cijfersOverzicht
 
 # Table with pages
-| Page                 | fileName                | Authorizatoin                         | Route                           | Data available     | 
+| Page                 | fileName                | Authorization                         | Route                           | Data available     | 
 |----------------------|-------------------------|---------------------------------------|---------------------------------|--------------------| 
 | Portfolio overzicht  | portfolioOverzicht.php  | Admin, SLB Teacher, Teacher, Student  | /admin/portfolioOverzicht/{id}  | portfolio-data     | 
 | Portfolios ovezicht  | portfoliosOverzicht.php | Admin, SLB Teacher, Teacher           | /admin/portfoliosOverzicht      | cortfolios-data    | 
+| add portfolio        | addPortfolio.php        | Admin           |                       /admin/addPortfolio             |                    | 
 | Cijfer administratie | cijferAdministratie.php | Admin, SLB Teacher, Teacher, Student  | /admin/cijferAdministratie/{id} | cijfer-data        | 
 | Cijfers overzicht    | cijfersOverzicht.php    | Admin, SLB Teacher, Teacher           | /admin/cijfersOverzicht         | cijfers-data       | 
 |                      |                         |                                       |                                 |                    | 
@@ -50,7 +71,7 @@ __SLB Teacher__ __Teacher__ __Admin__ An page where he can se all students and h
 | Edit Hobby           | editHobby.php           | Admin, Student                        | /admin/editHobby/{id}           | Hobby-data         | 
 | Edit Language        | editLanguage.php        | Admin, Student                        | /admin/editLanguage{id}         | Language-data      | 
 | Edit JobExperience   | editJobExperience.php   | Admin, Student                        | /admin/editJobExperience/{id}   | Jobexperience-data | 
-| Edit SLBAssignment   | editSlbAssignment.php   | Admin, Student                        | /admin/editSlbAssignment/{id}   | Slbassignment-data | 
+| Edit SlbAssignment   | editSlbAssignment.php   | Admin, Student                        | /admin/editSlbAssignment/{id}   | Slbassignment-data | 
 | Edit Image           | editImage.php           | Admin, Student                        | /admin/editImage/{id}           | Image-data         | 
 | Edit Project         | editProject.php         | Admin, Student                        | /admin/editProject/{id}         | Project-data       | 
 |                      |                         |                                       |                                 |                    | 
@@ -59,7 +80,7 @@ __SLB Teacher__ __Teacher__ __Admin__ An page where he can se all students and h
 | Add Hobby            | addHobby.php            | Admin, Student                        | /admin/addHobby/{id}            |                    | 
 | Add Language         | addLanguage.php         | Admin, Student                        | /admin/addLanguage{id}          |                    | 
 | Add JobExperience    | addJobExperience.php    | Admin, Student                        | /admin/addJobExperience/{id}    |                    | 
-| Add SLBAssignment    | addSlbAssignment.php    | Admin, Student                        | /admin/addSlbAssignment/{id}    |                    | 
+| Add SlbAssignment    | addSlbAssignment.php    | Admin, Student                        | /admin/addSlbAssignment/{id}    |                    | 
 | Add Image            | addImage.php            | Admin, Student                        | /admin/addImage/{id}            |                    | 
 | Add Project          | addProject.php          | Admin, Student                        | /admin/addProject/{id}          |                    | 
 
@@ -67,7 +88,7 @@ __SLB Teacher__ __Teacher__ __Admin__ An page where he can se all students and h
 | Data name          | type               | description                                 | 
 |--------------------|--------------------|---------------------------------------------| 
 | portfolio-data     | Portfolio()        | The same as on the portolios                | 
-| Portfolios-data    | EntityCollection   | Entity collection with Portfolio() objects  | 
+| Portfolios-data    | EntityCollection   | Entity collection with PortfolioMetaData() objects  | 
 | cijfer-data        | ParameterContainer | Just an array with all grades and item name | 
 | cijfers-data       | ParameterContainer | Just an array with cijfer-data arrays       | 
 | skill-data         | Skill()            | The same as on the portolios                | 
