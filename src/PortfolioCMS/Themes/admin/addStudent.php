@@ -86,7 +86,7 @@ include 'header.php';
                                                        class="form-control"
                                                        id="inputLastName"
                                                        placeholder="Achternaam"
-                                                       pattern="[a-zA-Z]{2,0}"
+                                                       pattern="[a-zA-Z]{2,}"
                                                        title="Ongeldige achternaam"
                                                        required>
                                             </div>
@@ -98,8 +98,6 @@ include 'header.php';
                                                        class="form-control"
                                                        id="inputAddress"
                                                        placeholder="Addres"
-                                                       pattern="[a-zA-Z0-9]{2,0}"
-                                                       title="Ongeldig adres"
                                                        required>
                                             </div>
 
@@ -123,8 +121,6 @@ include 'header.php';
                                                        class="form-control"
                                                        id="inputLocation"
                                                        placeholder="Woonplaats"
-                                                       pattern="[a-zA-Z]{2,0}"
-                                                       title="Ongeldige woonplaats"
                                                        required>
                                             </div>
 
@@ -147,7 +143,7 @@ include 'header.php';
                                                        class="form-control"
                                                        id="inputStudentCode"
                                                        placeholder="student code"
-                                                       pattern="[1-9]\d{4}"
+                                                       pattern="[1-9]\d{4,}"
                                                        title="Ongeldige student code"
                                                        required>
                                             </div>
@@ -160,7 +156,6 @@ include 'header.php';
                                                        class="form-control"
                                                        id="inputLastName"
                                                        placeholder="telefoon nummer"
-                                                       pattern="[1-9]{6,}"
                                                        required>
                                             </div>
 

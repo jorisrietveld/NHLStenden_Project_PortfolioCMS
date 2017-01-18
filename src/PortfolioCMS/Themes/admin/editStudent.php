@@ -56,7 +56,8 @@ include 'header.php';
                                                        class="form-control"
                                                        id="inputWachtwoord"
                                                        placeholder="Wachtwoord"
-                                                       minlength="8">
+                                                       pattern="{7,}"
+                                                       title="Het wachtwoord moet minimaal 8 karakters zijn">
                                             </div>
 
                                             <div class="form-group">
@@ -67,7 +68,8 @@ include 'header.php';
                                                        class="form-control"
                                                        id="inputWachtwoord"
                                                        placeholder="Wachtwoord"
-                                                       minlength="8">
+                                                       pattern="{7,}"
+                                                       title="Het wachtwoord moet minimaal 8 karakters zijn">
                                             </div>
 
                                             <div class="form-group">
@@ -77,7 +79,7 @@ include 'header.php';
                                                        class="form-control"
                                                        id="inputFirstName"
                                                        placeholder="Voornaam"
-                                                       pattern="[a-zA-Z]"
+                                                       pattern="[a-zA-Z]{2,}"
                                                        title="Ongeldige voornaam"
                                                        value="<?= $dataProvider->call('student-data', 'getFirstName') ?>"
                                                        required>
@@ -91,7 +93,7 @@ include 'header.php';
                                                        class="form-control"
                                                        id="inputLastName"
                                                        placeholder="Achternaam"
-                                                       pattern="[a-zA-Z]"
+                                                       pattern="[a-zA-Z]{2,}"
                                                        title="Ongeldige achternaam"
                                                        value="<?= $dataProvider->call('student-data', 'getLastName') ?>"
                                                        required>
@@ -104,8 +106,6 @@ include 'header.php';
                                                        class="form-control"
                                                        id="inputAddress"
                                                        placeholder="Addres"
-                                                       pattern="[a-zA-Z0-9]"
-                                                       title="Ongeldig adres"
                                                        value="<?= $dataProvider->call('student-data', 'getAddress') ?>"
                                                        required>
                                             </div>
@@ -131,8 +131,6 @@ include 'header.php';
                                                        class="form-control"
                                                        id="inputLocation"
                                                        placeholder="Woonplaats"
-                                                       pattern="[a-zA-Z]"
-                                                       title="Ongeldige woonplaats"
                                                        value="<?= $dataProvider->call('student-data', 'getLocation') ?>"
                                                        required>
                                             </div>
@@ -157,7 +155,7 @@ include 'header.php';
                                                        class="form-control <?= $dataProvider->isAdmin() ? '' : 'disabled' ?>"
                                                        id="inputStudentCode"
                                                        placeholder="student code"
-                                                       pattern="[1-9]\d{4}"
+                                                       pattern="[1-9]\d{4,}"
                                                        title="Ongeldige student code"
                                                        value="<?= $dataProvider->call('student-data', 'getStudentCode') ?>"
                                                        required>

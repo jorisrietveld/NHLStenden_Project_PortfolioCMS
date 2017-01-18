@@ -47,11 +47,11 @@
         <action id="controller">UserManagement:insertStudent</action>
     </route>
 
-    <route id="Admin" path="/admin/editStudent/{id}" methods="GET" authorization="STUDENT">
+    <route id="Admin" path="/admin/editStudent/{id}" methods="GET|POST" authorization="STUDENT">
         <action id="controller">UserManagement:editStudent</action>
     </route>
 
-    <route id="Admin" path="/admin/editTeacher/{id}" methods="GET" authorization="STUDENT">
+    <route id="Admin" path="/admin/editTeacher/{id}" methods="GET|POST" authorization="TEACHER">
         <action id="controller">UserManagement:editTeacher</action>
     </route>
 
