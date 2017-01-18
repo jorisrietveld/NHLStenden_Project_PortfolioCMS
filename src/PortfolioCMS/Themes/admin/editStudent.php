@@ -43,12 +43,13 @@ include 'header.php';
                                                        id="inputEmail"
                                                        placeholder="Email"
                                                        title="Ongeldig email adres"
-                                                       value="<?= $dataProvider->call( 'student-data', 'getEmail' ) ?>"
+                                                       value="<?= $dataProvider->call('student-data', 'getEmail') ?>"
                                                        required>
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputPassword">Wachtwoord</label>
+                                                <label class="form-label col-lg-3"
+                                                       for="inputPassword">Wachtwoord</label>
                                                 <input type="password"
                                                        name="password"
                                                        class="form-control"
@@ -77,12 +78,13 @@ include 'header.php';
                                                        placeholder="Voornaam"
                                                        pattern="[a-zA-Z]"
                                                        title="Ongeldige voornaam"
-                                                       value="<?= $dataProvider->call( 'student-data', 'getEmail' ) ?>"
+                                                       value="<?= $dataProvider->call('student-data', 'getFirstName') ?>"
                                                        required>
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputPassword">Achternaam</label>
+                                                <label class="form-label col-lg-3"
+                                                       for="inputPassword">Achternaam</label>
                                                 <input type="text"
                                                        name="lastName"
                                                        class="form-control"
@@ -90,7 +92,7 @@ include 'header.php';
                                                        placeholder="Achternaam"
                                                        pattern="[a-zA-Z]"
                                                        title="Ongeldige achternaam"
-                                                       value="<?= $dataProvider->call( 'student-data', 'getLastName' ) ?>"
+                                                       value="<?= $dataProvider->call('student-data', 'getLastName') ?>"
                                                        required>
                                             </div>
 
@@ -103,7 +105,7 @@ include 'header.php';
                                                        placeholder="Addres"
                                                        pattern="[a-zA-Z0-9]"
                                                        title="Ongeldig adres"
-                                                       value="<?= $dataProvider->call( 'student-data', 'getAddress' ) ?>"
+                                                       value="<?= $dataProvider->call('student-data', 'getAddress') ?>"
                                                        required>
                                             </div>
 
@@ -116,12 +118,13 @@ include 'header.php';
                                                        placeholder="postcode"
                                                        pattern="[1-9]\d{3} ?[a-zA-Z]{2}"
                                                        title="Ongeldige postcode"
-                                                       value="<?= $dataProvider->call( 'student-data', 'getZipCode' ) ?>"
+                                                       value="<?= $dataProvider->call('student-data', 'getZipCode') ?>"
                                                        required>
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputPassword">woonplaats</label>
+                                                <label class="form-label col-lg-3"
+                                                       for="inputPassword">woonplaats</label>
                                                 <input type="text"
                                                        name="location"
                                                        class="form-control"
@@ -129,23 +132,25 @@ include 'header.php';
                                                        placeholder="Woonplaats"
                                                        pattern="[a-zA-Z]"
                                                        title="Ongeldige woonplaats"
-                                                       value="<?= $dataProvider->call( 'student-data', 'getLocation' ) ?>"
+                                                       value="<?= $dataProvider->call('student-data', 'getLocation') ?>"
                                                        required>
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputPassword">geboorte datum</label>
+                                                <label class="form-label col-lg-3" for="inputPassword">geboorte
+                                                    datum</label>
                                                 <input type="date"
                                                        name="dateOfBirth"
                                                        class="form-control"
                                                        id="inputDateOfBirth"
                                                        placeholder="geboorte datum"
-                                                       value="<?= $dataProvider->nestedCall( 'student-data', 'getDateOfBirth:format', [ [], [ 'Y-m-d' ], ] ) ?>"
+                                                       value="<?= $dataProvider->nestedCall('student-data', 'getDateOfBirth:format', [[], ['Y-m-d'],]) ?>"
                                                        required>
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputPassword">student code</label>
+                                                <label class="form-label col-lg-3" for="inputPassword">student
+                                                    code</label>
                                                 <input type="text"
                                                        name="studentCode"
                                                        class="form-control <?= $dataProvider->isAdmin() ? '' : 'disabled' ?>"
@@ -153,34 +158,35 @@ include 'header.php';
                                                        placeholder="student code"
                                                        pattern="[1-9]\d{4}"
                                                        title="Ongeldige student code"
-                                                       value="<?= $dataProvider->call( 'student-data', 'getStudentCode' ) ?>"
+                                                       value="<?= $dataProvider->call('student-data', 'getStudentCode') ?>"
                                                        required>
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputPassword">telefoon nummer</label>
+                                                <label class="form-label col-lg-3" for="inputPassword">telefoon
+                                                    nummer</label>
                                                 <input type="tel"
                                                        name="lastName"
                                                        class="form-control"
                                                        id="inputLastName"
                                                        placeholder="telefoon nummer"
-                                                       value="<?= $dataProvider->call( 'student-data', 'getPhoneNumber' ) ?>"
+                                                       value="<?= $dataProvider->call('student-data', 'getPhoneNumber') ?>"
                                                        required>
                                             </div>
 
 
-                                            <?php if ( $dataProvider->isAdmin() ): ?>
+                                            <?php if ($dataProvider->isAdmin()): ?>
                                                 <div class="row radio-buttons-custom">
                                                     <div class="col-lg-12">
                                                         <p class="centertext">Admin</p><br/>
                                                         <label><input type="radio" name="isAdmin" value="1"
                                                                       class="radio-custom"><span
-                                                                class="isSelected"> Ja</span></input></label>
+                                                                    class="isSelected"> Ja</span></input></label>
                                                         <label><input type="radio" name="isAdmin" value="0"
                                                                       class="radio-custom"
                                                                       id="inputLastName"
                                                                       placeholder="Achternaam" checked><span
-                                                                class="isSelected"> Nee</span></input></label>
+                                                                    class="isSelected"> Nee</span></input></label>
                                                     </div>
                                                 </div>
                                                 <div class="clearfix"></div>
@@ -191,12 +197,12 @@ include 'header.php';
                                                         <label>
                                                             <input type="radio" name="active" value="1"
                                                                    class="radio-custom" checked><span
-                                                                class="isSelected"> Ja</span></input></label>
+                                                                    class="isSelected"> Ja</span></input></label>
                                                         <label><input type="radio" name="active" value="0"
                                                                       class="radio-custom"
                                                                       id="inputLastName"
                                                                       placeholder="Achternaam"><span
-                                                                class="isSelected"> Nee</span></input></label>
+                                                                    class="isSelected"> Nee</span></input></label>
                                                     </div>
                                                 </div>
                                             <?php endif; ?>
@@ -222,4 +228,4 @@ include 'header.php';
 
 <?php include 'scripts.php' ?>
 
-</html> 1 );
+</html>
