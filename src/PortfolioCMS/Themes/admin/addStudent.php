@@ -32,28 +32,138 @@ include 'header.php';
                                     <div class="col-sm-6 col-sm-offset-3">
                                         <form class="form-custom float-left" action="" method="POST">
                                             <div class="form-group">
-                                                <label class="form-label" for="inputEmail">Email</label>
-                                                <input type="email" name="email" class="form-control" id="inputEmail"
-                                                       placeholder="Email">
+                                                <label class="form-label col-lg-3" for="inputEmail">Email</label>
+                                                <input type="email"
+                                                       name="email"
+                                                       class="form-control"
+                                                       id="inputEmail"
+                                                       placeholder="Email"
+                                                       title="Ongeldig email adres"
+                                                       required>
                                             </div>
+
                                             <div class="form-group">
-                                                <label class="form-label" for="inputPassword">Wachtwoord</label>
-                                                <input type="password" name="password" class="form-control"
+                                                <label class="form-label col-lg-3"
+                                                       for="inputPassword">Wachtwoord</label>
+                                                <input type="password"
+                                                       name="password"
+                                                       class="form-control"
                                                        id="inputWachtwoord"
-                                                       placeholder="Wachtwoord">
+                                                       placeholder="Wachtwoord"
+                                                       pattern="{7,}"
+                                                       title="Het wachtwoord moet minimaal 8 karakters zijn">
                                             </div>
+
                                             <div class="form-group">
-                                                <label class="form-label" for="inputPassword">Voornaam</label>
-                                                <input type="text" name="firstName" class="form-control"
+                                                <label class="form-label col-lg-3" for="inputPassword">Wachtwoord
+                                                    opnieuw</label>
+                                                <input type="password"
+                                                       name="password"
+                                                       class="form-control"
+                                                       id="inputWachtwoord"
+                                                       placeholder="Wachtwoord"
+                                                       pattern="{7,}"
+                                                       title="Het wachtwoord moet minimaal 8 karakters zijn">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="form-label col-lg-3" for="inputPassword">Voornaam</label>
+                                                <input type="text"
+                                                       name="firstName"
+                                                       class="form-control"
                                                        id="inputFirstName"
-                                                       placeholder="Voornaam">
+                                                       placeholder="Voornaam"
+                                                       pattern="[a-zA-Z]{2,}"
+                                                       title="Ongeldige voornaam"
+                                                       required>
                                             </div>
+
                                             <div class="form-group">
-                                                <label class="form-label" for="inputPassword">Achternaam</label>
-                                                <input type="text" name="lastName" class="form-control"
+                                                <label class="form-label col-lg-3"
+                                                       for="inputPassword">Achternaam</label>
+                                                <input type="text"
+                                                       name="lastName"
+                                                       class="form-control"
                                                        id="inputLastName"
-                                                       placeholder="Achternaam">
+                                                       placeholder="Achternaam"
+                                                       pattern="[a-zA-Z]{2,0}"
+                                                       title="Ongeldige achternaam"
+                                                       required>
                                             </div>
+
+                                            <div class="form-group">
+                                                <label class="form-label col-lg-3" for="inputPassword">addres</label>
+                                                <input type="text"
+                                                       name="address"
+                                                       class="form-control"
+                                                       id="inputAddress"
+                                                       placeholder="Addres"
+                                                       pattern="[a-zA-Z0-9]{2,0}"
+                                                       title="Ongeldig adres"
+                                                       required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="form-label col-lg-3" for="inputPassword">postcode</label>
+                                                <input type="text"
+                                                       name="zipCode"
+                                                       class="form-control"
+                                                       id="inputZipCode"
+                                                       placeholder="postcode"
+                                                       pattern="[1-9]\d{3} ?[a-zA-Z]{2}"
+                                                       title="Ongeldige postcode"
+                                                       required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="form-label col-lg-3"
+                                                       for="inputPassword">woonplaats</label>
+                                                <input type="text"
+                                                       name="location"
+                                                       class="form-control"
+                                                       id="inputLocation"
+                                                       placeholder="Woonplaats"
+                                                       pattern="[a-zA-Z]{2,0}"
+                                                       title="Ongeldige woonplaats"
+                                                       required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="form-label col-lg-3" for="inputPassword">geboorte
+                                                    datum</label>
+                                                <input type="date"
+                                                       name="dateOfBirth"
+                                                       class="form-control"
+                                                       id="inputDateOfBirth"
+                                                       placeholder="geboorte datum"
+                                                       required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="form-label col-lg-3" for="inputPassword">student
+                                                    code</label>
+                                                <input type="text"
+                                                       name="studentCode"
+                                                       class="form-control"
+                                                       id="inputStudentCode"
+                                                       placeholder="student code"
+                                                       pattern="[1-9]\d{4}"
+                                                       title="Ongeldige student code"
+                                                       required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="form-label col-lg-3" for="inputPassword">telefoon
+                                                    nummer</label>
+                                                <input type="tel"
+                                                       name="lastName"
+                                                       class="form-control"
+                                                       id="inputLastName"
+                                                       placeholder="telefoon nummer"
+                                                       pattern="[1-9]{6,}"
+                                                       required>
+                                            </div>
+
                                             <div class="row radio-buttons-custom">
                                                 <div class="col-lg-12">
                                                     <p class="centertext">Admin</p><br/>
@@ -67,8 +177,10 @@ include 'header.php';
                                                             class="isSelected"> Nee</span></input></label>
                                                 </div>
                                             </div>
+
                                             <div class="clearfix"></div>
                                             <hr/>
+
                                             <div class="row radio-buttons-custom">
                                                 <div class="col-lg-12">
                                                     <p class="centertext">Actief</p><br/>
@@ -83,10 +195,12 @@ include 'header.php';
                                                             class="isSelected"> Nee</span></input></label>
                                                 </div>
                                             </div>
+
                                             <div class="row">
                                                 <div class="col-lg-6 clearfix"><br/></div>
                                             </div>
                                             <button type="submit" class="btn btn-primary btn-custom">Toevoegen</button>
+
                                         </form>
                                     </div>
                                 </div>

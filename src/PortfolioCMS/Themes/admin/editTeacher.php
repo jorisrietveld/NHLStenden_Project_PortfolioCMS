@@ -22,12 +22,13 @@ include 'header.php';
                         </h4>
                         <hr class="style-one"/>
                         <div class="col-sm-5 custom-buttons">
+                            <?php if( $dataProvider->isAdmin() ): ?>
                             <a href="../gebruikersOverzicht">
                                 <button class="btn btn-md btn-primary btn-block btn-custom">
                                     <i class="fa fa-arrow-left"></i> Terug
                                 </button>
                             </a>
-
+                            <?php endif; ?>
                         </div>
                         <div class="clearfix"></div>
                         <div class="content">
@@ -58,6 +59,8 @@ include 'header.php';
                                                        id="inputLastName"
                                                        placeholder="Achternaam">
                                             </div>
+
+                                            <?php if( $dataProvider->isAdmin() ): ?>
                                             <div class="row radio-buttons-custom">
                                                 <div class="col-lg-12">
                                                     <p class="centertext">Admin</p><br/>
@@ -71,6 +74,7 @@ include 'header.php';
                                                             class="isSelected"> Nee</span></input></label>
                                                 </div>
                                             </div>
+
                                             <div class="clearfix"></div>
                                             <hr/>
                                             <div class="row radio-buttons-custom">
@@ -87,6 +91,8 @@ include 'header.php';
                                                             class="isSelected"> Nee</span></input></label>
                                                 </div>
                                             </div>
+                                            <?php endif; ?>
+
                                             <div class="row">
                                                 <div class="col-lg-6 clearfix"><br/></div>
                                             </div>

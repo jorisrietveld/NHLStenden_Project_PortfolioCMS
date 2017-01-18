@@ -21,12 +21,13 @@ include 'header.php';
                         </h4>
                         <hr class="style-one"/>
                         <div class="col-sm-5 custom-buttons">
+                            <?php if( $dataProvider->isAdmin() ): ?>
                             <a href="../gebruikersOverzicht">
                                 <button class="btn btn-md btn-primary btn-block btn-custom">
                                     <i class="fa fa-arrow-left"></i> Terug
                                 </button>
                             </a>
-
+                            <?php endif; ?>
                         </div>
                         <div class="clearfix"></div>
                         <div class="content">
