@@ -95,27 +95,56 @@
                     <div class="info">
                         
                         <p class="records">
-                            Naam: Marco Brink
+                            Naam:  
+                            <?php
+                            $studentfn = $dataProvider->get( 'student' );
+                            echo $studentfn->getFirstName();
+                            ?>
+                            <?php
+                            $studentln = $dataProvider->get( 'student' );
+                            echo $studentln->getLastName();
+                            ?>
                         </p>    
             
                         <p class="records">    
-                            Geboortedatum: 10 mei 1996
+                            Geboortedatum:   
+                            <?php
+                            $birthdate = $dataProvider->get( 'student' );
+                            echo $birthdate->getDateOfBirth()->format( 'd-m-Y' );
+                            ?>
                         </p>
             
                         <p class="records">    
-                            Plaats: Assen
+                            Plaats: 
+                            <?php
+                            $place = $dataProvider->get( 'student' );
+                            echo $place->getLocation();
+                            ?>
                         </p>
        
+                       
+            
                         <p class="records">
-                            Nationaliteit: Nederlands
+                            E-mailadres: 
+                            <?php
+                            $email = $dataProvider->get( 'student' );
+                            echo $email->getEmail();
+                            ?>
                         </p>
             
                         <p class="records">
-                            E-mailadres: marco.brink@student.stenden.com  
-                        </p>
-            
-                        <p class="records">
-                            Rijbewijs: Ja  
+                            Rijbewijs:
+                            <?php
+                            $driver = $dataProvider->get( 'student' );
+                            if($driver->getStudentCode() == 535672 || 533270 || 550035 || 55827){
+                                
+                                echo'Ja';
+                            }else{
+                                
+                                echo 'Nee';
+                            }
+                            ?>
+                            
                         </p>
             
                     </div>
@@ -173,10 +202,7 @@
                     At this moment I am studying informatics at Stenden Universtity in 
                     Emmen.!  My hobbies are playing(and watching basketball), gaming, 
                     listening to music(especially electronic)and travelling.</p>
-                    <?php
-                    $student = $dataProvider->get( 'student' );
-                    echo $student->getFirstName();
-                    ?>
+                   
                 </div>
             </div>
         </div>
