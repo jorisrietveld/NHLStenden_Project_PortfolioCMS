@@ -127,6 +127,7 @@ class Authentication extends BaseController
         }
 
         $_SESSION[ 'userId' ] = $user->getId();
+        $_SESSION['name'] = $user->getFirstName() . ' ' . $user->getLastName();
 
         switch ( true )
         {

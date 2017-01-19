@@ -102,35 +102,35 @@
     </route>
 
     <!-- Authorized portfolio management add portfolio items -->
-    <route id="Admin" path="/admin/addSkill/{id}" methods="GET|POST" authorization="STUDENT">
+    <route id="Admin" path="/admin/addSkill" methods="GET|POST" authorization="STUDENT">
         <action id="controller">PortfolioManagement:addSkill</action>
     </route>
 
-    <route id="Admin" path="/admin/addTraining/{id}" methods="GET|POST" authorization="STUDENT">
+    <route id="Admin" path="/admin/addTraining" methods="GET|POST" authorization="STUDENT">
         <action id="controller">PortfolioManagement:addTraining</action>
     </route>
 
-    <route id="Admin" path="/admin/addHobby/{id}" methods="GET|POST" authorization="STUDENT">
+    <route id="Admin" path="/admin/addHobby" methods="GET|POST" authorization="STUDENT">
         <action id="controller">PortfolioManagement:addHobby</action>
     </route>
 
-    <route id="Admin" path="/admin/addLanguage/{id}" methods="GET|POST" authorization="STUDENT">
+    <route id="Admin" path="/admin/addLanguage" methods="GET|POST" authorization="STUDENT">
         <action id="controller">PortfolioManagement:addLanguage</action>
     </route>
 
-    <route id="Admin" path="/admin/addJobExperience/{id}" methods="GET|POST" authorization="STUDENT">
+    <route id="Admin" path="/admin/addJobExperience" methods="GET|POST" authorization="STUDENT">
         <action id="controller">PortfolioManagement:addJobExperience</action>
     </route>
 
-    <route id="Admin" path="/admin/addSlbAssignment/{id}" methods="GET|POST" authorization="STUDENT">
+    <route id="Admin" path="/admin/addSlbAssignment" methods="GET|POST" authorization="STUDENT">
         <action id="controller">PortfolioManagement:addSlbAssignment</action>
     </route>
 
-    <route id="Admin" path="/admin/addImage/{id}" methods="GET|POST" authorization="STUDENT">
+    <route id="Admin" path="/admin/addImage" methods="GET|POST" authorization="STUDENT">
         <action id="controller">PortfolioManagement:addImage</action>
     </route>
 
-    <route id="Admin" path="/admin/addProject/{id}" methods="GET|POST" authorization="STUDENT">
+    <route id="Admin" path="/admin/addProject" methods="GET|POST" authorization="STUDENT">
         <action id="controller">PortfolioManagement:addProject</action>
     </route>
 
