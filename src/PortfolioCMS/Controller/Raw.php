@@ -35,8 +35,9 @@ class Raw extends BaseController
 
                 ob_start();
                 dump($portfolioEntity);
+
                 return new Response(
-                    sprintf( '<h1>Portfolio from %s at webpage: %s</h1>'.ob_get_clean(), $studentName, $portfolioPageName),
+                    '<h1>Portfolio from:</h1>'.ob_get_clean(),
                     200
                 );
             }

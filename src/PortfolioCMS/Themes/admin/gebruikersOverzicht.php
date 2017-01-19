@@ -50,9 +50,9 @@ include 'header.php'; ?>
                                         <td><?=$user->getFirstName()?></td>
                                         <td><?=$user->getLastName()?></td>
                                         <td class="word-break"><?= $user->getEmail() ?></td>
-                                        <td><?= $user->getType() ?></td>
-                                        <td><?= $user->getIsAdmin() ? 'ja' : 'nee' ?></td>
-                                        <td><?= $user->getActive() ? 'ja' : 'nee' ?></td>
+                                        <td><?= $user->getType()== 'teacher' ? ($user->getIsSLBer() ? "SLB'er" : 'Docent') : 'Student'  ?></td>
+                                        <td><?= $user->getIsAdmin() ? 'Ja' : 'Nee' ?></td>
+                                        <td><?= $user->getActive() ? 'Ja' : 'Nee' ?></td>
                                         <td>
                                             <a href="./edit<?= ucfirst( $user->getType() )?>/<?= $user->getId() ?>">
                                                 <button class="btn btn-md btn-primary btn-block btn-custom">
