@@ -56,12 +56,12 @@
     </route>
 
     <!-- Authorized portfolio management -->
-    <route id="Admin" path="/admin/portfolioOverzicht/{id}" methods="GET" authorization="STUDENT">
-        <action id="controller">PortfolioManagement:portfolioOverview</action>
+    <route id="Admin" path="/admin/portfolio/{id}" methods="GET" authorization="STUDENT">
+        <action id="controller">PortfolioManagement:portfolio</action>
     </route>
 
-    <route id="Admin" path="/admin/portfoliosOverzicht" methods="GET|POST" authorization="ADMIN">
-        <action id="controller">PortfolioManagement:portfoliosOverview</action>
+    <route id="Admin" path="/admin/portfolioOverzicht" methods="GET|POST" authorization="ADMIN">
+        <action id="controller">PortfolioManagement:portfolioOverview</action>
     </route>
 
     <route id="Admin" path="/admin/addPortfolio" methods="GET|POST" authorization="ADMIN">
