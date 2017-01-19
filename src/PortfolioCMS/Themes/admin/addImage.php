@@ -16,7 +16,7 @@ include 'header.php';
                     <div class="header">
                         <h4 class="title text-center">
                             <strong>
-                                <i class="fa fa-pencil-square-o"></i>Afbeelding Toevoegen
+                                <i class="fa fa-pencil-square-o"></i> Afbeelding Toevoegen
                             </strong>
                         </h4>
                         <hr class="style-one"/>
@@ -35,14 +35,39 @@ include 'header.php';
                                         <form class="form-custom float-left" action="" method="POST">
 
                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">item</label>
+                                                <label class="form-label col-lg-3" for="inputEmail">Naam:</label>
                                                 <input type="text"
-                                                       name="item"
+                                                       name="name"
                                                        class="form-control"
-                                                       id="item"
-                                                       placeholder="item"
-                                                       required>
+                                                       id="name"
+                                                       placeholder="Naam"
+                                                       >
                                             </div>
+                                            
+                                            
+                                            <div class="form-group">
+                                                <label class="form-label col-lg-3" for="inputEmail">Beschrijving:</label>
+                                                <textarea 
+                                                       name="description"
+                                                       class="form-control"
+                                                       id="description"
+                                                       placeholder="Beschrijving"
+                                                       required></textarea>
+                                            </div>
+                                            
+                                            
+                                             <div class="form-group">
+                                                <label class="form-label col-lg-3" for="inputEmail">Type afbeelding:</label>
+                                                <select required  class="form-control" name="type">
+                                                    <option value="">Geen</option>
+                                                    <option value="GALLERY_IMAGE">Galerij</option>
+                                                    <option value="PROFILE_IMAGE">Profielfoto</option>
+                                                </select>
+                                               
+                                             
+                                            </div>
+                                            
+                                            
 
 
                                             <div class="row">

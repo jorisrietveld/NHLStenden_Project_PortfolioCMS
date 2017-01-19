@@ -35,12 +35,22 @@ include 'header.php';
                                         <form class="form-custom float-left" action="" method="POST">
 
                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">item</label>
+                                                <label class="form-label col-lg-3" for="inputEmail">Stageplaats:</label>
                                                 <input type="text"
-                                                       name="item"
+                                                       name="location"
                                                        class="form-control"
-                                                       id="item"
-                                                       placeholder="item"
+                                                       id="plaats"
+                                                       placeholder="Stageplaats"
+                                                       required>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label class="form-label col-lg-3" for="inputEmail">Startdatum:</label>
+                                                <input type="text"
+                                                       name="location"
+                                                       class="form-control"
+                                                       id="plaats"
+                                                       placeholder="Stageplaats"
                                                        required>
                                             </div>
 
