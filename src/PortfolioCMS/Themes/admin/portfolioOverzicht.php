@@ -2,7 +2,7 @@
 <?php
 
 $page_title = "Overzicht | Admin";
-$isOnAdminPage = "overzicht";
+$isOnAdminPage = "portfolio";
 
 // ADMIN - SLB'ER - DOCENT
 

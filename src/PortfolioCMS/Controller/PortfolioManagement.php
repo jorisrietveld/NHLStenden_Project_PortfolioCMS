@@ -17,6 +17,7 @@ use StendenINF1B\PortfolioCMS\Kernel\TemplateEngine\TemplateEngine;
 
 class PortfolioManagement extends BaseController
 {
+    use SiteHelper;
     /**
      * The require fields to update or insert an portfolio.
      *
@@ -164,7 +165,7 @@ class PortfolioManagement extends BaseController
     public function portfolio( Request $request, string $id ): Response
     {
         return $this->createResponse(
-            'admin:portfolioOverzicht', [
+            'admin:portfolio', [
 
             ]
         );
@@ -177,11 +178,11 @@ class PortfolioManagement extends BaseController
      * @param string  $id
      * @return Response
      */
-    public function portfolioOverview( Request $request, string $id ) : Response
+    public function portfolioOverview( Request $request ) : Response
     {
         return $this->createResponse(
             'admin:portfolioOverzicht', [
-
+                'portfolios-data' => $this->getPortfoliosMetadata(),
             ]
         );
     }

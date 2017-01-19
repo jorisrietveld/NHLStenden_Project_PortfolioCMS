@@ -136,11 +136,11 @@
 
     <!-- Authorized grade management -->
     <route id="Admin" path="/admin/cijferAdministratie/{id}" methods="GET" authorization="STUDENT">
-        <action id="controller">GradeManagement:gradeManagement</action>
+        <action id="controller">GradesManagement:gradeManagement</action>
     </route>
 
     <route id="Admin" path="/admin/cijferOverzicht" methods="GET" authorization="ADMIN">
-        <action id="controller">GradeManagement:gradeOverview</action>
+        <action id="controller">GradesManagement:gradeOverview</action>
     </route>
 
     <!-- Error routes -->

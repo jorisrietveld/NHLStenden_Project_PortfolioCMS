@@ -48,8 +48,8 @@
                     </a>
                 </li>-->
 
-                <li <?php if ($isOnAdminPage == 'cijferregistratie') {?>class="active"<?php } ?>>
-                    <a href="./cijfersOverzicht">
+                <li <?php if ($isOnAdminPage == 'cijfer') {?>class="active"<?php } ?>>
+                    <a href="./cijferOverzicht">
                         <i class="fa fa-area-chart"></i>
                         <p>Cijferregistratie</p>
                     </a>

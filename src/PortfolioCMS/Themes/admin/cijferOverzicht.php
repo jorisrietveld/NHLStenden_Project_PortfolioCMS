@@ -2,7 +2,7 @@
 <?php
 
 $page_title = "Overzicht | Admin";
-$isOnAdminPage = "overzicht";
+$isOnAdminPage = "cijfer";
 
 include 'header.php'; ?>
 <body>
@@ -17,7 +17,7 @@ include 'header.php'; ?>
                     <div class="header">
                         <h4 class="title text-center">
                             <strong>
-                                Alle portfolios
+                                Cijfer overzicht
                             </strong>
                         </h4>
                         <hr class="style-one"/>
