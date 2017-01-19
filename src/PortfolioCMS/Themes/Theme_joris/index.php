@@ -6,7 +6,7 @@
  */
 
 $student = $dataProvider->get('student');
-
+$hasPageSuffix = FALSE !== strpos( $dataProvider->call( 'httpRequest', 'getBaseUrl'), $dataProvider->get( 'portfolioPageName' ) );
 ?>
 <!DOCTYPE html>
 <htmL>
@@ -36,9 +36,15 @@ $student = $dataProvider->get('student');
             <div class="navbar-collapse collapse" id="navbar-main">
                 <ul class="nav navbar-nav">
                     <?php foreach ( $dataProvider->get( 'pages' ) as $page ): ?>
-                        <li>
-                            <a href=".<?= $page->getUrl() ?>"><?= $page->getName() ?></a>
-                        </li>
+                        <?php if( $hasPageSuffix  ): ?>
+                            <li>
+                                <a href=".<?= $page->getUrl() ?>"><?= $page->getName() ?></a>
+                            </li>
+                        <?php else: ?>
+                            <li>
+                                <a href="<?= $dataProvider->get('url' ) . $page->getUrl() ?>"><?= $page->getName() ?></a>
+                            </li>
+                        <?php endif; ?>
                     <?php endforeach; ?>
                 </ul>
 
@@ -50,9 +56,15 @@ $student = $dataProvider->get('student');
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="portfolio-menu">
                             <?php foreach ( $dataProvider->get( 'portfoliosMetadata' ) as $portfolio ): ?>
-                                <li>
-                                    <a href="./<?= $portfolio->getUrl() ?>"><?= $portfolio->getStudentName() ?></a>
-                                </li>
+                                <?php if( $hasPageSuffix ) : ?>
+                                    <li>
+                                        <a href="../../<?= $portfolio->getUrl() ?>"><?= $portfolio->getStudentName() ?></a>
+                                    </li>
+                                <?php else: ?>
+                                    <li>
+                                        <a href="../<?= $portfolio->getUrl() ?>"><?= $portfolio->getStudentName() ?></a>
+                                    </li>
+                                <?php endif; ?>
                             <?php endforeach; ?>
                         </ul>
                     </li>
@@ -88,40 +100,44 @@ $student = $dataProvider->get('student');
         </div>
     </div>
 
-    <header class="page-wrapper container">
-        <div class="jumbotron text-center row" id="portfolio-header">
+    <div class="page-wrapper container">
+        <header class="jumbotron text-center row" id="portfolio-header">
             <h1 class="col-lg-12 text-mono"><span class="color-orange"><?= $student->getFirstName() ?>@<?= $dataProvider->call( 'httpRequest', 'getServerIp') ?>:~$</span> whoami </h1>
-        </div>
+        </header>
 
-        <div class="jumbotron row">
-            <div class="col-lg-8">
-                <h1><?= $student->getFirstName() . ' ' . $student->getLastName() ?></h1>
-                <h3>
-                    <i class="fa fa-birthday-cake" aria-hidden="true"></i>
-                    <?= $student->getDateOfBirth()->format( 'Y-m-d' ) ?></h3>
-                <h3>
-                    <i class="fa fa-envelope" aria-hidden="true"></i>
-                    <?= $student->getEmail() ?>
-                </h3>
-                <h3>
-                    <i class="fa fa-road" aria-hidden="true"></i>
-                    <?= $student->getAddress() ?>
-                </h3>
-                <h3>
-                    <i class="fa fa-home" aria-hidden="true"></i>
-                    <?= $student->getZipCode() . ' ' . $student->getLocation() ?>
-                </h3>
-                <h3>
-                    <i class="fa fa-mobile" aria-hidden="true"></i>
-                    <?= $student->getPhoneNumber() ?>
-                </h3>
+        <main>
+            <section class="jumbotron row">
+                <div class="col-lg-8">
+                    <h1><?= $student->getFirstName() . ' ' . $student->getLastName() ?></h1>
+                    <h3>
+                        <i class="fa fa-birthday-cake" aria-hidden="true"></i>
+                        <?= $student->getDateOfBirth()->format( 'Y-m-d' ) ?></h3>
+                    <h3>
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                        <?= $student->getEmail() ?>
+                    </h3>
+                    <h3>
+                        <i class="fa fa-road" aria-hidden="true"></i>
+                        <?= $student->getAddress() ?>
+                    </h3>
+                    <h3>
+                        <i class="fa fa-home" aria-hidden="true"></i>
+                        <?= $student->getZipCode() . ' ' . $student->getLocation() ?>
+                    </h3>
+                    <h3>
+                        <i class="fa fa-mobile" aria-hidden="true"></i>
+                        <?= $student->getPhoneNumber() ?>
+                    </h3>
 
-            </div>
-            <img class="img-circle header-profile-picture col-lg-4" src="<?= $dataProvider->get( 'asset-path' ) ?>images/profile.jpg" />
+                </div>
+                <img class="img-circle header-profile-picture col-lg-4" src="<?= $dataProvider->get( 'asset-path' ) ?>images/profile.jpg" />
+            </section>
 
-        </div>
-    </header>
-
+            <section class="jumbotron row">
+                <h3>Mijn Curriculum vitae</h3>
+            </section>
+        </main>
+    </div>
 <!-- Jquery javascript library -->
 <script src="<?= $dataProvider->get('lib-path') ?>jquery/dist/jquery.min.js" type="text/javascript"></script>
 <!-- Bootstrap javascript library -->

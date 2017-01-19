@@ -41,7 +41,11 @@ class Portfolio extends BaseController
     {
         if ( $studentName !== null )
         {
-            $portfolioEntity = $this->getPortfolios()->getEntityWith( 'url', $studentName );
+            if( !$portfolioEntity = $this->getPortfolios()->getEntityWith( 'url', $studentName ) )
+            {
+                $this->redirect( '/404' );
+            }
+
             $pages = $portfolioEntity->getPages();
 
             if( $portfolioPageName !== NULL )
@@ -50,7 +54,7 @@ class Portfolio extends BaseController
 
                 if( $portfolioPage == NULL )
                 {
-                    $this->redirect( '/404' );
+                    return $this->redirect( '/404' );
                 }
             }
             else
@@ -81,6 +85,7 @@ class Portfolio extends BaseController
                         'httpRequest' => $request,
                         'asset-path' => $request->getBaseUri().'assets/'.$theme->getDirectoryName().'/',
                         'portfoliosMetadata' => $this->getPortfoliosMetadata(),
+                        'current-page' => $portfolioPageName
                     ]
                 );
             }

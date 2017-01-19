@@ -25,6 +25,7 @@ class Error extends BaseController
     public function error401( Request $request ) : Response
     {
         return $this->createResponse( 'site:error', [
+            'portfolioMenuLinks' => $this->renderMenuLinks(),
             'errorMessage' => '<h1>Error 401</h1>U heeft niet de juiste authorizatie om deze pagina te bekijken klik <a href="home">hier</a> om terug te gaan naar home.',
             'asset-path' => 'assets/site/',
         ] );
@@ -39,6 +40,7 @@ class Error extends BaseController
     {
         return $this->createResponse(
             'site:error', [
+            'portfolioMenuLinks' => $this->renderMenuLinks(),
             'errorMessage' => '<h1>Error 404</h1>De door u opgevraagde web pagina bestaat niet Klik <a href="home">hier</a> om terug te gaan naar home.',
             'asset-path' => 'assets/site/',
         ],
@@ -97,6 +99,7 @@ class Error extends BaseController
 
         return $this->createResponse(
             'site:error', [
+            'portfolioMenuLinks' => $this->renderMenuLinks(),
             'errorMessage' => sprintf( '<h1>Error 405</h1>HTTP methode %s niet toegestaan.</h1>', $method ),
             ],
             Response::HTTP_STATUS_METHOD_NOT_ALLOWED

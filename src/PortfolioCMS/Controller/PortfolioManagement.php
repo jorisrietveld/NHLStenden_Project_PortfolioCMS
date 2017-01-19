@@ -280,7 +280,7 @@ class PortfolioManagement extends BaseController
      * This method updates an slb assignment in the database for the route /admin/editSlbAssignment/{id}.
      *
      * @param Request $request
-     * @param string  $skillId
+     * @param string  $slbAssignmentId
      * @return Response
      */
     public function editSlbAssignment( Request $request, string $slbAssignmentId ): Response
@@ -296,7 +296,7 @@ class PortfolioManagement extends BaseController
      * This method updates an image in the database for the route /admin/editImage/{id}.
      *
      * @param Request $request
-     * @param string  $skillId
+     * @param string  $imageId
      * @return Response
      */
     public function editImage( Request $request, string $imageId ): Response
@@ -392,7 +392,7 @@ class PortfolioManagement extends BaseController
      * This method adds an slb assignment in the database for the route /admin/addSlbAssignment/{id}.
      *
      * @param Request $request
-     * @param string  $skillId
+     * @param string  $slbAssignmentId
      * @return Response
      */
     public function addSlbAssignment( Request $request, string $slbAssignmentId ): Response
@@ -408,7 +408,7 @@ class PortfolioManagement extends BaseController
      * This method adds an image in the database for the route /admin/addImage/{id}.
      *
      * @param Request $request
-     * @param string  $skillId
+     * @param string  $imageId
      * @return Response
      */
     public function addImage( Request $request, string $imageId ): Response
