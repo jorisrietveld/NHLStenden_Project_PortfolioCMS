@@ -308,4 +308,9 @@ class PortfolioRepository extends Repository
     {
         return new Portfolio();
     }
+
+    public function getByUserId( int $userId )
+    {
+        return $this->getOneByCondition( 'WHERE userId = :whereUserId', [ 'whereUserId' => $userId ] );
+    }
 }

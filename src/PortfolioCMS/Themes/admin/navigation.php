@@ -1,10 +1,10 @@
 <?php
 
-$hasPageSuffix = count(explode('/', $dataProvider->call( 'httpRequest', 'getRequestUri')) ) == 4;
+$hasPageSuffix = count( explode( '/', $dataProvider->call( 'httpRequest', 'getRequestUri' ) ) ) == 4;
 
 ?>
 <div class="wrapper">
-    <div class="sidebar" data-color="blue" data-image="<?= $dataProvider->get("asset-path") ?>img/sidebar-5.jpg">
+    <div class="sidebar" data-color="blue" data-image="<?= $dataProvider->get( "asset-path" ) ?>img/sidebar-5.jpg">
 
         <div class="sidebar-wrapper">
             <div class="logo">
@@ -14,9 +14,10 @@ $hasPageSuffix = count(explode('/', $dataProvider->call( 'httpRequest', 'getRequ
             </div>
 
             <ul class="nav">
-                <?php if ($dataProvider->isAdmin()): ?>
-                    <li <?php if ($isOnAdminPage == 'overzicht') { ?>class="active"<?php } ?>>
-                        <?php if ($hasPageSuffix) : ?>
+                <?php if ( $dataProvider->isAdmin() ): ?>
+                    <li <?php if ( $isOnAdminPage == 'overzicht' )
+                        { ?>class="active"<?php } ?>>
+                        <?php if ( $hasPageSuffix ) : ?>
                         <a href="../gebruikersOverzicht">
                             <?php else: ?>
                             <a href="gebruikersOverzicht">
@@ -26,39 +27,52 @@ $hasPageSuffix = count(explode('/', $dataProvider->call( 'httpRequest', 'getRequ
                             </a>
                     </li>
                 <?php else: ?>
-                    <li <?php if ($isOnAdminPage == 'overzicht') { ?>class="active"<?php } ?>>
-                        <?php if ($hasPageSuffix) : ?>
+                    <li <?php if ( $isOnAdminPage == 'overzicht' )
+                        { ?>class="active"<?php } ?>>
+                        <?php if ( $hasPageSuffix ) : ?>
                         <a href="../overzicht">
                             <?php else: ?>
                             <a href="overzicht">
                                 <?php endif; ?>
-                            <i class="fa fa-user"></i>
-                            <p>Mijn account</p>
-                        </a>
+                                <i class="fa fa-user"></i>
+                                <p>Mijn account</p>
+                            </a>
                     </li>
                 <?php endif; ?>
 
-                <?php if ($dataProvider->isStudent()): ?>
-                    <li <?php if ($isOnAdminPage == 'portfolio') { ?>class="active"<?php } ?>>
-                        <?php if ($hasPageSuffix) : ?>
-                        <a href="../portfolio">
-                            <?php else: ?>
-                            <a href="portfolio">
-                                <?php endif; ?>
-                            <i class="fa fa-user-circle-o"></i>
-                            <p>Mijn Portfolio</p>
-                        </a>
+                <?php if ( $dataProvider->isStudent() ): ?>
+
+                    <li class="<?= ( $isOnAdminPage == 'portfolio' ) ? 'active' : '' ?>">
+
+                        <?php if ( $hasPageSuffix ) : ?>
+                            <a href="../portfolio_van/<?= $dataProvider->getCurrentUserId() ?>">
+                                <i class="fa fa-user-circle-o"></i>
+                                <p>Mijn Portfolio</p>
+                            </a>
+                        <?php else: ?>
+                            <a href="../portfolio">
+                                <i class="fa fa-user-circle-o"></i>
+                                <p>Mijn Portfolio</p>
+                            </a>
+                        <?php endif; ?>
+
                     </li>
-                <?php elseif ($dataProvider->isAtLeasedTeacher()): ?>
-                    <li <?php if ($isOnAdminPage == 'portfolio') { ?>class="active"<?php } ?>>
-                        <?php if ($hasPageSuffix) : ?>
-                        <a href="../portfolioOverzicht">
-                            <?php else: ?>
+
+                <?php elseif ( $dataProvider->isAtLeasedTeacher() ): ?>
+                    <li class="<?= $isOnAdminPage == 'portfolio' ? 'active' : '' ?>">
+
+                        <?php if ( $hasPageSuffix ) : ?>
+                            <a href="../portfolioOverzicht">
+                                <i class="fa fa-user-circle-o"></i>
+                                <p>Portfolios</p>
+                            </a>
+                        <?php else: ?>
                             <a href="portfolioOverzicht">
-                                <?php endif; ?>
-                            <i class="fa fa-user-circle-o"></i>
-                            <p>Portfolios</p>
-                        </a>
+                                <i class="fa fa-user-circle-o"></i>
+                                <p>Portfolios</p>
+                            </a>
+                        <?php endif; ?>
+
                     </li>
                 <?php endif; ?>
 
@@ -69,15 +83,16 @@ $hasPageSuffix = count(explode('/', $dataProvider->call( 'httpRequest', 'getRequ
                     </a>
                 </li>-->
 
-                <li <?php if ($isOnAdminPage == 'cijfer') { ?>class="active"<?php } ?>>
-                    <?php if ($hasPageSuffix) : ?>
+                <li <?php if ( $isOnAdminPage == 'cijfer' )
+                    { ?>class="active"<?php } ?>>
+                    <?php if ( $hasPageSuffix ) : ?>
                     <a href="../cijferOverzicht">
                         <?php else: ?>
                         <a href="cijferOverzicht">
                             <?php endif; ?>
-                        <i class="fa fa-area-chart"></i>
-                        <p>Cijferregistratie</p>
-                    </a>
+                            <i class="fa fa-area-chart"></i>
+                            <p>Cijferregistratie</p>
+                        </a>
                 </li>
             </ul>
         </div>

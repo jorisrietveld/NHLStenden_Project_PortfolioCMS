@@ -36,6 +36,8 @@ each level has its own tasks and things it can view. The dataProvider has some m
 * `$dataProvider->isAtLeasedSlbTeacher() : bool` Checks if the current session holds an SLB teacher or admin account.
 * `$dataProvider->isAtLeasedTeacher() : bool` Checks if the current session holds an teacher, SLB tacher or admin account.
 * `$dataProvider->isAtLeasedStudent() : bool` Checks if the current session holds an student, teacher, SLB teacher or admin account.
+* `$dataProvider->getCurrentUserId() : int` Gets the current user id or null is the user isn't authenticated.
+* `$dataProvider->getCurrentAuthorizationLevel() : int` Gets the current authorization level.
 
 # The admin panel
 An authenticated user has access to the administraton panel where he can edit the CMS its data for witch he has authorization for.

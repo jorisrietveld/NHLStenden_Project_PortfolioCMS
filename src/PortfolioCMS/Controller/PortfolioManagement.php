@@ -8,9 +8,12 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Controller;
 
+use StendenINF1B\PortfolioCMS\Kernel\Authorization\User as AuthorizedUser;
 use StendenINF1B\PortfolioCMS\Kernel\BaseController;
+use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\DisplayStudent;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\Portfolio;
 use StendenINF1B\PortfolioCMS\Kernel\Helper\ConfigLoader;
+use StendenINF1B\PortfolioCMS\Kernel\Http\ParameterContainer;
 use StendenINF1B\PortfolioCMS\Kernel\Http\Request;
 use StendenINF1B\PortfolioCMS\Kernel\Http\Response;
 use StendenINF1B\PortfolioCMS\Kernel\TemplateEngine\TemplateEngine;
@@ -136,6 +139,7 @@ class PortfolioManagement extends BaseController
     public function __construct( $templateEngine, $configLoader )
     {
         parent::__construct( $templateEngine, $configLoader );
+        $this->portfolioRepository = $this->getEntityManager()->getRepository( 'Portfolio' );
     }
 
     /**
@@ -149,11 +153,21 @@ class PortfolioManagement extends BaseController
     public function createResponse( string $webPage, array $context, $httpCode = Response::HTTP_STATUS_OK ) : Response
     {
         $context = array_merge( $context, [
-            'asset-path' => $this->application->getRequest()->getBaseUri().'assets/admin/',
+            'asset-path'  => $this->application->getRequest()->getBaseUri() . 'assets/admin/',
             'httpRequest' => $this->application->getRequest(),
-        ]);
+        ] );
 
         return parent::createResponse( $webPage, $context, $httpCode );
+    }
+
+    public function isOwnOrAdmin( $id )
+    {
+        return ( $_SESSION[ 'authorizationLevel' ] == AuthorizedUser::ADMIN || $_SESSION[ 'userId' ] == $id );
+    }
+
+    public function hasRequiredPostFields( ParameterContainer $postParams, array $requiredPostFields )
+    {
+        return count( array_diff_assoc( (array)$postParams, $this->requiredPortfolioFields ) ) != 0;
     }
 
     /**
@@ -165,9 +179,39 @@ class PortfolioManagement extends BaseController
      */
     public function portfolio( Request $request, string $id ): Response
     {
+        $postParams = $request->getPostParams();
+
+        if( $request->getMethod() === 'POST' )
+        {
+            // todo write code to handle the form submission
+        }
+        else
+        {
+
+        }
+
+        if(!$portfolioEntity = $this->portfolioRepository->getByUserId( (int)$id ) )
+        {
+            $this->redirect( '/404' );
+        }
+
         return $this->createResponse(
             'admin:portfolio', [
-
+                'title' => $portfolioEntity->getTitle(),
+                'id' => $portfolioEntity->getId(),
+                'grade' => $portfolioEntity->getGrade(),
+                'url' => $portfolioEntity->getUrl(),
+                'student' => new DisplayStudent( $portfolioEntity->getStudent() ),
+                'jobExperiences' => $portfolioEntity->getJobExperience(),
+                'languages' => $portfolioEntity->getLanguage(),
+                'trainings' => $portfolioEntity->getTrainings(),
+                'slbAssignments' => $portfolioEntity->getSlbAssignments(),
+                'images' => $portfolioEntity->getImages(),
+                'skills' => $portfolioEntity->getSkills(),
+                'hobbies' => $portfolioEntity->getHobbies(),
+                'projects' => $portfolioEntity->getProjects(),
+                'pages' => $portfolioEntity->getPages(),
+                'httpRequest' => $request,
             ]
         );
     }

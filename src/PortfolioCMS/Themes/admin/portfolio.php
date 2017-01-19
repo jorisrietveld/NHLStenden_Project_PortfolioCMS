@@ -31,7 +31,9 @@ include 'header.php'; ?>
 
                         </div>
                         <div class="content table-responsive table-full-width">
-
+                            <?php
+                                dump( $dataProvider->all() );
+                            ?>
                         </div>
                     </div>
                 </div>

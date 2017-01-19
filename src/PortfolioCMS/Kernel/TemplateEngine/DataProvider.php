@@ -167,6 +167,26 @@ class DataProvider extends ParameterContainer
     }
 
     /**
+     * Gets the current authorization level.
+     *
+     * @return int
+     */
+    public function getCurrentAuthorizationLevel(  ) : int
+    {
+        return isset( $_SESSION['authorizationLevel']) ? (int)$_SESSION['authorizationLevel'] : 0;
+    }
+
+    /**
+     * Gets the current user id.
+     *
+     * @return int
+     */
+    public function getCurrentUserId(  ) : int
+    {
+        return isset( $_SESSION['userId'] ) ? (int)$_SESSION['userId'] : 0;
+    }
+
+    /**
      * Calls an method an an object stored in the DataProvider if the object exists.
      *
      * @param $key
