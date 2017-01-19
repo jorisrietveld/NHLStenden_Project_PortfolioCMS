@@ -1,3 +1,8 @@
+<?php
+
+$hasPageSuffix = count(explode('/', $dataProvider->call( 'httpRequest', 'getRequestUri')) ) == 4;
+
+?>
 <div class="wrapper">
     <div class="sidebar" data-color="blue" data-image="<?= $dataProvider->get("asset-path") ?>img/sidebar-5.jpg">
 
@@ -9,47 +14,67 @@
             </div>
 
             <ul class="nav">
-                <?php if( $dataProvider->isAdmin() ): ?>
-                    <li <?php if ($isOnAdminPage == 'overzicht') {?>class="active"<?php } ?>>
-                        <a href="./gebruikersOverzicht">
-                            <i class="fa fa-list"></i>
-                            <p>Gebruikers</p>
-                        </a>
+                <?php if ($dataProvider->isAdmin()): ?>
+                    <li <?php if ($isOnAdminPage == 'overzicht') { ?>class="active"<?php } ?>>
+                        <?php if ($hasPageSuffix) : ?>
+                        <a href="../gebruikersOverzicht">
+                            <?php else: ?>
+                            <a href="gebruikersOverzicht">
+                                <?php endif; ?>
+                                <i class="fa fa-list"></i>
+                                <p>Gebruikers</p>
+                            </a>
                     </li>
                 <?php else: ?>
-                    <li <?php if ($isOnAdminPage == 'overzicht') {?>class="active"<?php } ?>>
-                        <a href="./overzicht">
+                    <li <?php if ($isOnAdminPage == 'overzicht') { ?>class="active"<?php } ?>>
+                        <?php if ($hasPageSuffix) : ?>
+                        <a href="../overzicht">
+                            <?php else: ?>
+                            <a href="overzicht">
+                                <?php endif; ?>
                             <i class="fa fa-list"></i>
                             <p>Mijn account</p>
                         </a>
                     </li>
                 <?php endif; ?>
 
-                <?php if( $dataProvider->isStudent() ): ?>
-                    <li <?php if ($isOnAdminPage == 'portfolio') {?>class="active"<?php } ?>>
-                        <a href="./portfolio">
+                <?php if ($dataProvider->isStudent()): ?>
+                    <li <?php if ($isOnAdminPage == 'portfolio') { ?>class="active"<?php } ?>>
+                        <?php if ($hasPageSuffix) : ?>
+                        <a href="../portfolio">
+                            <?php else: ?>
+                            <a href="portfolio">
+                                <?php endif; ?>
                             <i class="fa fa-user-circle-o"></i>
                             <p>Mijn Portfolio</p>
                         </a>
                     </li>
-                <?php elseif( $dataProvider->isAtLeasedTeacher() ): ?>
-                    <li <?php if ($isOnAdminPage == 'portfolio') {?>class="active"<?php } ?>>
-                        <a href="./portfolioOverzicht">
+                <?php elseif ($dataProvider->isAtLeasedTeacher()): ?>
+                    <li <?php if ($isOnAdminPage == 'portfolio') { ?>class="active"<?php } ?>>
+                        <?php if ($hasPageSuffix) : ?>
+                        <a href="../portfolioOverzicht">
+                            <?php else: ?>
+                            <a href="portfolioOverzicht">
+                                <?php endif; ?>
                             <i class="fa fa-user-circle-o"></i>
                             <p>Portfolios</p>
                         </a>
                     </li>
                 <?php endif; ?>
 
-               <!-- <li <?php /*if ($isOnAdminPage == 'thema') {*/?>class="active"<?php /*} */?>>
+                <!-- <li <?php /*if ($isOnAdminPage == 'thema') {*/ ?>class="active"<?php /*} */ ?>>
                     <a href="./thema">
                         <i class="fa fa-cube"></i>
                         <p>Thema</p>
                     </a>
                 </li>-->
 
-                <li <?php if ($isOnAdminPage == 'cijfer') {?>class="active"<?php } ?>>
-                    <a href="./cijferOverzicht">
+                <li <?php if ($isOnAdminPage == 'cijfer') { ?>class="active"<?php } ?>>
+                    <?php if ($hasPageSuffix) : ?>
+                    <a href="../cijferOverzicht">
+                        <?php else: ?>
+                        <a href="cijferOverzicht">
+                            <?php endif; ?>
                         <i class="fa fa-area-chart"></i>
                         <p>Cijferregistratie</p>
                     </a>

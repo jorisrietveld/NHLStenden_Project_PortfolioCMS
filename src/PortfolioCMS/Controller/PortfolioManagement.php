@@ -150,6 +150,7 @@ class PortfolioManagement extends BaseController
     {
         $context = array_merge( $context, [
             'asset-path' => $this->application->getRequest()->getBaseUri().'assets/admin/',
+            'httpRequest' => $this->application->getRequest(),
         ]);
 
         return parent::createResponse( $webPage, $context, $httpCode );

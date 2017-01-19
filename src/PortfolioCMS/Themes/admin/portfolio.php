@@ -2,7 +2,7 @@
 <?php
 
 $page_title = "Overzicht | Admin";
-$isOnAdminPage = "overzicht";
+$isOnAdminPage = "portfolio";
 
 // PER STUDENT, INFO SCHERMEN MET HOBBY, TRAINING, ETC IN COLUMNS
 

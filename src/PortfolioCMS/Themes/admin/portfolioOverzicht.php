@@ -29,7 +29,7 @@ include 'header.php'; ?>
                         <div class="content table-responsive table-full-width">
                             <table class="table table-hover table-custom-portfolio">
                                 <?php foreach ( $dataProvider->get( 'portfolios-data') as $portfolioMetaData ) : ?>
-
+                                <a href="portfolio_van/<?= $portfolioMetaData->getid() ?>"><?= $portfolioMetaData->getStudentName() ?> </a>
                                 <?php endforeach; ?>
                             </table>
                         </div>

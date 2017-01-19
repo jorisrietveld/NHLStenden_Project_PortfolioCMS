@@ -84,6 +84,7 @@ class UserManagement extends BaseController
         return $this->createResponse( 'admin:gebruikersOverzicht', [
             'asset-path' => $request->getBaseUri() . 'assets/admin/',
             'users'      => $users,
+            'httpRequest' => $this->application->getRequest(),
         ] );
     }
 
@@ -118,6 +119,7 @@ class UserManagement extends BaseController
 
             return $this->createResponse( 'admin:addStudent', [
                     'asset-path' => $request->getBaseUri() . 'assets/admin/',
+                    'httpRequest' => $this->application->getRequest(),
                 ]
             );
         }
@@ -125,6 +127,7 @@ class UserManagement extends BaseController
         {
             return $this->createResponse( 'admin:addStudent', [
                     'asset-path' => $request->getBaseUri() . 'assets/admin/',
+                    'httpRequest' => $this->application->getRequest(),
                 ]
             );
         }
@@ -154,6 +157,7 @@ class UserManagement extends BaseController
 
             return $this->createResponse( 'admin:addTeacher', [
                     'asset-path' => $request->getBaseUri() . 'assets/admin/',
+                    'httpRequest' => $this->application->getRequest(),
                 ]
             );
         }
@@ -161,6 +165,7 @@ class UserManagement extends BaseController
         {
             return $this->createResponse( 'admin:addTeacher', [
                     'asset-path' => $request->getBaseUri() . 'assets/admin/',
+                    'httpRequest' => $this->application->getRequest(),
                 ]
             );
         }
@@ -221,6 +226,7 @@ class UserManagement extends BaseController
                     'asset-path'   => $request->getBaseUri() . 'assets/admin/',
                     'student-data' => $updatedStudent,
                     'feedback'     => $feedback,
+                    'httpRequest' => $this->application->getRequest(),
                 ]
             );
         }
@@ -229,6 +235,7 @@ class UserManagement extends BaseController
                 'asset-path'   => $request->getBaseUri() . 'assets/admin/',
                 'student-data' => ( $currentStudent->getId() !== 0 ) ? $currentStudent : NULL,
                 'feedback'     => ( $currentStudent->getId() !== 0 ) ? '' : 'De student bestaat niet.',
+                'httpRequest' => $this->application->getRequest(),
             ]
         );
 
@@ -284,6 +291,7 @@ class UserManagement extends BaseController
                     'asset-path' => $request->getBaseUri() . 'assets/admin/',
                     'teacher-data' => $updatedTeacher,
                     'feedback'     => $feedback,
+                    'httpRequest' => $this->application->getRequest(),
                 ]
             );
         }
@@ -292,6 +300,7 @@ class UserManagement extends BaseController
                 'asset-path' => $request->getBaseUri() . 'assets/admin/',
                 'teacher-data' => $currentTeacher,
                 'feedback'     => ( $currentTeacher->getId() !== 0 ) ? '' : 'De student bestaat niet.',
+                'httpRequest' => $this->application->getRequest(),
             ]
         );
     }

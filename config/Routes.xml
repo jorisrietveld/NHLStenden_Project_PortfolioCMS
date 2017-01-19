@@ -56,7 +56,7 @@
     </route>
 
     <!-- Authorized portfolio management -->
-    <route id="Admin" path="/admin/portfolio/{id}" methods="GET" authorization="STUDENT">
+    <route id="Admin" path="/admin/portfolio_van/{id}" methods="GET|POST" authorization="STUDENT">
         <action id="controller">PortfolioManagement:portfolio</action>
     </route>
 
