@@ -148,7 +148,7 @@ class PortfolioManagement extends BaseController
     public function createResponse( string $webPage, array $context, $httpCode = Response::HTTP_STATUS_OK ) : Response
     {
         $context = array_merge( $context, [
-            'asset-path' => $this->application->getRequest()->getBaseUri().'admin/',
+            'asset-path' => $this->application->getRequest()->getBaseUri().'assets/admin/',
         ]);
 
         return parent::createResponse( $webPage, $context, $httpCode );
