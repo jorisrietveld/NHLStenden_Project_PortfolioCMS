@@ -34,7 +34,6 @@ class Teacher extends User implements EntityInterface
 
     /**
      * @param boolean $isSLBer
-     * @return Teacher
      */
     public function setIsSLBer( bool $isSLBer )
     {
@@ -67,7 +66,6 @@ class Teacher extends User implements EntityInterface
 
     /**
      * @param string $hashedPassword
-     * @return User
      */
     public function setHashedPassword( string $hashedPassword )
     {
