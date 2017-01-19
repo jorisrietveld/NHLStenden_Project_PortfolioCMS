@@ -11,7 +11,17 @@ namespace StendenINF1B\PortfolioCMS\Controller;
 use StendenINF1B\PortfolioCMS\Kernel\Authorization\User as AuthorizedUser;
 use StendenINF1B\PortfolioCMS\Kernel\BaseController;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\DisplayStudent;
+use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\Hobby;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\Portfolio;
+use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\Skill;
+use StendenINF1B\PortfolioCMS\Kernel\Database\Repository\HobbyRepository;
+use StendenINF1B\PortfolioCMS\Kernel\Database\Repository\ImageRepository;
+use StendenINF1B\PortfolioCMS\Kernel\Database\Repository\JobExperienceRepository;
+use StendenINF1B\PortfolioCMS\Kernel\Database\Repository\LanguageRepository;
+use StendenINF1B\PortfolioCMS\Kernel\Database\Repository\ProjectRepository;
+use StendenINF1B\PortfolioCMS\Kernel\Database\Repository\SkillRepository;
+use StendenINF1B\PortfolioCMS\Kernel\Database\Repository\SLBAssignmentRepository;
+use StendenINF1B\PortfolioCMS\Kernel\Database\Repository\TrainingRepository;
 use StendenINF1B\PortfolioCMS\Kernel\Helper\ConfigLoader;
 use StendenINF1B\PortfolioCMS\Kernel\Http\ParameterContainer;
 use StendenINF1B\PortfolioCMS\Kernel\Http\Request;
@@ -131,6 +141,62 @@ class PortfolioManagement extends BaseController
     ];
 
     /**
+     * This can be used to fetch JobExperience entities from the database.
+     *
+     * @var JobExperienceRepository
+     */
+    protected $jobExperienceRepository;
+
+    /**
+     * This can be used to fetch Language entities from the database.
+     *
+     * @var LanguageRepository
+     */
+    protected $languageRepository;
+
+    /**
+     * This can be used to fetch training entities from the database.
+     *
+     * @var TrainingRepository
+     */
+    protected $trainingRepository;
+
+    /**
+     * This can be used to fetch SlbAssignment entities from the database.
+     *
+     * @var SLBAssignmentRepository
+     */
+    protected $slbAssignmentRepository;
+
+    /**
+     * This can be used to fetch Image entities from the database.
+     *
+     * @var ImageRepository
+     */
+    protected $imageRepository;
+
+    /**
+     * This can be used to fetch Skill entities from the database.
+     *
+     * @var SkillRepository
+     */
+    protected $skillRepository;
+
+    /**
+     * This can be used to fetch Hobby entities from the database.
+     *
+     * @var HobbyRepository
+     */
+    protected $hobbyRepository;
+
+    /**
+     * This can be used to fetch Project entities from the database.
+     *
+     * @var ProjectRepository
+     */
+    protected $projectRepository;
+
+    /**
      * BaseController constructor for initiating the portfolio controller.
      *
      * @param TemplateEngine|null $templateEngine
@@ -140,6 +206,14 @@ class PortfolioManagement extends BaseController
     {
         parent::__construct( $templateEngine, $configLoader );
         $this->portfolioRepository = $this->getEntityManager()->getRepository( 'Portfolio' );
+        $this->jobExperienceRepository = $this->getEntityManager()->getRepository( 'JobExperience' );
+        $this->languageRepository = $this->getEntityManager()->getRepository( 'Language' );
+        $this->trainingRepository = $this->getEntityManager()->getRepository( 'Training' );
+        $this->slbAssignmentRepository = $this->getEntityManager()->getRepository( 'SLBAssignment' );
+        $this->imageRepository = $this->getEntityManager()->getRepository( 'Image' );
+        $this->skillRepository = $this->getEntityManager()->getRepository( 'Skill' );
+        $this->hobbyRepository = $this->getEntityManager()->getRepository( 'Hobby' );
+        $this->projectRepository = $this->getEntityManager()->getRepository( 'Project' );
     }
 
     /**
@@ -160,11 +234,24 @@ class PortfolioManagement extends BaseController
         return parent::createResponse( $webPage, $context, $httpCode );
     }
 
+    /**
+     * Check for the edit methods if it the user is administrator or if it is the students own portfolio data.
+     *
+     * @param $id
+     * @return bool
+     */
     public function isOwnOrAdmin( $id )
     {
         return ( $_SESSION[ 'authorizationLevel' ] == AuthorizedUser::ADMIN || $_SESSION[ 'userId' ] == $id );
     }
 
+    /**
+     * Check if all required post parameters are send in an request.
+     *
+     * @param ParameterContainer $postParams
+     * @param array              $requiredPostFields
+     * @return bool
+     */
     public function hasRequiredPostFields( ParameterContainer $postParams, array $requiredPostFields )
     {
         return count( array_diff_assoc( (array)$postParams, $this->requiredPortfolioFields ) ) != 0;
@@ -184,10 +271,6 @@ class PortfolioManagement extends BaseController
         if( $request->getMethod() === 'POST' )
         {
             // todo write code to handle the form submission
-        }
-        else
-        {
-
         }
 
         if(!$portfolioEntity = $this->portfolioRepository->getByUserId( (int)$id ) )
@@ -267,9 +350,21 @@ class PortfolioManagement extends BaseController
      */
     public function editSkill( Request $request, string $skillId ): Response
     {
+        $postParams = $request->getPostParams();
+
+        if( $request->getMethod() === 'POST' )
+        {
+            // todo write code to handle the form submission
+        }
+
+        if( !$skillEntity = $this->skillRepository->getById( (int)$skillId ) )
+        {
+            $this->redirect( '/404' );
+        }
+
         return $this->createResponse(
             'admin:editSkill', [
-
+                'skill-data' => $skillEntity,
             ]
         );
     }
@@ -283,9 +378,21 @@ class PortfolioManagement extends BaseController
      */
     public function editTraining( Request $request, string $trainingId ): Response
     {
+        $postParams = $request->getPostParams();
+
+        if( $request->getMethod() === 'POST' )
+        {
+            // todo write code to handle the form submission
+        }
+
+        if( !$trainingEntity = $this->trainingRepository->getById( (int)$trainingId ) )
+        {
+            $this->redirect( '/404' );
+        }
+
         return $this->createResponse(
             'admin:editTraining', [
-
+                'training-data' => $trainingEntity,
             ]
         );
     }
@@ -299,9 +406,21 @@ class PortfolioManagement extends BaseController
      */
     public function editHobby( Request $request, string $hobbyId ): Response
     {
+        $postParams = $request->getPostParams();
+
+        if( $request->getMethod() === 'POST' )
+        {
+            // todo write code to handle the form submission
+        }
+
+        if( !$hobbyEntity = $this->hobbyRepository->getById( (int)$hobbyId ) )
+        {
+            $this->redirect( '/404' );
+        }
+
         return $this->createResponse(
             'admin:editHobby', [
-
+                'hobby-data' => $hobbyEntity,
             ]
         );
     }
@@ -315,9 +434,21 @@ class PortfolioManagement extends BaseController
      */
     public function editLanguage( Request $request, string $languageId ): Response
     {
+        $postParams = $request->getPostParams();
+
+        if( $request->getMethod() === 'POST' )
+        {
+            // todo write code to handle the form submission
+        }
+
+        if( !$languageEntity = $this->languageRepository->getById( (int)$languageId ) )
+        {
+            $this->redirect( '/404' );
+        }
+
         return $this->createResponse(
             'admin:editLanguage', [
-
+                'language-data' => $languageEntity,
             ]
         );
     }
@@ -331,9 +462,21 @@ class PortfolioManagement extends BaseController
      */
     public function editSlbAssignment( Request $request, string $slbAssignmentId ): Response
     {
+        $postParams = $request->getPostParams();
+
+        if( $request->getMethod() === 'POST' )
+        {
+            // todo write code to handle the form submission
+        }
+
+        if( !$slbAssignmentEntity = $this->slbAssignmentRepository->getById( (int)$slbAssignmentId ) )
+        {
+            $this->redirect( '/404' );
+        }
+
         return $this->createResponse(
             'admin:editSlbAssignment', [
-
+                'slbAssignment-data' => $slbAssignmentEntity,
             ]
         );
     }
@@ -347,9 +490,21 @@ class PortfolioManagement extends BaseController
      */
     public function editImage( Request $request, string $imageId ): Response
     {
+        $postParams = $request->getPostParams();
+
+        if( $request->getMethod() === 'POST' )
+        {
+            // todo write code to handle the form submission
+        }
+
+        if( !$imageEntity = $this->imageRepository->getById( (int)$imageId ) )
+        {
+            $this->redirect( '/404' );
+        }
+
         return $this->createResponse(
             'admin:editImage', [
-
+                'image-data' => $imageEntity,
             ]
         );
     }
@@ -363,9 +518,22 @@ class PortfolioManagement extends BaseController
      */
     public function editProject( Request $request, string $projectId ): Response
     {
+        $postParams = $request->getPostParams();
+
+        if( $request->getMethod() === 'POST' )
+        {
+            // todo write code to handle the form submission
+        }
+
+        if( !$projectEntity = $this->projectRepository->getById( (int)$projectId ) )
+        {
+            $this->redirect( '/404' );
+        }
+
+
         return $this->createResponse(
             'admin:editProject', [
-
+                'project-data' => $projectEntity,
             ]
         );
     }

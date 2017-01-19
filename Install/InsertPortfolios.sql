@@ -2,13 +2,13 @@
  * Insert portfolio's
  */
 INSERT INTO `DigitalPortfolio`.`Portfolio`(themeId, title, url, grade, userId)
-VALUES ( 1, 'Anouk van der Veen', 'anouk_van_der_veen', NULL, 3 );
+VALUES ( 1, 'Anouk van der Veen', 'anouk_van_der_veen', NULL, 1 );
 
 INSERT INTO `DigitalPortfolio`.`Portfolio`(themeId, title, url, grade, userId)
 VALUES ( 2, 'Aron Soppe', 'aron_soppe', NULL, 2 );
 
 INSERT INTO `DigitalPortfolio`.`Portfolio`(themeId, title, url, grade, userId)
-VALUES ( 3, 'Joris Rietveld', 'joris_rietveld', NULL, 1 );
+VALUES ( 3, 'Joris Rietveld', 'joris_rietveld', NULL, 3 );
 
 INSERT INTO `DigitalPortfolio`.`Portfolio`(themeId, title, url, grade, userId)
 VALUES ( 4, 'Kevin Tabak', 'kevin_tabak', NULL, 5 );
