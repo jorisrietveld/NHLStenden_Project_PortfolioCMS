@@ -8,17 +8,13 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Portfolio</title>
+    <title>Portfolio Anouk van der Veen</title>
     <link rel="stylesheet" href="<?= $dataProvider->get( 'lib-path' )?>bootstrap/dist/css/bootstrap.min.css" />
 
     <!-- Custom Fonts -->
     <link href="<?= $dataProvider->get( 'lib-path' )?>font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-<<<<<<< HEAD
     <link rel="stylesheet" type="text/css" href="<?= $dataProvider->get( 'request-uri' ) ?>/assets/Theme_anouk/css/styles.css"/>
-=======
->>>>>>> f396c7d1ac168b9fe450b9cee04ac41dd05e9e32
-
     <!-- Page styles -->
     <link rel="stylesheet" type="text/css" href="<?= $dataProvider->get( 'asset-path' )?>css/styles.css"/>
     <?= $dataProvider->call( 'debugBarRenderer', 'renderHead' ) ?>
