@@ -92,6 +92,7 @@ label {
     padding-right: 10px;
 }
 
+
 .btn-custom:hover,
 .btn-custom:active,
 .btn-custom:focus {
@@ -125,6 +126,7 @@ hr.style-one {
 .form-label {
     display: inline-flex;
     float: left;
+    width: 200px;
 }
 
 .form-custom {

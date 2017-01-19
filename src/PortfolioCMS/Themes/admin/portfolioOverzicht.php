@@ -19,17 +19,50 @@ include 'header.php'; ?>
                     <div class="header">
                         <h4 class="title text-center">
                             <strong>
-                               Alle portfolios
+                                Overzicht van alle portfolio's
                             </strong>
                         </h4>
                         <hr class="style-one"/>
                         <div class="col-sm-5 custom-buttons">
+                            <a href="addPortfolio">
+                                <button class="btn btn-md btn-primary btn-block btn-custom">
+                                    <i class="fa fa-plus"></i> Nieuwe portfolio
+                                </button>
+                            </a>
 
                         </div>
                         <div class="content table-responsive table-full-width">
                             <table class="table table-hover table-custom-portfolio">
-                                <?php foreach ( $dataProvider->get( 'portfolios-data') as $portfolioMetaData ) : ?>
-                                <a href="portfolio_van/<?= $portfolioMetaData->getid() ?>"><?= $portfolioMetaData->getStudentName() ?> </a>
+                                <thead>
+                                <th>ID</th>
+                                <th>Titel</th>
+                                <th>Bewerk</th>
+                                <th>Verwijder</th>
+                                </thead>
+                                <tbody>
+                                <?php foreach ($dataProvider->get('portfolios-data') as $portfolioMetaData) : ?>
+                                    <tr>
+                                        <td><?= $portfolioMetaData->getid() ?></td>
+                                        <td>
+                                            <a href="portfolio_van/<?= $portfolioMetaData->getid() ?>"><?= $portfolioMetaData->getStudentName() ?></a>
+                                        </td>
+                                        <td>
+                                            <a href="portfolio_van/<?= $portfolioMetaData->getid() ?>">
+                                                <button class="btn btn-sm btn-primary btn-block btn-custom btn-custom-sm">
+                                                    <i class="fa fa-edit"></i>
+                                                    <span class="out_window">Bewerk</span>
+                                                </button>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="">
+                                                <button class="btn btn-sm btn-primary btn-block btn-custom btn-custom-sm">
+                                                    <i class="fa fa-remove"></i>
+                                                    <span class="out_window">Verwijder</span>
+                                                </button>
+                                            </a>
+                                        </td>
+                                    </tr>
                                 <?php endforeach; ?>
                             </table>
                         </div>

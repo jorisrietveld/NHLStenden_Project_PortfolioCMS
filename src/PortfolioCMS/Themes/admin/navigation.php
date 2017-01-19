@@ -32,7 +32,7 @@ $hasPageSuffix = count(explode('/', $dataProvider->call( 'httpRequest', 'getRequ
                             <?php else: ?>
                             <a href="overzicht">
                                 <?php endif; ?>
-                            <i class="fa fa-list"></i>
+                            <i class="fa fa-user"></i>
                             <p>Mijn account</p>
                         </a>
                     </li>

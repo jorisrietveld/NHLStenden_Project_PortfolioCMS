@@ -20,7 +20,7 @@ include 'header.php'; ?>
                         <h4 class="title text-center">
                             <strong>
                             <?php if( $dataProvider->isAtLeasedTeacher() ):?>
-                                Portfolio van <?= $dataProvider->call( 'student', 'getFirstName' ) . ' ' . $dataProvider->call( 'student', 'getFirstName' ) ?>
+                                Portfolio van <?= $dataProvider->call( 'student', 'getFirstName' ) . ' ' . $dataProvider->call( 'student', 'getLastName' ) ?>
                             <?php else : ?>
                                 Mijn portfolio
                             <?php endif; ?>
