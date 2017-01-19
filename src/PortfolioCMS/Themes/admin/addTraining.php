@@ -16,7 +16,7 @@ include 'header.php';
                     <div class="header">
                         <h4 class="title text-center">
                             <strong>
-                                <i class="fa fa-pencil-square-o"></i>Opleiding Toevoegen
+                                <i class="fa fa-pencil-square-o"></i> Opleiding Toevoegen
                             </strong>
                         </h4>
                         <hr class="style-one"/>
@@ -35,15 +35,88 @@ include 'header.php';
                                         <form class="form-custom float-left" action="" method="POST">
 
                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">item</label>
+                                                <label class="form-label col-lg-3" for="inputEmail">Titel:</label>
                                                 <input type="text"
-                                                       name="item"
+                                                       name="title"
                                                        class="form-control"
-                                                       id="item"
-                                                       placeholder="item"
-                                                       value="<?= $dataProvider->call('item-data', 'getItem') ?>"
+                                                       id="titel"
+                                                       placeholder="Titel"
                                                        required>
                                             </div>
+                                            <div class="form-group">
+                                                <label class="form-label col-lg-3" for="inputEmail">Instituut:</label>
+                                                <input type="text"
+                                                       name="institution"
+                                                       class="form-control"
+                                                       id="institution"
+                                                       placeholder="Instituut"
+                                                       required>
+                                            </div>
+                                            
+                                             <div class="form-group">
+                                                <label class="form-label col-lg-3" for="inputEmail">Locatie:</label>
+                                                <input type="text"
+                                                       name="location"
+                                                       class="form-control"
+                                                       id="institution"
+                                                       placeholder="Locatie"
+                                                       required>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label class="form-label col-lg-3" for="inputEmail">Startdatum:</label>
+                                                <input type="text"
+                                                       name="startedAt"
+                                                       class="form-control"
+                                                       id="startdatum"
+                                                       placeholder="YYYY-MM-DD"
+                                                       >
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label class="form-label col-lg-3" for="inputEmail">Einddatum:</label>
+                                                <input type="text"
+                                                       name="finishedAt"
+                                                       class="form-control"
+                                                       id="startdatum"
+                                                       placeholder="YYYY-MM-DD"
+                                                       >
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label class="form-label col-lg-3" for="inputEmail">Beschrijving:</label>
+                                                <textarea 
+                                                       rows="5"
+                                                       name="description"
+                                                       class="form-control"
+                                                       id="description"
+                                                       placeholder="Beschrijving"
+                                                       required></textarea>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label class="form-label col-lg-3" for="inputEmail">Is de opleiding gehaald?</label>
+                                                <select required  class="form-control" name="obtainedCertificate">
+                                                    <option value="">-</option>
+                                                    <option value="werk">Ja</option>
+                                                    <option value="stage">Nee</option>
+                                                </select>
+                                               
+                                             
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label class="form-label col-lg-3" for="inputEmail">Is het de huidige opleiding?</label>
+                                                <select required  class="form-control" name="currentTraining">
+                                                    <option value="">-</option>
+                                                    <option value="werk">Ja</option>
+                                                    <option value="stage">Nee</option>
+                                                </select>
+                                               
+                                             
+                                            </div>
+                                            
+                                           
 
 
                                             <div class="row">

@@ -16,7 +16,7 @@ include 'header.php';
                     <div class="header">
                         <h4 class="title text-center">
                             <strong>
-                                <i class="fa fa-pencil-square-o"></i>Slb Opdracht Toevoegen
+                                <i class="fa fa-pencil-square-o"></i> Slb Opdracht Toevoegen
                             </strong>
                         </h4>
                         <hr class="style-one"/>
@@ -35,14 +35,26 @@ include 'header.php';
                                         <form class="form-custom float-left" action="" method="POST">
 
                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">item</label>
+                                                <label class="form-label col-lg-3" for="inputEmail">Naam opdracht</label>
                                                 <input type="text"
-                                                       name="item"
+                                                       name="name"
                                                        class="form-control"
-                                                       id="item"
-                                                       placeholder="item"
+                                                       id="nameopdr"
+                                                       placeholder="Naam opdracht"
                                                        required>
                                             </div>
+                                            
+                                             <div class="form-group">
+                                                <label class="form-label col-lg-3" for="inputEmail">Feedback:</label>
+                                                <textarea 
+                                                       rows="10"
+                                                       name="description"
+                                                       class="form-control"
+                                                       id="feedback"
+                                                       placeholder="Feedback"
+                                                       ></textarea>
+                                            </div>
+                                            
 
 
                                             <div class="row">

@@ -16,7 +16,7 @@ include 'header.php';
                     <div class="header">
                         <h4 class="title text-center">
                             <strong>
-                                <i class="fa fa-pencil-square-o"></i>Portfolio Toevoegen
+                                <i class="fa fa-pencil-square-o"></i> Portfolio Toevoegen
                             </strong>
                         </h4>
                         <hr class="style-one"/>
@@ -35,13 +35,31 @@ include 'header.php';
                                         <form class="form-custom float-left" action="" method="POST">
 
                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">item</label>
+                                                <label class="form-label col-lg-3" for="inputEmail">Titel</label>
                                                 <input type="text"
-                                                       name="item"
+                                                       name="title"
                                                        class="form-control"
-                                                       id="item"
-                                                       placeholder="item"
+                                                       id="titel"
+                                                       placeholder="Titel"
                                                        required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label col-lg-3" for="inputEmail">URL:</label>
+                                                <input type="text"
+                                                       name="url"
+                                                       class="form-control"
+                                                       id="url"
+                                                       placeholder="URL"
+                                                       required>
+                                            </div>
+                                             <div class="form-group">
+                                                <label class="form-label col-lg-3" for="inputEmail">Cijfer:</label>
+                                                <input type="text"
+                                                       name="grade"
+                                                       class="form-control"
+                                                       id="cijfer"
+                                                       placeholder="10,0"
+                                                       >
                                             </div>
 
 

@@ -16,7 +16,7 @@ include 'header.php';
                     <div class="header">
                         <h4 class="title text-center">
                             <strong>
-                                <i class="fa fa-pencil-square-o"></i>Vaardigheid Toevoegen
+                                <i class="fa fa-pencil-square-o"></i> Vaardigheid Toevoegen
                             </strong>
                         </h4>
                         <hr class="style-one"/>
@@ -35,12 +35,22 @@ include 'header.php';
                                         <form class="form-custom float-left" action="" method="POST">
 
                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">item</label>
+                                                <label class="form-label col-lg-3" for="inputEmail">Vaardigheid:</label>
                                                 <input type="text"
-                                                       name="item"
+                                                       name="name"
                                                        class="form-control"
-                                                       id="item"
-                                                       placeholder="item"
+                                                       id="skill"
+                                                       placeholder="Vaardigheid"
+                                                       required>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label class="form-label col-lg-3" for="inputEmail">Niveau vaardigheid:</label>
+                                                <input type="text"
+                                                       name="levelOfExperience"
+                                                       class="form-control"
+                                                       id="level"
+                                                       placeholder="Niveau vaardigheid"
                                                        required>
                                             </div>
 

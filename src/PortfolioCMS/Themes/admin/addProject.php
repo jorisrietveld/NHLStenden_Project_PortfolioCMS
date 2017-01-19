@@ -16,7 +16,7 @@ include 'header.php';
                     <div class="header">
                         <h4 class="title text-center">
                             <strong>
-                                <i class="fa fa-pencil-square-o"></i>Project Toevoegen
+                                <i class="fa fa-pencil-square-o"></i> Project Toevoegen
                             </strong>
                         </h4>
                         <hr class="style-one"/>
@@ -35,14 +35,51 @@ include 'header.php';
                                         <form class="form-custom float-left" action="" method="POST">
 
                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">item</label>
+                                                <label class="form-label col-lg-3" for="inputEmail">Projectnaam:</label>
                                                 <input type="text"
-                                                       name="item"
+                                                       name="name"
                                                        class="form-control"
-                                                       id="item"
-                                                       placeholder="item"
+                                                       id="projectnaam"
+                                                       placeholder="Projectnaam"
                                                        required>
                                             </div>
+                                            
+                                            
+                                            <div class="form-group">
+                                                <label class="form-label col-lg-3" for="inputEmail">Beschrijving:</label>
+                                                <textarea 
+                                                       name="description"
+                                                       class="form-control"
+                                                       id="description"
+                                                       placeholder="Beschrijving"
+                                                       required></textarea>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label class="form-label col-lg-3" for="inputEmail">Link:</label>
+                                                <input type="text"
+                                                       name="link"
+                                                       class="form-control"
+                                                       id="link"
+                                                       placeholder="Link"
+                                                       required>
+                                            </div>
+                                            
+                                            
+                                            <div class="form-group">
+                                                <label class="form-label col-lg-3" for="inputEmail">Cijfer:</label>
+                                                <input type="text"
+                                                       name="grade"
+                                                       class="form-control"
+                                                       id="grade"
+                                                       placeholder="10,0"
+                                                       >
+                                            </div>
+
+                                            
+                                            
+                                           
+                                           
 
 
                                             <div class="row">
