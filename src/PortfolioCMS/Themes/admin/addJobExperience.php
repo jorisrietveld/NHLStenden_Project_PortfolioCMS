@@ -16,7 +16,7 @@ include 'header.php';
                     <div class="header">
                         <h4 class="title text-center">
                             <strong>
-                                <i class="fa fa-pencil-square-o"></i>Werkervaring Toevoegen
+                                <i class="fa fa-pencil-square-o"></i> Werkervaring Toevoegen
                             </strong>
                         </h4>
                         <hr class="style-one"/>
@@ -35,24 +35,61 @@ include 'header.php';
                                         <form class="form-custom float-left" action="" method="POST">
 
                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">Stageplaats:</label>
+                                                <label class="form-label col-lg-3" for="inputEmail">Werkplaats:</label>
                                                 <input type="text"
                                                        name="location"
                                                        class="form-control"
                                                        id="plaats"
-                                                       placeholder="Stageplaats"
+                                                       placeholder="werkplaats"
                                                        required>
                                             </div>
                                             
+                                            
+                                            <!--Input type text in verband met beperkte browser support input date en format invoer database   -->
                                             <div class="form-group">
                                                 <label class="form-label col-lg-3" for="inputEmail">Startdatum:</label>
                                                 <input type="text"
-                                                       name="location"
+                                                       name="startedAt"
                                                        class="form-control"
-                                                       id="plaats"
-                                                       placeholder="Stageplaats"
-                                                       required>
+                                                       id="startdatum"
+                                                       placeholder="YYYY-MM-DD"
+                                                       >
                                             </div>
+                                            
+                                            <div class="form-group">
+                                                <label class="form-label col-lg-3" for="inputEmail">Einddatum:</label>
+                                                <input type="text"
+                                                       name="endedAt"
+                                                       class="form-control"
+                                                       id="einddatum"
+                                                       placeholder="YYYY-MM-DD"
+                                                       >
+                                            </div>
+                                            
+                                             <div class="form-group">
+                                                <label class="form-label col-lg-3" for="inputEmail">Werk omschrijving:</label>
+                                                <textarea 
+                                                       rows="10"
+                                                       name="description"
+                                                       class="form-control"
+                                                       id="workdescription"
+                                                       placeholder="Beschrijving"
+                                                       required></textarea>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label class="form-label col-lg-3" for="inputEmail">Type werkplek:</label>
+                                                <select required  class="form-control" name="isInternship">
+                                                    <option value="">Geen</option>
+                                                    <option value="werk">Werkplek</option>
+                                                    <option value="stage">Stageplaats</option>
+                                                </select>
+                                               
+                                             
+                                            </div>
+                                            
+                                          
+                                            
 
 
                                             <div class="row">
