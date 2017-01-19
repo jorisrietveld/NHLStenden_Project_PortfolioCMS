@@ -161,7 +161,7 @@ class PortfolioManagement extends BaseController
      * @param string  $id
      * @return Response
      */
-    public function portfolioOverview( Request $request, string $id ): Response
+    public function portfolio( Request $request, string $id ): Response
     {
         return $this->createResponse(
             'admin:portfolioOverzicht', [
@@ -177,7 +177,7 @@ class PortfolioManagement extends BaseController
      * @param string  $id
      * @return Response
      */
-    public function portfoliosOverview( Request $request, string $id ) : Response
+    public function portfolioOverview( Request $request, string $id ) : Response
     {
         return $this->createResponse(
             'admin:portfoliosOverzicht', [
