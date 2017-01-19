@@ -268,14 +268,25 @@ class PortfolioManagement extends BaseController
     {
         $postParams = $request->getPostParams();
 
-        if( $request->getMethod() === 'POST' )
-        {
-            // todo write code to handle the form submission
-        }
-
         if(!$portfolioEntity = $this->portfolioRepository->getByUserId( (int)$id ) )
         {
             $this->redirect( '/404' );
+        }
+
+        if( $request->getMethod() === 'POST' )
+        {
+            if( $this->checkPostParams( $postParams, $this->requiredPortfolioFields ) )
+            {
+                // todo write code to handle the form submission
+                $updatedPortfolio = new Portfolio();
+
+                $feedback = 'De wijzegingen zijn opgeslagen.';
+            }
+            else
+            {
+                $feedback = 'Niet alle verplichte velden zijn ingevuld.';
+            }
+
         }
 
         return $this->createResponse(
@@ -295,6 +306,7 @@ class PortfolioManagement extends BaseController
                 'projects' => $portfolioEntity->getProjects(),
                 'pages' => $portfolioEntity->getPages(),
                 'httpRequest' => $request,
+                'feedback' => $feedback ?? '',
             ]
         );
     }
@@ -534,6 +546,57 @@ class PortfolioManagement extends BaseController
         return $this->createResponse(
             'admin:editProject', [
                 'project-data' => $projectEntity,
+            ]
+        );
+    }
+
+    /**
+     * This method updates an JobExperience in the database for the route /admin/editJobExperience/{id}.
+     *
+     * @param Request $request
+     * @param string  $jobExperienceId
+     * @return Response
+     */
+    public function editJobExperience( Request $request, string $jobExperienceId ): Response
+    {
+        $postParams = $request->getPostParams();
+
+        if( $request->getMethod() === 'POST' )
+        {
+            // todo write code to handle the form submission
+        }
+
+        if( !$jobExperienceEntity = $this->projectRepository->getById( (int)$jobExperienceId ) )
+        {
+            $this->redirect( '/404' );
+        }
+
+
+        return $this->createResponse(
+            'admin:editJobExperience', [
+                'project-data' => $jobExperienceId,
+            ]
+        );
+    }
+
+    /**
+     * This method inserts an JobExperience in the database for the route /admin/addJobExperience.
+     *
+     * @param Request $request
+     * @param string  $jobExperienceId
+     * @return Response
+     */
+    public function addJobExperience( Request $request ): Response
+    {
+        $postParams = $request->getPostParams();
+
+        if( $request->getMethod() === 'POST' )
+        {
+            // todo write code to handle the form submission
+        }
+
+        return $this->createResponse(
+            'admin:addJobExperience', [
             ]
         );
     }
