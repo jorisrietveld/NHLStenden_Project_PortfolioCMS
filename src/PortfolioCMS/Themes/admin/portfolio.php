@@ -4,6 +4,8 @@
 $page_title = "Overzicht | Admin";
 $isOnAdminPage = "overzicht";
 
+// PER STUDENT, INFO SCHERMEN MET HOBBY, TRAINING, ETC IN COLUMNS
+
 include 'header.php'; ?>
 <body>
 

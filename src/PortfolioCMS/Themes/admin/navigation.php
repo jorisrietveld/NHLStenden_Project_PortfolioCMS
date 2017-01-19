@@ -1,9 +1,9 @@
 <div class="wrapper">
-    <div class="sidebar" data-color="blue" data-image="../assets/admin/img/sidebar-5.jpg">
+    <div class="sidebar" data-color="blue" data-image="<?= $dataProvider->get("asset-path") ?>img/sidebar-5.jpg">
 
         <div class="sidebar-wrapper">
             <div class="logo">
-                <a href="overzicht" class="simple-text">
+                <a href="gebruikersOverzicht" class="simple-text">
                     Portfolio Beheer
                 </a>
             </div>
@@ -34,7 +34,7 @@
                     </li>
                 <?php elseif( $dataProvider->isAtLeasedTeacher() ): ?>
                     <li <?php if ($isOnAdminPage == 'portfolio') {?>class="active"<?php } ?>>
-                        <a href="./portfolio">
+                        <a href="./portfolioOverzicht">
                             <i class="fa fa-user-circle-o"></i>
                             <p>Portfolios</p>
                         </a>
@@ -49,7 +49,7 @@
                 </li>-->
 
                 <li <?php if ($isOnAdminPage == 'cijferregistratie') {?>class="active"<?php } ?>>
-                    <a href="./cijferregistratie">
+                    <a href="./cijfersOverzicht">
                         <i class="fa fa-area-chart"></i>
                         <p>Cijferregistratie</p>
                     </a>

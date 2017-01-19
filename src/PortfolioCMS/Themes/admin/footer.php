@@ -3,7 +3,7 @@
         <nav class="pull-left">
             <ul>
                 <li>
-                    <a href="admin">
+                    <a href="gebruikersOverzicht">
                         Home
                     </a>
                 </li>

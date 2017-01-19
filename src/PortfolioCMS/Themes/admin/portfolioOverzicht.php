@@ -4,6 +4,8 @@
 $page_title = "Overzicht | Admin";
 $isOnAdminPage = "overzicht";
 
+// ADMIN - SLB'ER - DOCENT
+
 include 'header.php'; ?>
 <body>
 
