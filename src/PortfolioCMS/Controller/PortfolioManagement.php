@@ -180,7 +180,7 @@ class PortfolioManagement extends BaseController
     public function portfolioOverview( Request $request, string $id ) : Response
     {
         return $this->createResponse(
-            'admin:portfoliosOverzicht', [
+            'admin:portfolioOverzicht', [
 
             ]
         );
@@ -331,7 +331,7 @@ class PortfolioManagement extends BaseController
      * @param string  $skillId
      * @return Response
      */
-    public function addSkill( Request $request, string $skillId ): Response
+    public function addSkill( Request $request ): Response
     {
         return $this->createResponse(
             'admin:addSkill', [
@@ -347,7 +347,7 @@ class PortfolioManagement extends BaseController
      * @param string  $trainingId
      * @return Response
      */
-    public function addTraining( Request $request, string $trainingId ): Response
+    public function addTraining( Request $request ): Response
     {
         return $this->createResponse(
             'admin:addTraining', [
@@ -363,7 +363,7 @@ class PortfolioManagement extends BaseController
      * @param string  $hobbyId
      * @return Response
      */
-    public function addHobby( Request $request, string $hobbyId ): Response
+    public function addHobby( Request $request ): Response
     {
         return $this->createResponse(
             'admin:addHobby', [
@@ -379,7 +379,7 @@ class PortfolioManagement extends BaseController
      * @param string  $languageId
      * @return Response
      */
-    public function addLanguage( Request $request, string $languageId ): Response
+    public function addLanguage( Request $request ): Response
     {
         return $this->createResponse(
             'admin:addLanguage', [
@@ -395,7 +395,7 @@ class PortfolioManagement extends BaseController
      * @param string  $slbAssignmentId
      * @return Response
      */
-    public function addSlbAssignment( Request $request, string $slbAssignmentId ): Response
+    public function addSlbAssignment( Request $request ): Response
     {
         return $this->createResponse(
             'admin:addSlbAssignment', [
@@ -411,7 +411,7 @@ class PortfolioManagement extends BaseController
      * @param string  $imageId
      * @return Response
      */
-    public function addImage( Request $request, string $imageId ): Response
+    public function addImage( Request $request ): Response
     {
         return $this->createResponse(
             'admin:addImage', [
@@ -427,7 +427,7 @@ class PortfolioManagement extends BaseController
      * @param string  $projectId
      * @return Response
      */
-    public function addProject( Request $request, string $projectId ): Response
+    public function addProject( Request $request ): Response
     {
         return $this->createResponse(
             'admin:addProject', [
