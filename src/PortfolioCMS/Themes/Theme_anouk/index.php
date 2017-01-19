@@ -42,28 +42,32 @@
                         <li class="page-scroll">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Portfolio's</a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Aron Soppe</a></li>
-                                <li><a href="#">Esmee Lunenborg</a></li>
-                                <li><a href="#">Joris Rietveld</a></li>
+                                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Aron Soppe</a></li>
+                                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Esmee Lunenborg</a></li>
+                                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Joris Rietveld</a></li>
                                 <li><a href="#">Kevin Tabak</a></li>
                                 <li><a href="#">Kevin Veldman</a></li>
                                 <li><a href="#">Marco Brink</a></li>
                             </ul>
                         </li>
                         <li class="page-scroll">
-                            <a href="#slbopdrachten">SLB Opdrachten</a>
+                            <a href='#overmij'><span class="glyphicon glyphicon-user"></span> Over mij</a>
                         </li>
                         <li class="page-scroll">
-                            <a href="#cv">CV</a>
+                            <a href="#slbopdrachten"><span class="glyphicon glyphicon-pencil"></span> SLB Opdrachten</a>
                         </li>
                         <li class="page-scroll">
-                            <a href="#cijfers">Cijfers</a>
+                            <a href="#cv"> <span class="glyphicon glyphicon-file"></span> CV</a>
                         </li>
                         <li class="page-scroll">
-                            <a href="#galerij">Galerij</a>
+                            <a href="#cijfers"><span class="glyphicon glyphicon-ok"></span> Cijfers</a>
                         </li>
                         <li class="page-scroll">
-                            <a href="#gastenboek"> <span class="glyphicon glyphicon-pencil"></span> Gastenboek</a>
+                            <a href="#galerij"> <span class="glyphicon glyphicon-picture"></span> Galerij</a>
+                        </li>
+                        <li class="page-scroll">
+                            <a href="#gastenboek"> <span class="glyphicon glyphicon-comment"></span> Gastenboek</a>
+                            
                         </li>
                         <li class="page-scroll">
                             <a href="#inloggen">
@@ -96,7 +100,31 @@
     <!-- /.intro-header -->
 
     <!-- Page Content -->
-
+    
+    <a name="over mij"></a>
+    <div class="content-section-b">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">Over mij</h2>
+                    <p>
+                    Naam: Anouk van der Veen<br>
+                    Geboortedatum: 21-06-1999<br>
+                    Adres: Munnekemoer Oost 19<br>
+                    Plaats: Ter Apel<br>
+                    </p>       
+                </div>
+                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                    <img class="img-responsive" src="images/CVicon.png" alt="">
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+    </div>
+    </div>
+    
     <a name="slbopdrachten"></a>
     <div class="content-section-a">
         <div class="container">
@@ -201,12 +229,11 @@
                     
                 </div>
                 <div class="col-lg-4 col-lg-offset-2 col-sm-6">
-                    <div class="col-lg-6">
-                    <img class="img-thumbnail" src="images/pictureanouk.jpg">
-                    </div>
-                    <div class="row">
-                    <img class="img-thumbnail col-lg-4 float-left" src="images/pictureanouk.jpg">
-                    <img class="img-thumbnail col-lg-4 float-right" src="images/pictureanouk.jpg">
+                    <div class=row">
+                    <img class="img-thumbnail col-lg-6 float-left" src="images/pictureanouk.jpg">
+                    <img class="img-thumbnail col-lg-6 float-left" src="images/pictureanouk.jpg">
+                    <img class="img-thumbnail col-lg-6 float-right" src="images/pictureanouk.jpg">
+                    <img class="img-thumbnail col-lg-6 float-right" src="images/pictureanouk.jpg">
                     </div>
                 </div>
             </div>
