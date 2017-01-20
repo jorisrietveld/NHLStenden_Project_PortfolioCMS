@@ -43,9 +43,13 @@
                     <li class="hidden">
                         <a href="#page-top"></a>
                     </li>
-                    <li class="page-scroll">
-                        <a href="#portfolio">Portfolio</a>
+                    <li class="dropdown">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Portfolio's <span class="fa fa-caret-down"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <?= $dataProvider->get( 'portfolioMenuLinks', '' ) ?>
+                                        </ul>
                     </li>
+                    
                     <li class="page-scroll">
                         <a href="#talen">Talen</a>
                     </li>
