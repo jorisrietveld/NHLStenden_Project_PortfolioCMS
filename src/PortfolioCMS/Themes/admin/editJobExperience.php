@@ -1,7 +1,7 @@
 <!doctype html>
 <?php
-$page_title = "Overzicht | Admin";
-$isOnAdminPage = "overzicht";
+$page_title = "Portfolio | Admin";
+$isOnAdminPage = "portfolio";
 include 'header.php';
 ?>
 <body>
@@ -16,12 +16,12 @@ include 'header.php';
                     <div class="header">
                         <h4 class="title text-center">
                             <strong>
-                                <i class="fa fa-pencil-square-o"></i>Werk ervaring aanpassen
+                                <i class="fa fa-pencil-square-o"></i> Werk ervaring aanpassen
                             </strong>
                         </h4>
                         <hr class="style-one"/>
                         <div class="col-sm-5 custom-buttons">
-                            <a href="../portfolioOverzicht">
+                            <a href="portfolioOverzicht">
                                 <button class="btn btn-md btn-primary btn-block btn-custom">
                                     <i class="fa fa-arrow-left"></i> Terug
                                 </button>
@@ -34,15 +34,59 @@ include 'header.php';
                                     <div class="col-sm-6 col-sm-offset-3">
                                         <form class="form-custom float-left" action="" method="POST">
 
-                                            <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">item</label>
+                                              <div class="form-group">
+                                                <label class="form-label col-lg-3" for="inputEmail">Werkplaats:</label>
                                                 <input type="text"
-                                                       name="item"
+                                                       name="location"
                                                        class="form-control"
-                                                       id="item"
-                                                       placeholder="item"
-                                                       value="<?= $dataProvider->call('item-data', 'getItem') ?>"
+                                                       id="plaats"
+                                                       value="<?= $dataProvider->call('jobExperiences-data','getLocation') ?>"
                                                        required>
+                                            </div>
+                                            
+                                            
+                                            <!--Input type text in verband met beperkte browser support input date en format invoer database   -->
+                                            <div class="form-group">
+                                                <label class="form-label col-lg-3" for="inputEmail">Startdatum:</label>
+                                                <input type="text"
+                                                       name="startedAt"
+                                                       class="form-control"
+                                                       value="<?= $dataProvider->call('jobExperiences-data','getStartedAt')?>"
+                                                       id="startdatum"
+                                                   
+                                                       >
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label class="form-label col-lg-3" for="inputEmail">Einddatum:</label>
+                                                <input type="text"
+                                                       name="endedAt"
+                                                       class="form-control"
+                                                       value="<?= $dataProvider->call('jobExperiences-data','getEndedAt')?>"
+                                                       id="einddatum"
+                                                       
+                                                       >
+                                            </div>
+                                            
+                                             <div class="form-group">
+                                                <label class="form-label col-lg-3" for="inputEmail">Werk omschrijving:</label>
+                                                <textarea 
+                                                       rows="10"
+                                                       name="description"
+                                                       class="form-control"
+                                                       id="workdescription"
+                                                       required><?= $dataProvider->call('jobExperiences-data','getDescription')?></textarea>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label class="form-label col-lg-3" for="inputEmail">Type werkplek:</label>
+                                                <select required  class="form-control" name="isInternship">
+                                                    <option value="">Geen</option>
+                                                    <option value="werk">Werkplek</option>
+                                                    <option value="stage">Stageplaats</option>
+                                                </select>
+                                               
+                                             
                                             </div>
 
 
