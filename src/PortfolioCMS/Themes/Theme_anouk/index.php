@@ -42,12 +42,13 @@
                         <li class="page-scroll">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Portfolio's</a>
                             <ul class="dropdown-menu">
-                                 <li><a href="#"><span class="glyphicon glyphicon-user"></span> Aron Soppe</a></li>
+<!--                                 <li><a href="#"><span class="glyphicon glyphicon-user"></span> Aron Soppe</a></li>
                                 <li><a href="#"><span class="glyphicon glyphicon-user"></span> Esmee Lunenborg</a></li>
                                 <li><a href="#"><span class="glyphicon glyphicon-user"></span> Joris Rietveld</a></li>
                                 <li><a href="#"><span class="glyphicon glyphicon-user"></span> Kevin Tabak</a></li>
                                 <li><a href="#"><span class="glyphicon glyphicon-user"></span> Kevin Veldman</a></li>
-                                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Marco Brink</a></li>
+                                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Marco Brink</a></li>-->
+                                <?= $dataProvider->get( 'portfolioMenuLinks', '' ) ?>
                             </ul>
                         </li>
                         <li class="page-scroll">

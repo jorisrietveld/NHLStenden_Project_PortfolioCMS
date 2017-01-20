@@ -85,7 +85,8 @@ class Portfolio extends BaseController
                         'httpRequest' => $request,
                         'asset-path' => $request->getBaseUri().'assets/'.$theme->getDirectoryName().'/',
                         'portfoliosMetadata' => $this->getPortfoliosMetadata(),
-                        'current-page' => $portfolioPageName
+                        'current-page' => $portfolioPageName,
+                        'portfolioMenuLinks' => $this->renderMenuLinks(),
                     ]
                 );
             }

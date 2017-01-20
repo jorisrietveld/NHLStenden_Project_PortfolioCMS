@@ -10,6 +10,7 @@ $images = $dataProvider->get( 'images', [] );
 
         <!-- Custom css lib -->
         <link rel="stylesheet" type="text/css" href="<?= $dataProvider->get( 'asset-path' ) ?>css/styles.css"/>
+        <link href="<?= $dataProvider->get( 'lib-path' )?>font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
         
         <title>Portfolio</title>
         <?= $dataProvider->call( 'debugBarRenderer', 'renderHead' ) ?>

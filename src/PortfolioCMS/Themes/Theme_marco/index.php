@@ -43,11 +43,28 @@
                     <li class="hidden">
                         <a href="#page-top"></a>
                     </li>
+                    <li class="dropdown">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Portfolio's <span class="fa fa-caret-down"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <?= $dataProvider->get( 'portfolioMenuLinks', '' ) ?>
+                                        </ul>
+                    </li>
+                    
                     <li class="page-scroll">
-                        <a href="#portfolio">Portfolio</a>
+                        <a href="#talen">Talen</a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#skip">About</a>
+                        <a href="#opleiding">Opleiding</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#werk">Werkervaring</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#cijfer">Cijfers</a>
+                    </li>
+                    
+                     <li class="page-scroll">
+                        <a href="#assignment">SLB opdrachten</a>
                     </li>
                     <li class="page-scroll">
                         <a href="#contact">Contact</a>
@@ -159,7 +176,7 @@
         </div>
     </section>
         <!-- Languages Section -->
-    <section class="language">
+    <section class="language" id="talen">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -208,7 +225,7 @@
         </div>
     </section>
             <!-- Certificates Section -->
-    <section class="about" id="skip">
+    <section class="about" id="opleiding">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -256,11 +273,11 @@
         </div>
     </section>
                     <!-- Werk ervaring Section -->
-    <section class="language">
+    <section class="language" id="werk">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h3 id="skip">Werk ervaring</h3>
+                    <h3 id="skip">Werkervaring</h3>
                     <hr class="blue">
                 </div>
             </div>
@@ -304,7 +321,7 @@
         </div>
     </section>
                <!-- Cijfers -->
-    <section class="about" id="skip">
+    <section class="about" id="cijfer">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -352,7 +369,7 @@
         </div>
     </section>
                         <!-- SLB Assignments Section -->
-    <section class="language">
+    <section class="language" id="assignment">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -402,7 +419,7 @@
 
 
     <!-- Contact Section -->
-    <section class="contact">
+    <section class="contact" id="contact">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">

@@ -26,7 +26,7 @@ class Error extends BaseController
     {
         return $this->createResponse( 'site:error', [
             'portfolioMenuLinks' => $this->renderMenuLinks(),
-            'errorMessage' => '<h1>Error 401</h1>U heeft niet de juiste authorizatie om deze pagina te bekijken klik <a href="home">hier</a> om terug te gaan naar home.',
+            'errorMessage' => '<h1>Error 401</h1>U heeft niet de juiste autorisatie om deze pagina te bekijken klik <a href="home">hier</a> om terug te gaan naar home.',
             'asset-path' => 'assets/site/',
         ] );
     }
