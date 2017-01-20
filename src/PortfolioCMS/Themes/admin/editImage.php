@@ -1,7 +1,7 @@
 <!doctype html>
 <?php
-$page_title = "Overzicht | Admin";
-$isOnAdminPage = "overzicht";
+$page_title = "Portfolio | Admin";
+$isOnAdminPage = "portfolio";
 include 'header.php';
 ?>
 <body>
@@ -16,12 +16,12 @@ include 'header.php';
                     <div class="header">
                         <h4 class="title text-center">
                             <strong>
-                                <i class="fa fa-pencil-square-o"></i>Afbeelding aanpassen
+                                <i class="fa fa-pencil-square-o"></i> Afbeelding aanpassen
                             </strong>
                         </h4>
                         <hr class="style-one"/>
                         <div class="col-sm-5 custom-buttons">
-                            <a href="../portfolioOverzicht">
+                            <a href="portfolioOverzicht">
                                 <button class="btn btn-md btn-primary btn-block btn-custom">
                                     <i class="fa fa-arrow-left"></i> Terug
                                 </button>
@@ -35,14 +35,46 @@ include 'header.php';
                                         <form class="form-custom float-left" action="" method="POST">
 
                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">item</label>
+                                                <label class="form-label col-lg-3" for="inputEmail">Naam:</label>
                                                 <input type="text"
-                                                       name="item"
+                                                       name="name"
                                                        class="form-control"
-                                                       id="item"
-                                                       placeholder="item"
-                                                       value="<?= $dataProvider->call('item-data', 'getItem') ?>"
-                                                       required>
+                                                       id="name"
+                                                       value="<?= $dataProvider->call('image-data', 'getName') ?>"
+                                                >
+                                            </div>
+                                            
+                                            
+                                            <div class="form-group">
+                                                <label class="form-label col-lg-3" for="inputEmail">Beschrijving:</label>
+                                                <textarea 
+                                                       name="description"
+                                                       class="form-control"
+                                                       id="description"
+                                                       
+                                                       required><?= $dataProvider->call('image-data', 'getDescription') ?></textarea>
+                                            </div>
+                                            
+                                            
+                                             <div class="form-group">
+                                                <label class="form-label col-lg-3" for="inputEmail">Type afbeelding:</label>
+                                                <select required  class="form-control" name="type">
+                                                    <option value="<?= $dataProvider->call('image-data', 'getType') ?>">
+                                                        <?php if( $dataProvider->call('image-data','getType')=== "GALLERY_IMAGE"){
+                                                              echo"GALLERY_IMAGE";
+                                                        }else{echo"PROFILE_IMAGE";} ?></option>
+                                                    
+                                                    <option value=" <?php if( $dataProvider->call('image-data','getType')=== "GALLERY_IMAGE"){
+                                                              "PROFILE_IMAGE";
+                                                        }else{"GALLERY_IMAGE";} ?>">
+                                                        <?php if( $dataProvider->call('image-data','getType')=== "GALLERY_IMAGE"){
+                                                              echo"PROFILE_IMAGE";
+                                                        }else{echo"GALLERY_IMAGE";} ?></option>
+                                                    
+                                                   
+                                                </select>
+                                               
+                                             
                                             </div>
 
 
