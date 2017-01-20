@@ -1,7 +1,7 @@
 <!doctype html>
 <?php
-$page_title = "Overzicht | Admin";
-$isOnAdminPage = "overzicht";
+$page_title = "Portfolio | Admin";
+$isOnAdminPage = "portfolio";
 include 'header.php';
 ?>
 <body>
@@ -21,7 +21,7 @@ include 'header.php';
                         </h4>
                         <hr class="style-one"/>
                         <div class="col-sm-5 custom-buttons">
-                            <a href="../portfolioOverzicht">
+                            <a href="portfolioOverzicht">
                                 <button class="btn btn-md btn-primary btn-block btn-custom">
                                     <i class="fa fa-arrow-left"></i> Terug
                                 </button>
