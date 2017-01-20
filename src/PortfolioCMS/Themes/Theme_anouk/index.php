@@ -42,12 +42,12 @@
                         <li class="page-scroll">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Portfolio's</a>
                             <ul class="dropdown-menu">
-                                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Aron Soppe</a></li>
+                                 <li><a href="#"><span class="glyphicon glyphicon-user"></span> Aron Soppe</a></li>
                                 <li><a href="#"><span class="glyphicon glyphicon-user"></span> Esmee Lunenborg</a></li>
                                 <li><a href="#"><span class="glyphicon glyphicon-user"></span> Joris Rietveld</a></li>
-                                <li><a href="#">Kevin Tabak</a></li>
-                                <li><a href="#">Kevin Veldman</a></li>
-                                <li><a href="#">Marco Brink</a></li>
+                                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Kevin Tabak</a></li>
+                                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Kevin Veldman</a></li>
+                                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Marco Brink</a></li>
                             </ul>
                         </li>
                         <li class="page-scroll">
@@ -66,8 +66,7 @@
                             <a href="#galerij"> <span class="glyphicon glyphicon-picture"></span> Galerij</a>
                         </li>
                         <li class="page-scroll">
-                            <a href="#gastenboek"> <span class="glyphicon glyphicon-comment"></span> Gastenboek</a>
-                            
+                            <a href="#gastenboek"> <span class="glyphicon glyphicon-comment"></span> Gastenboek</a>   
                         </li>
                         <li class="page-scroll">
                             <a href="#inloggen">
@@ -101,7 +100,7 @@
 
     <!-- Page Content -->
     
-    <a name="over mij"></a>
+    <a name="overmij"></a>
     <div class="content-section-b">
         <div class="container">
             <div class="row">
@@ -134,17 +133,12 @@
                     <div class="clearfix"></div>
                     <h2 class="section-heading">SLB Opdrachten</h2>
                     <p class="lead">Hier vind u mijn slb opdrachten.</p>
+                    <p>Hier staan alle opdrachten die ik voor slb heb gemaakt.</p>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
                        Ut metus purus, vestibulum sed neque et, posuere iaculis sem. 
                        Integer eleifend tortor eget ultrices facilisis. Aenean aliquam luctus quam. 
                        Curabitur finibus, lacus in imperdiet laoreet, neque lacus maximus mi, 
-                       ac porta erat ante sit amet ante. Duis efficitur dui eget scelerisque vestibulum. 
-                       Pellentesque in commodo odio. Duis aliquet luctus ex, eu auctor turpis hendrerit a. 
-                       Fusce et sem elementum lectus blandit hendrerit at nec ante. Etiam eget nisi leo. 
-                       Fusce nec faucibus elit, sit amet tristique leo. Suspendisse nec dui vel nulla varius suscipit. 
-                       Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce augue dui, auctor pulvinar laoreet in, 
-                       tempus a lacus. Phasellus tincidunt nunc quis ipsum imperdiet, non interdum leo ullamcorper. 
-                       Donec vel odio dignissim, finibus lacus vitae, interdum nulla.
+                       ac porta erat ante sit amet ante. Duis efficitur dui eget scelerisque vestibulum.
                     </p>
                 </div>
                 <div class="col-lg-5 col-sm-pull-6  col-sm-6">
@@ -164,18 +158,16 @@
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
                     <h2 class="section-heading">CV</h2>
-                    <p>Hier vind je mijn CV </p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    <p class="lead">Hier vind je mijn CV.</p>
+                    <p>Download of bekijk hier mijn CV.</p>
+                    <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
                         Ut metus purus, vestibulum sed neque et, posuere iaculis sem. 
                         Integer eleifend tortor eget ultrices facilisis. Aenean aliquam luctus quam. 
                         Curabitur finibus, lacus in imperdiet laoreet, neque lacus maximus mi, 
                         ac porta erat ante sit amet ante. Duis efficitur dui eget scelerisque vestibulum. 
                         Pellentesque in commodo odio. Duis aliquet luctus ex, eu auctor turpis hendrerit a. 
-                        Fusce et sem elementum lectus blandit hendrerit at nec ante. Etiam eget nisi leo. 
-                        Fusce nec faucibus elit, sit amet tristique leo. Suspendisse nec dui vel nulla varius suscipit. 
-                        Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce augue dui, auctor pulvinar laoreet in, 
-                        tempus a lacus. Phasellus tincidunt nunc quis ipsum imperdiet, non interdum leo ullamcorper. 
-                        Donec vel odio dignissim, finibus lacus vitae, interdum nulla.</p>
+                        Fusce et sem elementum lectus blandit hendrerit at nec ante. Etiam eget nisi leo.
+                    </p>
                 </div>
                 <div class="col-lg-5 col-lg-offset-2 col-sm-6">
                     <img class="img-responsive" src="images/CVicon.png" alt="">
@@ -194,17 +186,13 @@
                     <hr class="section-heading-spacer">
                         <div class="clearfix"></div>
                         <h2 class="section-heading">Cijfers</h2>
+                        <p>De cijfers die ik heb gehaald.</p>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
                            Ut metus purus, vestibulum sed neque et, posuere iaculis sem. 
                            Integer eleifend tortor eget ultrices facilisis. Aenean aliquam luctus quam. 
                            Curabitur finibus, lacus in imperdiet laoreet, neque lacus maximus mi, 
                            ac porta erat ante sit amet ante. Duis efficitur dui eget scelerisque vestibulum. 
                            Pellentesque in commodo odio. Duis aliquet luctus ex, eu auctor turpis hendrerit a. 
-                           Fusce et sem elementum lectus blandit hendrerit at nec ante. Etiam eget nisi leo. 
-                           Fusce nec faucibus elit, sit amet tristique leo. Suspendisse nec dui vel nulla varius suscipit. 
-                           Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce augue dui, auctor pulvinar laoreet in, 
-                           tempus a lacus. Phasellus tincidunt nunc quis ipsum imperdiet, non interdum leo ullamcorper. 
-                           Donec vel odio dignissim, finibus lacus vitae, interdum nulla.
                         </p>
                 </div>
                 <div class="col-lg-5 col-sm-pull-6  col-sm-6">
@@ -222,10 +210,8 @@
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
                     <h2 class="section-heading">Galerij</h2>
-                    <p>Hier vind je mijn CV </p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                        Ut metus purus, vestibulum sed neque et, posuere iaculis sem. 
-                        Integer eleifend tortor eget ultrices facilisis. Aenean aliquam luctus quam. </p>
+                    <p>Hier vind je mijn galerij. </p>
+                    <p></p>
                     
                 </div>
                 <div class="col-lg-4 col-lg-offset-2 col-sm-6">
@@ -293,11 +279,23 @@
                 <div class="col-lg-12">
                     <ul class="list-inline">
                         <li>
+                            <a href="#overmij">Over Mij</a>
+                        </li>
+                        <li class="footer-menu-divider">⋅</li>
+                        <li>
                             <a href="#slbopdrachten">SLB Opdrachten</a>
                         </li>
                         <li class="footer-menu-divider">⋅</li>
                         <li>
                             <a href="#cv">CV</a>
+                        </li>
+                        <li class="footer-menu-divider">⋅</li>
+                        <li>
+                            <a href="#cijfers">Cijfers</a>
+                        </li>
+                        <li class="footer-menu-divider">⋅</li>
+                        <li>
+                            <a href="#galerij">Galerij</a>
                         </li>
                         <li class="footer-menu-divider">⋅</li>
                         <li>
