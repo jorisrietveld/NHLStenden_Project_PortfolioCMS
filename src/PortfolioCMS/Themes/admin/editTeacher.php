@@ -17,17 +17,17 @@ include 'header.php';
                     <div class="header">
                         <h4 class="title text-center">
                             <strong>
-                                <i class="fa fa-pencil-square-o"></i><?= $dataProvider->isAdmin() ? ' Docent aanpassen':' Account aanpassen'?>
+                                <i class="fa fa-pencil-square-o"></i><?= $dataProvider->isAdmin() ? ' Docent aanpassen' : ' Account aanpassen' ?>
                             </strong>
                         </h4>
                         <hr class="style-one"/>
                         <div class="col-sm-5 custom-buttons">
-                            <?php if( $dataProvider->isAdmin() ): ?>
-                            <a href="../gebruikersOverzicht">
-                                <button class="btn btn-md btn-primary btn-block btn-custom">
-                                    <i class="fa fa-arrow-left"></i> Terug
-                                </button>
-                            </a>
+                            <?php if ($dataProvider->isAdmin()): ?>
+                                <a href="../gebruikersOverzicht">
+                                    <button class="btn btn-md btn-primary btn-block btn-custom">
+                                        <i class="fa fa-arrow-left"></i> Terug
+                                    </button>
+                                </a>
                             <?php endif; ?>
                         </div>
                         <div class="clearfix"></div>
@@ -35,10 +35,12 @@ include 'header.php';
                             <div class="container-fluid">
                                 <div class="row">
                                     <div class="col-sm-6 col-sm-offset-3">
-                                        <form class="form-custom float-left" action="admin/add_user/teacher" method="POST">
+                                        <form class="form-custom float-left" action="admin/add_user/teacher"
+                                              method="POST">
                                             <div class="form-group">
                                                 <label class="form-label" for="inputEmail">Email</label>
                                                 <input type="email" name="email" class="form-control" id="inputEmail"
+                                                       value=""
                                                        placeholder="Email">
                                             </div>
                                             <div class="form-group">
@@ -50,53 +52,54 @@ include 'header.php';
                                             <div class="form-group">
                                                 <label class="form-label" for="inputPassword">Voornaam</label>
                                                 <input type="text" name="firstName" class="form-control"
+                                                       value=""
                                                        id="inputFirstName"
                                                        placeholder="Voornaam">
                                             </div>
                                             <div class="form-group">
                                                 <label class="form-label" for="inputPassword">Achternaam</label>
                                                 <input type="text" name="lastName" class="form-control"
+                                                       value=""
                                                        id="inputLastName"
                                                        placeholder="Achternaam">
                                             </div>
 
-                                            <?php if( $dataProvider->isAdmin() ): ?>
-                                            <div class="row radio-buttons-custom">
-                                                <div class="col-lg-12">
-                                                    <p class="centertext">Admin</p><br/>
-                                                    <label><input type="radio" name="isAdmin" value="1"
-                                                                  class="radio-custom"><span
-                                                            class="isSelected"> Ja</span></input></label>
-                                                    <label><input type="radio" name="isAdmin" value="0"
-                                                                  class="radio-custom"
-                                                                  id="inputLastName"
-                                                                  placeholder="Achternaam" checked><span
-                                                            class="isSelected"> Nee</span></input></label>
-                                                </div>
-                                            </div>
+                                            <?php if ($dataProvider->isAdmin()): ?>
 
-                                            <div class="clearfix"></div>
-                                            <hr/>
-                                            <div class="row radio-buttons-custom">
-                                                <div class="col-lg-12">
-                                                    <p class="centertext">Actief</p><br/>
-                                                    <label>
-                                                        <input type="radio" name="active" value="1"
-                                                               class="radio-custom" checked><span
-                                                            class="isSelected"> Ja</span></input></label>
-                                                    <label><input type="radio" name="active" value="0"
-                                                                  class="radio-custom"
-                                                                  id="inputLastName"
-                                                                  placeholder="Achternaam"><span
-                                                            class="isSelected"> Nee</span></input></label>
+                                                <div class="row radio-buttons-custom">
+                                                    <div class="col-lg-12">
+                                                        <p class="centertext">Admin</p><br/>
+                                                        <label><input type="radio" name="isAdmin" value="1"
+                                                                      class="radio-custom" checked><span
+                                                                    class="isSelected"> Ja</span></input></label>
+                                                        <label><input type="radio" name="isAdmin" value="0"
+                                                                      class="radio-custom"><span
+                                                                    class="isSelected"> Nee</span></input></label>
+                                                    </div>
                                                 </div>
-                                            </div>
+
+                                                <div class="clearfix"></div>
+                                                <hr/>
+                                                <div class="row radio-buttons-custom">
+                                                    <div class="col-lg-12">
+                                                        <p class="centertext">Actief</p><br/>
+                                                        <label>
+                                                            <input type="radio" name="active" value="1"
+                                                                   class="radio-custom" checked><span
+                                                                    class="isSelected"> Ja</span></input></label>
+                                                        <label><input type="radio" name="active" value="0"
+                                                                      class="radio-custom"><span
+                                                                    class="isSelected"> Nee</span></input></label>
+                                                    </div>
+                                                </div>
                                             <?php endif; ?>
 
                                             <div class="row">
                                                 <div class="col-lg-6 clearfix"><br/></div>
                                             </div>
-                                            <button type="submit" class="btn btn-primary btn-custom">Toevoegen</button>
+                                            <button type="submit" name="submit" class="btn btn-primary btn-custom">
+                                                Toevoegen
+                                            </button>
                                         </form>
                                     </div>
                                 </div>
