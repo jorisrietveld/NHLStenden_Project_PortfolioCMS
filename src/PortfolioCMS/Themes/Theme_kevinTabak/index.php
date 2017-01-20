@@ -24,7 +24,7 @@ $images = $dataProvider->get( 'images', [] );
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                   </button>
-                  <a class="navbar-brand" href="#">Logo</a>
+                  <a class="navbar-brand" href="#"><?= $student->getFirstName() . " " . $student->getLastName(); ?></a>
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                   <ul class="nav navbar-nav navbar-right">
@@ -40,21 +40,14 @@ $images = $dataProvider->get( 'images', [] );
             <div class="jumbotron text-center">
                 <div id="title">
                     <h1>Portefolio</h1>
-                    <p><?php echo $student->getFirstName(); echo " "; echo $student->getLastName(); ?></p>
+                    <p><?= $student->getFirstName() . " " . $student->getLastName(); ?></p>
                 </div>
             </div>
             <div id="over" class="container-fluid">
                 <div class="row">
                     <div class="col-sm-6">
                         <h2>Over mij</h2>
-                        <p> 
-                        <?php 
-                        foreach( $images as $image )
-                        {
-                            echo $image->getSomeProperty();
-                        }  
-                        ?>
-                        </p>
+                        <p></p>
                     </div>
                 </div>
             </div>
@@ -86,16 +79,12 @@ $images = $dataProvider->get( 'images', [] );
                             </thead>
                             <tbody>
                               <tr>
-                                <td>PHP</td>
-                                <td>8</td>
+                                <td>SLB</td>
+                                <td></td>
                               </tr>
                               <tr>
-                                <td>DGD</td>
-                                <td>7</td>
-                              </tr>
-                              <tr>
-                                <td>HTML</td>
-                                <td>8</td>
+                                <td>Project</td>
+                                <td></td>
                               </tr>
                             </tbody>
                         </table>
@@ -133,9 +122,11 @@ $images = $dataProvider->get( 'images', [] );
                 <h2 class="text-center">CONTACT</h2>
                 <div class="row">
                     <div class="col-sm-5">
-                        <p>Neem contact met mij op.</p>
-                        <p><span class="glyphicon glyphicon-phone"></span> +31 6 46723554</p>
-                        <p><span class="glyphicon glyphicon-envelope"></span> kevin_tabak@outlook.com</p>
+                        <h4>Neem contact met mij op.</h4>
+                        <p><span class="glyphicon glyphicon-phone"></span> <?= $student->getPhoneNumber() ?></p>
+                        <p><span class="glyphicon glyphicon-envelope"></span> <?= $student->getEmail() ?></p>
+                        <h4>Meer informatie over mij:</h4>
+                        <p><span class="glyphicon glyphicon-home"></span> <?= $student->getaddress() . " " . $student->getlocation() ?></p>
                     </div>
                     <div class="col-sm-7">
                         <div class="row">
