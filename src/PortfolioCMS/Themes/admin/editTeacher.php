@@ -17,7 +17,7 @@ include 'header.php';
                     <div class="header">
                         <h4 class="title text-center">
                             <strong>
-                                <i class="fa fa-pencil-square-o"></i><?= $dataProvider->isAdmin() ? 'Docent aanpassen':'Account aanpassen'?>
+                                <i class="fa fa-pencil-square-o"></i><?= $dataProvider->isAdmin() ? ' Docent aanpassen':' Account aanpassen'?>
                             </strong>
                         </h4>
                         <hr class="style-one"/>

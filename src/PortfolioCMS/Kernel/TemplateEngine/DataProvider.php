@@ -186,6 +186,11 @@ class DataProvider extends ParameterContainer
         return isset( $_SESSION['userId'] ) ? (int)$_SESSION['userId'] : 0;
     }
 
+    public function getCurrentUserName(  ) : int
+    {
+        return isset( $_SESSION['userName'] ) ? (int)$_SESSION['userName'] : 0;
+    }
+
     /**
      * Calls an method an an object stored in the DataProvider if the object exists.
      *
