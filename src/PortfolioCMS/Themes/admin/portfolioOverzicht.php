@@ -35,7 +35,7 @@ include 'header.php'; ?>
                             <table class="table table-hover table-custom-portfolio">
                                 <thead>
                                 <th>ID</th>
-                                <th>Titel</th>
+                                <th>Naam portfolio</th>
                                 <th>Bewerk</th>
                                 <th>Verwijder</th>
                                 </thead>
