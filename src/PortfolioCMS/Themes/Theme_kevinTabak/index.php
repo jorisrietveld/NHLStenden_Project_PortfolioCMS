@@ -28,6 +28,12 @@ $images = $dataProvider->get( 'images', [] );
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                   <ul class="nav navbar-nav navbar-right">
+                      <li class="dropdown">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Portfolio's <span class="fa fa-caret-down"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <?= $dataProvider->get( 'portfolioMenuLinks', '' ) ?>
+                                        </ul>
+                                    </li>
                     <li><a href="#over">OVER</a></li>
                     <li><a href="#cv">CV</a></li>
                     <li><a href="#cijfers">CIJFERS</a></li>
