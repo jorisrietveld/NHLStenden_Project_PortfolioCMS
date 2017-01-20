@@ -40,7 +40,7 @@ include 'header.php';
                                                        name="title"
                                                        class="form-control"
                                                        id="titel"
-                                                       placeholder="Titel"
+                                                      
                                                        required>
                                             </div>
                                             <div class="form-group">
@@ -49,7 +49,7 @@ include 'header.php';
                                                        name="institution"
                                                        class="form-control"
                                                        id="institution"
-                                                       placeholder="Instituut"
+                                                  
                                                        required>
                                             </div>
                                             
@@ -59,7 +59,7 @@ include 'header.php';
                                                        name="location"
                                                        class="form-control"
                                                        id="institution"
-                                                       placeholder="Locatie"
+                                                    
                                                        required>
                                             </div>
                                             
@@ -69,7 +69,7 @@ include 'header.php';
                                                        name="startedAt"
                                                        class="form-control"
                                                        id="startdatum"
-                                                       placeholder="YYYY-MM-DD"
+
                                                        >
                                             </div>
                                             
@@ -79,7 +79,7 @@ include 'header.php';
                                                        name="finishedAt"
                                                        class="form-control"
                                                        id="startdatum"
-                                                       placeholder="YYYY-MM-DD"
+                                                      
                                                        >
                                             </div>
                                             
@@ -90,7 +90,7 @@ include 'header.php';
                                                        name="description"
                                                        class="form-control"
                                                        id="description"
-                                                       placeholder="Beschrijving"
+                                                    
                                                        required></textarea>
                                             </div>
                                             
