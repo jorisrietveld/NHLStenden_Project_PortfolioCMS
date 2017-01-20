@@ -35,15 +35,25 @@ include 'header.php';
                                         <form class="form-custom float-left" action="" method="POST">
 
                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">item</label>
+                                                <label class="form-label col-lg-3" for="inputEmail">Naam opdracht</label>
                                                 <input type="text"
-                                                       name="item"
+                                                       name="name"
                                                        class="form-control"
-                                                       id="item"
-                                                       placeholder="item"
-                                                       value="<?= $dataProvider->call('item-data', 'getItem') ?>"
+                                                       id="nameopdr"
+                                                       value="<?= $dataProvider->call('slbAssignment-data', 'getName') ?>"
                                                        required>
                                             </div>
+                                            
+                                             <div class="form-group">
+                                                <label class="form-label col-lg-3" for="inputEmail">Feedback:</label>
+                                                <textarea 
+                                                       rows="10"
+                                                       name="description"
+                                                       class="form-control"
+                                                       id="feedback"                                                   
+                                                       ><?= $dataProvider->call('slbAssignment-data', 'getFeedback')?></textarea>
+                                            </div>
+                                            
 
 
                                             <div class="row">
