@@ -219,6 +219,28 @@ include 'header.php';
                                                         </label>
                                                     </div>
                                                 </div>
+                                                <div class="clearfix"></div>
+                                                <hr/>
+                                                <!-- Hack because there is an bug in the js lib that creates the ratio -->
+                                                <div class="row radio-buttons-custom" hidden>
+                                                    <div class="col-lg-12">
+                                                        <p class="centertext">Hidden</p><br/>
+                                                        <label>
+                                                            <input type="radio" name="" value="1"
+                                                                   class="radio-custom">
+                                                            <span class="isSelected"> Ja </span>
+                                                            </input>
+                                                        </label>
+                                                        <label>
+                                                            <input type="radio" name="" value="0"
+                                                                   class="radio-custom"
+                                                                   id="hidden"
+                                                            >
+                                                            <span class="isSelected"> Nee</span>
+                                                            </input>
+                                                        </label>
+                                                    </div>
+                                                </div>
                                             <?php endif; ?>
                                             <div class="row">
                                                 <div class="col-lg-6 clearfix"><br/></div>
