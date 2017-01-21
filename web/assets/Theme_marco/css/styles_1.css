@@ -306,10 +306,12 @@ footer .footer-below{
 .btn-primary.active,.btn-primary:active,.btn-primary:focus,
 .btn-primary:hover,.open .dropdown-toggle.btn-primary{
     color:#fff;
-    background-color:#1a242f;
+    background-color:darkblue;
     border-color:#161f29
 }
-
+.dropdown-menu{
+    background-color: darkblue;
+}
 .btn-primary.disabled,.btn-primary.disabled.active,.btn-primary
 .disabled:active,.btn-primary.disabled:focus,.btn-primary.disabled:hover,
 .btn-primary[disabled],.btn-primary[disabled].active,.btn-primary[disabled]:active,

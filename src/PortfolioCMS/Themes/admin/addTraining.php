@@ -58,7 +58,7 @@ include 'header.php';
                                                 <input type="text"
                                                        name="location"
                                                        class="form-control"
-                                                       id="institution"
+                                                       id="location"
                                                        placeholder="Locatie"
                                                        required>
                                             </div>

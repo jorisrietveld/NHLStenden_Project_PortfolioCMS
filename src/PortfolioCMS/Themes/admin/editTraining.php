@@ -1,7 +1,7 @@
 <!doctype html>
 <?php
-$page_title = "Overzicht | Admin";
-$isOnAdminPage = "overzicht";
+$page_title = "Portfolio | Admin";
+$isOnAdminPage = "portfolio";
 include 'header.php';
 ?>
 <body>
@@ -16,12 +16,12 @@ include 'header.php';
                     <div class="header">
                         <h4 class="title text-center">
                             <strong>
-                                <i class="fa fa-pencil-square-o"></i>Opleiding aanpassen
+                                <i class="fa fa-pencil-square-o"></i> Opleiding aanpassen
                             </strong>
                         </h4>
                         <hr class="style-one"/>
                         <div class="col-sm-5 custom-buttons">
-                            <a href="../portfolioOverzicht">
+                            <a href="portfolioOverzicht">
                                 <button class="btn btn-md btn-primary btn-block btn-custom">
                                     <i class="fa fa-arrow-left"></i> Terug
                                 </button>
@@ -34,15 +34,108 @@ include 'header.php';
                                     <div class="col-sm-6 col-sm-offset-3">
                                         <form class="form-custom float-left" action="" method="POST">
 
-                                            <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">item</label>
+                                                   <div class="form-group">
+                                                <label class="form-label col-lg-3" for="inputEmail">Titel:</label>
                                                 <input type="text"
-                                                       name="item"
+                                                       name="title"
                                                        class="form-control"
-                                                       id="item"
-                                                       placeholder="item"
-                                                       value="<?= $dataProvider->call('item-data', 'getItem') ?>"
+                                                       id="titel"
+                                                       value="<?php $dataProvider->call('training-data','getFinishedAt') ?>"
                                                        required>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label class="form-label col-lg-3" for="inputEmail">Instituut:</label>
+                                                <input type="text"
+                                                       name="institution"
+                                                       class="form-control"
+                                                       id="institution"
+                                                       value="<?php $dataProvider->call('training-data','getInstitution') ?>"
+                                                       required>
+                                            </div>
+                                            
+                                             <div class="form-group">
+                                                <label class="form-label col-lg-3" for="inputEmail">Locatie:</label>
+                                                <input type="text"
+                                                       name="location"
+                                                       class="form-control"
+                                                       id="Location"
+                                                       value="<?php $dataProvider->call('training-data','getLocation') ?>"
+                                                       required>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label class="form-label col-lg-3" for="inputEmail">Startdatum:</label>
+                                                <input type="text"
+                                                       name="startedAt"
+                                                       class="form-control"
+                                                       id="startdatum"
+                                                       value="<?php $dataProvider->call('training-data','getStartedAt') ?>"
+
+                                                       >
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label class="form-label col-lg-3" for="inputEmail">Einddatum:</label>
+                                                <input type="text"
+                                                       name="finishedAt"
+                                                       class="form-control"
+                                                       id="startdatum"
+                                                       value="<?php $dataProvider->call('training-data','getFinishedAt') ?>"
+                                                       >
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label class="form-label col-lg-3" for="inputEmail">Beschrijving:</label>
+                                                <textarea 
+                                                       rows="5"
+                                                       name="description"
+                                                       class="form-control"
+                                                       id="description"
+                                                       
+                                                       required><?php $dataProvider->call('training-data','getDescription')?></textarea>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label class="form-label col-lg-3" for="inputEmail">Is de opleiding gehaald?</label>
+                                                 <select required  class="form-control" name="obtainedCertificate">
+                                                    <option value="<?= $dataProvider->call('training-data','getObtainedCertificate') ?>">
+                                                        <?php if( $dataProvider->call('training-data','getObtainedCertificate')=== true){
+                                                              echo"Ja";
+                                                        }else{echo"Nee";} ?></option>
+                                                    
+                                                    <option value=" <?php if( $dataProvider->call('training-data','getObtainedCertificate')=== true){
+                                                              "Nee";
+                                                        }else{"Ja";} ?>">
+                                                        <?php if( $dataProvider->call('training-data','getObtainedCertificate')=== true){
+                                                              echo"Nee";
+                                                        }else{echo"Ja";} ?></option>
+                                           
+                                                   
+                                                </select>
+                                               
+                                             
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label class="form-label col-lg-3" for="inputEmail">Is het de huidige opleiding?</label>
+                                                <select required  class="form-control" name="CurrentTraining">
+                                                    <option value="<?= $dataProvider->call('training-data','getCurrentTraining') ?>">
+                                                        <?php if( $dataProvider->call('training-data','getCurrentTraining')=== true){
+                                                              echo"Ja";
+                                                        }else{echo"Nee";} ?></option>
+                                                    
+                                                    <option value=" <?php if( $dataProvider->call('training-data','getCurrentTraining')=== true){
+                                                              "Nee";
+                                                        }else{"Ja";} ?>">
+                                                        <?php if( $dataProvider->call('training-data','getCurrentTraining')=== true){
+                                                              echo"Nee";
+                                                        }else{echo"Ja";} ?></option>
+                                           
+                                                   
+                                                </select>
+                                               
+                                             
                                             </div>
 
 
