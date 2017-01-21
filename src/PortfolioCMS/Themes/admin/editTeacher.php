@@ -69,15 +69,22 @@ include 'header.php';
                                                 <div class="row radio-buttons-custom">
                                                     <div class="col-lg-12">
                                                         <p class="centertext">Admin</p><br/>
-                                                        <label><input type="radio" name="isAdmin" value="1"
-                                                                      class="radio-custom" checked><span
-                                                                    class="isSelected"> Ja</span></input></label>
-                                                        <label><input type="radio" name="isAdmin" value="0"
-                                                                      class="radio-custom"><span
-                                                                    class="isSelected"> Nee</span></input></label>
+                                                        <label>
+                                                            <input type="radio" name="isAdmin" value="1"
+                                                                   class="radio-custom" <?= $dataProvider->call( 'student-data', 'getIsAdmin') ? 'checked':'' ?>>
+                                                            <span class="isSelected"> Ja </span>
+                                                            </input>
+                                                        </label>
+                                                        <label>
+                                                            <input type="radio" name="isAdmin" value="0"
+                                                                   class="radio-custom"
+                                                                   id="inputLastName"
+                                                                   placeholder="Achternaam"<?= $dataProvider->call( 'student-data', 'getIsAdmin') ? '':'checked' ?>
+                                                            <span class="isSelected"> Nee</span>
+                                                            </input>
+                                                        </label>
                                                     </div>
                                                 </div>
-
                                                 <div class="clearfix"></div>
                                                 <hr/>
                                                 <div class="row radio-buttons-custom">
@@ -85,13 +92,42 @@ include 'header.php';
                                                         <p class="centertext">Actief</p><br/>
                                                         <label>
                                                             <input type="radio" name="active" value="1"
-                                                                   class="radio-custom" checked><span
-                                                                    class="isSelected"> Ja</span></input></label>
-                                                        <label><input type="radio" name="active" value="0"
-                                                                      class="radio-custom"><span
-                                                                    class="isSelected"> Nee</span></input></label>
+                                                                   class="radio-custom" <?= $dataProvider->call( 'student-data', 'getIsActive') ? 'checked':'' ?>>
+                                                            <span class="isSelected"> Ja</span>
+                                                            </input>
+                                                        </label>
+                                                        <label>
+                                                            <input type="radio" name="active" value="0"
+                                                                   class="radio-custom"
+                                                                   id="inputLastName"
+                                                                <?= $dataProvider->call( 'student-data', 'getIsActive') ? '':'checked' ?>>
+                                                            <span class="isSelected">
+                                                                Nee</span>
+                                                            </input>
+                                                        </label>
                                                     </div>
                                                 </div>
+                                                <div class="row radio-buttons-custom">
+                                                    <div class="col-lg-12">
+                                                        <p class="centertext">SLB Docent</p><br/>
+                                                        <label>
+                                                            <input type="radio" name="isAdmin" value="1"
+                                                                   class="radio-custom" <?= $dataProvider->call( 'student-data', 'getIsSLBer') ? 'checked':'' ?>>
+                                                            <span class="isSelected"> Ja </span>
+                                                            </input>
+                                                        </label>
+                                                        <label>
+                                                            <input type="radio" name="isAdmin" value="0"
+                                                                   class="radio-custom"
+                                                                   id="inputLastName"
+                                                                   placeholder="Achternaam"<?= $dataProvider->call( 'student-data', 'getIsSLBer') ? '':'checked' ?>
+                                                            <span class="isSelected"> Nee</span>
+                                                            </input>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                                <hr/>
                                             <?php endif; ?>
 
                                             <div class="row">

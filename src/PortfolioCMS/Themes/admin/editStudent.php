@@ -196,7 +196,7 @@ include 'header.php';
                                                             <input type="radio" name="isAdmin" value="0"
                                                                       class="radio-custom"
                                                                       id="inputLastName"
-                                                                      placeholder="Achternaam"<?= $dataProvider->call( 'student-data', 'getIsAdmin') ? 'checked':'' ?>
+                                                                      placeholder="Achternaam"<?= $dataProvider->call( 'student-data', 'getIsAdmin') ? '':'checked' ?>
                                                             <span class="isSelected"> Nee</span>
                                                             </input>
                                                         </label>
@@ -217,7 +217,7 @@ include 'header.php';
                                                             <input type="radio" name="active" value="0"
                                                                    class="radio-custom"
                                                                    id="inputLastName"
-                                                                    <?= $dataProvider->call( 'student-data', 'getIsActive') ? 'checked':'' ?>>
+                                                                    <?= $dataProvider->call( 'student-data', 'getIsActive') ? '':'checked' ?>>
                                                             <span class="isSelected">
                                                                 Nee</span>
                                                             </input>
