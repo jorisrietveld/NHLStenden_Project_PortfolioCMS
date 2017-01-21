@@ -10,10 +10,22 @@ namespace StendenINF1B\PortfolioCMS\Controller;
 
 
 use StendenINF1B\PortfolioCMS\Kernel\Database\Helper\EntityCollection;
+use StendenINF1B\PortfolioCMS\Kernel\Database\Repository\PortfolioRepository;
 
 trait SiteHelper
 {
+    /**
+     * This holds an entity collection with Portfolio entities from the database.
+     *
+     * @var EntityCollection
+     */
     protected $portfoliosCollection;
+
+    /**
+     * This can be used to fetch Portfolio entities from the database.
+     *
+     * @var PortfolioRepository
+     */
     protected $portfolioRepository;
 
     /**
@@ -37,6 +49,11 @@ trait SiteHelper
         return $menuLinks;
     }
 
+    /**
+     * This will fetch an entity collection with PortfolioMetaData entities from the database.
+     *
+     * @return EntityCollection
+     */
     public function getPortfoliosMetadata(  ) : EntityCollection
     {
         $this->portfolioRepository = $this->portfolioRepository ??  $this->getEntityManager()->getRepository( 'Portfolio' );

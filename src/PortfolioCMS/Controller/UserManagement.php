@@ -16,6 +16,7 @@ use StendenINF1B\PortfolioCMS\Kernel\Database\Repository\StudentRepository;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Repository\TeacherRepository;
 use StendenINF1B\PortfolioCMS\Kernel\Helper\ConfigLoader;
 use StendenINF1B\PortfolioCMS\Kernel\Helper\Validate;
+use StendenINF1B\PortfolioCMS\Kernel\Helper\Validation;
 use StendenINF1B\PortfolioCMS\Kernel\Http\Request;
 use StendenINF1B\PortfolioCMS\Kernel\Http\Response;
 use StendenINF1B\PortfolioCMS\Kernel\TemplateEngine\TemplateEngine;
@@ -25,29 +26,29 @@ class UserManagement extends BaseController
     /**
      * @var array
      */
-    protected $requiredUserFields = [
-        'email',
-        'firstName',
-        'lastName',
-        'isAdmin',
+    protected $userFields = [
+        'email'     => 'required|email',
+        'firstName' => 'required|alpha_space|min_length,3|max_length,50',
+        'lastName'  => 'required|alpha_space|min_length,3|max_length,50',
+        'isAdmin'   => 'required',
     ];
 
     /**
      * @var array
      */
-    protected $requiredStudentFields = [
-        'address',
-        'zipCode',
-        'dateOfBirth',
-        'studentCode',
-        'phoneNumber',
+    protected $studentFields = [
+        'address'     => 'required|alpha_space|min_length,3|max_length,50',
+        'zipCode'     => 'required|zip_code',
+        'dateOfBirth' => 'required|date,Y-m-d',
+        'studentCode' => 'required|numeric',
+        'phoneNumber' => 'required|phone_number',
     ];
 
     /**
      * @var array
      */
-    protected $requiredTeacherFields = [
-        'isSLBer',
+    protected $teacherFields = [
+        'isSLBer' => 'required',
     ];
 
     /**
@@ -74,6 +75,41 @@ class UserManagement extends BaseController
         $this->teacherRepository = $this->getEntityManager()->getRepository( 'Teacher' );
     }
 
+    /**
+     * Shortcut to return an response.
+     *
+     * @param string $webPage
+     * @param array  $context
+     * @param int    $httpCode
+     * @return Response
+     */
+    public function createResponse( string $webPage, array $context, $httpCode = Response::HTTP_STATUS_OK ) : Response
+    {
+        $context = array_merge( $context, [
+            'asset-path'  => $this->application->getRequest()->getBaseUri() . 'assets/admin/',
+            'httpRequest' => $this->application->getRequest(),
+        ] );
+
+        return parent::createResponse( $webPage, $context, $httpCode );
+    }
+
+    /**
+     * Check for the edit methods if it the user is administrator or if it is the students own portfolio data.
+     *
+     * @param $id
+     * @return bool
+     */
+    public function isOwnOrAdmin( $id )
+    {
+        return ( $_SESSION[ 'authorizationLevel' ] == AuthorizedUser::ADMIN || $_SESSION[ 'userId' ] == $id );
+    }
+
+    /**
+     * Page that shows an overview of all users for the route /admin/gebruikersOverzicht
+     *
+     * @param Request $request
+     * @return Response
+     */
     public function userOverview( Request $request )
     {
         $students = $this->studentRepository->getAll();
@@ -82,9 +118,7 @@ class UserManagement extends BaseController
         $users = $students->mergeWith( $teachers );
 
         return $this->createResponse( 'admin:gebruikersOverzicht', [
-            'asset-path' => $request->getBaseUri() . 'assets/admin/',
-            'users'      => $users,
-            'httpRequest' => $this->application->getRequest(),
+            'users' => $users,
         ] );
     }
 
@@ -97,8 +131,7 @@ class UserManagement extends BaseController
     public function insertStudent( Request $request ) : Response
     {
         $postParams = $request->getPostParams();
-
-        if ( $this->checkPostParams( $postParams, array_merge( $this->requiredUserFields, $this->requiredStudentFields ) ) )
+        if ( Validation::getInstance()->validatePostParameters( $postParams, array_merge( $this->userFields, $this->studentFields ) ) && $request->getMethod() == 'POST' )
         {
             $newStudent = new Student();
             $newStudent->setHashedPassword( password_hash( $postParams->getString( 'password' ), PASSWORD_BCRYPT ) );
@@ -117,20 +150,21 @@ class UserManagement extends BaseController
             // Insert the new student.
             $this->studentRepository->insert( $newStudent );
 
-            return $this->createResponse( 'admin:addStudent', [
-                    'asset-path' => $request->getBaseUri() . 'assets/admin/',
-                    'httpRequest' => $this->application->getRequest(),
-                ]
-            );
+            $feedback = 'De student is toegevoegd.';
+            $feedbackType = 'success';
         }
-        else
+        elseif( $request->getMethod() === 'POST' )
         {
-            return $this->createResponse( 'admin:addStudent', [
-                    'asset-path' => $request->getBaseUri() . 'assets/admin/',
-                    'httpRequest' => $this->application->getRequest(),
-                ]
-            );
+            $feedback = Validation::getInstance()->getReadableErrors();
+            $feedbackType = 'danger';
         }
+
+        return $this->createResponse( 'admin:addStudent', [
+                'feedback' => $feedback ?? '',
+                'feedback-type' => $feedbackType ?? '',
+            ]
+        );
+
     }
 
     /**
@@ -142,7 +176,7 @@ class UserManagement extends BaseController
     {
         $postParams = $request->getPostParams();
 
-        if ( $this->checkPostParams( $postParams, array_merge( $this->requiredUserFields, $this->requiredTeacherFields ) ) )
+        if ( Validation::getInstance()->validatePostParameters( $postParams, array_merge( $this->userFields, $this->teacherFields ) ) && $request->getMethod() === 'POST' )
         {
             $newTeacher = new Teacher();
             $newTeacher->setId( $postParams->getInt( 'id' ) );
@@ -154,21 +188,21 @@ class UserManagement extends BaseController
             $newTeacher->setIsAdmin( $postParams->getBoolean( 'isAdmin' ) );
 
             $this->teacherRepository->insert( $newTeacher );
-
-            return $this->createResponse( 'admin:addTeacher', [
-                    'asset-path' => $request->getBaseUri() . 'assets/admin/',
-                    'httpRequest' => $this->application->getRequest(),
-                ]
-            );
+            $feedback = 'De docent is toegevoegd';
+            $feedbackType = 'success';
         }
-        else
+        elseif( $request->getMethod() === 'POST' )
         {
-            return $this->createResponse( 'admin:addTeacher', [
-                    'asset-path' => $request->getBaseUri() . 'assets/admin/',
-                    'httpRequest' => $this->application->getRequest(),
-                ]
-            );
+            $feedback = Validation::getInstance()->getReadableErrors();
+            $feedbackType = 'danger';
         }
+
+        return $this->createResponse( 'admin:addTeacher', [
+                'feedback' => $feedback ?? '',
+                'feedback-type' => $feedbackType ?? '',
+            ]
+        );
+
     }
 
     /**
@@ -178,64 +212,61 @@ class UserManagement extends BaseController
      */
     public function editStudent( Request $request, string $id = '' ) : Response
     {
-        // Check if the user is allowed to edit the account.
-        if( $id != $_SESSION['userId'] && $_SESSION['authorizationLevel'] !== AuthorizedUser::ADMIN  )
+        if ( !$studentEntity = $this->studentRepository->getById( (int)$id ) )
+        {
+            $this->redirect( '/404' );
+        }
+
+        if ( !$this->isOwnOrAdmin( (int)$id ) )
         {
             $this->redirect( '/401' );
         }
 
-        $currentStudent = $this->studentRepository->getById( (int)$id );
         $postParams = $request->getPostParams();
-
-        if ( $this->checkPostParams( $postParams, array_merge( $this->requiredUserFields, $this->requiredStudentFields, [ 'id' ] ) ) )
+        if ( Validation::getInstance()->validatePostParameters( $postParams, array_merge( $this->userFields, $this->studentFields ) ) && $request->getMethod() === 'POST' )
         {
             $feedback = 'Het account is aangepast.';
-
-            $updatedStudent = new Student();
-            $updatedStudent->setId( $postParams->getInt( 'id' ) );
-            $updatedStudent->setEmail( $postParams->getString( 'email' ) );
-            $updatedStudent->setFirstName( $postParams->getString( 'firstName' ) );
-            $updatedStudent->setLastName( $postParams->getString( 'lastName' ) );
-            $updatedStudent->setAddress( $postParams->getString( 'address' ) );
-            $updatedStudent->setZipCode( $postParams->getString( 'zipCode' ) );
-            $updatedStudent->setLocation( $postParams->getString( 'location' ) );
-            $updatedStudent->setDateOfBirth( $postParams->getDateTime( 'dateOfBirth' ) );
-            $updatedStudent->setStudentCode( $postParams->getString( 'studentCode' ) );
-            $updatedStudent->setPhoneNumber( $postParams->getString( 'phoneNumber' ) );
+            $feedbackType = 'success';
+            $studentEntity->setEmail( $postParams->getString( 'email' ) );
+            $studentEntity->setFirstName( $postParams->getString( 'firstName' ) );
+            $studentEntity->setLastName( $postParams->getString( 'lastName' ) );
+            $studentEntity->setAddress( $postParams->getString( 'address' ) );
+            $studentEntity->setZipCode( $postParams->getString( 'zipCode' ) );
+            $studentEntity->setLocation( $postParams->getString( 'location' ) );
+            $studentEntity->setDateOfBirth( $postParams->getDateTime( 'dateOfBirth' ) );
+            $studentEntity->setStudentCode( $postParams->getString( 'studentCode' ) );
+            $studentEntity->setPhoneNumber( $postParams->getString( 'phoneNumber' ) );
 
             if ( $_SESSION[ 'authorizationLevel' ] == AuthorizedUser::ADMIN )
             {
-                $updatedStudent->setIsAdmin( $postParams->getBoolean( 'isAdmin' ) );
+                $studentEntity->setIsAdmin( (bool)$postParams->get( 'isAdmin' ) );
             }
 
             if ( $postParams->has( 'password' ) && $postParams->has( 'passwordRepeat' ) )
             {
                 if ( $newPassword = $this->updatePassword( $postParams->getString( 'password' ), $postParams->getString( 'passwordRepeat' ) ) )
                 {
-                    $updatedStudent->setHashedPassword( $newPassword );
+                    $studentEntity->setHashedPassword( $newPassword );
                 }
                 else
                 {
-                    $feedback = 'Het wachtwoord is incorrect.';
+                    $feedback .= '<br>Maar niet alles is geupdate: Het wachtwoord is incorrect.';
+                    $feedbackType = 'warning';
                 }
             }
 
-            $updatedStudent = $this->studentRepository->update( $updatedStudent );
-
-            return $this->createResponse( 'admin:editStudent', [
-                    'asset-path'   => $request->getBaseUri() . 'assets/admin/',
-                    'student-data' => $updatedStudent,
-                    'feedback'     => $feedback,
-                    'httpRequest' => $this->application->getRequest(),
-                ]
-            );
+            $studentEntity = $this->studentRepository->update( $studentEntity );
+        }
+        elseif( $request->getMethod() === 'POST' )
+        {
+            $feedback = Validation::getInstance()->getReadableErrors();
+            $feedbackType = 'danger';
         }
 
         return $this->createResponse( 'admin:editStudent', [
-                'asset-path'   => $request->getBaseUri() . 'assets/admin/',
-                'student-data' => ( $currentStudent->getId() !== 0 ) ? $currentStudent : NULL,
-                'feedback'     => ( $currentStudent->getId() !== 0 ) ? '' : 'De student bestaat niet.',
-                'httpRequest' => $this->application->getRequest(),
+                'student-data' => $studentEntity,
+                'feedback'     => $feedback ?? '',
+                'feedback-type' => $feedbackType ?? '',
             ]
         );
 
@@ -248,59 +279,60 @@ class UserManagement extends BaseController
      */
     public function editTeacher( Request $request, string $id = '' ) : Response
     {
-        // Check if the user is allowed to edit the account.
-        if( $id != $_SESSION['userId'] && $_SESSION['authorizationLevel'] !== AuthorizedUser::ADMIN  )
+        if ( !$teacherEntity = $this->teacherRepository->getById( (int)$id ) )
+        {
+            $this->redirect( '/404' );
+        }
+
+        if ( !$this->isOwnOrAdmin( (int)$id ) )
         {
             $this->redirect( '/401' );
         }
 
-        $currentTeacher = $this->teacherRepository->getById( (int)$id );
         $postParams = $request->getPostParams();
 
-        if ( $this->checkPostParams( $postParams, array_merge( $this->requiredUserFields, $this->requiredTeacherFields, [ 'id' ] ) ) )
+        if ( Validation::getInstance()->validatePostParameters( $postParams, array_merge( $this->userFields, $this->teacherFields ) )&& $request->getMethod() === 'POST'  )
         {
             $feedback = 'Het account is aangepast.';
-            $updatedTeacher = new Teacher();
-            $updatedTeacher->setId( $postParams->getInt( 'id' ) );
-            $updatedTeacher->setLastName( $postParams->getString( 'lastName' ) );
-            $updatedTeacher->setFirstName( $postParams->getString( 'firstName' ) );
-            $updatedTeacher->setEmail( $postParams->getString( 'email' ) );
+            $feedbackType = 'success';
+
+            $teacherEntity->setId( (int)$id );
+            $teacherEntity->setLastName( $postParams->getString( 'lastName' ) );
+            $teacherEntity->setFirstName( $postParams->getString( 'firstName' ) );
+            $teacherEntity->setEmail( $postParams->getString( 'email' ) );
 
             if ( $_SESSION[ 'authorizationLevel' ] == AuthorizedUser::ADMIN )
             {
-                $updatedTeacher->setIsSLBer( $postParams->getBoolean( 'isSlber' ) );
-                $updatedTeacher->setIsAdmin( $postParams->getBoolean( 'isAdmin' ) );
+                $teacherEntity->setIsSLBer( $postParams->getBoolean( 'isSlber' ) );
+                $teacherEntity->setIsAdmin( $postParams->getBoolean( 'isAdmin' ) );
             }
 
             if ( $postParams->has( 'password' ) && $postParams->has( 'passwordRepeat' ) )
             {
                 if ( $newPassword = $this->updatePassword( $postParams->getString( 'password' ), $postParams->getString( 'passwordRepeat' ) ) )
                 {
-                    $updatedTeacher->setHashedPassword( $newPassword );
+                    $teacherEntity->setHashedPassword( $newPassword );
                 }
                 else
                 {
-                    $feedback = 'Het wachtwoord is incorrect.';
+                    $feedback .= '<br>Maar niet alles is geupdate: Het wachtwoord is incorrect.';
+                    $feedbackType = 'warning';
                 }
             }
 
             // Update the teacher.
-            $updatedTeacher = $this->teacherRepository->update( $updatedTeacher );
-
-            return $this->createResponse( 'admin:editTeacher', [
-                    'asset-path' => $request->getBaseUri() . 'assets/admin/',
-                    'teacher-data' => $updatedTeacher,
-                    'feedback'     => $feedback,
-                    'httpRequest' => $this->application->getRequest(),
-                ]
-            );
+            $teacherEntity = $this->teacherRepository->update( $teacherEntity );
+        }
+        elseif( $request->getMethod() === 'POST' )
+        {
+            $feedback = Validation::getInstance()->getReadableErrors();
+            $feedbackType = 'danger';
         }
 
         return $this->createResponse( 'admin:editTeacher', [
-                'asset-path' => $request->getBaseUri() . 'assets/admin/',
-                'teacher-data' => $currentTeacher,
-                'feedback'     => ( $currentTeacher->getId() !== 0 ) ? '' : 'De student bestaat niet.',
-                'httpRequest' => $this->application->getRequest(),
+                'teacher-data' => $updatedTeacher ?? $teacherEntity,
+                'feedback'     => $feedback ?? '',
+                'feedback-type' => $feedbackType ?? '',
             ]
         );
     }
@@ -310,30 +342,25 @@ class UserManagement extends BaseController
      *
      * @param Request $request
      */
-    public function deleteStudent( Request $request ) : Response
+    public function deleteStudent( Request $request, string $id )
     {
-        $postParams = $request->getPostParams();
-
-        if ( $this->checkPostParams( $postParams, [ 'id' ] ) )
+        if ( !$studentEntity = $this->studentRepository->getById( (int)$id ) )
         {
-            $this->studentRepository->delete( $postParams->getInt( 'id' ) );
-
-            return new Response(
-                $this->renderWebPage(
-                    '', [
-
-                    ]
-                )
-            );
+            $this->redirect( '/404' );
         }
 
-        return new Response(
-            $this->renderWebPage(
-                '', [
+        if ( $_SESSION[ 'authorizationLevel' ] == AuthorizedUser::ADMIN )
+        {
+            $this->redirect( '/401' );
+        }
 
-                ]
-            )
-        );
+        $postParams = $request->getPostParams();
+
+        if ( $this->checkPostParams( $postParams, [ 'confirm' ] ) )
+        {
+            $this->studentRepository->delete( $postParams->getInt( 'id' ) );
+        }
+        $this->redirect( '/admin/gebruikersOverzicht' );
     }
 
     /**
@@ -341,30 +368,25 @@ class UserManagement extends BaseController
      *
      * @param Request $request
      */
-    public function deleteTeacher( Request $request ) : Response
+    public function deleteTeacher( Request $request, string $id )
     {
-        $postParams = $request->getPostParams();
-
-        if ( $this->checkPostParams( $postParams, [ 'id' ] ) )
+        if ( !$teacherEntity = $this->teacherRepository->getById( (int)$id ) )
         {
-            $this->teacherRepository->delete( $postParams->getInt( 'id' ) );
-
-            return new Response(
-                $this->renderWebPage(
-                    '', [
-
-                    ]
-                )
-            );
+            $this->redirect( '/404' );
         }
 
-        return new Response(
-            $this->renderWebPage(
-                '', [
+        if ( $_SESSION[ 'authorizationLevel' ] == AuthorizedUser::ADMIN )
+        {
+            $this->redirect( '/401' );
+        }
 
-                ]
-            )
-        );
+        $postParams = $request->getPostParams();
+
+        if ( $this->checkPostParams( $postParams, [ 'confirm' ] ) )
+        {
+            $this->studentRepository->delete( $postParams->getInt( 'id' ) );
+        }
+        $this->redirect( '/admin/gebruikersOverzicht' );
     }
 
     protected function updatePassword( string $password, string $secondPassword )

@@ -80,7 +80,7 @@ class StudentRepositoryTest extends \PHPUnit_Framework_TestCase
         $this->assertCount( 0, $students );
     }
 
-    public function testUpdateStudent(  )
+   /* public function testUpdateStudent(  )
     {
         $entityManager = new EntityManager();
         $studentRepository = $entityManager->getRepository( 'Student' );
@@ -106,7 +106,7 @@ class StudentRepositoryTest extends \PHPUnit_Framework_TestCase
             $this->assertEquals( '127.0.0.1', $student->getLastIpAddress() );
         }
 
-    }
+    }*/
 /*
     public function testInsert(  )
     {

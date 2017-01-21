@@ -11,7 +11,6 @@ namespace StendenINF1B\PortfolioCMS\Controller;
 use StendenINF1B\PortfolioCMS\Kernel\Authorization\User as AuthorizedUser;
 use StendenINF1B\PortfolioCMS\Kernel\BaseController;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\DisplayStudent;
-use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\Hobby;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\Portfolio;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\Skill;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Repository\HobbyRepository;
@@ -21,9 +20,12 @@ use StendenINF1B\PortfolioCMS\Kernel\Database\Repository\LanguageRepository;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Repository\ProjectRepository;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Repository\SkillRepository;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Repository\SLBAssignmentRepository;
+use StendenINF1B\PortfolioCMS\Kernel\Database\Repository\StudentRepository;
+use StendenINF1B\PortfolioCMS\Kernel\Database\Repository\TeacherRepository;
+use StendenINF1B\PortfolioCMS\Kernel\Database\Repository\ThemeRepository;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Repository\TrainingRepository;
 use StendenINF1B\PortfolioCMS\Kernel\Helper\ConfigLoader;
-use StendenINF1B\PortfolioCMS\Kernel\Http\ParameterContainer;
+use StendenINF1B\PortfolioCMS\Kernel\Helper\Validation;
 use StendenINF1B\PortfolioCMS\Kernel\Http\Request;
 use StendenINF1B\PortfolioCMS\Kernel\Http\Response;
 use StendenINF1B\PortfolioCMS\Kernel\TemplateEngine\TemplateEngine;
@@ -36,11 +38,11 @@ class PortfolioManagement extends BaseController
      *
      * @var array
      */
-    protected $requiredPortfolioFields = [
-        'title',
-        'url',
-        'themeId',
-        'userId',
+    protected $portfolioFields = [
+        'title'   => 'required|alpha_space|max_length=40|min_length=3',
+        'url'     => 'required|valid_url|max_length=40|min_length=3',
+        'themeId' => 'required|integer',
+        'userId'  => 'required|integer',
     ];
 
     /**
@@ -48,9 +50,9 @@ class PortfolioManagement extends BaseController
      *
      * @var array
      */
-    protected $requiredSkillFields = [
-        'name',
-        'levelOfExperience',
+    protected $skillFields = [
+        'name'              => 'required|alpha_space|min_length 3|max_length 40',
+        'levelOfExperience' => 'required|numeric',
     ];
 
     /**
@@ -58,13 +60,13 @@ class PortfolioManagement extends BaseController
      *
      * @var array
      */
-    protected $requiredTrainingFields = [
-        'title',
-        'institution',
-        'location',
-        'description',
-        'obtainedCertificate',
-        'currentTraining',
+    protected $trainingFields = [
+        'title'               => 'required|alpha_space|min_length 3|max_length 40',
+        'institution'         => 'required|alpha_space|min_length 3|max_length 40',
+        'location'            => 'required|alpha_space|min_length 3|max_length 40',
+        'description'         => 'required|alpha_space|min_length 3|max_length 40',
+        'obtainedCertificate' => 'required|boolean',
+        'currentTraining'     => 'required|boolean',
     ];
 
     /**
@@ -72,8 +74,8 @@ class PortfolioManagement extends BaseController
      *
      * @var array
      */
-    protected $requiredHobbyFields = [
-        'name',
+    protected $hobbyFields = [
+        'name' => 'required|alpha_space|min_length 3|max_length 40',
     ];
 
     /**
@@ -81,10 +83,10 @@ class PortfolioManagement extends BaseController
      *
      * @var array
      */
-    protected $requiredLanguageFields = [
-        'language',
-        'level',
-        'isNative',
+    protected $languageFields = [
+        'language' => 'required|alpha_space|min_length 3|max_length 40',
+        'level'    => 'required|numeric',
+        'isNative' => 'required|boolean',
     ];
 
     /**
@@ -92,10 +94,10 @@ class PortfolioManagement extends BaseController
      *
      * @var array
      */
-    protected $requiredJobExperienceFields = [
-        'location',
-        'description',
-        'isInternship',
+    protected $jobExperienceFields = [
+        'location'     => 'required|alpha_space|min_length 3|max_length 40',
+        'description'  => 'required|alpha_space|min_length 3',
+        'isInternship' => 'required|boolean',
     ];
 
     /**
@@ -103,10 +105,10 @@ class PortfolioManagement extends BaseController
      *
      * @var array
      */
-    protected $requiredUploadedFileFields = [
-        'fileName',
-        'mimeType',
-        'filePath',
+    protected $uploadedFileFields = [
+        'fileName' => 'required',
+        'mimeType' => 'required',
+        'filePath' => 'required',
     ];
 
     /**
@@ -114,8 +116,8 @@ class PortfolioManagement extends BaseController
      *
      * @var array
      */
-    protected $requiredSlbAssignmentFields = [
-        'name',
+    protected $slbAssignmentFields = [
+        'name' => 'required|alpha_space|min_length 3|max_length 40',
     ];
 
     /**
@@ -123,9 +125,9 @@ class PortfolioManagement extends BaseController
      *
      * @var array
      */
-    protected $requiredImageFields = [
-        'name',
-        'type',
+    protected $imageFields = [
+        'name' => 'required|alpha_space|min_length 3|max_length 40',
+        'type' => 'required|alpha_space|min_length 3|max_length 40',
     ];
 
     /**
@@ -133,7 +135,7 @@ class PortfolioManagement extends BaseController
      *
      * @var array
      */
-    protected $requiredProjectFields = [
+    protected $projectFields = [
         'name',
         'description',
         'link',
@@ -197,6 +199,27 @@ class PortfolioManagement extends BaseController
     protected $projectRepository;
 
     /**
+     * This can be used to fetch Theme entities from the database.
+     *
+     * @var ThemeRepository
+     */
+    protected $themeRepository;
+
+    /**
+     * This can be used to fetch Theme entities from the database.
+     *
+     * @var StudentRepository
+     */
+    protected $studentRepository;
+
+    /**
+     * This can be used to fetch Teacher entities from the database.
+     *
+     * @var TeacherRepository
+     */
+    protected $teacherRepository;
+
+    /**
      * BaseController constructor for initiating the portfolio controller.
      *
      * @param TemplateEngine|null $templateEngine
@@ -214,6 +237,9 @@ class PortfolioManagement extends BaseController
         $this->skillRepository = $this->getEntityManager()->getRepository( 'Skill' );
         $this->hobbyRepository = $this->getEntityManager()->getRepository( 'Hobby' );
         $this->projectRepository = $this->getEntityManager()->getRepository( 'Project' );
+        $this->themeRepository = $this->getEntityManager()->getRepository( 'Theme' );
+        $this->studentRepository = $this->getEntityManager()->getRepository( 'Student' );
+        $this->teacherRepository = $this->getEntityManager()->getRepository( 'Teacher' );
     }
 
     /**
@@ -246,18 +272,6 @@ class PortfolioManagement extends BaseController
     }
 
     /**
-     * Check if all required post parameters are send in an request.
-     *
-     * @param ParameterContainer $postParams
-     * @param array              $requiredPostFields
-     * @return bool
-     */
-    public function hasRequiredPostFields( ParameterContainer $postParams, array $requiredPostFields )
-    {
-        return count( array_diff_assoc( (array)$postParams, $this->requiredPortfolioFields ) ) != 0;
-    }
-
-    /**
      * This method renders an portfolio overview page for route /admin/portfolioOverview/{id}.
      *
      * @param Request $request
@@ -268,45 +282,55 @@ class PortfolioManagement extends BaseController
     {
         $postParams = $request->getPostParams();
 
-        if(!$portfolioEntity = $this->portfolioRepository->getByUserId( (int)$id ) )
+        if ( !$portfolioEntity = $this->portfolioRepository->getByUserId( (int)$id ) )
         {
             $this->redirect( '/404' );
         }
 
-        if( $request->getMethod() === 'POST' )
+        if ( !$this->isOwnOrAdmin( $id ) )
         {
-            if( $this->checkPostParams( $postParams, $this->requiredPortfolioFields ) )
+            $this->redirect( '401' );
+        }
+
+        if ( $request->getMethod() === 'POST' )
+        {
+            if ( Validation::getInstance()->validatePostParameters( $postParams, $this->portfolioFields ) )
             {
-                // todo write code to handle the form submission
                 $updatedPortfolio = new Portfolio();
+                $updatedPortfolio->setTitle( $postParams->getString( 'title' ) );
+                $updatedPortfolio->setUrl( $postParams->getString( 'url' ) );
+                $updatedPortfolio->setTheme( $this->themeRepository->getById( $postParams->getInt( 'themeId' ) ) );
+                $updatedPortfolio->setStudent( $this->studentRepository->getById( (int)$postParams->get( 'userId' ) ) );
+
+                $this->portfolioRepository->update( $updatedPortfolio );
 
                 $feedback = 'De wijzegingen zijn opgeslagen.';
             }
             else
             {
-                $feedback = 'Niet alle verplichte velden zijn ingevuld.';
+                $feedback = Validation::getInstance()->getReadableErrors();
             }
 
         }
 
         return $this->createResponse(
             'admin:portfolio', [
-                'title' => $portfolioEntity->getTitle(),
-                'id' => $portfolioEntity->getId(),
-                'grade' => $portfolioEntity->getGrade(),
-                'url' => $portfolioEntity->getUrl(),
-                'student' => new DisplayStudent( $portfolioEntity->getStudent() ),
+                'title'          => $portfolioEntity->getTitle(),
+                'id'             => $portfolioEntity->getId(),
+                'grade'          => $portfolioEntity->getGrade(),
+                'url'            => $portfolioEntity->getUrl(),
+                'student'        => new DisplayStudent( $portfolioEntity->getStudent() ),
                 'jobExperiences' => $portfolioEntity->getJobExperience(),
-                'languages' => $portfolioEntity->getLanguage(),
-                'trainings' => $portfolioEntity->getTrainings(),
+                'languages'      => $portfolioEntity->getLanguage(),
+                'trainings'      => $portfolioEntity->getTrainings(),
                 'slbAssignments' => $portfolioEntity->getSlbAssignments(),
-                'images' => $portfolioEntity->getImages(),
-                'skills' => $portfolioEntity->getSkills(),
-                'hobbies' => $portfolioEntity->getHobbies(),
-                'projects' => $portfolioEntity->getProjects(),
-                'pages' => $portfolioEntity->getPages(),
-                'httpRequest' => $request,
-                'feedback' => $feedback ?? '',
+                'images'         => $portfolioEntity->getImages(),
+                'skills'         => $portfolioEntity->getSkills(),
+                'hobbies'        => $portfolioEntity->getHobbies(),
+                'projects'       => $portfolioEntity->getProjects(),
+                'pages'          => $portfolioEntity->getPages(),
+                'httpRequest'    => $request,
+                'feedback'       => $feedback ?? '',
             ]
         );
     }
@@ -327,28 +351,36 @@ class PortfolioManagement extends BaseController
         );
     }
 
+    /**
+     * This method adds an new portfolio to the database for the route /admin/addPortfolio.
+     *
+     * @param Request $request
+     * @return Response
+     */
     public function addPortfolio( Request $request ) : Response
     {
         $postParams = $request->getPostParams();
 
-        if ( $this->checkPostParams( $postParams, $this->requiredPortfolioFields ) )
+        if ( Validation::getInstance()->validatePostParameters( $postParams, $this->portfolioFields ) && $request->getMethod() === 'POST')
         {
-            $themeRepository = $this->getEntityManager()->getRepository( 'Theme' );
-            $studentRepository = $this->getEntityManager()->getRepository( 'Student' );
-            $portfolioRepository = $this->getEntityManager()->getRepository( 'Portfolio' );
-
             $newPortfolio = new Portfolio();
-            $newPortfolio->setTitle( (string)$postParams->get( 'title' ) );
-            $newPortfolio->setUrl( (string)$postParams->get( 'url' ) );
-            $newPortfolio->setTheme( $themeRepository->getById( (int)$postParams->get( 'themeId' ) ) );
-            $newPortfolio->setStudent( $studentRepository->getById( (int)$postParams->get( 'userId' ) ) );
+            $newPortfolio->setTitle( $postParams->getString( 'title' ) );
+            $newPortfolio->setUrl( $postParams->getString( 'url' ) );
+            $newPortfolio->setTheme( $this->themeRepository->getById( $postParams->getInt( 'themeId' ) ) );
+            $newPortfolio->setStudent( $this->studentRepository->getById( (int)$postParams->get( 'userId' ) ) );
 
-            $portfolioRepository->insert( $newPortfolio );
+            $this->portfolioRepository->insert( $newPortfolio );
+
+            $feedback = 'Het portfolio is toegevoegd.';
+        }
+        else
+        {
+            $feedback = Validation::getInstance()->getReadableErrors();
         }
 
         return $this->createResponse(
             'admin:addPortfolio', [
-
+                'feedback' => $feedback ?? '',
             ]
         );
     }
@@ -364,12 +396,26 @@ class PortfolioManagement extends BaseController
     {
         $postParams = $request->getPostParams();
 
-        if( $request->getMethod() === 'POST' )
+        if ( !$skillEntity = $this->skillRepository->getById( (int)$skillId ) )
         {
-            // todo write code to handle the form submission
+            $this->redirect( '404' );
         }
 
-        if( !$skillEntity = $this->skillRepository->getById( (int)$skillId ) )
+        if ( !$this->isOwnOrAdmin( $skillId ) )
+        {
+            $this->redirect( '401' );
+        }
+
+        if ( Validation::getInstance()->validatePostParameters( $postParams, $this->skillFields ) && $request->getMethod() === 'POST')
+        {
+            $updatedSkill = new Skill();
+        }
+        else
+        {
+            $feedback = Validation::getInstance()->getReadableErrors();
+        }
+
+        if ( !$skillEntity = $this->skillRepository->getById( (int)$skillId ) )
         {
             $this->redirect( '/404' );
         }
@@ -377,6 +423,7 @@ class PortfolioManagement extends BaseController
         return $this->createResponse(
             'admin:editSkill', [
                 'skill-data' => $skillEntity,
+                'feedback'   => $feedback ?? '',
             ]
         );
     }
@@ -392,19 +439,29 @@ class PortfolioManagement extends BaseController
     {
         $postParams = $request->getPostParams();
 
-        if( $request->getMethod() === 'POST' )
+        if ( !$trainingEntity = $this->trainingRepository->getById( (int)$trainingId ) )
         {
-            // todo write code to handle the form submission
+            $this->redirect( '404' );
         }
 
-        if( !$trainingEntity = $this->trainingRepository->getById( (int)$trainingId ) )
+        if ( !$this->isOwnOrAdmin( $trainingId ) )
         {
-            $this->redirect( '/404' );
+            $this->redirect( '401' );
+        }
+
+        if ( Validation::getInstance()->validatePostParameters( $postParams, $this->trainingFields ) && $request->getMethod() === 'POST')
+        {
+
+        }
+        else
+        {
+            $feedback = Validation::getInstance()->getReadableErrors();
         }
 
         return $this->createResponse(
             'admin:editTraining', [
                 'training-data' => $trainingEntity,
+                'feedback'      => $feedback ?? '',
             ]
         );
     }
@@ -420,19 +477,29 @@ class PortfolioManagement extends BaseController
     {
         $postParams = $request->getPostParams();
 
-        if( $request->getMethod() === 'POST' )
+        if ( !$hobbyEntity = $this->hobbyRepository->getById( (int)$hobbyId ) )
         {
-            // todo write code to handle the form submission
+            $this->redirect( '404' );
         }
 
-        if( !$hobbyEntity = $this->hobbyRepository->getById( (int)$hobbyId ) )
+        if ( !$this->isOwnOrAdmin( $hobbyId ) )
         {
-            $this->redirect( '/404' );
+            $this->redirect( '401' );
+        }
+
+        if ( Validation::getInstance()->validatePostParameters( $postParams, $this->hobbyFields ) && $request->getMethod() === 'POST')
+        {
+
+        }
+        else
+        {
+            $feedback = Validation::getInstance()->getReadableErrors();
         }
 
         return $this->createResponse(
             'admin:editHobby', [
                 'hobby-data' => $hobbyEntity,
+                'feedback'   => $feedback ?? '',
             ]
         );
     }
@@ -448,19 +515,29 @@ class PortfolioManagement extends BaseController
     {
         $postParams = $request->getPostParams();
 
-        if( $request->getMethod() === 'POST' )
+        if ( !$languageEntity = $this->languageRepository->getById( (int)$languageId ) )
         {
-            // todo write code to handle the form submission
+            $this->redirect( '404' );
         }
 
-        if( !$languageEntity = $this->languageRepository->getById( (int)$languageId ) )
+        if ( !$this->isOwnOrAdmin( $languageId ) )
         {
-            $this->redirect( '/404' );
+            $this->redirect( '401' );
+        }
+
+        if ( Validation::getInstance()->validatePostParameters( $postParams, $this->languageFields ) && $request->getMethod() === 'POST')
+        {
+
+        }
+        else
+        {
+            $feedback = Validation::getInstance()->getReadableErrors();
         }
 
         return $this->createResponse(
             'admin:editLanguage', [
                 'language-data' => $languageEntity,
+                'feedback'      => $feedback ?? '',
             ]
         );
     }
@@ -476,19 +553,29 @@ class PortfolioManagement extends BaseController
     {
         $postParams = $request->getPostParams();
 
-        if( $request->getMethod() === 'POST' )
+        if ( !$slbAssignmentEntity = $this->slbAssignmentRepository->getById( (int)$slbAssignmentId ) )
         {
-            // todo write code to handle the form submission
+            $this->redirect( '404' );
         }
 
-        if( !$slbAssignmentEntity = $this->slbAssignmentRepository->getById( (int)$slbAssignmentId ) )
+        if ( !$this->isOwnOrAdmin( $slbAssignmentId ) )
         {
-            $this->redirect( '/404' );
+            $this->redirect( '401' );
+        }
+
+        if ( Validation::getInstance()->validatePostParameters( $postParams, $this->slbAssignmentFields ) && $request->getMethod() === 'POST')
+        {
+
+        }
+        else
+        {
+            $feedback = Validation::getInstance()->getReadableErrors();
         }
 
         return $this->createResponse(
             'admin:editSlbAssignment', [
                 'slbAssignment-data' => $slbAssignmentEntity,
+                'feedback'           => $feedback ?? '',
             ]
         );
     }
@@ -504,19 +591,29 @@ class PortfolioManagement extends BaseController
     {
         $postParams = $request->getPostParams();
 
-        if( $request->getMethod() === 'POST' )
+        if ( !$imageEntity = $this->imageRepository->getById( (int)$imageId ) )
         {
-            // todo write code to handle the form submission
+            $this->redirect( '404' );
         }
 
-        if( !$imageEntity = $this->imageRepository->getById( (int)$imageId ) )
+        if ( !$this->isOwnOrAdmin( $imageId ) )
         {
-            $this->redirect( '/404' );
+            $this->redirect( '401' );
+        }
+
+        if ( Validation::getInstance()->validatePostParameters( $postParams, $this->imageFields ) && $request->getMethod() === 'POST')
+        {
+
+        }
+        else
+        {
+            $feedback = Validation::getInstance()->getReadableErrors();
         }
 
         return $this->createResponse(
             'admin:editImage', [
                 'image-data' => $imageEntity,
+                'feedback'   => $feedback ?? '',
             ]
         );
     }
@@ -532,20 +629,29 @@ class PortfolioManagement extends BaseController
     {
         $postParams = $request->getPostParams();
 
-        if( $request->getMethod() === 'POST' )
+        if ( !$projectEntity = $this->projectRepository->getById( (int)$projectId ) )
         {
-            // todo write code to handle the form submission
+            $this->redirect( '404' );
         }
 
-        if( !$projectEntity = $this->projectRepository->getById( (int)$projectId ) )
+        if ( !$this->isOwnOrAdmin( $projectId ) )
         {
-            $this->redirect( '/404' );
+            $this->redirect( '401' );
         }
 
+        if ( Validation::getInstance()->validatePostParameters( $postParams, $this->projectFields ) && $request->getMethod() === 'POST')
+        {
+
+        }
+        else
+        {
+            $feedback = Validation::getInstance()->getReadableErrors();
+        }
 
         return $this->createResponse(
             'admin:editProject', [
                 'project-data' => $projectEntity,
+                'feedback'     => $feedback ?? '',
             ]
         );
     }
@@ -561,20 +667,29 @@ class PortfolioManagement extends BaseController
     {
         $postParams = $request->getPostParams();
 
-        if( $request->getMethod() === 'POST' )
+        if ( !$jobExperienceEntity = $this->jobExperienceRepository->getById( (int)$jobExperienceId ) )
         {
-            // todo write code to handle the form submission
+            $this->redirect( '404' );
         }
 
-        if( !$jobExperienceEntity = $this->projectRepository->getById( (int)$jobExperienceId ) )
+        if ( !$this->isOwnOrAdmin( $jobExperienceId ) )
         {
-            $this->redirect( '/404' );
+            $this->redirect( '401' );
         }
 
+        if ( Validation::getInstance()->validatePostParameters( $postParams, $this->jobExperienceFields ) && $request->getMethod() === 'POST' )
+        {
+
+        }
+        else
+        {
+            $feedback = Validation::getInstance()->getReadableErrors();
+        }
 
         return $this->createResponse(
             'admin:editJobExperience', [
-                'project-data' => $jobExperienceId,
+                'project-data' => $jobExperienceEntity,
+                'feedback'     => $feedback ?? '',
             ]
         );
     }
@@ -590,13 +705,18 @@ class PortfolioManagement extends BaseController
     {
         $postParams = $request->getPostParams();
 
-        if( $request->getMethod() === 'POST' )
+        if ( Validation::getInstance()->validatePostParameters( $postParams, $this->jobExperienceFields ) && $request->getMethod() === 'POST')
         {
-            // todo write code to handle the form submission
+
+        }
+        else
+        {
+            $feedback = Validation::getInstance()->getReadableErrors();
         }
 
         return $this->createResponse(
             'admin:addJobExperience', [
+                'feedback' => $feedback ?? '',
             ]
         );
     }
@@ -610,9 +730,20 @@ class PortfolioManagement extends BaseController
      */
     public function addSkill( Request $request ): Response
     {
+        $postParams = $request->getPostParams();
+
+        if ( Validation::getInstance()->validatePostParameters( $postParams, $this->skillFields ) && $request->getMethod() === 'POST')
+        {
+
+        }
+        else
+        {
+            $feedback = Validation::getInstance()->getReadableErrors();
+        }
+
         return $this->createResponse(
             'admin:addSkill', [
-
+                'feedback'       => $feedback ?? '',
             ]
         );
     }
@@ -626,9 +757,20 @@ class PortfolioManagement extends BaseController
      */
     public function addTraining( Request $request ): Response
     {
+        $postParams = $request->getPostParams();
+
+        if ( Validation::getInstance()->validatePostParameters( $postParams, $this->trainingFields ) && $request->getMethod() === 'POST')
+        {
+
+        }
+        else
+        {
+            $feedback = Validation::getInstance()->getReadableErrors();
+        }
+
         return $this->createResponse(
             'admin:addTraining', [
-
+                'feedback'       => $feedback ?? '',
             ]
         );
     }
@@ -642,9 +784,20 @@ class PortfolioManagement extends BaseController
      */
     public function addHobby( Request $request ): Response
     {
+        $postParams = $request->getPostParams();
+
+        if ( Validation::getInstance()->validatePostParameters( $postParams, $this->trainingFields ) && $request->getMethod() === 'POST')
+        {
+
+        }
+        else
+        {
+            $feedback = Validation::getInstance()->getReadableErrors();
+        }
+
         return $this->createResponse(
             'admin:addHobby', [
-
+                'feedback'       => $feedback ?? '',
             ]
         );
     }
@@ -658,9 +811,20 @@ class PortfolioManagement extends BaseController
      */
     public function addLanguage( Request $request ): Response
     {
+        $postParams = $request->getPostParams();
+
+        if ( Validation::getInstance()->validatePostParameters( $postParams, $this->trainingFields ) && $request->getMethod() === 'POST')
+        {
+
+        }
+        else
+        {
+            $feedback = Validation::getInstance()->getReadableErrors();
+        }
+
         return $this->createResponse(
             'admin:addLanguage', [
-
+                'feedback'       => $feedback ?? '',
             ]
         );
     }
@@ -674,9 +838,20 @@ class PortfolioManagement extends BaseController
      */
     public function addSlbAssignment( Request $request ): Response
     {
+        $postParams = $request->getPostParams();
+
+        if ( Validation::getInstance()->validatePostParameters( $postParams, $this->trainingFields ) && $request->getMethod() === 'POST')
+        {
+
+        }
+        else
+        {
+            $feedback = Validation::getInstance()->getReadableErrors();
+        }
+
         return $this->createResponse(
             'admin:addSlbAssignment', [
-
+                'feedback'       => $feedback ?? '',
             ]
         );
     }
@@ -690,9 +865,20 @@ class PortfolioManagement extends BaseController
      */
     public function addImage( Request $request ): Response
     {
+        $postParams = $request->getPostParams();
+
+        if ( Validation::getInstance()->validatePostParameters( $postParams, $this->trainingFields ) && $request->getMethod() === 'POST')
+        {
+
+        }
+        else
+        {
+            $feedback = Validation::getInstance()->getReadableErrors();
+        }
+
         return $this->createResponse(
             'admin:addImage', [
-
+                'feedback'       => $feedback ?? '',
             ]
         );
     }
@@ -706,9 +892,20 @@ class PortfolioManagement extends BaseController
      */
     public function addProject( Request $request ): Response
     {
+        $postParams = $request->getPostParams();
+
+        if ( Validation::getInstance()->validatePostParameters( $postParams, $this->trainingFields ) && $request->getMethod() === 'POST')
+        {
+
+        }
+        else
+        {
+            $feedback = Validation::getInstance()->getReadableErrors();
+        }
+
         return $this->createResponse(
             'admin:addProject', [
-
+                'feedback'       => $feedback ?? '',
             ]
         );
     }

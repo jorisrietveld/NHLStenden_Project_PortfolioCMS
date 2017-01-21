@@ -171,6 +171,9 @@ class RouteParser
      */
     public function compileRouteToRegex( string $url )
     {
+        /**
+         * Todo rewrite this to match better like: \/(urlpart)\/([\w]+)\/(urlpart)
+         */
         $url = str_replace( '/', '\/', $url );
         $searchPlaceholder = "/\{([\w\]]+)\}/";
         return '/'. preg_replace( $searchPlaceholder, self::REGEX_PLACEHOLDER, $url) . '$/';

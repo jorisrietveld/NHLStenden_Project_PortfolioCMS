@@ -138,12 +138,16 @@ abstract class BaseController
      * Redirect the user to an different route.
      *
      * @param string $toRoute
-     * @return Http\Response
      */
     public function redirect( string $toRoute )
     {
         header( 'Location: ' . $toRoute );
         //return $this->application->handleFromRoute( $toRoute );
+    }
+
+    public function validatePostParams(  )
+    {
+        
     }
 
     /**

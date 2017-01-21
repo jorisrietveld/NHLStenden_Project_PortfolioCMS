@@ -21,18 +21,23 @@ include 'header.php';
                         </h4>
                         <hr class="style-one"/>
                         <div class="col-sm-5 custom-buttons">
-                            <?php if( $dataProvider->isAdmin() ): ?>
-                            <a href="../gebruikersOverzicht">
-                                <button class="btn btn-md btn-primary btn-block btn-custom">
-                                    <i class="fa fa-arrow-left"></i> Terug
-                                </button>
-                            </a>
+                            <?php if ( $dataProvider->isAdmin() ): ?>
+                                <a href="../gebruikersOverzicht">
+                                    <button class="btn btn-md btn-primary btn-block btn-custom">
+                                        <i class="fa fa-arrow-left"></i> Terug
+                                    </button>
+                                </a>
                             <?php endif; ?>
                         </div>
                         <div class="clearfix"></div>
                         <div class="content">
                             <div class="container-fluid">
                                 <div class="row">
+                                    <?php if ( $dataProvider->hasFeedback() ) : ?>
+                                        <div class="alert alert-<?= $dataProvider->get( 'feedback-type' ) ?>">
+                                            <span><?= $dataProvider->get( 'feedback' ) ?></span>
+                                        </div>
+                                    <?php endif; ?>
                                     <div class="col-sm-6 col-sm-offset-3">
                                         <form class="form-custom float-left" action="" method="POST">
 
@@ -44,7 +49,7 @@ include 'header.php';
                                                        id="inputEmail"
                                                        placeholder="Email"
                                                        title="Ongeldig email adres"
-                                                       value="<?= $dataProvider->call('student-data', 'getEmail') ?>"
+                                                       value="<?= $dataProvider->call( 'student-data', 'getEmail' ) ?>"
                                                        required>
                                             </div>
 
@@ -81,7 +86,7 @@ include 'header.php';
                                                        placeholder="Voornaam"
                                                        pattern="[a-zA-Z]{2,}"
                                                        title="Ongeldige voornaam"
-                                                       value="<?= $dataProvider->call('student-data', 'getFirstName') ?>"
+                                                       value="<?= $dataProvider->call( 'student-data', 'getFirstName' ) ?>"
                                                        required>
                                             </div>
 
@@ -95,7 +100,7 @@ include 'header.php';
                                                        placeholder="Achternaam"
                                                        pattern="[a-zA-Z]{2,}"
                                                        title="Ongeldige achternaam"
-                                                       value="<?= $dataProvider->call('student-data', 'getLastName') ?>"
+                                                       value="<?= $dataProvider->call( 'student-data', 'getLastName' ) ?>"
                                                        required>
                                             </div>
 
@@ -106,7 +111,7 @@ include 'header.php';
                                                        class="form-control"
                                                        id="inputAddress"
                                                        placeholder="Addres"
-                                                       value="<?= $dataProvider->call('student-data', 'getAddress') ?>"
+                                                       value="<?= $dataProvider->call( 'student-data', 'getAddress' ) ?>"
                                                        required>
                                             </div>
 
@@ -119,7 +124,7 @@ include 'header.php';
                                                        placeholder="postcode"
                                                        pattern="[1-9]\d{3} ?[a-zA-Z]{2}"
                                                        title="Ongeldige postcode"
-                                                       value="<?= $dataProvider->call('student-data', 'getZipCode') ?>"
+                                                       value="<?= $dataProvider->call( 'student-data', 'getZipCode' ) ?>"
                                                        required>
                                             </div>
 
@@ -131,7 +136,7 @@ include 'header.php';
                                                        class="form-control"
                                                        id="inputLocation"
                                                        placeholder="Woonplaats"
-                                                       value="<?= $dataProvider->call('student-data', 'getLocation') ?>"
+                                                       value="<?= $dataProvider->call( 'student-data', 'getLocation' ) ?>"
                                                        required>
                                             </div>
 
@@ -143,7 +148,10 @@ include 'header.php';
                                                        class="form-control"
                                                        id="inputDateOfBirth"
                                                        placeholder="geboorte datum"
-                                                       value="<?= $dataProvider->nestedCall('student-data', 'getDateOfBirth:format', [[], ['Y-m-d'],]) ?>"
+                                                       value="<?= $dataProvider->nestedCall( 'student-data', 'getDateOfBirth:format', [
+                                                           [],
+                                                           [ 'Y-m-d' ],
+                                                       ] ) ?>"
                                                        required>
                                             </div>
 
@@ -157,35 +165,41 @@ include 'header.php';
                                                        placeholder="student code"
                                                        pattern="[1-9]\d{4,}"
                                                        title="Ongeldige student code"
-                                                       value="<?= $dataProvider->call('student-data', 'getStudentCode') ?>"
+                                                       value="<?= $dataProvider->call( 'student-data', 'getStudentCode' ) ?>"
                                                        required>
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputPassword">telefoon
+                                                <label class="form-label col-lg-3" for="phoneNumber">telefoon
                                                     nummer</label>
                                                 <input type="tel"
-                                                       name="lastName"
+                                                       name="phoneNumber"
                                                        class="form-control"
-                                                       id="inputLastName"
+                                                       id="phoneNumber"
                                                        placeholder="telefoon nummer"
-                                                       value="<?= $dataProvider->call('student-data', 'getPhoneNumber') ?>"
+                                                       value="<?= $dataProvider->call( 'student-data', 'getPhoneNumber' ) ?>"
                                                        required>
                                             </div>
 
 
-                                            <?php if ($dataProvider->isAdmin()): ?>
+                                            <?php if ( $dataProvider->isAdmin() ): ?>
                                                 <div class="row radio-buttons-custom">
                                                     <div class="col-lg-12">
                                                         <p class="centertext">Admin</p><br/>
-                                                        <label><input type="radio" name="isAdmin" value="1"
-                                                                      class="radio-custom"><span
-                                                                    class="isSelected"> Ja</span></input></label>
-                                                        <label><input type="radio" name="isAdmin" value="0"
+                                                        <label>
+                                                            <input type="radio" name="isAdmin" value="1"
+                                                                      class="radio-custom" <?= $dataProvider->call( 'student-data', 'getIsAdmin') ? 'checked':'' ?>>
+                                                            <span class="isSelected"> Ja </span>
+                                                            </input>
+                                                        </label>
+                                                        <label>
+                                                            <input type="radio" name="isAdmin" value="0"
                                                                       class="radio-custom"
                                                                       id="inputLastName"
-                                                                      placeholder="Achternaam" checked><span
-                                                                    class="isSelected"> Nee</span></input></label>
+                                                                      placeholder="Achternaam"<?= $dataProvider->call( 'student-data', 'getIsAdmin') ? 'checked':'' ?>
+                                                            <span class="isSelected"> Nee</span>
+                                                            </input>
+                                                        </label>
                                                     </div>
                                                 </div>
                                                 <div class="clearfix"></div>
@@ -195,13 +209,19 @@ include 'header.php';
                                                         <p class="centertext">Actief</p><br/>
                                                         <label>
                                                             <input type="radio" name="active" value="1"
-                                                                   class="radio-custom" checked><span
-                                                                    class="isSelected"> Ja</span></input></label>
-                                                        <label><input type="radio" name="active" value="0"
-                                                                      class="radio-custom"
-                                                                      id="inputLastName"
-                                                                      placeholder="Achternaam"><span
-                                                                    class="isSelected"> Nee</span></input></label>
+                                                                   class="radio-custom" <?= $dataProvider->call( 'student-data', 'getIsActive') ? 'checked':'' ?>>
+                                                            <span class="isSelected"> Ja</span>
+                                                            </input>
+                                                        </label>
+                                                        <label>
+                                                            <input type="radio" name="active" value="0"
+                                                                   class="radio-custom"
+                                                                   id="inputLastName"
+                                                                    <?= $dataProvider->call( 'student-data', 'getIsActive') ? 'checked':'' ?>>
+                                                            <span class="isSelected">
+                                                                Nee</span>
+                                                            </input>
+                                                        </label>
                                                     </div>
                                                 </div>
                                             <?php endif; ?>

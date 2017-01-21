@@ -22,144 +22,152 @@
         <action id="controller">Authentication:register</action>
     </route>
 
-    <route id="Portfolio" path="/portfolio/{student_name}" methods="GET" authorization="ANONYMOUS_USER">
+    <route id="portfolio" path="/portfolio/{student_name}" methods="GET" authorization="ANONYMOUS_USER">
         <action id="controller">Portfolio:index</action>
     </route>
 
-    <route id="Portfolio" path="/portfolio/{student_name}/{page}" methods="GET" authorization="ANONYMOUS_USER">
+    <route id="portfolio" path="/portfolio/{student_name}/{page}" methods="GET" authorization="ANONYMOUS_USER">
         <action id="controller">Portfolio:index</action>
     </route>
 
-    <route id="RawPortfolio" path="/raw/{student_name}" methods="POST|GET" authorization="ANONYMOUS_USER">
+    <route id="debug_raw_portfolio" path="/raw/{student_name}" methods="POST|GET" authorization="ANONYMOUS_USER">
         <action id="controller">Raw</action>
     </route>
 
     <!-- Authorized user management routes. -->
-    <route id="Admin" path="/admin/gebruikersOverzicht" methods="GET" authorization="ADMIN">
+    <route id="user_overview" path="/admin/gebruikersOverzicht" methods="GET" authorization="ADMIN">
         <action id="controller">UserManagement:userOverview</action>
     </route>
 
-    <route id="Admin" path="admin/addTeacher" methods="GET|POST" authorization="ADMIN">
+    <route id="add_teacher" path="admin/addTeacher" methods="GET|POST" authorization="ADMIN">
         <action id="controller">UserManagement:insertTeacher</action>
     </route>
 
-    <route id="Admin" path="admin/addStudent" methods="GET|POST" authorization="ADMIN">
+    <route id="add_student" path="admin/addStudent" methods="GET|POST" authorization="ADMIN">
         <action id="controller">UserManagement:insertStudent</action>
     </route>
 
-    <route id="Admin" path="/admin/editStudent/{id}" methods="GET|POST" authorization="STUDENT">
+    <route id="edit_student" path="/admin/editStudent/{id}" methods="GET|POST" authorization="STUDENT">
         <action id="controller">UserManagement:editStudent</action>
     </route>
 
-    <route id="Admin" path="/admin/editTeacher/{id}" methods="GET|POST" authorization="TEACHER">
+    <route id="edit_teacher" path="/admin/editTeacher/{id}" methods="GET|POST" authorization="TEACHER">
         <action id="controller">UserManagement:editTeacher</action>
     </route>
 
+    <route id="delete_teacher" path="/admin/deleteTeacher/{id}" methods="GET|POST" authorization="ADMIN">
+        <action id="controller">UserManagement:deleteTeacher</action>
+    </route>
+
+    <route id="delete_student" path="/admin/deleteStudent/{id}" methods="GET|POST" authorization="ADMIN">
+        <action id="controller">UserManagement:deleteStudent</action>
+    </route>
+
     <!-- Authorized portfolio management -->
-    <route id="Admin" path="/admin/portfolio_van/{id}" methods="GET|POST" authorization="STUDENT">
+    <route id="portfolio_management" path="/admin/portfolio_van/{id}" methods="GET|POST" authorization="STUDENT">
         <action id="controller">PortfolioManagement:portfolio</action>
     </route>
 
-    <route id="Admin" path="/admin/portfolioOverzicht" methods="GET|POST" authorization="ADMIN">
+    <route id="portfolio_overview" path="/admin/portfolioOverzicht" methods="GET|POST" authorization="ADMIN">
         <action id="controller">PortfolioManagement:portfolioOverview</action>
     </route>
 
-    <route id="Admin" path="/admin/addPortfolio" methods="GET|POST" authorization="ADMIN">
+    <route id="add_portfolio" path="/admin/addPortfolio" methods="GET|POST" authorization="ADMIN">
         <action id="controller">PortfolioManagement:addPortfolio</action>
     </route>
 
     <!-- Authorized portfolio management edit portfolio items -->
-    <route id="Admin" path="/admin/editSkill/{id}" methods="GET|POST" authorization="STUDENT">
+    <route id="edit_skill" path="/admin/editSkill/{id}" methods="GET|POST" authorization="STUDENT">
         <action id="controller">PortfolioManagement:editSkill</action>
     </route>
 
-    <route id="Admin" path="/admin/editTraining/{id}" methods="GET|POST" authorization="STUDENT">
+    <route id="edit_training" path="/admin/editTraining/{id}" methods="GET|POST" authorization="STUDENT">
         <action id="controller">PortfolioManagement:editTraining</action>
     </route>
 
-    <route id="Admin" path="/admin/editHobby/{id}" methods="GET|POST" authorization="STUDENT">
+    <route id="edit_hobby" path="/admin/editHobby/{id}" methods="GET|POST" authorization="STUDENT">
         <action id="controller">PortfolioManagement:editHobby</action>
     </route>
 
-    <route id="Admin" path="/admin/editLanguage/{id}" methods="GET|POST" authorization="STUDENT">
+    <route id="edit_language" path="/admin/editLanguage/{id}" methods="GET|POST" authorization="STUDENT">
         <action id="controller">PortfolioManagement:editLanguage</action>
     </route>
 
-    <route id="Admin" path="/admin/editJobExperience/{id}" methods="GET|POST" authorization="STUDENT">
+    <route id="edit_job_experience" path="/admin/editJobExperience/{id}" methods="GET|POST" authorization="STUDENT">
         <action id="controller">PortfolioManagement:editJobExperience</action>
     </route>
 
-    <route id="Admin" path="/admin/editSlbAssignment/{id}" methods="GET|POST" authorization="STUDENT">
+    <route id="edit_slb_assignment" path="/admin/editSlbAssignment/{id}" methods="GET|POST" authorization="STUDENT">
         <action id="controller">PortfolioManagement:editSlbAssignment</action>
     </route>
 
-    <route id="Admin" path="/admin/editImage/{id}" methods="GET|POST" authorization="STUDENT">
+    <route id="edit_image" path="/admin/editImage/{id}" methods="GET|POST" authorization="STUDENT">
         <action id="controller">PortfolioManagement:editImage</action>
     </route>
 
-    <route id="Admin" path="/admin/editProject/{id}" methods="GET|POST" authorization="STUDENT">
+    <route id="edit_project" path="/admin/editProject/{id}" methods="GET|POST" authorization="STUDENT">
         <action id="controller">PortfolioManagement:editProject</action>
     </route>
 
     <!-- Authorized portfolio management add portfolio items -->
-    <route id="Admin" path="/admin/addSkill" methods="GET|POST" authorization="STUDENT">
+    <route id="add_skill" path="/admin/addSkill" methods="GET|POST" authorization="STUDENT">
         <action id="controller">PortfolioManagement:addSkill</action>
     </route>
 
-    <route id="Admin" path="/admin/addTraining" methods="GET|POST" authorization="STUDENT">
+    <route id="add_training" path="/admin/addTraining" methods="GET|POST" authorization="STUDENT">
         <action id="controller">PortfolioManagement:addTraining</action>
     </route>
 
-    <route id="Admin" path="/admin/addHobby" methods="GET|POST" authorization="STUDENT">
+    <route id="add_hobby" path="/admin/addHobby" methods="GET|POST" authorization="STUDENT">
         <action id="controller">PortfolioManagement:addHobby</action>
     </route>
 
-    <route id="Admin" path="/admin/addLanguage" methods="GET|POST" authorization="STUDENT">
+    <route id="add_language" path="/admin/addLanguage" methods="GET|POST" authorization="STUDENT">
         <action id="controller">PortfolioManagement:addLanguage</action>
     </route>
 
-    <route id="Admin" path="/admin/addJobExperience" methods="GET|POST" authorization="STUDENT">
+    <route id="add_job_experience" path="/admin/addJobExperience" methods="GET|POST" authorization="STUDENT">
         <action id="controller">PortfolioManagement:addJobExperience</action>
     </route>
 
-    <route id="Admin" path="/admin/addSlbAssignment" methods="GET|POST" authorization="STUDENT">
+    <route id="add_slb_assignment" path="/admin/addSlbAssignment" methods="GET|POST" authorization="STUDENT">
         <action id="controller">PortfolioManagement:addSlbAssignment</action>
     </route>
 
-    <route id="Admin" path="/admin/addImage" methods="GET|POST" authorization="STUDENT">
+    <route id="add_image" path="/admin/addImage" methods="GET|POST" authorization="STUDENT">
         <action id="controller">PortfolioManagement:addImage</action>
     </route>
 
-    <route id="Admin" path="/admin/addProject" methods="GET|POST" authorization="STUDENT">
+    <route id="add_project" path="/admin/addProject" methods="GET|POST" authorization="STUDENT">
         <action id="controller">PortfolioManagement:addProject</action>
     </route>
 
     <!-- Authorized grade management -->
-    <route id="Admin" path="/admin/cijferAdministratie/{id}" methods="GET" authorization="STUDENT">
+    <route id="grade_management" path="/admin/cijferAdministratie/{id}" methods="GET" authorization="STUDENT">
         <action id="controller">GradesManagement:gradeManagement</action>
     </route>
 
-    <route id="Admin" path="/admin/cijferOverzicht" methods="GET" authorization="ADMIN">
+    <route id="grade_overview" path="/admin/cijferOverzicht" methods="GET" authorization="ADMIN">
         <action id="controller">GradesManagement:gradeOverview</action>
     </route>
 
     <!-- Error routes -->
-    <route id="error401" path="/401" methods="GET|POST|PUT|DELETE|CONNECT" authorization="ANONYMOUS_USER">
+    <route id="error_401" path="/401" methods="GET|POST|PUT|DELETE|CONNECT" authorization="ANONYMOUS_USER">
         <action id="controller">Error:error401</action>
     </route>
 
-    <route id="Error404" path="/404" methods="GET|POST|PUT|DELETE|CONNECT" authorization="ANONYMOUS_USER">
+    <route id="error_404" path="/404" methods="GET|POST|PUT|DELETE|CONNECT" authorization="ANONYMOUS_USER">
         <action id="controller">Error:error404</action>
     </route>
 
-    <route id="Error405" path="/405" methods="GET|POST|PUT|DELETE|CONNECT" authorization="ANONYMOUS_USER">
+    <route id="error_405" path="/405" methods="GET|POST|PUT|DELETE|CONNECT" authorization="ANONYMOUS_USER">
         <action id="controller">Error:error405</action>
     </route>
 
-    <route id="Error500" path="/500" methods="GET|POST|PUT|DELETE|CONNECT" authorization="ANONYMOUS_USER">
+    <route id="error_500" path="/500" methods="GET|POST|PUT|DELETE|CONNECT" authorization="ANONYMOUS_USER">
         <action id="controller">Error:error500</action>
     </route>
 
-    <route id="Error500" path="/500" methods="GET|POST|PUT|DELETE" authorization="ANONYMOUS_USER">
+    <route id="error_500" path="/500" methods="GET|POST|PUT|DELETE" authorization="ANONYMOUS_USER">
         <action id="controller">Error:error500</action></route>
 </routes>

@@ -220,6 +220,20 @@ class DataProvider extends ParameterContainer
     }
 
     /**
+     * Checks if the request has feedback.
+     *
+     * @return bool
+     */
+    public function hasFeedback(  ) : bool
+    {
+        if( $this->has( 'feedback') && strlen( $this->get( 'feedback' )))
+        {
+            return TRUE;
+        }
+        return FALSE;
+    }
+
+    /**
      * Calling an nested method on an object stored in the data provider.
      * Example:
      * The following call:

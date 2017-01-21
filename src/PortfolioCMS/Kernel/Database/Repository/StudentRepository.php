@@ -242,8 +242,8 @@ class StudentRepository extends Repository
                 ':lastIpAddress' => $student->getLastIpAddress(),
                 ':firstName' => $student->getFirstName(),
                 ':lastName' => $student->getLastName(),
-                ':isAdmin' => $student->getIsAdmin(),
-                ':active' => $student->getIsActive(),
+                ':isAdmin' => (int)$student->getIsAdmin(),
+                ':active' => (int)$student->getIsActive(),
                 ':id' => $student->getId(),
             ] );
 
@@ -252,7 +252,7 @@ class StudentRepository extends Repository
                 ':address' => $student->getAddress(),
                 ':zipCode' => $student->getZipCode(),
                 ':location' => $student->getLocation(),
-                ':dateOfBirth' => $student->getDateOfBirth()->format( 'Y-m-d H:i:s' ),
+                ':dateOfBirth' => $student->getDateOfBirth()->format( 'Y-m-d' ),
                 ':studentCode' => $student->getStudentCode(),
                 ':phoneNumber' => $student->getPhoneNumber(),
                 ':userId' => $student->getId(),
