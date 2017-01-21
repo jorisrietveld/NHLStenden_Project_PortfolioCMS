@@ -186,41 +186,22 @@
             </div>
             <div class="row">
                 <div class="col-lg-4 col-lg-offset-2">
-                    <div class="info">
+                    <div class="nederland">
+                          
                         
                         <p class="records">
-                            Naam: Marco Brink
-                        </p>    
+                            
+                            <?php
+                            $language = $dataProvider->get( 'training' );
+                            echo $language->getInstitution();
+                           ?>
+                        </p>  
             
-                        <p class="records">    
-                            Geboortedatum: 10 mei 1996
-                        </p>
-            
-                        <p class="records">    
-                            Plaats: Assen
-                        </p>
-       
-                        <p class="records">
-                            Nationaliteit: Dutch  
-                        </p>
-            
-                        <p class="records">
-                            E-mailadres: marco.brink@student.stenden.com  
-                        </p>
-            
-                        <p class="records">
-                            Rijbewijs: Ja  
-                        </p>
+                        
             
                     </div>
                 </div>
-                <div class="col-lg-4">
-                    <p> Hello! I am currently 20 years old. I live in Assen.
-                    At this moment I am studying informatics at Stenden Universtity in 
-                    Emmen.!  My hobbies are playing(and watching basketball), gaming, 
-                    listening to music(especially electronic)and travelling.</p>
-                   
-                </div>
+               
             </div>
         </div>
     </section>
