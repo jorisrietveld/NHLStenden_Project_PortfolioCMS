@@ -22,7 +22,7 @@ include 'header.php';
                         </h4>
                         <hr class="style-one"/>
                         <div class="col-sm-5 custom-buttons">
-                            <?php if ($dataProvider->isAdmin()): ?>
+                            <?php if ( $dataProvider->isAdmin() ): ?>
                                 <a href="../gebruikersOverzicht">
                                     <button class="btn btn-md btn-primary btn-block btn-custom">
                                         <i class="fa fa-arrow-left"></i> Terug
@@ -40,7 +40,7 @@ include 'header.php';
                                             <div class="form-group">
                                                 <label class="form-label" for="inputEmail">Email</label>
                                                 <input type="email" name="email" class="form-control" id="inputEmail"
-                                                       value=""
+                                                       value="<?= $dataProvider->call( 'teacher-data', 'getEmail' ) ?>"
                                                        placeholder="Email">
                                             </div>
                                             <div class="form-group">
@@ -52,87 +52,93 @@ include 'header.php';
                                             <div class="form-group">
                                                 <label class="form-label" for="inputPassword">Voornaam</label>
                                                 <input type="text" name="firstName" class="form-control"
-                                                       value=""
+                                                       value="<?= $dataProvider->call( 'teacher-data', 'getFirstName' ) ?>"
                                                        id="inputFirstName"
                                                        placeholder="Voornaam">
                                             </div>
                                             <div class="form-group">
                                                 <label class="form-label" for="inputPassword">Achternaam</label>
                                                 <input type="text" name="lastName" class="form-control"
-                                                       value=""
+                                                       value="<?= $dataProvider->call( 'teacher-data', 'getLastName' ) ?>"
                                                        id="inputLastName"
                                                        placeholder="Achternaam">
                                             </div>
 
-                                            <?php if ($dataProvider->isAdmin()): ?>
+                                            <?php if ( $dataProvider->isAdmin() ): ?>
 
                                                 <div class="row radio-buttons-custom">
                                                     <div class="col-lg-12">
                                                         <p class="centertext">Admin</p><br/>
                                                         <label>
                                                             <input type="radio" name="isAdmin" value="1"
-                                                                   class="radio-custom" <?= $dataProvider->call( 'student-data', 'getIsAdmin') ? 'checked':'' ?>>
+                                                                   class="radio-custom" <?= $dataProvider->call( 'teacher-data', 'getIsAdmin' ) ? 'checked' : '' ?>>
                                                             <span class="isSelected"> Ja </span>
                                                             </input>
                                                         </label>
                                                         <label>
                                                             <input type="radio" name="isAdmin" value="0"
                                                                    class="radio-custom"
-                                                                   id="inputLastName"
-                                                                   placeholder="Achternaam"<?= $dataProvider->call( 'student-data', 'getIsAdmin') ? '':'checked' ?>
+                                                                   id="isAdmin"
+                                                                <?= $dataProvider->call( 'teacher-data', 'getIsAdmin' ) ? '' : 'checked' ?>>
                                                             <span class="isSelected"> Nee</span>
                                                             </input>
                                                         </label>
                                                     </div>
                                                 </div>
+
                                                 <div class="clearfix"></div>
                                                 <hr/>
+
                                                 <div class="row radio-buttons-custom">
                                                     <div class="col-lg-12">
                                                         <p class="centertext">Actief</p><br/>
                                                         <label>
                                                             <input type="radio" name="active" value="1"
-                                                                   class="radio-custom" <?= $dataProvider->call( 'student-data', 'getIsActive') ? 'checked':'' ?>>
+                                                                   class="radio-custom" <?= $dataProvider->call( 'teacher-data', 'getIsActive' ) ? 'checked' : '' ?>>
                                                             <span class="isSelected"> Ja</span>
                                                             </input>
                                                         </label>
                                                         <label>
                                                             <input type="radio" name="active" value="0"
                                                                    class="radio-custom"
-                                                                   id="inputLastName"
-                                                                <?= $dataProvider->call( 'student-data', 'getIsActive') ? '':'checked' ?>>
+                                                                   id="active"
+                                                                <?= $dataProvider->call( 'teacher-data', 'getIsActive' ) ? '' : 'checked' ?>>
                                                             <span class="isSelected">
                                                                 Nee</span>
                                                             </input>
                                                         </label>
                                                     </div>
                                                 </div>
+
+                                                <div class="clearfix"></div>
+                                                <hr/>
+
                                                 <div class="row radio-buttons-custom">
                                                     <div class="col-lg-12">
-                                                        <p class="centertext">SLB Docent</p><br/>
+                                                        <p class="centertext">Slb docent</p><br/>
                                                         <label>
-                                                            <input type="radio" name="isAdmin" value="1"
-                                                                   class="radio-custom" <?= $dataProvider->call( 'student-data', 'getIsSLBer') ? 'checked':'' ?>>
+                                                            <input type="radio" name="isSLBer" value="1"
+                                                                   class="radio-custom" <?= $dataProvider->call( 'teacher-data', 'getIsSLBer' ) ? 'checked' : '' ?>>
                                                             <span class="isSelected"> Ja </span>
                                                             </input>
                                                         </label>
                                                         <label>
-                                                            <input type="radio" name="isAdmin" value="0"
+                                                            <input type="radio" name="isSLBer" value="0"
                                                                    class="radio-custom"
-                                                                   id="inputLastName"
-                                                                   placeholder="Achternaam"<?= $dataProvider->call( 'student-data', 'getIsSLBer') ? '':'checked' ?>
+                                                                   id="isSLBer"
+                                                                <?= $dataProvider->call( 'teacher-data', 'getIsSLBer' ) ? '' : 'checked' ?>>
                                                             <span class="isSelected"> Nee</span>
                                                             </input>
                                                         </label>
                                                     </div>
                                                 </div>
-                                                <div class="clearfix"></div>
-                                                <hr/>
                                             <?php endif; ?>
 
                                             <div class="row">
-                                                <div class="col-lg-6 clearfix"><br/></div>
+                                                <div class="col-lg-6 clearfix"><br/><br></div>
                                             </div>
+                                            <hr>
+
                                             <button type="submit" name="submit" class="btn btn-primary btn-custom">
                                                 Toevoegen
                                             </button>
