@@ -88,7 +88,7 @@
                         <span class="name" style="font-size:20pt;">Welkom!
                         </span>
                         
-                        <span class="name" style="font-size:20pt;">Laat me mezelf introduceren
+                        <span class="name" style="font-size:20pt;">Laat me mezelf introduceren.
                         </span>
                         
                         <a href="#skip"><i class="fa fa-angle-double-down fa-3x" aria-hidden="true"></i></a>
@@ -190,11 +190,45 @@
                           
                         
                         <p class="records">
+                        
+                            <?php 
+                            $DBConnect = mysqli_connect('85.144.187.81','inf1b','peer');
+                           if ($DBConnect === FALSE)
+                            {
+                            echo "<p>Unable to connect to the database server.</p>"
+                            . "<p>Error code " . mysqli_errno() . ": " . mysqli_error()
+                            . "</p>";
+                            }else {
+                                $DBName = "DigitalPortfolio";
+                                if(!mysqli_select_db ($DBConnect, $DBName))
+                                    {
+                                      echo "<p>There are no entries in the guest book!</p>";
+                                    }else {
+                                        $TableName = "Language";
+                                        $SQLstring = "SELECT * FROM $TableName WHERE portfolioId = 5" ;
+                                        $QueryResult = mysqli_query($DBConnect, $SQLstring);
+                                        if (mysqli_num_rows($QueryResult) == 0)
+                                        {
+                                            echo "<p>There are no languages!</p>";
+                                        }else{
+                                            
+                                        
+                                       
+        
+                                        while($Row = mysqli_fetch_assoc($QueryResult))
+                                        {
+                                            echo "{$Row['language']}<br>";
+                                            echo "{$Row['level']}<br>";
+                                        }
+                                    }
+                                    mysqli_free_result($QueryResult);
+                                }
+                            mysqli_close($DBConnect);
+                        }
+                                    
                             
-                            <?php
-                            $language = $dataProvider->get( 'training' );
-                            echo $language->getInstitution();
-                           ?>
+                                    
+                            ?>
                         </p>  
             
                         
