@@ -104,6 +104,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h3>Pesoonlijke gegevens</h3>
+                    <i class="fa fa-address-card-o fa-3x" aria-hidden="true"></i>
                     <hr class="star-light">
                 </div>
             </div>
@@ -181,6 +182,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h3 id="skip">Talen</h3>
+                    <i class="fa fa-flag fa-3x" aria-hidden="true"></i>
                     <hr class="blue">
                 </div>
             </div>
@@ -245,6 +247,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h3>Certificaten</h3>
+                     <i class="fa fa-book fa-3x" aria-hidden="true"></i>
                     <hr class="star-light">
                 </div>
             </div>
@@ -293,6 +296,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h3 id="skip">Werkervaring</h3>
+                    <i class="fa fa-handshake-o fa-2x" aria-hidden="true"></i>
                     <hr class="blue">
                 </div>
             </div>
@@ -341,6 +345,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h3>Cijfers</h3>
+                     <i class="fa fa-bar-chart fa-2x" aria-hidden="true"></i>
                     <hr class="star-light">
                 </div>
             </div>
@@ -389,6 +394,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h3>SLB opdrachten </h3>
+                      <i class="fa fa-file-o fa-3x" aria-hidden="true"></i>
                     <hr class="blue">
                 </div>
             </div>
@@ -439,6 +445,8 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 id="title">Gastenboek</h2>
+                    <i class="fa fa-comment-o fa-2x" aria-hidden="true"></i>
+                    
                     <hr class="star-primary">
                 </div>
             </div>
@@ -446,32 +454,18 @@
                 <div class="col-lg-8 col-lg-offset-2">
                     <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
                     <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-                    <form name="sentMessage" id="contactForm" novalidate>
+                    <form name="sentMessage" id="contactForm" action="<?php strtok($_SERVER["REQUEST_URI"],'?')?>" method="get" >
                         <div class="row control-group" style="border:2px solid;border-radius:4px ">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
                                 <label>Name</label>
-                                <input type="text" class="form-control" placeholder="Name" id="name" required data-validation-required-message="Please enter your name." style="color:white;">
-                                <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="row control-group" style="border:2px solid;border-radius:4px ">
-                            <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Email Address</label>
-                                <input type="email" class="form-control" placeholder="Email Address" id="email" required data-validation-required-message="Please enter your email address." style="color:white;">
-                                <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="row control-group" style="border:2px solid;border-radius:4px ">
-                            <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Phone Number</label>
-                                <input type="tel" class="form-control" placeholder="Phone Number" id="phone" required data-validation-required-message="Please enter your phone number." style="color:white;">
+                                <input type="text" name="name" class="form-control" placeholder="Name" id="name" required data-validation-required-message="Please enter your name." style="color:white;">
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
                         <div class="row control-group" style="border:2px solid;border-radius:4px ">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
                                 <label>Message</label>
-                                <textarea rows="5" class="form-control" placeholder="Message" id="message" required data-validation-required-message="Please enter a message." style="color:white;"></textarea>
+                                <textarea rows="5" name="message" class="form-control" placeholder="Message" id="message" required data-validation-required-message="Please enter a message." style="color:white;"></textarea>
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
@@ -482,6 +476,85 @@
                                 <button type="submit" class="btn btn-success btn-lg">Send</button>
                             </div>
                         </div>
+                        <?php
+                    if(htmlentities(isset($_POST['submit'])))
+                        {
+                    
+                        if(htmlentities(empty($_POST['name']) || empty($_POST['message'])))
+                            {
+                                    echo "<p>You must enter everything!</p>"; 
+                                    
+                            }else{
+                            $conn= mysqli_connect('85.144.187.81','inf1b','peer');
+                            if($conn == FALSE)
+                            {
+                
+                                echo "<p>unable to connect</p>".
+                                "<p>Error code " . mysqli_errno() . ": "  . mysqli_error() . "</p>";
+                    
+                            }else{
+                            $DBName='DigitalPortfolio';
+                            if(!mysqli_select_db($conn, $DBName))
+                            {
+                                $SQLstring = "CREATE DATABASE $DBName";  
+                                $SQLquery  = mysqli_query($conn, $SQLstring); 
+                                if ($SQLquery === FALSE){
+                              
+                                echo "<p>Unable to execute the query.</p>" . "<p>Error code "  . 
+                                      mysqli_errno($DBConnect) . ": " . mysqli_error($DBConnect) . "</p>";
+                                }
+                                else{
+                            
+                                   echo "<p>Your messge has been placed!</p>"; 
+                                }
+                    
+                          }
+                          mysqli_select_db($conn, $DBName);
+                          
+                          $TableName='GuestBookMessage';
+                          $SQLstring= "SHOW TABLES LIKE '$TableName'";
+                          $QueryResult= mysqli_query($conn, $SQLstring);
+                          
+//                          if(mysqli_num_rows($QueryResult) == 0)
+//                          {
+//                              $SQLstring= "CREATE TABLE $TableName(Bugnr SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY, product_name VARCHAR(40), version VARCHAR(20),type VARCHAR(40), OS VARCHAR(20), 
+//                                           frequency INT, solutions TEXT(500))";
+//                              $QueryResult = mysqli_query($conn,$SQLstring);
+//                             if($QueryResult === FALSE)
+//                             { echo "<p>Unable to create the table.</p>" . "<p>Error code "  . 
+//                              mysqli_errno($conn) . ": " . mysqli_error($conn) . "</p>"; 
+//                             
+//                             }
+//                              
+//                          }
+                          $Name = stripslashes(htmlentities($_POST['name']));
+                          $Message = stripslashes(htmlentities($_POST['message']));
+                          $userId = "";
+                          $studentln = $dataProvider->get( 'student' );
+                            
+                          if( $studentln->getLastName() == 'BRINK'){
+                              $userId = 6;
+                          }
+                       
+                          
+                          $string = "INSERT INTO $TableName VALUES(NULL,'$Name',NULL,'$Message',NULL,$userId,NULL)"; 
+                          $Result = mysqli_query($conn, $string);
+                          if($Result === FALSE) 
+                         { echo "<p>Unable to execute the query.</p>" . "<p>Error code " . mysqli_errno($conn) . 
+                                ": " . mysqli_error($conn) . "</p>"; 
+                         
+                         } else { echo "<h1>Bedankt voor uw bericht!</h1>";
+                                      
+                         }
+                         
+                        mysqli_close($conn);
+                          
+                    }
+                    
+                }
+                }
+                ?>
+                        
                     </form>
                 </div>
             </div>

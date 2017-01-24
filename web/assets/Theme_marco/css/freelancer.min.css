@@ -178,6 +178,9 @@ section.language
 {
     background:white;
     color:darkblue;
+    border-top:20px solid;
+    border-bottom:20px solid;
+     border-color:#233140;
 }
 section.contact
 {
@@ -423,3 +426,21 @@ footer .footer-below{
         float:left;
     }
     
+ .navbar-default .navbar-brand:focus, .navbar-default .navbar-brand:hover {
+    color: yellow;
+    background-color: transparent;
+}
+.btn-success:hover {
+    color: #fff;
+    background-color: yellow;
+    border-color: yellow;
+       color:darkblue;
+}
+.navbar-default .navbar-nav .open .dropdown-menu>li>a {
+    color: white;
+}
+.dropdown-menu > li > a:focus, .dropdown-menu > li > a:hover {
+    
+    text-decoration: none;
+    background-color: yellow;
+}

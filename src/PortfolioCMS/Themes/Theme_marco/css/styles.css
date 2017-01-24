@@ -21,6 +21,7 @@ p.small{
     
     font-size:16px
 }
+
 a,a.active,a:active,a:focus,a:hover{
     outline:0
 }
@@ -427,4 +428,7 @@ footer .footer-below{
         height:300px;
         float:left;
     }
-    
+ .navbar-default .navbar-brand:focus, .navbar-default .navbar-brand:hover {
+    color: yellow;
+    background-color: transparent;
+}
