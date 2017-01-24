@@ -33,13 +33,13 @@ include 'header.php';
                         <div class="content">
                             <div class="container-fluid">
                                 <div class="row">
-                                    <?php if ( $dataProvider->hasFeedback() ) : ?>
-                                        <div class="alert alert-<?= $dataProvider->get( 'feedback-type' ) ?>">
-                                            <span><?= $dataProvider->get( 'feedback' ) ?></span>
-                                        </div>
-                                    <?php endif; ?>
                                     <div class="col-sm-6 col-sm-offset-3">
                                         <form class="form-custom float-left" action="" method="POST">
+                                            <?php if ( $dataProvider->hasFeedback() ) : ?>
+                                                <div class="alert alert-<?= $dataProvider->get( 'feedback-type' ) ?>">
+                                                    <span><?= $dataProvider->get( 'feedback' ) ?></span>
+                                                </div>
+                                            <?php endif; ?>
 
                                             <div class="form-group">
                                                 <label class="form-label col-lg-3" for="inputEmail">Email</label>

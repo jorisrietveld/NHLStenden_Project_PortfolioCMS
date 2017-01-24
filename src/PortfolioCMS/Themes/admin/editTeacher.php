@@ -35,8 +35,12 @@ include 'header.php';
                             <div class="container-fluid">
                                 <div class="row">
                                     <div class="col-sm-6 col-sm-offset-3">
-                                        <form class="form-custom float-left" action="admin/add_user/teacher"
-                                              method="POST">
+                                        <form class="form-custom float-left" action=""  method="POST">
+                                            <?php if ( $dataProvider->hasFeedback() ) : ?>
+                                                <div class="alert alert-<?= $dataProvider->get( 'feedback-type' ) ?>">
+                                                    <span><?= $dataProvider->get( 'feedback' ) ?></span>
+                                                </div>
+                                            <?php endif; ?>
                                             <div class="form-group">
                                                 <label class="form-label" for="inputEmail">Email</label>
                                                 <input type="email" name="email" class="form-control" id="inputEmail"
@@ -162,7 +166,7 @@ include 'header.php';
                                             <hr>
 
                                             <button type="submit" name="submit" class="btn btn-primary btn-custom">
-                                                Toevoegen
+                                                Aanpassen
                                             </button>
                                         </form>
                                     </div>

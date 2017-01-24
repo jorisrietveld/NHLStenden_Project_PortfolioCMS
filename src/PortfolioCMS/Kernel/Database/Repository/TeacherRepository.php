@@ -177,8 +177,7 @@ class TeacherRepository extends Repository
 
             $teacherStatement = $this->connection->prepare( $this->insertTeacherSql );
             $teacherStatement->execute( [
-               ':userId' => $teacher->getId(),
-                ':isSLBer' => $teacher->getIsSLBer(),
+               ':isSLBer' => (int)$teacher->getIsSLBer(),
             ] );
 
             $this->connection->commit();

@@ -146,6 +146,8 @@ class UserManagement extends BaseController
             $newStudent->setDateOfBirth( $postParams->getDateTime( 'dateOfBirth' ) );
             $newStudent->setStudentCode( $postParams->getString( 'studentCode' ) );
             $newStudent->setPhoneNumber( $postParams->getString( 'phoneNumber' ) );
+            $newStudent->setLastIpAddress( $request->getClientIp() );
+            $newStudent->setActive(  $postParams->getBoolean( 'isActive' ));
 
             // Insert the new student.
             $this->studentRepository->insert( $newStudent );
@@ -186,6 +188,8 @@ class UserManagement extends BaseController
             $newTeacher->setHashedPassword( password_hash( $postParams->get( 'password' ), PASSWORD_BCRYPT ) );
             $newTeacher->setIsSLBer( $postParams->getBoolean( 'isSlber' ) );
             $newTeacher->setIsAdmin( $postParams->getBoolean( 'isAdmin' ) );
+            $newTeacher->setLastIpAddress( $request->getClientIp() );
+            $newTeacher->setActive(  $postParams->getBoolean( 'isActive' ));
 
             $this->teacherRepository->insert( $newTeacher );
             $feedback = 'De docent is toegevoegd';
@@ -319,7 +323,6 @@ class UserManagement extends BaseController
                     $feedbackType = 'warning';
                 }
             }
-
             // Update the teacher.
             $teacherEntity = $this->teacherRepository->update( $teacherEntity );
         }
