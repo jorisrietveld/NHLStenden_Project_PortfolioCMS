@@ -121,7 +121,11 @@ $hasPageSuffix = count( explode( '/', $dataProvider->call( 'httpRequest', 'getRe
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <?php foreach ($meta->getUrl() as $link) {echo "test";} ?>
+                                <?php foreach ( $dataProvider->get( 'portfolio-meta-data' ) as $metaDataObject) : ?>
+                                    <li>
+                                        <a href="<?= $metaDataObject->getUrl()?>"><?= $metaDataObject->getStudentName()?></a>
+                                    </li>
+                                <?php endforeach; ?>
                             </ul>
                         </li>
                         <li>
