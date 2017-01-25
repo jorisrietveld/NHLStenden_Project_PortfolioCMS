@@ -117,7 +117,7 @@ $hasPageSuffix = count( explode( '/', $dataProvider->call( 'httpRequest', 'getRe
                     <ul class="nav navbar-nav navbar-right">
                         <li>
                             <a>
-                                <i class="fa fa-user"></i> <?= $_SESSION['name'] ?>
+                                <i class="fa fa-user"></i> <?= $dataProvider->getAuthenticatedUserName() ?>
                             </a>
                         </li>
                         <!--<li class="dropdown">

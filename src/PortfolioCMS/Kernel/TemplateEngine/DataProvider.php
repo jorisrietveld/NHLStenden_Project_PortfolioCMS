@@ -11,6 +11,7 @@ namespace StendenINF1B\PortfolioCMS\Kernel\TemplateEngine;
 use StendenINF1B\PortfolioCMS\Controller\Authentication;
 use StendenINF1B\PortfolioCMS\Kernel\Debug\Debug;
 use StendenINF1B\PortfolioCMS\Kernel\Helper\ParameterContainer;
+use StendenINF1B\PortfolioCMS\Kernel\Authorization\User as AuthorizedUser;
 
 class DataProvider extends ParameterContainer
 {
@@ -42,7 +43,7 @@ class DataProvider extends ParameterContainer
     {
         if ( isset( $_SESSION[ 'userId' ], $_SESSION[ 'authorizationLevel' ] ) )
         {
-            if ( $_SESSION[ 'authorizationLevel' ] == Authentication::ADMIN )
+            if ( $_SESSION[ 'authorizationLevel' ] == AuthorizedUser::ADMIN )
             {
                 return TRUE;
             }
@@ -59,7 +60,7 @@ class DataProvider extends ParameterContainer
     {
         if ( isset( $_SESSION[ 'userId' ], $_SESSION[ 'authorizationLevel' ] ) )
         {
-            if ( $_SESSION[ 'authorizationLevel' ] == Authentication::SLB_TEACHER )
+            if ( $_SESSION[ 'authorizationLevel' ] == AuthorizedUser::SLB_TEACHER )
             {
                 return TRUE;
             }
@@ -76,7 +77,7 @@ class DataProvider extends ParameterContainer
     {
         if ( isset( $_SESSION[ 'userId' ], $_SESSION[ 'authorizationLevel' ] ) )
         {
-            if ( $_SESSION[ 'authorizationLevel' ] == Authentication::TEACHER )
+            if ( $_SESSION[ 'authorizationLevel' ] == AuthorizedUser::TEACHER )
             {
                 return TRUE;
             }
@@ -93,7 +94,7 @@ class DataProvider extends ParameterContainer
     {
         if ( isset( $_SESSION[ 'userId' ], $_SESSION[ 'authorizationLevel' ] ) )
         {
-            if ( $_SESSION[ 'authorizationLevel' ] == Authentication::STUDENT )
+            if ( $_SESSION[ 'authorizationLevel' ] == AuthorizedUser::STUDENT )
             {
                 return TRUE;
             }
@@ -110,7 +111,7 @@ class DataProvider extends ParameterContainer
     {
         if ( isset( $_SESSION[ 'userId' ], $_SESSION[ 'authorizationLevel' ] ) )
         {
-            if ( $_SESSION[ 'authorizationLevel' ] >= Authentication::TEACHER )
+            if ( $_SESSION[ 'authorizationLevel' ] >= AuthorizedUser::TEACHER )
             {
                 return TRUE;
             }
@@ -127,7 +128,7 @@ class DataProvider extends ParameterContainer
     {
         if ( isset( $_SESSION[ 'userId' ], $_SESSION[ 'authorizationLevel' ] ) )
         {
-            if ( $_SESSION[ 'authorizationLevel' ] >= Authentication::STUDENT )
+            if ( $_SESSION[ 'authorizationLevel' ] >= AuthorizedUser::STUDENT )
             {
                 return TRUE;
             }
@@ -136,7 +137,7 @@ class DataProvider extends ParameterContainer
     }
 
     /**
-     * Checks if the session stored authorization level is from the students own id or if the authorization level is SLB teacher or admin.
+     * Checks if the session stored authorization level is from the students own id or if the authorization level is SLB teacher.
      *
      * @return bool
      */
@@ -144,7 +145,23 @@ class DataProvider extends ParameterContainer
     {
         if ( isset( $_SESSION[ 'userId' ], $_SESSION[ 'authorizationLevel' ] ) )
         {
-            if ( $this->call( 'student', 'getId' ) == $_SESSION[ 'id' ] || $_SESSION[ 'authorizationLevel' ] > 2 )
+            if ( $this->call( 'student', 'getId' ) == $_SESSION[ 'id' ] || $_SESSION[ 'authorizationLevel' ] == AuthorizedUser::SLB_TEACHER )
+            {
+                return TRUE;
+            }
+        }
+        return FALSE;
+    }
+
+    /**
+     * Checks if the session stored authorization level is from the students own id or if the authorization level is Admin.
+     * @return bool
+     */
+    public function isOwnOrAdmin(  )
+    {
+        if( isset( $_SESSION[ 'userId' ], $_SESSION[ 'authorizationLevel' ] ))
+        {
+            if ( $this->call( 'student', 'getId' ) == $_SESSION[ 'id' ] || $_SESSION[ 'authorizationLevel' ] == AuthorizedUser::ADMIN )
             {
                 return TRUE;
             }
@@ -184,11 +201,6 @@ class DataProvider extends ParameterContainer
     public function getCurrentUserId(  ) : int
     {
         return isset( $_SESSION['userId'] ) ? (int)$_SESSION['userId'] : 0;
-    }
-
-    public function getCurrentUserName(  ) : int
-    {
-        return isset( $_SESSION['userName'] ) ? (int)$_SESSION['userName'] : 0;
     }
 
     /**
@@ -231,6 +243,16 @@ class DataProvider extends ParameterContainer
             return TRUE;
         }
         return FALSE;
+    }
+
+    /**
+     * Gets the name of the current authenticated user.
+     *
+     * @return string
+     */
+    public function getAuthenticatedUserName(  ) : string
+    {
+        return (string)$_SESSION['name'] ?? 'Gebruiker';
     }
 
     /**

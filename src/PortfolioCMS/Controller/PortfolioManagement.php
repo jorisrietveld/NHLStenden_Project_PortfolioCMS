@@ -274,7 +274,7 @@ class PortfolioManagement extends BaseController
      * @param $id
      * @return bool
      */
-    public function isOwnOrAdmin( string $portfolioId )
+    public function isOwnOrAdmin( int $portfolioId )
     {
         $portfolioEntity = $this->portfolioRepository->getById( $portfolioId );
         return $_SESSION[ 'authorizationLevel' ] == AuthorizedUser::ADMIN || $portfolioEntity->getStudent()->getId() === $_SESSION[ 'userId' ];
@@ -306,13 +306,11 @@ class PortfolioManagement extends BaseController
         {
             if ( Validation::getInstance()->validatePostParameters( $postParams, $this->portfolioFields ) )
             {
-                $updatedPortfolio = new Portfolio();
-                $updatedPortfolio->setTitle( $postParams->getString( 'title' ) );
-                $updatedPortfolio->setUrl( $postParams->getString( 'url' ) );
-                $updatedPortfolio->setTheme( $this->themeRepository->getById( $postParams->getInt( 'themeId' ) ) );
-                $updatedPortfolio->setStudent( $this->studentRepository->getById( (int)$postParams->get( 'userId' ) ) );
+                $portfolioEntity->setTitle( $postParams->getString( 'title' ) );
+                $portfolioEntity->setUrl( $postParams->getString( 'url' ) );
+                $portfolioEntity->setTheme( $this->themeRepository->getById( $postParams->getInt( 'themeId' ) ) );
 
-                $this->portfolioRepository->update( $updatedPortfolio );
+                $this->portfolioRepository->update( $portfolioEntity );
 
                 $feedback = 'De wijzegingen zijn opgeslagen.';
                 $feedbackType = 'success';
