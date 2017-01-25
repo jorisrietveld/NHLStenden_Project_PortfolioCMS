@@ -52,12 +52,10 @@ include 'header.php';
                                             <div class="form-group">
                                                 <div class="fileUpload btn btn-md btn-primary btn-custom">
                                                     <span>Selecteer een bestand...</span>
-                                                    <input id="uploadBtn" type="file" class="upload" />
+                                                    <input id="uploadBtn" type="file" class="upload" name="slbAssignment"/>
                                                 </div>
                                                 <input id="uploadFile" class="fileUpload-text" placeholder="" disabled="disabled" />
                                             </div>
-
-
 
                                             <div class="row">
                                                 <div class="col-lg-6 clearfix"><br/></div>

@@ -279,7 +279,7 @@ class Validation
      */
     public function validateBoolean( string $fieldName, string $input )
     {
-        if( (bool)$input == $input )
+        if ( (bool)$input == $input )
         {
             return;
         }
@@ -548,5 +548,16 @@ class Validation
     public function filterXXS( string $fieldName, string $input )
     {
         return filter_var( $input, FILTER_SANITIZE_STRING );
+    }
+
+    public function validateEnum( $fieldName, string $input )
+    {
+        $args = func_get_args();
+        unset( $args[ 0 ], $args[ 1 ] );
+
+        if ( !in_array( $input, $args ) )
+        {
+            $this->addError( $fieldName, $input, __METHOD__, [ 'args' => $args ] );
+        }
     }
 }

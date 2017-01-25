@@ -22,16 +22,16 @@ class SLBAssignmentRepository extends Repository
      * @var string
      */
     protected $getByIdSql = '
-        SELECT
+         SELECT
             `UploadedFile`.`id`,
             `UploadedFile`.`fileName`,
             `UploadedFile`.`mimeType`,
             `UploadedFile`.`filePath`,
             `UploadedFile`.`portfolioId`,
             `SLBAssignment`.`name`,
-	        `SLBAssignment`.`feedback`
-        FROM `DigitalPortfolio`.`Image` JOIN `DigitalPortfolio`.`SLBAssignment` ON `SLBAssignment`.`uploadedFileId` = `UploadedFile`.`id`
-        WHERE `Image`.`uploadedFileId` = :id;
+            `SLBAssignment`.`feedback`
+        FROM `DigitalPortfolio`.`SLBAssignment` JOIN `DigitalPortfolio`.`UploadedFile` ON `SLBAssignment`.`uploadedFileId` = `UploadedFile`.`id`
+        WHERE `SLBAssignment`.`uploadedFileId` = :id;
     ';
 
     /**
@@ -145,25 +145,24 @@ class SLBAssignmentRepository extends Repository
         {
             $this->connection->beginTransaction();
 
-            dump($uploadedFileStatement = $this->connection->prepare( $this->insertUploadedFileSql ));
-            dump($uploadedFileStatement->execute( [
+            $uploadedFileStatement = $this->connection->prepare( $this->insertUploadedFileSql );
+            $uploadedFileStatement->execute( [
                 ':fileName'    => $slbAssignment->getFileName(),
                 ':mimeType'    => $slbAssignment->getMimeType(),
                 ':filePath'    => $slbAssignment->getFilePath(),
                 ':portfolioId' => $slbAssignment->getPortfolioId(),
-            ] ));
+            ] );
 
-            dump($slbAssignmentStatement = $this->connection->prepare( $this->insertSLBAssignment ));
-            dump($slbAssignmentStatement->execute( [
+            $slbAssignmentStatement = $this->connection->prepare( $this->insertSLBAssignment );
+            $slbAssignmentStatement->execute( [
                 ':name'     => $slbAssignment->getName(),
                 ':feedback' => $slbAssignment->getFeedback(),
-            ] ));
+            ] );
 
             $this->connection->commit();
 
             $id = (int)$this->connection->lastInsertId();
             return $this->getById( $id );
-
         }
         catch ( \PDOException $exception )
         {

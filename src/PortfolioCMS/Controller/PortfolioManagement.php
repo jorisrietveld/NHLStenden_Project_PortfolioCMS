@@ -132,7 +132,7 @@ class PortfolioManagement extends BaseController
      */
     protected $imageFields = [
         'name' => 'required|alpha_space|min_length,3|max_length,40',
-        'type' => 'required|alpha_space|min_length,3|max_length,40',
+        'type' => 'required|enum,PROFILE_IMAGE,GALLERY_IMAGE,PROJECT_IMAGE|min_length,3|max_length,40',
     ];
 
     /**
@@ -1166,7 +1166,12 @@ class PortfolioManagement extends BaseController
                 $slbAssignmentEntity->setPortfolio( (int)$portfolioId );
                 $slbAssignmentEntity->setFeedback('');
 
-                if ( file_exists( $targetFile ) )
+                if( !in_array( $mimeType, [ 'application/pdf' ]))
+                {
+                    $feedback = 'Dit type bestand is niet toegestaan.';
+                    $feedbackType = 'danger';
+                }
+                elseif ( file_exists( $targetFile ) )
                 {
                     $feedback = 'Het bestand kan niet worden geupload omdat het al bestaat.';
                     $feedbackType = 'danger';
@@ -1226,23 +1231,50 @@ class PortfolioManagement extends BaseController
         }
 
         $postParams = $request->getPostParams();
-
-        if ( Validation::getInstance()->validatePostParameters( $postParams, $this->trainingFields ) && $request->getMethod() === 'POST' )
+        if ( Validation::getInstance()->validatePostParameters( $postParams, $this->imageFields ) && $request->getMethod() === 'POST' && isset($_FILES['image']) )
         {
             try
             {
-                $image = new Image();
-                $image->setPortfolioId( (int)$portfolioId );
-                $image->setDescription( $postParams->getString( 'description' ) );
-                $image->setMimeType( 'jpg' );
-                $image->setFileName( 'somefile' );
-                $image->setOrder( $postParams->getInt( 'order' ) );
-                $image->setType( $postParams->getString( 'type' ) );
+                $array = explode( '.', $_FILES[ 'image' ][ 'name' ] );
+                $fileName = md5( time() . $_FILES[ 'image' ][ 'name' ] ) . '.' . end( $array );
+                $saveDirectory = WEB_ROOT . 'images' . DIR_SEP;
+                $fileInfoMime = finfo_open( FILEINFO_MIME_TYPE );
+                $mimeType = finfo_file( $fileInfoMime, $_FILES[ 'image' ][ 'tmp_name' ] );
+                $targetFile = $saveDirectory . $fileName;
 
-                $this->imageRepository->insert( $image );
+                $imageEntity = new Image();
+                $imageEntity->setName( $postParams->getString( 'name' ) );
+                $imageEntity->setFileName( $fileName );
+                $imageEntity->setFilePath( $saveDirectory );
+                $imageEntity->setMimeType( $mimeType );
+                $imageEntity->setPortfolioId( (int)$portfolioId );
+                $imageEntity->setDescription( $postParams->getString( 'description' ));
+                $imageEntity->setOrder( $postParams->getInt('order'));
+                $imageEntity->setType( $postParams->getString( 'type' ) );
 
-                $feedback = 'De afbeelding is toegevoegd.';
-                $feedbackType = 'success';
+                if ( !in_array( $mimeType, ['image/png', 'image/x-icon', 'image/gif', 'image/jpeg']) )
+                {
+                    $feedback = 'Dit bestands type is niet toegestaan.';
+                    $feedbackType = 'danger';
+                }
+                elseif ( file_exists( $targetFile ) )
+                {
+                    $feedback = 'Het bestand kan niet worden geupload omdat het al bestaat.';
+                    $feedbackType = 'danger';
+                }
+                elseif ( $_FILES[ "image" ][ "size" ] > 8388608 )
+                {
+                    $feedback = 'Het bestand is te groot.';
+                    $feedbackType = 'danger';
+                }
+                else
+                {
+                    move_uploaded_file( $_FILES[ "image" ][ "tmp_name" ], $targetFile );
+                    $this->imageRepository->insert( $imageEntity );
+
+                    $feedback = 'De slb opdracht is toegevoegd.';
+                    $feedbackType = 'success';
+                }
             }
             catch ( \Exception $exception )
             {
@@ -1253,6 +1285,7 @@ class PortfolioManagement extends BaseController
         }
         elseif ( $request->getMethod() === 'POST' )
         {
+            dump(Validation::getInstance()->getReadableErrors());
             $feedback = Validation::getInstance()->getReadableErrors();
             $feedbackType = 'danger';
         }
@@ -1313,7 +1346,7 @@ class PortfolioManagement extends BaseController
             'admin:addProject', [
                 'feedback'      => $feedback ?? '',
                 'feedback-type' => $feedbackType ?? '',
-                'images'        => $this->imageRepository->findByCondition( 'WHERE portfolioId = :wherePortfolioId', [ ':wherePortfolioId' => (int)$portfolioId ] ),
+                'images'        => $this->imageRepository->getByCondition( 'portfolioId = :wherePortfolioId', [ ':wherePortfolioId' => (int)$portfolioId ] ),
             ]
         );
     }

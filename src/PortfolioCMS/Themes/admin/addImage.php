@@ -32,7 +32,7 @@ include 'header.php';
                             <div class="container-fluid">
                                 <div class="row">
                                     <div class="col-sm-6 col-sm-offset-3">
-                                        <form class="form-custom float-left" action="" method="POST">
+                                        <form class="form-custom float-left" action="" method="POST" enctype="multipart/form-data">
                                             <?php if ( $dataProvider->hasFeedback() ) : ?>
                                                 <div class="alert alert-<?= $dataProvider->get( 'feedback-type' ) ?>">
                                                     <span><?= $dataProvider->get( 'feedback' ) ?></span>
@@ -57,13 +57,34 @@ include 'header.php';
                                                        required></textarea>
                                             </div>
 
+                                            <div class="form-group">
+                                                <label class="form-label col-lg-3" for="order">Volgorde als het een galarij afbeelding is:</label>
+                                                <input
+                                                    name="order"
+                                                    class="form-control"
+                                                    id="order"
+                                                    type="number"
+                                                    step="any"
+                                                    placeholder="0"
+                                                    value="0"
+                                                    />
+                                            </div>
+
                                              <div class="form-group">
                                                 <label class="form-label col-lg-3" for="type">Type afbeelding:</label>
                                                 <select required  class="form-control" name="type" id="type">
-                                                    <option value="">Geen</option>
                                                     <option value="GALLERY_IMAGE">Galerij</option>
-                                                    <option value="PROFILE_IMAGE">Profielfoto</option>
+                                                    <option value="PROFILE_IMAGE">Profiel foto</option>
+                                                    <option value="PROJECT_IMAGE">Project foto</option>
                                                 </select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="fileUpload btn btn-md btn-primary btn-custom">
+                                                    <span>Selecteer een bestand...</span>
+                                                    <input id="uploadBtn" type="file" class="upload" name="image"/>
+                                                </div>
+                                                <input id="uploadFile" class="fileUpload-text" placeholder="" disabled="disabled" />
                                             </div>
 
                                             <div class="row">

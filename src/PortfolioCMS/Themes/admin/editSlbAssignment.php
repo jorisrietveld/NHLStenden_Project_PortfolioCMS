@@ -47,18 +47,14 @@ include 'header.php';
                                                        value="<?= $dataProvider->call('slbAssignment-data','getName') ?>"
                                                        required>
                                             </div>
-                                            
-                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">Feedback:</label>
-                                                <textarea 
-                                                       rows="10"
-                                                       name="description"
-                                                       class="form-control"
-                                                       id="feedback"                                                   
-                                                       ><?= $dataProvider->call('slbAssignment-data', 'getFeedback')?></textarea>
-                                            </div>
-                                            
 
+                                            <div class="form-group">
+                                                <div class="fileUpload btn btn-md btn-primary btn-custom">
+                                                    <span>Selecteer een bestand...</span>
+                                                    <input id="uploadBtn" type="file" class="upload" name="slbAssignment"/>
+                                                </div>
+                                                <input id="uploadFile" class="fileUpload-text" placeholder="" disabled="disabled" />
+                                            </div>
 
                                             <div class="row">
                                                 <div class="col-lg-6 clearfix"><br/></div>

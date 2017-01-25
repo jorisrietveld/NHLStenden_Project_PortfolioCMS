@@ -39,48 +39,46 @@ include 'header.php';
                                                 </div>
                                             <?php endif; ?>
                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">Naam:</label>
+                                                <label class="form-label col-lg-3" for="name">Naam:</label>
                                                 <input type="text"
                                                        name="name"
                                                        class="form-control"
                                                        id="name"
-                                                       value="<?= $dataProvider->call('image-data', 'getName') ?>"
-                                                >
-                                            </div>
-                                            
-                                            
-                                            <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">Beschrijving:</label>
-                                                <textarea 
-                                                       name="description"
-                                                       class="form-control"
-                                                       id="description"
-                                                       
-                                                       required><?= $dataProvider->call('image-data', 'getDescription') ?></textarea>
-                                            </div>
-                                            
-                                            
-                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">Type afbeelding:</label>
-                                                <select required  class="form-control" name="type">
-                                                    <option value="<?= $dataProvider->call('image-data', 'getType') ?>">
-                                                        <?php if( $dataProvider->call('image-data','getType')=== "GALLERY_IMAGE"){
-                                                              echo"GALLERY_IMAGE";
-                                                        }else{echo"PROFILE_IMAGE";} ?></option>
-                                                    
-                                                    <option value=" <?php if( $dataProvider->call('image-data','getType')=== "GALLERY_IMAGE"){
-                                                              "PROFILE_IMAGE";
-                                                        }else{"GALLERY_IMAGE";} ?>">
-                                                        <?php if( $dataProvider->call('image-data','getType')=== "GALLERY_IMAGE"){
-                                                              echo"PROFILE_IMAGE";
-                                                        }else{echo"GALLERY_IMAGE";} ?></option>
-                                                    
-                                                   
-                                                </select>
-                                               
-                                             
+                                                       placeholder="Naam"
+                                                       value="<?= $dataProvider->call( 'image-data', 'getName' ) ?>">
                                             </div>
 
+                                            <div class="form-group">
+                                                <label class="form-label col-lg-3" for="description">Beschrijving:</label>
+                                                <textarea
+                                                    name="description"
+                                                    class="form-control"
+                                                    id="description"
+                                                    placeholder="Beschrijving"
+                                                    required><?= $dataProvider->call( 'image-data', 'getDescription' ) ?></textarea>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="form-label col-lg-3" for="order">Volgorde als het een galarij afbeelding is:</label>
+                                                <input
+                                                    name="order"
+                                                    class="form-control"
+                                                    id="order"
+                                                    type="number"
+                                                    step="any"
+                                                    placeholder="0"
+                                                    value="<?= $dataProvider->call( 'image-data', 'getOrder' ) ?>"
+                                                />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="form-label col-lg-3" for="type">Type afbeelding:</label>
+                                                <select required class="form-control" name="type" id="type">
+                                                    <option <?= $dataProvider->call( 'image-data', 'getType' ) === 'GALERY_IMAGE' ? 'selected' : '' ?> value="GALLERY_IMAGE">Galerij</option>
+                                                    <option <?= $dataProvider->call( 'image-data', 'getType' ) === 'PROFILE_IMAGE' ? 'selected' : '' ?>value="PROFILE_IMAGE">Profiel foto</option>
+                                                    <option <?= $dataProvider->call( 'image-data', 'getType' ) === 'PROFILE_IMAGE' ? 'selected' : '' ?>value="PROFILE_IMAGE">Project foto</option>
+                                                </select>
+                                            </div>
 
                                             <div class="row">
                                                 <div class="col-lg-6 clearfix"><br/></div>

@@ -249,7 +249,7 @@ CREATE TABLE IF NOT EXISTS `Image` (
   `uploadedFileId` INT UNSIGNED UNIQUE                                             NOT NULL, # Inherited key from the entity UploadedFile and unique identifier for this record.
   `name`           VARCHAR(50)                                                     NOT NULL, # An friendly name for the image.
   `description`    VARCHAR(255)                                                    NULL, # The description of the image that can be used IN the alt tag IN html_
-  `type`           ENUM ('GALLERY_IMAGE', 'PROFILE_IMAGE') DEFAULT 'GALLERY_IMAGE' NOT NULL, # This defines where the image will be used as PROFILE_IMAGE OR GALLERY_IMAGE.
+  `type`           ENUM ('GALLERY_IMAGE', 'PROFILE_IMAGE','PROJECT_IMAGE') DEFAULT 'GALLERY_IMAGE' NOT NULL, # This defines where the image will be used as PROFILE_IMAGE OR GALLERY_IMAGE.
   `order`          TINYINT(2) UNSIGNED DEFAULT 0                                   NULL, # This can be used when an image is an gallery picture to set the order of display.
 
   # Constraint to define the primary key of this table.

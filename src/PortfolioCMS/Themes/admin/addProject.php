@@ -39,18 +39,17 @@ include 'header.php';
                                                 </div>
                                             <?php endif; ?>
                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">Projectnaam:</label>
+                                                <label class="form-label col-lg-3" for="name">Projectnaam:</label>
                                                 <input type="text"
                                                        name="name"
                                                        class="form-control"
-                                                       id="projectnaam"
+                                                       id="name"
                                                        placeholder="Projectnaam"
                                                        required>
                                             </div>
                                             
-                                            
                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">Beschrijving:</label>
+                                                <label class="form-label col-lg-3" for="description">Beschrijving:</label>
                                                 <textarea 
                                                        name="description"
                                                        class="form-control"
@@ -60,7 +59,7 @@ include 'header.php';
                                             </div>
                                             
                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">Link:</label>
+                                                <label class="form-label col-lg-3" for="link">Link:</label>
                                                 <input type="text"
                                                        name="link"
                                                        class="form-control"
@@ -68,23 +67,11 @@ include 'header.php';
                                                        placeholder="Link"
                                                        required>
                                             </div>
-                                            
-                                            
-                                            <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">Cijfer:</label>
-                                                <input type="text"
-                                                       name="grade"
-                                                       class="form-control"
-                                                       id="grade"
-                                                       placeholder="10,0"
-                                                       >
-                                            </div>
 
-                                            
-                                            
-                                           
-                                           
+                                            <?php foreach ( $dataProvider->get() as $picture ) : ?>
 
+
+                                            <?php endforeach; ?>
 
                                             <div class="row">
                                                 <div class="col-lg-6 clearfix"><br/></div>
