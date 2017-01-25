@@ -1,23 +1,29 @@
 <?php
 
-$hasPageSuffix = count( explode( '/', $dataProvider->call( 'httpRequest', 'getRequestUri' ) ) ) == 4;
+$hasPageSuffix = count(explode('/', $dataProvider->call('httpRequest', 'getRequestUri'))) == 4;
 
 ?>
 <div class="wrapper">
-    <div class="sidebar" data-color="blue" data-image="<?= $dataProvider->get( "asset-path" ) ?>img/sidebar-5.jpg">
+    <div class="sidebar" data-color="blue" data-image="<?= $dataProvider->get("asset-path") ?>img/sidebar-5.jpg">
 
         <div class="sidebar-wrapper">
             <div class="logo">
-                <a href="gebruikersOverzicht" class="simple-text">
-                    Portfolio Beheer
-                </a>
+                    <?php if ($hasPageSuffix) : ?>
+                        <a href="../gebruikersOverzicht"  class="simple-text">
+                            Portfolio Beheer
+                        </a>
+                    <?php else: ?>
+                        <a href="gebruikersOverzicht" class="simple-text">
+                            Portfolio Beheer
+                        </a>
+                    <?php endif; ?>
             </div>
 
             <ul class="nav">
-                <?php if ( $dataProvider->isAdmin() ): ?>
-                    <li <?php if ( $isOnAdminPage == 'overzicht' )
+                <?php if ($dataProvider->isAdmin()): ?>
+                    <li <?php if ($isOnAdminPage == 'overzicht')
                         { ?>class="active"<?php } ?>>
-                        <?php if ( $hasPageSuffix ) : ?>
+                        <?php if ($hasPageSuffix) : ?>
                         <a href="../gebruikersOverzicht">
                             <?php else: ?>
                             <a href="gebruikersOverzicht">
@@ -27,9 +33,9 @@ $hasPageSuffix = count( explode( '/', $dataProvider->call( 'httpRequest', 'getRe
                             </a>
                     </li>
                 <?php else: ?>
-                    <li <?php if ( $isOnAdminPage == 'overzicht' )
+                    <li <?php if ($isOnAdminPage == 'overzicht')
                         { ?>class="active"<?php } ?>>
-                        <?php if ( $hasPageSuffix ) : ?>
+                        <?php if ($hasPageSuffix) : ?>
                         <a href="../overzicht">
                             <?php else: ?>
                             <a href="overzicht">
@@ -40,11 +46,11 @@ $hasPageSuffix = count( explode( '/', $dataProvider->call( 'httpRequest', 'getRe
                     </li>
                 <?php endif; ?>
 
-                <?php if ( $dataProvider->isStudent() ): ?>
+                <?php if ($dataProvider->isStudent()): ?>
 
-                    <li class="<?= ( $isOnAdminPage == 'portfolio' ) ? 'active' : '' ?>">
+                    <li class="<?= ($isOnAdminPage == 'portfolio') ? 'active' : '' ?>">
 
-                        <?php if ( $hasPageSuffix ) : ?>
+                        <?php if ($hasPageSuffix) : ?>
                             <a href="../portfolio_van/<?= $dataProvider->getCurrentUserId() ?>">
                                 <i class="fa fa-user-circle-o"></i>
                                 <p>Mijn Portfolio</p>
@@ -58,10 +64,10 @@ $hasPageSuffix = count( explode( '/', $dataProvider->call( 'httpRequest', 'getRe
 
                     </li>
 
-                <?php elseif ( $dataProvider->isAtLeasedTeacher() ): ?>
+                <?php elseif ($dataProvider->isAtLeasedTeacher()): ?>
                     <li class="<?= $isOnAdminPage == 'portfolio' ? 'active' : '' ?>">
 
-                        <?php if ( $hasPageSuffix ) : ?>
+                        <?php if ($hasPageSuffix) : ?>
                             <a href="../portfolioOverzicht">
                                 <i class="fa fa-user-circle-o"></i>
                                 <p>Portfolios</p>
@@ -83,9 +89,9 @@ $hasPageSuffix = count( explode( '/', $dataProvider->call( 'httpRequest', 'getRe
                     </a>
                 </li>-->
 
-                <li <?php if ( $isOnAdminPage == 'cijfer' )
+                <li <?php if ($isOnAdminPage == 'cijfer')
                     { ?>class="active"<?php } ?>>
-                    <?php if ( $hasPageSuffix ) : ?>
+                    <?php if ($hasPageSuffix) : ?>
                     <a href="../cijferOverzicht">
                         <?php else: ?>
                         <a href="cijferOverzicht">
@@ -121,9 +127,9 @@ $hasPageSuffix = count( explode( '/', $dataProvider->call( 'httpRequest', 'getRe
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <?php foreach ( $dataProvider->get( 'portfolio-meta-data' ) as $metaDataObject) : ?>
+                                <?php foreach ($dataProvider->get('portfolio-meta-data') as $metaDataObject) : ?>
                                     <li>
-                                        <a href="/portfolio/<?= $metaDataObject->getUrl()?>"><?= $metaDataObject->getStudentName()?></a>
+                                        <a href="/portfolio/<?= $metaDataObject->getUrl() ?>"><?= $metaDataObject->getStudentName() ?></a>
                                     </li>
                                 <?php endforeach; ?>
                             </ul>

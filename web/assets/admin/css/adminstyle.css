@@ -179,23 +179,29 @@ hr.style-one {
     float: left;
 }
 
-
-.btn-file {
+.fileUpload {
     position: relative;
     overflow: hidden;
+    margin: 10px;
 }
-.btn-file input[type=file] {
+.fileUpload input.upload {
     position: absolute;
     top: 0;
     right: 0;
-    min-width: 100%;
-    min-height: 100%;
-    font-size: 100px;
-    text-align: right;
-    filter: alpha(opacity=0);
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
     opacity: 0;
-    outline: none;
-    background: white;
-    cursor: inherit;
-    display: block;
+    filter: alpha(opacity=0);
+}
+
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+
+.fileUpload-text {
+    width: 100%;
 }

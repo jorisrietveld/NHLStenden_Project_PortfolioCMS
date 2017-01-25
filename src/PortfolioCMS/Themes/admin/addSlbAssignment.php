@@ -21,7 +21,7 @@ include 'header.php';
                         </h4>
                         <hr class="style-one"/>
                         <div class="col-sm-5 custom-buttons">
-                            <a href="portfolioOverzicht">
+                            <a href="../portfolioOverzicht">
                                 <button class="btn btn-md btn-primary btn-block btn-custom">
                                     <i class="fa fa-arrow-left"></i> Terug
                                 </button>
@@ -50,12 +50,14 @@ include 'header.php';
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="btn btn-default btn-custom btn-file" for="slbAssignment">
-                                                    Kies een bestand
-                                                    <input type="file" style="display: none;" name="slbAssignment"
-                                                           id="slbAssignment">
-                                                </label>
+                                                <div class="fileUpload btn btn-md btn-primary btn-custom">
+                                                    <span>Selecteer een bestand...</span>
+                                                    <input id="uploadBtn" type="file" class="upload" />
+                                                </div>
+                                                <input id="uploadFile" class="fileUpload-text" placeholder="" disabled="disabled" />
                                             </div>
+
+
 
                                             <div class="row">
                                                 <div class="col-lg-6 clearfix"><br/></div>
@@ -74,6 +76,13 @@ include 'header.php';
 </div>
 
 <?php include 'footer.php' ?>
+
+<script>
+    document.getElementById("uploadBtn").onchange = function () {
+
+        document.getElementById("uploadFile").value = this.value;
+    };
+</script>
 
 </body>
 
