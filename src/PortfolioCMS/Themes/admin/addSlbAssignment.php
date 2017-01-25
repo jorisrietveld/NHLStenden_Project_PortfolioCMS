@@ -50,7 +50,11 @@ include 'header.php';
                                             </div>
 
                                             <div class="form-group">
-                                                <input type="file" name="slbAssignment" id="slbAssignment">
+                                                <label class="btn btn-default btn-custom btn-file" for="slbAssignment">
+                                                    Kies een bestand
+                                                    <input type="file" style="display: none;" name="slbAssignment"
+                                                           id="slbAssignment">
+                                                </label>
                                             </div>
 
                                             <div class="row">
