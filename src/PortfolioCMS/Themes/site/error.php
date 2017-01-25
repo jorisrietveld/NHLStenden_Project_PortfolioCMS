@@ -49,21 +49,28 @@
                                             <?= $dataProvider->get( 'portfolioMenuLinks', '' ) ?>
                                         </ul>
                                     </li>
-                                    <li><a href="#">Contact</a></li>
+                                    <li><a href="contact">Contact</a></li>
                                 </ul>
 
                                 <ul class="nav navbar-nav navbar-right">
-                                    <li>
-                                        <?php if( isset( $_SESSION['userId'] ) ): ?>
+                                    <?php if (isset($_SESSION['userId'])): ?>
+                                        <li>
+                                            <a href="admin/gebruikersOverzicht">
+                                                <i class="fa fa-user-circle"></i> Beheer
+                                            </a>
+                                        </li>
+                                        <li>
                                             <a href="logout">
                                                 <i class="fa fa-sign-in"></i> Afmelden
                                             </a>
-                                        <?php else: ?>
+                                        </li>
+                                    <?php else: ?>
+                                        <li>
                                             <a href="login">
                                                 <i class="fa fa-sign-in"></i> Aanmelden
                                             </a>
-                                        <?php endif; ?>
-                                    </li>
+                                        </li>
+                                    <?php endif; ?>
                                 </ul>
 
                             </div>

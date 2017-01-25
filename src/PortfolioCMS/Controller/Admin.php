@@ -14,6 +14,7 @@ use StendenINF1B\PortfolioCMS\Kernel\Http\Request;
 
 class Admin extends BaseController
 {
+
     public function index( Request $request )
     {
         return $this->createResponse( 'admin:overzicht', [

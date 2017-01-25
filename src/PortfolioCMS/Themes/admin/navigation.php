@@ -115,26 +115,20 @@ $hasPageSuffix = count( explode( '/', $dataProvider->call( 'httpRequest', 'getRe
 
 
                     <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-address-book-o"></i> Alle Portfolio's
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <?php foreach ($meta->getUrl() as $link) {echo "test";} ?>
+                            </ul>
+                        </li>
                         <li>
                             <a>
                                 <i class="fa fa-user"></i> <?= $dataProvider->getAuthenticatedUserName() ?>
                             </a>
                         </li>
-                        <!--<li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                Dropdown
-                                <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
-                            </ul>
-                        </li> -->
                         <li>
                             <a href="../logout">
                                 <i class="fa fa-sign-out"></i> Uitloggen
