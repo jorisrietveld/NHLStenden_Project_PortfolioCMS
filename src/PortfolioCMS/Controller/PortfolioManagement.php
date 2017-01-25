@@ -47,8 +47,8 @@ class PortfolioManagement extends BaseController
      * @var array
      */
     protected $portfolioFields = [
-        'title'   => 'required|alpha_space|max_length=40|min_length=3',
-        'url'     => 'required|valid_url|max_length=40|min_length=3',
+        'title'   => 'required|alpha_space|max_length,40|min_length,3',
+        'url'     => 'required|valid_url|max_length,40|min_length,3',
         'themeId' => 'required|integer',
         'userId'  => 'required|integer',
     ];
@@ -59,7 +59,7 @@ class PortfolioManagement extends BaseController
      * @var array
      */
     protected $skillFields = [
-        'name'              => 'required|alpha_space|min_length 3|max_length 40',
+        'name'              => 'required|alpha_space|min_length,3|max_length,40',
         'levelOfExperience' => 'required|numeric',
     ];
 
@@ -69,10 +69,10 @@ class PortfolioManagement extends BaseController
      * @var array
      */
     protected $trainingFields = [
-        'title'               => 'required|alpha_space|min_length 3|max_length 40',
-        'institution'         => 'required|alpha_space|min_length 3|max_length 40',
-        'location'            => 'required|alpha_space|min_length 3|max_length 40',
-        'description'         => 'required|alpha_space|min_length 3|max_length 40',
+        'title'               => 'required|alpha_space|min_length,3|max_length,40',
+        'institution'         => 'required|alpha_space|min_length,3|max_length,40',
+        'location'            => 'required|alpha_space|min_length,3|max_length,40',
+        'description'         => 'required|alpha_space|min_length,3|max_length,40',
         'obtainedCertificate' => 'required|boolean',
         'currentTraining'     => 'required|boolean',
     ];
@@ -83,7 +83,7 @@ class PortfolioManagement extends BaseController
      * @var array
      */
     protected $hobbyFields = [
-        'name' => 'required|alpha_space|min_length 3|max_length 40',
+        'name' => 'required|alpha_space|min_length,3|max_length,40',
     ];
 
     /**
@@ -92,7 +92,7 @@ class PortfolioManagement extends BaseController
      * @var array
      */
     protected $languageFields = [
-        'language' => 'required|alpha_space|min_length 3|max_length 40',
+        'language' => 'required|alpha_space|min_length,3|max_length,40',
         'level'    => 'required|numeric',
         'isNative' => 'required|boolean',
     ];
@@ -103,8 +103,8 @@ class PortfolioManagement extends BaseController
      * @var array
      */
     protected $jobExperienceFields = [
-        'location'     => 'required|alpha_space|min_length 3|max_length 40',
-        'description'  => 'required|alpha_space|min_length 3',
+        'location'     => 'required|alpha_space|min_length,3|max_length,40',
+        'description'  => 'required|alpha_space|min_length,3',
         'isInternship' => 'required|boolean',
     ];
 
@@ -125,7 +125,7 @@ class PortfolioManagement extends BaseController
      * @var array
      */
     protected $slbAssignmentFields = [
-        'name' => 'required|alpha_space|min_length 3|max_length 40',
+        'name' => 'required|alpha_space|min_length,3|max_length,40',
     ];
 
     /**
@@ -134,8 +134,8 @@ class PortfolioManagement extends BaseController
      * @var array
      */
     protected $imageFields = [
-        'name' => 'required|alpha_space|min_length 3|max_length 40',
-        'type' => 'required|alpha_space|min_length 3|max_length 40',
+        'name' => 'required|alpha_space|min_length,3|max_length,40',
+        'type' => 'required|alpha_space|min_length,3|max_length,40',
     ];
 
     /**
@@ -280,7 +280,6 @@ class PortfolioManagement extends BaseController
         return $_SESSION[ 'authorizationLevel' ] == AuthorizedUser::ADMIN || $portfolioEntity->getStudent()->getId() === $_SESSION[ 'userId' ];
     }
 
-
     /**
      * This method renders an portfolio overview page for route /admin/portfolioOverview/{id}.
      *
@@ -306,14 +305,23 @@ class PortfolioManagement extends BaseController
         {
             if ( Validation::getInstance()->validatePostParameters( $postParams, $this->portfolioFields ) )
             {
-                $portfolioEntity->setTitle( $postParams->getString( 'title' ) );
-                $portfolioEntity->setUrl( $postParams->getString( 'url' ) );
-                $portfolioEntity->setTheme( $this->themeRepository->getById( $postParams->getInt( 'themeId' ) ) );
+                try
+                {
+                    $portfolioEntity->setTitle( $postParams->getString( 'title' ) );
+                    $portfolioEntity->setUrl( $postParams->getString( 'url' ) );
+                    $portfolioEntity->setTheme( $this->themeRepository->getById( $postParams->getInt( 'themeId' ) ) );
 
-                $this->portfolioRepository->update( $portfolioEntity );
+                    $this->portfolioRepository->update( $portfolioEntity );
 
-                $feedback = 'De wijzegingen zijn opgeslagen.';
-                $feedbackType = 'success';
+                    $feedback = 'De wijzegingen zijn opgeslagen.';
+                    $feedbackType = 'success';
+                }
+                catch ( \Exception $exception )
+                {
+                    Debug::addException( $exception );
+                    $feedback = 'Er is iets fout gegaan, probeer later opnieuw.';
+                    $feedbackType = 'danger';
+                }
             }
             else
             {
@@ -341,7 +349,7 @@ class PortfolioManagement extends BaseController
                 'pages'          => $portfolioEntity->getPages(),
                 'httpRequest'    => $request,
                 'feedback'       => $feedback ?? '',
-                'feedback-type' => $feedbackType ?? '',
+                'feedback-type'  => $feedbackType ?? '',
             ]
         );
     }
@@ -374,16 +382,25 @@ class PortfolioManagement extends BaseController
 
         if ( Validation::getInstance()->validatePostParameters( $postParams, $this->portfolioFields ) && $request->getMethod() === 'POST' )
         {
-            $newPortfolio = new Portfolio();
-            $newPortfolio->setTitle( $postParams->getString( 'title' ) );
-            $newPortfolio->setUrl( $postParams->getString( 'url' ) );
-            $newPortfolio->setTheme( $this->themeRepository->getById( $postParams->getInt( 'themeId' ) ) );
-            $newPortfolio->setStudent( $this->studentRepository->getById( (int)$postParams->get( 'userId' ) ) );
+            try
+            {
+                $newPortfolio = new Portfolio();
+                $newPortfolio->setTitle( $postParams->getString( 'title' ) );
+                $newPortfolio->setUrl( $postParams->getString( 'url' ) );
+                $newPortfolio->setTheme( $this->themeRepository->getById( $postParams->getInt( 'themeId' ) ) );
+                $newPortfolio->setStudent( $this->studentRepository->getById( (int)$postParams->get( 'userId' ) ) );
 
-            $this->portfolioRepository->insert( $newPortfolio );
+                $this->portfolioRepository->insert( $newPortfolio );
 
-            $feedback = 'Het portfolio is toegevoegd.';
-            $feedbackType = 'success';
+                $feedback = 'Het portfolio is toegevoegd.';
+                $feedbackType = 'success';
+            }
+            catch ( \Exception $exception )
+            {
+                Debug::addException( $exception );
+                $feedback = 'Er is iets fout gegaan, probeer later opnieuw.';
+                $feedbackType = 'danger';
+            }
         }
         else
         {
@@ -393,7 +410,7 @@ class PortfolioManagement extends BaseController
 
         return $this->createResponse(
             'admin:addPortfolio', [
-                'feedback' => $feedback ?? '',
+                'feedback'      => $feedback ?? '',
                 'feedback-type' => $feedbackType ?? '',
             ]
         );
@@ -447,8 +464,8 @@ class PortfolioManagement extends BaseController
 
         return $this->createResponse(
             'admin:editSkill', [
-                'skill-data' => $skillEntity,
-                'feedback'   => $feedback ?? '',
+                'skill-data'    => $skillEntity,
+                'feedback'      => $feedback ?? '',
                 'feedback-type' => $feedbackType ?? '',
             ]
         );
@@ -481,11 +498,11 @@ class PortfolioManagement extends BaseController
             {
                 $trainingEntity->setLocation( $postParams->getString( 'location' ) );
                 $trainingEntity->setDescription( $postParams->getString( 'description' ) );
-                $trainingEntity->setCurrentTraining( $postParams->getBoolean( 'currentTraining') );
+                $trainingEntity->setCurrentTraining( $postParams->getBoolean( 'currentTraining' ) );
                 $trainingEntity->setFinishedAt( $postParams->getDateTime( 'finishedAt' ) );
-                $trainingEntity->setInstitution( $postParams->getString( 'institution') );
-                $trainingEntity->setObtainedCertificate( $postParams->getBoolean( 'obtainedCertificate') );
-                $trainingEntity->setTitle( $postParams->getString('title') );
+                $trainingEntity->setInstitution( $postParams->getString( 'institution' ) );
+                $trainingEntity->setObtainedCertificate( $postParams->getBoolean( 'obtainedCertificate' ) );
+                $trainingEntity->setTitle( $postParams->getString( 'title' ) );
 
                 $this->trainingRepository->update( $trainingEntity );
 
@@ -502,6 +519,7 @@ class PortfolioManagement extends BaseController
         else
         {
             $feedback = Validation::getInstance()->getReadableErrors();
+            $feedbackType = 'danger';
         }
 
         return $this->createResponse(
@@ -538,7 +556,7 @@ class PortfolioManagement extends BaseController
         {
             try
             {
-                $hobbyEntity->setName( $postParams->getString('name'));
+                $hobbyEntity->setName( $postParams->getString( 'name' ) );
 
                 $this->hobbyRepository->update( $hobbyEntity );
 
@@ -555,12 +573,13 @@ class PortfolioManagement extends BaseController
         else
         {
             $feedback = Validation::getInstance()->getReadableErrors();
+            $feedbackType = 'danger';
         }
 
         return $this->createResponse(
             'admin:editHobby', [
-                'hobby-data' => $hobbyEntity,
-                'feedback'   => $feedback ?? '',
+                'hobby-data'    => $hobbyEntity,
+                'feedback'      => $feedback ?? '',
                 'feedback-type' => $feedbackType ?? '',
             ]
         );
@@ -591,9 +610,9 @@ class PortfolioManagement extends BaseController
         {
             try
             {
-                $languageEntity->setIsNative( $postParams->getBoolean( 'isNative' ));
-                $languageEntity->setLanguage( $postParams->getString( 'language' ));
-                $languageEntity->setLevel( $postParams->getInt( 'level' ));
+                $languageEntity->setIsNative( $postParams->getBoolean( 'isNative' ) );
+                $languageEntity->setLanguage( $postParams->getString( 'language' ) );
+                $languageEntity->setLevel( $postParams->getInt( 'level' ) );
 
                 $this->languageRepository->update( $languageEntity );
 
@@ -610,6 +629,7 @@ class PortfolioManagement extends BaseController
         else
         {
             $feedback = Validation::getInstance()->getReadableErrors();
+            $feedbackType = 'danger';
         }
 
         return $this->createResponse(
@@ -646,7 +666,7 @@ class PortfolioManagement extends BaseController
         {
             try
             {
-                $slbAssignmentEntity->setName( $postParams->getString( 'name' ));
+                $slbAssignmentEntity->setName( $postParams->getString( 'name' ) );
                 //$slbAssignmentEntity->setFileName(  );
                 // todo add code for fileupload.
                 $slbAssignmentEntity->setFilePath( WEB_ROOT . 'files' . DIR_SEP );
@@ -667,13 +687,14 @@ class PortfolioManagement extends BaseController
         else
         {
             $feedback = Validation::getInstance()->getReadableErrors();
+            $feedbackType = 'danger';
         }
 
         return $this->createResponse(
             'admin:editSlbAssignment', [
                 'slbAssignment-data' => $slbAssignmentEntity,
                 'feedback'           => $feedback ?? '',
-                'feedback-type' => $feedbackType ?? '',
+                'feedback-type'      => $feedbackType ?? '',
             ]
         );
     }
@@ -722,12 +743,13 @@ class PortfolioManagement extends BaseController
         else
         {
             $feedback = Validation::getInstance()->getReadableErrors();
+            $feedbackType = 'danger';
         }
 
         return $this->createResponse(
             'admin:editImage', [
-                'image-data' => $imageEntity,
-                'feedback'   => $feedback ?? '',
+                'image-data'    => $imageEntity,
+                'feedback'      => $feedback ?? '',
                 'feedback-type' => $feedbackType ?? '',
             ]
         );
@@ -759,9 +781,9 @@ class PortfolioManagement extends BaseController
             try
             {
                 $projectEntity->setName( $postParams->getString( 'name' ) );
-                $projectEntity->setDescription( $postParams->getString('description' ));
-                $projectEntity->setImage( $this->imageRepository->getById( $postParams->getInt( 'imageId' )) );
-                $projectEntity->setLink( $postParams->getString( 'link' ));
+                $projectEntity->setDescription( $postParams->getString( 'description' ) );
+                $projectEntity->setImage( $this->imageRepository->getById( $postParams->getInt( 'imageId' ) ) );
+                $projectEntity->setLink( $postParams->getString( 'link' ) );
 
                 $this->projectRepository->update( $projectEntity );
 
@@ -778,12 +800,13 @@ class PortfolioManagement extends BaseController
         else
         {
             $feedback = Validation::getInstance()->getReadableErrors();
+            $feedbackType = 'danger';
         }
 
         return $this->createResponse(
             'admin:editProject', [
-                'project-data' => $projectEntity,
-                'feedback'     => $feedback ?? '',
+                'project-data'  => $projectEntity,
+                'feedback'      => $feedback ?? '',
                 'feedback-type' => $feedbackType ?? '',
             ]
         );
@@ -814,7 +837,7 @@ class PortfolioManagement extends BaseController
         {
             try
             {
-                $jobExperienceEntity->setDescription( $postParams->getString( 'description' ));
+                $jobExperienceEntity->setDescription( $postParams->getString( 'description' ) );
                 $jobExperienceEntity->setEndedAt( $postParams->getDateTime( 'endedAt' ) );
                 $jobExperienceEntity->setIsInternship( $postParams->getBoolean( 'isInternship' ) );
                 $jobExperienceEntity->setLocation( $postParams->getString( 'location' ) );
@@ -834,12 +857,13 @@ class PortfolioManagement extends BaseController
         else
         {
             $feedback = Validation::getInstance()->getReadableErrors();
+            $feedbackType = 'danger';
         }
 
         return $this->createResponse(
             'admin:editJobExperience', [
-                'project-data' => $jobExperienceEntity,
-                'feedback'     => $feedback ?? '',
+                'project-data'  => $jobExperienceEntity,
+                'feedback'      => $feedback ?? '',
                 'feedback-type' => $feedbackType ?? '',
             ]
         );
@@ -854,7 +878,7 @@ class PortfolioManagement extends BaseController
      */
     public function addJobExperience( Request $request, string $portfolioId ): Response
     {
-        if( !$this->isOwnOrAdmin( $portfolioId ) )
+        if ( !$this->isOwnOrAdmin( (int)$portfolioId ) )
         {
             $this->redirect( '/401' );
         }
@@ -866,7 +890,7 @@ class PortfolioManagement extends BaseController
             try
             {
                 $jobExperienceEntity = new JobExperience();
-                $jobExperienceEntity->setDescription( $postParams->getString( 'description' ));
+                $jobExperienceEntity->setDescription( $postParams->getString( 'description' ) );
                 $jobExperienceEntity->setEndedAt( $postParams->getDateTime( 'endedAt' ) );
                 $jobExperienceEntity->setPortfolioId( (int)$portfolioId );
                 $jobExperienceEntity->setIsInternship( $postParams->getBoolean( 'isInternship' ) );
@@ -884,14 +908,15 @@ class PortfolioManagement extends BaseController
                 $feedbackType = 'danger';
             }
         }
-        else
+        elseif( $request->getMethod() === 'POST' )
         {
             $feedback = Validation::getInstance()->getReadableErrors();
+            $feedbackType = 'danger';
         }
 
         return $this->createResponse(
             'admin:addJobExperience', [
-                'feedback' => $feedback ?? '',
+                'feedback'      => $feedback ?? '',
                 'feedback-type' => $feedbackType ?? '',
             ]
         );
@@ -905,7 +930,7 @@ class PortfolioManagement extends BaseController
      */
     public function addSkill( Request $request, string $portfolioId ): Response
     {
-        if( !$this->isOwnOrAdmin( $portfolioId ) )
+        if ( !$this->isOwnOrAdmin( (int)$portfolioId ) )
         {
             $this->redirect( '/401' );
         }
@@ -917,7 +942,7 @@ class PortfolioManagement extends BaseController
             try
             {
                 $skillEntity = new Skill();
-                $skillEntity->setPortfolioId( $postParams->getInt('portfolioId' ) );
+                $skillEntity->setPortfolioId( $postParams->getInt( 'portfolioId' ) );
                 $skillEntity->setName( $postParams->getString( 'name' ) );
                 $skillEntity->setLevelOfExperience( $postParams->getInt( 'levelOfExperience' ) );
 
@@ -936,11 +961,12 @@ class PortfolioManagement extends BaseController
         else
         {
             $feedback = Validation::getInstance()->getReadableErrors();
+            $feedbackType = 'danger';
         }
 
         return $this->createResponse(
             'admin:addSkill', [
-                'feedback' => $feedback ?? '',
+                'feedback'      => $feedback ?? '',
                 'feedback-type' => $feedbackType ?? '',
             ]
         );
@@ -953,9 +979,9 @@ class PortfolioManagement extends BaseController
      * @param string  $trainingId
      * @return Response
      */
-    public function addTraining( Request $request, string $portfolioId  ): Response
+    public function addTraining( Request $request, string $portfolioId ): Response
     {
-        if( !$this->isOwnOrAdmin( $portfolioId ) )
+        if ( !$this->isOwnOrAdmin( (int)$portfolioId ) )
         {
             $this->redirect( '/401' );
         }
@@ -970,11 +996,11 @@ class PortfolioManagement extends BaseController
                 $trainingEntity->setLocation( $postParams->getString( 'location' ) );
                 $trainingEntity->setPortfolioId( (int)$portfolioId );
                 $trainingEntity->setDescription( $postParams->getString( 'description' ) );
-                $trainingEntity->setCurrentTraining( $postParams->getBoolean( 'currentTraining') );
+                $trainingEntity->setCurrentTraining( $postParams->getBoolean( 'currentTraining' ) );
                 $trainingEntity->setFinishedAt( $postParams->getDateTime( 'finishedAt' ) );
-                $trainingEntity->setInstitution( $postParams->getString( 'institution') );
-                $trainingEntity->setObtainedCertificate( $postParams->getBoolean( 'obtainedCertificate') );
-                $trainingEntity->setTitle( $postParams->getString('title') );
+                $trainingEntity->setInstitution( $postParams->getString( 'institution' ) );
+                $trainingEntity->setObtainedCertificate( $postParams->getBoolean( 'obtainedCertificate' ) );
+                $trainingEntity->setTitle( $postParams->getString( 'title' ) );
 
                 $this->trainingRepository->insert( $trainingEntity );
 
@@ -991,11 +1017,12 @@ class PortfolioManagement extends BaseController
         else
         {
             $feedback = Validation::getInstance()->getReadableErrors();
+            $feedbackType = 'danger';
         }
 
         return $this->createResponse(
             'admin:addTraining', [
-                'feedback' => $feedback ?? '',
+                'feedback'      => $feedback ?? '',
                 'feedback-type' => $feedbackType ?? '',
             ]
         );
@@ -1008,21 +1035,21 @@ class PortfolioManagement extends BaseController
      * @param string  $hobbyId
      * @return Response
      */
-    public function addHobby( Request $request, string $portfolioId  ): Response
+    public function addHobby( Request $request, string $portfolioId ): Response
     {
-        if( !$this->isOwnOrAdmin( $portfolioId ) )
+        if ( !$this->isOwnOrAdmin( (int)$portfolioId ) )
         {
             $this->redirect( '/401' );
         }
 
         $postParams = $request->getPostParams();
 
-        if ( Validation::getInstance()->validatePostParameters( $postParams, $this->trainingFields ) && $request->getMethod() === 'POST' )
+        if ( Validation::getInstance()->validatePostParameters( $postParams, $this->hobbyFields ) && $request->getMethod() === 'POST' )
         {
             try
             {
                 $hobbyEntity = new Hobby();
-                $hobbyEntity->setName( $postParams->getString('name'));
+                $hobbyEntity->setName( $postParams->getString( 'name' ) );
                 $hobbyEntity->setPortfolio( (int)$portfolioId );
 
                 $this->hobbyRepository->insert( $hobbyEntity );
@@ -1040,11 +1067,12 @@ class PortfolioManagement extends BaseController
         else
         {
             $feedback = Validation::getInstance()->getReadableErrors();
+            $feedbackType = 'danger';
         }
 
         return $this->createResponse(
             'admin:addHobby', [
-                'feedback' => $feedback ?? '',
+                'feedback'      => $feedback ?? '',
                 'feedback-type' => $feedbackType ?? '',
             ]
         );
@@ -1057,9 +1085,9 @@ class PortfolioManagement extends BaseController
      * @param string  $languageId
      * @return Response
      */
-    public function addLanguage( Request $request, string $portfolioId  ): Response
+    public function addLanguage( Request $request, string $portfolioId ): Response
     {
-        if( !$this->isOwnOrAdmin( $portfolioId ) )
+        if ( !$this->isOwnOrAdmin( (int)$portfolioId ) )
         {
             $this->redirect( '/401' );
         }
@@ -1071,9 +1099,9 @@ class PortfolioManagement extends BaseController
             try
             {
                 $languageEntity = new Language();
-                $languageEntity->setIsNative( $postParams->getBoolean( 'isNative' ));
-                $languageEntity->setLanguage( $postParams->getString( 'language' ));
-                $languageEntity->setLevel( $postParams->getInt( 'level' ));
+                $languageEntity->setIsNative( $postParams->getBoolean( 'isNative' ) );
+                $languageEntity->setLanguage( $postParams->getString( 'language' ) );
+                $languageEntity->setLevel( $postParams->getInt( 'level' ) );
                 $languageEntity->setPortfolioId( (int)$portfolioId );
 
                 $this->languageRepository->insert( $languageEntity );
@@ -1091,11 +1119,12 @@ class PortfolioManagement extends BaseController
         else
         {
             $feedback = Validation::getInstance()->getReadableErrors();
+            $feedbackType = 'danger';
         }
 
         return $this->createResponse(
             'admin:addLanguage', [
-                'feedback' => $feedback ?? '',
+                'feedback'      => $feedback ?? '',
                 'feedback-type' => $feedbackType ?? '',
             ]
         );
@@ -1108,9 +1137,9 @@ class PortfolioManagement extends BaseController
      * @param string  $slbAssignmentId
      * @return Response
      */
-    public function addSlbAssignment( Request $request, string $portfolioId  ): Response
+    public function addSlbAssignment( Request $request, string $portfolioId ): Response
     {
-        if( !$this->isOwnOrAdmin( $portfolioId ) )
+        if ( !$this->isOwnOrAdmin( (int)$portfolioId ) )
         {
             $this->redirect( '/401' );
         }
@@ -1122,7 +1151,7 @@ class PortfolioManagement extends BaseController
             try
             {
                 $slbAssignmentEntity = new SLBAssignment();
-                $slbAssignmentEntity->setName( $postParams->getString( 'name' ));
+                $slbAssignmentEntity->setName( $postParams->getString( 'name' ) );
                 //$slbAssignmentEntity->setFileName(  );
                 // todo add code for fileupload.
                 $slbAssignmentEntity->setFilePath( WEB_ROOT . 'files' . DIR_SEP );
@@ -1142,11 +1171,12 @@ class PortfolioManagement extends BaseController
         else
         {
             $feedback = Validation::getInstance()->getReadableErrors();
+            $feedbackType = 'danger';
         }
 
         return $this->createResponse(
             'admin:addSlbAssignment', [
-                'feedback' => $feedback ?? '',
+                'feedback'      => $feedback ?? '',
                 'feedback-type' => $feedbackType ?? '',
             ]
         );
@@ -1159,9 +1189,9 @@ class PortfolioManagement extends BaseController
      * @param string  $imageId
      * @return Response
      */
-    public function addImage( Request $request, string $portfolioId  ): Response
+    public function addImage( Request $request, string $portfolioId ): Response
     {
-        if( !$this->isOwnOrAdmin( $portfolioId ) )
+        if ( !$this->isOwnOrAdmin( (int)$portfolioId ) )
         {
             $this->redirect( '/401' );
         }
@@ -1195,11 +1225,12 @@ class PortfolioManagement extends BaseController
         else
         {
             $feedback = Validation::getInstance()->getReadableErrors();
+            $feedbackType = 'danger';
         }
 
         return $this->createResponse(
             'admin:addImage', [
-                'feedback' => $feedback ?? '',
+                'feedback'      => $feedback ?? '',
                 'feedback-type' => $feedbackType ?? '',
             ]
         );
@@ -1212,9 +1243,9 @@ class PortfolioManagement extends BaseController
      * @param string  $projectId
      * @return Response
      */
-    public function addProject( Request $request, string $portfolioId  ): Response
+    public function addProject( Request $request, string $portfolioId ): Response
     {
-        if( !$this->isOwnOrAdmin( $portfolioId ) )
+        if ( !$this->isOwnOrAdmin( (int)$portfolioId ) )
         {
             $this->redirect( '/401' );
         }
@@ -1227,9 +1258,9 @@ class PortfolioManagement extends BaseController
             {
                 $projectEntity = new Project();
                 $projectEntity->setName( $postParams->getString( 'name' ) );
-                $projectEntity->setDescription( $postParams->getString('description' ));
-                $projectEntity->setImage( $this->imageRepository->getById( $postParams->getInt( 'imageId' )) );
-                $projectEntity->setLink( $postParams->getString( 'link' ));
+                $projectEntity->setDescription( $postParams->getString( 'description' ) );
+                $projectEntity->setImage( $this->imageRepository->getById( $postParams->getInt( 'imageId' ) ) );
+                $projectEntity->setLink( $postParams->getString( 'link' ) );
                 $projectEntity->setPortfolioId( (int)$portfolioId );
 
                 $this->projectRepository->insert( $projectEntity );
@@ -1246,13 +1277,14 @@ class PortfolioManagement extends BaseController
         else
         {
             $feedback = Validation::getInstance()->getReadableErrors();
+            $feedbackType = 'danger';
         }
 
         return $this->createResponse(
             'admin:addProject', [
-                'feedback' => $feedback ?? '',
+                'feedback'      => $feedback ?? '',
                 'feedback-type' => $feedbackType ?? '',
-                'images' => $this->imageRepository->findByCondition( 'WHERE portfolioId = :wherePortfolioId', [':wherePortfolioId' => (int)$portfolioId ])
+                'images'        => $this->imageRepository->findByCondition( 'WHERE portfolioId = :wherePortfolioId', [ ':wherePortfolioId' => (int)$portfolioId ] ),
             ]
         );
     }

@@ -52,6 +52,11 @@ include 'header.php'; ?>
                                     The links to the add pages should contain the portfolioId like:
                                     /admin/addSkill/{echo portfolio id here}
                                 -->
+                                <?php if ( $dataProvider->hasFeedback() ) : ?>
+                                    <div class="alert alert-<?= $dataProvider->get( 'feedback-type' ) ?>">
+                                        <span><?= $dataProvider->get( 'feedback' ) ?></span>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                         <?php elseif ( $dataProvider->isSlbTeacher() ) : ?>
                             <div>

@@ -109,10 +109,8 @@ class Validation
      * @param string $method
      * @param array  $arguments
      */
-    public
-    function addError(
-        string $fieldName, string $input, string $method, array $arguments = []
-    ) {
+    public function addError( string $fieldName, string $input, string $method, array $arguments = [] )
+    {
         $this->errors[] = [
             'field'     => $fieldName,
             'input'     => $input,
@@ -126,8 +124,7 @@ class Validation
      *
      * @return mixed
      */
-    public
-    function getErrors()
+    public function getErrors()
     {
         return $this->getErrors();
     }
@@ -137,8 +134,7 @@ class Validation
      *
      * @return array
      */
-    public
-    function getReadableErrors()
+    public function getReadableErrors()
     {
         foreach ($this->errors as $error)
         {
@@ -169,10 +165,8 @@ class Validation
      * @param string $fieldName
      * @param string $input
      */
-    public
-    function validateRequired(
-        string $fieldName, string $input
-    ) {
+    public function validateRequired( string $fieldName, string $input )
+    {
         if ( strlen( $input ) === 0 )
         {
             $this->addError( $fieldName, $input, __METHOD__ );
@@ -185,10 +179,8 @@ class Validation
      * @param string $fieldName
      * @param string $input
      */
-    public
-    function validateAlpha(
-        string $fieldName, string $input
-    ) {
+    public function validateAlpha( string $fieldName, string $input )
+    {
         if ( preg_match( '/^([a-z])+$/i', $input ) == 0 )
         {
             $this->addError( $fieldName, $input, __METHOD__ );
@@ -201,10 +193,8 @@ class Validation
      * @param string $fieldName
      * @param string $input
      */
-    public
-    function validateAlphaNumeric(
-        string $fieldName, string $input
-    ) {
+    public function validateAlphaNumeric( string $fieldName, string $input )
+    {
         if ( preg_match( '/^([a-z0-9])+$/i', $input ) == 0 )
         {
             $this->addError( $fieldName, $input, __METHOD__ );
@@ -217,10 +207,8 @@ class Validation
      * @param string $fieldName
      * @param string $input
      */
-    public
-    function validateAlphaDash(
-        string $fieldName, string $input
-    ) {
+    public function validateAlphaDash( string $fieldName, string $input )
+    {
         if ( preg_match( '/^([a-z0-9-_])+$/i', $input ) == 0 )
         {
             $this->addError( $fieldName, $input, __METHOD__ );
@@ -233,10 +221,8 @@ class Validation
      * @param string $fieldName
      * @param string $input
      */
-    public
-    function validateAlphaSpace(
-        string $fieldName, string $input
-    ) {
+    public function validateAlphaSpace( string $fieldName, string $input )
+    {
         if ( preg_match( '/^([a-z0-9\s])+$/i', $input ) == 0 )
         {
             $this->addError( $fieldName, $input, __METHOD__ );
@@ -249,10 +235,8 @@ class Validation
      * @param string $fieldName
      * @param string $input
      */
-    public
-    function validateNumeric(
-        string $fieldName, string $input
-    ) {
+    public function validateNumeric( string $fieldName, string $input )
+    {
         if ( !is_numeric( $input ) )
         {
             $this->addError( $fieldName, $input, __METHOD__ );
@@ -265,10 +249,8 @@ class Validation
      * @param string $fieldName
      * @param string $input
      */
-    public
-    function validateInteger(
-        string $fieldName, string $input
-    ) {
+    public function validateInteger( string $fieldName, string $input )
+    {
         if ( filter_var( $input, FILTER_VALIDATE_INT ) === FALSE )
         {
             $this->addError( $fieldName, $input, __METHOD__ );
@@ -281,10 +263,8 @@ class Validation
      * @param string $fieldName
      * @param string $input
      */
-    public
-    function validateFloat(
-        string $fieldName, string $input
-    ) {
+    public function validateFloat( string $fieldName, string $input )
+    {
         if ( filter_var( $input, FILTER_VALIDATE_FLOAT ) === FALSE )
         {
             $this->addError( $fieldName, $input, __METHOD__ );
@@ -297,10 +277,13 @@ class Validation
      * @param string $fieldName
      * @param string $input
      */
-    public
-    function validateBoolean(
-        string $fieldName, string $input
-    ) {
+    public function validateBoolean( string $fieldName, string $input )
+    {
+        if( (bool)$input == $input )
+        {
+            return;
+        }
+
         if ( filter_var( $input, FILTER_VALIDATE_BOOLEAN ) === FALSE )
         {
             $this->addError( $fieldName, $input, __METHOD__ );
@@ -314,10 +297,8 @@ class Validation
      * @param string $input
      * @param string $maxLength
      */
-    public
-    function validateMaxLength(
-        string $fieldName, string $input, string $maxLength = ''
-    ) {
+    public function validateMaxLength( string $fieldName, string $input, string $maxLength = '' )
+    {
         if ( strlen( $maxLength ) == 0 || $maxLength == 0 )
         {
             return;
@@ -336,10 +317,8 @@ class Validation
      * @param string $input
      * @param string $minLength
      */
-    public
-    function validateMinLength(
-        string $fieldName, string $input, string $minLength = ''
-    ) {
+    public function validateMinLength( string $fieldName, string $input, string $minLength = '' )
+    {
         if ( strlen( $minLength ) == 0 || $minLength == 0 )
         {
             return;
@@ -358,10 +337,8 @@ class Validation
      * @param string $input
      * @param string $minValue
      */
-    public
-    function validateMinNumeric(
-        string $fieldName, string $input, string $minValue = ''
-    ) {
+    public function validateMinNumeric( string $fieldName, string $input, string $minValue = '' )
+    {
         if ( $input < $minValue )
         {
             $this->addError( $fieldName, $input, __METHOD__, [ 'min' => $minValue ] );
@@ -376,10 +353,8 @@ class Validation
      * @param string $input
      * @param string $maxValue
      */
-    public
-    function validateMaxNumeric(
-        string $fieldName, string $input, string $maxValue = ''
-    ) {
+    public function validateMaxNumeric( string $fieldName, string $input, string $maxValue = '' )
+    {
         if ( $input > $maxValue )
         {
             $this->addError( $fieldName, $input, __METHOD__, [ 'max' => $maxValue ] );
@@ -392,10 +367,8 @@ class Validation
      * @param string $fieldName
      * @param string $input
      */
-    public
-    function validateIp(
-        string $fieldName, string $input
-    ) {
+    public function validateIp( string $fieldName, string $input )
+    {
         if ( filter_var( $input, FILTER_VALIDATE_IP ) === FALSE )
         {
             $this->addError( $fieldName, $input, __METHOD__ );
@@ -408,10 +381,8 @@ class Validation
      * @param string $fieldName
      * @param string $input
      */
-    public
-    function validateIpv4(
-        string $fieldName, string $input
-    ) {
+    public function validateIpv4( string $fieldName, string $input )
+    {
         if ( filter_var( $input, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 ) === FALSE )
         {
             $this->addError( $fieldName, $input, __METHOD__ );
@@ -424,10 +395,8 @@ class Validation
      * @param string $fieldName
      * @param string $input
      */
-    public
-    function validateIpv6(
-        string $fieldName, string $input
-    ) {
+    public function validateIpv6( string $fieldName, string $input )
+    {
         if ( filter_var( $input, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6 ) === FALSE )
         {
             $this->addError( $fieldName, $input, __METHOD__ );
@@ -441,10 +410,8 @@ class Validation
      * @param string $input
      * @param string $item
      */
-    public
-    function validateContains(
-        string $fieldName, string $input, string $item
-    ) {
+    public function validateContains( string $fieldName, string $input, string $item )
+    {
         if ( strpos( $input, $item ) !== FALSE )
         {
             $this->addError( $fieldName, $input, __METHOD__, [ 'contains' => $item ] );
@@ -458,10 +425,8 @@ class Validation
      * @param string $input
      * @param string $item
      */
-    public
-    function validateDoesNotContain(
-        string $fieldName, string $input, string $item
-    ) {
+    public function validateDoesNotContain( string $fieldName, string $input, string $item )
+    {
         if ( strpos( $input, $item ) )
         {
             $this->addError( $fieldName, $input, __METHOD__, [ 'contains' => $item ] );
@@ -474,10 +439,8 @@ class Validation
      * @param string $fieldName
      * @param string $input
      */
-    public
-    function validatePhoneNumber(
-        string $fieldName, string $input
-    ) {
+    public function validatePhoneNumber( string $fieldName, string $input )
+    {
         if ( !preg_match( '/^(\d[\s-]?)?[\(\[\s-]{0,2}?\d{3}[\)\]\s-]{0,2}?\d{3}[\s-]?\d{4}$/i', $input ) )
         {
             $this->addError( $fieldName, $input, __METHOD__ );
@@ -490,10 +453,8 @@ class Validation
      * @param string $fieldName
      * @param string $input
      */
-    public
-    function validateEmail(
-        string $fieldName, string $input
-    ) {
+    public function validateEmail( string $fieldName, string $input )
+    {
         if ( !filter_var( $input, FILTER_VALIDATE_EMAIL ) )
         {
             $this->addError( $fieldName, $input, __METHOD__ );
@@ -506,10 +467,8 @@ class Validation
      * @param string $fieldName
      * @param string $input
      */
-    public
-    function validateZipCode(
-        string $fieldName, string $input
-    ) {
+    public function validateZipCode( string $fieldName, string $input )
+    {
         if ( !preg_match( '/^\A[1-9]\d{3}\s?[a-zA-Z]{2}\Z$/i', $input ) )
         {
             $this->addError( $fieldName, $input, __METHOD__ );
@@ -523,10 +482,8 @@ class Validation
      * @param string $input
      * @param        $requiredCharacters
      */
-    public
-    function validatePassword(
-        string $fieldName, string $input, $requiredCharacters
-    ) {
+    public function validatePassword( string $fieldName, string $input, $requiredCharacters )
+    {
         if ( !preg_match( "/^([{$requiredCharacters}]+)$/i", $input ) )
         {
             $this->addError( $fieldName, $input, __METHOD__, [ 'requiredCharacters' => $requiredCharacters ] );
@@ -539,10 +496,8 @@ class Validation
      * @param string $fieldName
      * @param string $input
      */
-    public
-    function validateDate(
-        string $fieldName, string $input, $format = 'Y-m-d'
-    ) {
+    public function validateDate( string $fieldName, string $input, $format = 'Y-m-d' )
+    {
         $date = \DateTime::createFromFormat( $format, $input );
         if ( !$date || $date->format( $format ) !== $input )
         {
@@ -557,10 +512,8 @@ class Validation
      * @param string $input
      * @param string $format
      */
-    public
-    function validateTime(
-        string $fieldName, string $input, $format = 'H:i'
-    ) {
+    public function validateTime( string $fieldName, string $input, $format = 'H:i' )
+    {
         $date = \DateTime::createFromFormat( $format, $input );
 
         if ( !$date || $date->format( $format ) !== $input )
@@ -576,10 +529,8 @@ class Validation
      * @param string $input
      * @param string $format
      */
-    public
-    function validateDateTime(
-        string $fieldName, string $input, $format = 'Y-m-d H:i'
-    ) {
+    public function validateDateTime( string $fieldName, string $input, $format = 'Y-m-d H:i' )
+    {
         $date = \DateTime::createFromFormat( $format, $input );
 
         if ( !$date || $date->format( $format ) !== $input )
@@ -594,10 +545,8 @@ class Validation
      * @param string $fieldName
      * @param string $input
      */
-    public
-    function filterXXS(
-        string $fieldName, string $input
-    ) {
+    public function filterXXS( string $fieldName, string $input )
+    {
         return filter_var( $input, FILTER_SANITIZE_STRING );
     }
 }

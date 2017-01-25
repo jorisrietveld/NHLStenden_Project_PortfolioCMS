@@ -33,7 +33,11 @@ include 'header.php';
                                 <div class="row">
                                     <div class="col-sm-6 col-sm-offset-3">
                                         <form class="form-custom float-left" action="" method="POST">
-
+                                            <?php if ( $dataProvider->hasFeedback() ) : ?>
+                                                <div class="alert alert-<?= $dataProvider->get( 'feedback-type' ) ?>">
+                                                    <span><?= $dataProvider->get( 'feedback' ) ?></span>
+                                                </div>
+                                            <?php endif; ?>
                                             <div class="form-group">
                                                 <label class="form-label col-lg-3" for="inputEmail">Werkplaats:</label>
                                                 <input type="text"
@@ -78,19 +82,13 @@ include 'header.php';
                                             </div>
                                             
                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">Type werkplek:</label>
+                                                <label class="form-label col-lg-3" for="isInternship">Type werkplek:</label>
                                                 <select required  class="form-control" name="isInternship">
-                                                    <option value="">Geen</option>
-                                                    <option value="werk">Werkplek</option>
-                                                    <option value="stage">Stageplaats</option>
+                                                    <option value="">Selecteer een werkplek</option>
+                                                    <option value="FALSE">Werkplek</option>
+                                                    <option value="TRUE">Stageplaats</option>
                                                 </select>
-                                               
-                                             
                                             </div>
-                                            
-                                          
-                                            
-
 
                                             <div class="row">
                                                 <div class="col-lg-6 clearfix"><br/></div>
