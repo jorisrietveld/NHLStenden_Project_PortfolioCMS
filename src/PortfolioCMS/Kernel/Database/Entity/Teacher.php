@@ -8,7 +8,6 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Entity;
 
-
 class Teacher extends User implements EntityInterface
 {
     /**
@@ -19,7 +18,7 @@ class Teacher extends User implements EntityInterface
     /**
      * Teacher constructor that initiates the default classes properties.
      */
-    public function __construct(  )
+    public function __construct()
     {
         $this->type = 'teacher';
     }
@@ -199,11 +198,5 @@ class Teacher extends User implements EntityInterface
     {
         $this->isAdmin = $isAdmin;
     }
-
-
-
-
-
-
 
 }

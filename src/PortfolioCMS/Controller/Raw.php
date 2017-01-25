@@ -8,7 +8,6 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Controller;
 
-
 use StendenINF1B\PortfolioCMS\Kernel\BaseController;
 use StendenINF1B\PortfolioCMS\Kernel\Http\Request;
 use StendenINF1B\PortfolioCMS\Kernel\Http\Response;
@@ -19,30 +18,29 @@ class Raw extends BaseController
 
     const DEFAULT_PORTFOLIO_PAGE = 'index';
 
-    public function index( Request $request, $studentName = NULL, $portfolioPageName = NULL  )
+    public function index( Request $request, $studentName = NULL, $portfolioPageName = NULL )
     {
-        if( DEBUG == FALSE )
+        if ( DEBUG == FALSE )
         {
             return $this->redirect( '/401' );
         }
 
-        if( $studentName !== NULL )
+        if ( $studentName !== NULL )
         {
             $portfolioEntity = $this->getPortfolios()->getEntityWith( 'url', $studentName );
-            if( $portfolioEntity )
+            if ( $portfolioEntity )
             {
                 $portfolioPageName = $portfolioPageName ?? self::DEFAULT_PORTFOLIO_PAGE;
 
                 ob_start();
-                dump($portfolioEntity);
+                dump( $portfolioEntity );
 
                 return new Response(
-                    '<h1>Portfolio from:</h1>'.ob_get_clean(),
+                    '<h1>Portfolio from:</h1>' . ob_get_clean(),
                     200
                 );
             }
         }
-
 
     }
 }

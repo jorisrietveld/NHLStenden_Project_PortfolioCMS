@@ -154,7 +154,6 @@ class PortfolioRepository extends Repository
         }
         catch ( \PDOException $exception )
         {
-            $this->connection->rollBack();
             throw new RepositoryException( 'The portfolio could not be inserted: ' . $exception->getMessage() );
         }
     }
@@ -178,6 +177,7 @@ class PortfolioRepository extends Repository
                 ':url'     => $portfolio->getUrl(),
                 ':grade'   => $portfolio->getGrade(),
                 ':userId'  => $portfolio->getStudent()->getId(),
+                ':id'      => $portfolio->getId(),
             ] );
 
             return $this->getById( $portfolio->getId() );
@@ -185,7 +185,6 @@ class PortfolioRepository extends Repository
         }
         catch ( \PDOException $exception )
         {
-            $this->connection->rollBack();
             throw new RepositoryException( 'The Portfolio could not be updated: ' . $exception->getMessage() );
         }
     }

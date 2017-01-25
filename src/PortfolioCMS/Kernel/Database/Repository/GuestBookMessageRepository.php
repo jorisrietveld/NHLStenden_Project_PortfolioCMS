@@ -122,10 +122,10 @@ class GuestBookMessageRepository extends Repository
             $statement = $this->connection->prepare( $this->insertGuestBookMessageSql );
 
             $statement->execute( [
-                ':sender' => $guestBookMessage->getSender(),
-                ':title' => $guestBookMessage->getTitle(),
-                ':message' => $guestBookMessage->getMessage(),
-                ':sendAt' => $guestBookMessage->getSendAt()->format( 'Y-m-d H:i:s' ),
+                ':sender'    => $guestBookMessage->getSender(),
+                ':title'     => $guestBookMessage->getTitle(),
+                ':message'   => $guestBookMessage->getMessage(),
+                ':sendAt'    => $guestBookMessage->getSendAt()->format( 'Y-m-d H:i:s' ),
                 ':studentId' => (int)$guestBookMessage->getStudentId(),
                 ':accsepted' => (int)$guestBookMessage->getIsAccepted(),
             ] );
@@ -134,9 +134,9 @@ class GuestBookMessageRepository extends Repository
 
             return $this->getById( $id );
 
-        } catch ( \PDOException $exception )
+        }
+        catch ( \PDOException $exception )
         {
-            $this->connection->rollBack();
             throw new RepositoryException( 'The guest book message could not be inserted: ' . $exception->getMessage() );
         }
     }
@@ -155,19 +155,19 @@ class GuestBookMessageRepository extends Repository
             $statement = $this->connection->prepare( $this->updateGuestBookMessageSql );
 
             $statement->execute( [
-                ':sender' => $guestBookMessage->getSender(),
-                ':title' => $guestBookMessage->getTitle(),
-                ':message' => $guestBookMessage->getMessage(),
-                ':sendAt' => $guestBookMessage->getSendAt()->format( 'Y-m-d H:i:s' ),
+                ':sender'    => $guestBookMessage->getSender(),
+                ':title'     => $guestBookMessage->getTitle(),
+                ':message'   => $guestBookMessage->getMessage(),
+                ':sendAt'    => $guestBookMessage->getSendAt()->format( 'Y-m-d H:i:s' ),
                 ':studentId' => (int)$guestBookMessage->getStudentId(),
                 ':accsepted' => (int)$guestBookMessage->getIsAccepted(),
             ] );
 
             return $this->getById( $guestBookMessage->getId() );
 
-        } catch ( \PDOException $exception )
+        }
+        catch ( \PDOException $exception )
         {
-            $this->connection->rollBack();
             throw new RepositoryException( 'The guest book message could not be updated: ' . $exception->getMessage() );
         }
     }

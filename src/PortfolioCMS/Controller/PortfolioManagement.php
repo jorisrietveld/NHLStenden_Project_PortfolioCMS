@@ -296,7 +296,7 @@ class PortfolioManagement extends BaseController
 
         if ( !$this->isOwnOrAdmin( $portfolioEntity->getId() ) )
         {
-            $this->redirect( '401' );
+            $this->redirect( '/401' );
         }
 
         if ( $request->getMethod() === 'POST' )
@@ -429,12 +429,12 @@ class PortfolioManagement extends BaseController
 
         if ( !$skillEntity = $this->skillRepository->getById( (int)$skillId ) )
         {
-            $this->redirect( '404' );
+            $this->redirect( '/404' );
         }
 
         if ( !$this->isOwnOrAdmin( $skillEntity->getPortfolioId() ) )
         {
-            $this->redirect( '401' );
+            $this->redirect( '/401' );
         }
 
         if ( Validation::getInstance()->validatePostParameters( $postParams, $this->skillFields ) && $request->getMethod() === 'POST' )
@@ -456,7 +456,7 @@ class PortfolioManagement extends BaseController
                 $feedbackType = 'danger';
             }
         }
-        else
+        elseif( $request->getMethod() === 'POST' )
         {
             $feedback = Validation::getInstance()->getReadableErrors();
             $feedbackType = 'danger';
@@ -484,12 +484,12 @@ class PortfolioManagement extends BaseController
 
         if ( !$trainingEntity = $this->trainingRepository->getById( (int)$trainingId ) )
         {
-            $this->redirect( '404' );
+            $this->redirect( '/404' );
         }
 
         if ( !$this->isOwnOrAdmin( $trainingEntity->getPortfolioId() ) )
         {
-            $this->redirect( '401' );
+            $this->redirect( '/401' );
         }
 
         if ( Validation::getInstance()->validatePostParameters( $postParams, $this->trainingFields ) && $request->getMethod() === 'POST' )
@@ -516,7 +516,7 @@ class PortfolioManagement extends BaseController
                 $feedbackType = 'danger';
             }
         }
-        else
+        elseif( $request->getMethod() === 'POST' )
         {
             $feedback = Validation::getInstance()->getReadableErrors();
             $feedbackType = 'danger';
@@ -544,12 +544,12 @@ class PortfolioManagement extends BaseController
 
         if ( !$hobbyEntity = $this->hobbyRepository->getById( (int)$hobbyId ) )
         {
-            $this->redirect( '404' );
+            $this->redirect( '/404' );
         }
 
         if ( !$this->isOwnOrAdmin( $hobbyEntity->getPortfolioId() ) )
         {
-            $this->redirect( '401' );
+            $this->redirect( '/401' );
         }
 
         if ( Validation::getInstance()->validatePostParameters( $postParams, $this->hobbyFields ) && $request->getMethod() === 'POST' )
@@ -570,7 +570,7 @@ class PortfolioManagement extends BaseController
                 $feedbackType = 'danger';
             }
         }
-        else
+        elseif( $request->getMethod() === 'POST' )
         {
             $feedback = Validation::getInstance()->getReadableErrors();
             $feedbackType = 'danger';
@@ -598,12 +598,12 @@ class PortfolioManagement extends BaseController
 
         if ( !$languageEntity = $this->languageRepository->getById( (int)$languageId ) )
         {
-            $this->redirect( '404' );
+            $this->redirect( '/404' );
         }
 
         if ( !$this->isOwnOrAdmin( $languageEntity->getPortfolioId() ) )
         {
-            $this->redirect( '401' );
+            $this->redirect( '/401' );
         }
 
         if ( Validation::getInstance()->validatePostParameters( $postParams, $this->languageFields ) && $request->getMethod() === 'POST' )
@@ -626,7 +626,7 @@ class PortfolioManagement extends BaseController
                 $feedbackType = 'danger';
             }
         }
-        else
+        elseif( $request->getMethod() === 'POST' )
         {
             $feedback = Validation::getInstance()->getReadableErrors();
             $feedbackType = 'danger';
@@ -652,14 +652,17 @@ class PortfolioManagement extends BaseController
     {
         $postParams = $request->getPostParams();
 
-        if ( !$slbAssignmentEntity = $this->slbAssignmentRepository->getById( (int)$slbAssignmentId ) )
+        $slbAssignmentEntity = $this->slbAssignmentRepository->getById( (int)$slbAssignmentId );
+
+        if ( $slbAssignmentEntity->getId() === 0 )
         {
-            $this->redirect( '404' );
+            dump($slbAssignmentEntity);
+            $this->redirect( '/404' );
         }
 
         if ( !$this->isOwnOrAdmin( $slbAssignmentEntity->getPortfolioId() ) )
         {
-            $this->redirect( '401' );
+            $this->redirect( '/401' );
         }
 
         if ( Validation::getInstance()->validatePostParameters( $postParams, $this->slbAssignmentFields ) && $request->getMethod() === 'POST' )
@@ -667,16 +670,12 @@ class PortfolioManagement extends BaseController
             try
             {
                 $slbAssignmentEntity->setName( $postParams->getString( 'name' ) );
-                //$slbAssignmentEntity->setFileName(  );
-                // todo add code for fileupload.
-                $slbAssignmentEntity->setFilePath( WEB_ROOT . 'files' . DIR_SEP );
-                $slbAssignmentEntity->setMimeType( 'pdf' );
 
-                $this->slbAssignmentRepository->insert( $slbAssignmentEntity );
+                $this->slbAssignmentRepository->update( $slbAssignmentEntity );
 
                 $feedback = 'De slb opdracht is aangepast.';
                 $feedbackType = 'success';
-            }
+                }
             catch ( \Exception $exception )
             {
                 Debug::addException( $exception );
@@ -684,7 +683,7 @@ class PortfolioManagement extends BaseController
                 $feedbackType = 'danger';
             }
         }
-        else
+        elseif( $request->getMethod() === 'POST' )
         {
             $feedback = Validation::getInstance()->getReadableErrors();
             $feedbackType = 'danger';
@@ -709,27 +708,28 @@ class PortfolioManagement extends BaseController
     public function editImage( Request $request, string $imageId ): Response
     {
         $postParams = $request->getPostParams();
-
-        if ( !$imageEntity = $this->imageRepository->getById( (int)$imageId ) )
+        $imageEntity = $this->imageRepository->getById( (int)$imageId );
+        if ( $imageEntity->getId() === 0 )
         {
-            $this->redirect( '404' );
+            $this->redirect( '/404' );
         }
 
         if ( !$this->isOwnOrAdmin( $imageEntity->getPortfolioId() ) )
         {
-            $this->redirect( '401' );
+            $this->redirect( '/401' );
         }
 
         if ( Validation::getInstance()->validatePostParameters( $postParams, $this->imageFields ) && $request->getMethod() === 'POST' )
         {
             try
             {
-                $image->setDescription( $postParams->getString( 'description' ) );
-                $image->setMimeType( 'jpg' );
-                $image->setOrder( $postParams->getInt( 'order' ) );
-                $image->setType( $postParams->getString( 'type' ) );
+                $imageEntity->setDescription( $postParams->getString( 'description' ) );
+                $imageEntity->setOrder( $postParams->getInt( 'order' ) );
+                $imageEntity->setType( $postParams->getString( 'type' ) );
+                $imageEntity->setName( $postParams->getString('name' ));
 
-                $this->imageRepository->update( $image );
+                $this->imageRepository->update( $imageEntity );
+
                 $feedback = 'De afbeelding is aangepast.';
                 $feedbackType = 'success';
             }
@@ -740,7 +740,7 @@ class PortfolioManagement extends BaseController
                 $feedbackType = 'danger';
             }
         }
-        else
+        elseif( $request->getMethod() === 'POST' )
         {
             $feedback = Validation::getInstance()->getReadableErrors();
             $feedbackType = 'danger';
@@ -765,15 +765,16 @@ class PortfolioManagement extends BaseController
     public function editProject( Request $request, string $projectId ): Response
     {
         $postParams = $request->getPostParams();
+        $projectEntity = $this->projectRepository->getById( (int)$projectId );
 
-        if ( !$projectEntity = $this->projectRepository->getById( (int)$projectId ) )
+        if ( $projectEntity->getId() == 0 )
         {
-            $this->redirect( '404' );
+            $this->redirect( '/404' );
         }
 
         if ( !$this->isOwnOrAdmin( $projectEntity->getPortfolioId() ) )
         {
-            $this->redirect( '401' );
+            $this->redirect( '/401' );
         }
 
         if ( Validation::getInstance()->validatePostParameters( $postParams, $this->projectFields ) && $request->getMethod() === 'POST' )
@@ -797,7 +798,7 @@ class PortfolioManagement extends BaseController
                 $feedbackType = 'danger';
             }
         }
-        else
+        elseif ( $request->getMethod() === 'post' )
         {
             $feedback = Validation::getInstance()->getReadableErrors();
             $feedbackType = 'danger';
@@ -825,12 +826,12 @@ class PortfolioManagement extends BaseController
 
         if ( !$jobExperienceEntity = $this->jobExperienceRepository->getById( (int)$jobExperienceId ) )
         {
-            $this->redirect( '404' );
+            $this->redirect( '/404' );
         }
 
         if ( !$this->isOwnOrAdmin( $jobExperienceEntity->getPortfolioId() ) )
         {
-            $this->redirect( '401' );
+            $this->redirect( '/401' );
         }
 
         if ( Validation::getInstance()->validatePostParameters( $postParams, $this->jobExperienceFields ) && $request->getMethod() === 'POST' )
@@ -854,7 +855,7 @@ class PortfolioManagement extends BaseController
                 $feedbackType = 'danger';
             }
         }
-        else
+        elseif ( $request->getMethod() === 'post' )
         {
             $feedback = Validation::getInstance()->getReadableErrors();
             $feedbackType = 'danger';
@@ -1314,7 +1315,7 @@ class PortfolioManagement extends BaseController
 
         $postParams = $request->getPostParams();
 
-        if ( Validation::getInstance()->validatePostParameters( $postParams, $this->trainingFields ) && $request->getMethod() === 'POST' )
+        if ( Validation::getInstance()->validatePostParameters( $postParams, $this->projectFields ) && $request->getMethod() === 'POST' )
         {
             try
             {

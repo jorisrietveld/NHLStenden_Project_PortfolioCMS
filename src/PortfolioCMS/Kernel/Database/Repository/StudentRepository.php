@@ -190,20 +190,20 @@ class StudentRepository extends Repository
             $userStatement = $this->connection->prepare( $this->insertUserSql );
 
             $userStatement->execute( [
-                ':password' => $student->getHashedPassword(),
-                ':email' => $student->getEmail(),
+                ':password'      => $student->getHashedPassword(),
+                ':email'         => $student->getEmail(),
                 ':lastIpAddress' => $student->getLastIpAddress(),
-                ':firstName' => $student->getFirstName(),
-                ':lastName' => $student->getLastName(),
-                ':isAdmin' => (int)$student->getIsAdmin(),
-                ':active' => (int)$student->getIsActive(),
+                ':firstName'     => $student->getFirstName(),
+                ':lastName'      => $student->getLastName(),
+                ':isAdmin'       => (int)$student->getIsAdmin(),
+                ':active'        => (int)$student->getIsActive(),
             ] );
 
             $studentStatement = $this->connection->prepare( $this->insertStudentSql );
             $studentStatement->execute( [
-                ':address' => $student->getAddress(),
-                ':zipCode' => $student->getZipCode(),
-                ':location' => $student->getLocation(),
+                ':address'     => $student->getAddress(),
+                ':zipCode'     => $student->getZipCode(),
+                ':location'    => $student->getLocation(),
                 ':dateOfBirth' => $student->getDateOfBirth()->format( 'Y-m-d H:i:s' ),
                 ':studentCode' => $student->getStudentCode(),
                 ':phoneNumber' => $student->getPhoneNumber(),
@@ -237,25 +237,25 @@ class StudentRepository extends Repository
             $userStatement = $this->connection->prepare( $this->updateUserSql );
 
             $userStatement->execute( [
-                ':password' => $student->getHashedPassword(),
-                ':email' => $student->getEmail(),
+                ':password'      => $student->getHashedPassword(),
+                ':email'         => $student->getEmail(),
                 ':lastIpAddress' => $student->getLastIpAddress(),
-                ':firstName' => $student->getFirstName(),
-                ':lastName' => $student->getLastName(),
-                ':isAdmin' => (int)$student->getIsAdmin(),
-                ':active' => (int)$student->getIsActive(),
-                ':id' => $student->getId(),
+                ':firstName'     => $student->getFirstName(),
+                ':lastName'      => $student->getLastName(),
+                ':isAdmin'       => (int)$student->getIsAdmin(),
+                ':active'        => (int)$student->getIsActive(),
+                ':id'            => $student->getId(),
             ] );
 
             $studentStatement = $this->connection->prepare( $this->updateStudentSql );
             $studentStatement->execute( [
-                ':address' => $student->getAddress(),
-                ':zipCode' => $student->getZipCode(),
-                ':location' => $student->getLocation(),
+                ':address'     => $student->getAddress(),
+                ':zipCode'     => $student->getZipCode(),
+                ':location'    => $student->getLocation(),
                 ':dateOfBirth' => $student->getDateOfBirth()->format( 'Y-m-d' ),
                 ':studentCode' => $student->getStudentCode(),
                 ':phoneNumber' => $student->getPhoneNumber(),
-                ':userId' => $student->getId(),
+                ':userId'      => $student->getId(),
             ] );
 
             $this->connection->commit();
@@ -292,7 +292,7 @@ class StudentRepository extends Repository
         $student->setAddress( $databaseStudent[ 'address' ] );
         $student->setZipCode( $databaseStudent[ 'zipCode' ] );
         $student->setLocation( $databaseStudent[ 'location' ] );
-        $student->setDateOfBirth( new \DateTime( $databaseStudent[ 'dateOfBirth' ] ));
+        $student->setDateOfBirth( new \DateTime( $databaseStudent[ 'dateOfBirth' ] ) );
         $student->setStudentCode( $databaseStudent[ 'studentCode' ] );
         $student->setPhoneNumber( $databaseStudent[ 'phoneNumber' ] );
 
@@ -304,7 +304,7 @@ class StudentRepository extends Repository
      *
      * @return EntityInterface
      */
-    public function createEmptyEntity(  ) : EntityInterface
+    public function createEmptyEntity() : EntityInterface
     {
         return new Student();
     }

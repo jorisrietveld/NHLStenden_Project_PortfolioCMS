@@ -8,7 +8,6 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Repository;
 
-
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\EntityInterface;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\Page;
 use StendenINF1B\PortfolioCMS\Kernel\Database\EntityManager;
@@ -118,20 +117,20 @@ class PageRepository extends Repository
             $userStatement = $this->connection->prepare( $this->insertPageSql );
 
             $userStatement->execute( [
-                ':name' => $page->getName(),
-                ':fileName' => $page->getFileName(),
+                ':name'        => $page->getName(),
+                ':fileName'    => $page->getFileName(),
                 ':description' => $page->getDescription(),
-                ':url' => $page->getUrl(),
-                ':themeId' => $page->getThemeId(),
+                ':url'         => $page->getUrl(),
+                ':themeId'     => $page->getThemeId(),
             ] );
 
             $id = (int)$this->connection->lastInsertId();
 
             return $this->getById( $id );
 
-        } catch ( \PDOException $exception )
+        }
+        catch ( \PDOException $exception )
         {
-            $this->connection->rollBack();
             throw new RepositoryException( 'The page could not be inserted: ' . $exception->getMessage() );
         }
     }
@@ -150,18 +149,18 @@ class PageRepository extends Repository
             $userStatement = $this->connection->prepare( $this->updatePageSql );
 
             $userStatement->execute( [
-                ':name' => $page->getName(),
-                ':fileName' => $page->getFileName(),
+                ':name'        => $page->getName(),
+                ':fileName'    => $page->getFileName(),
                 ':description' => $page->getDescription(),
-                ':url' => $page->getUrl(),
-                ':themeId' => $page->getThemeId(),
+                ':url'         => $page->getUrl(),
+                ':themeId'     => $page->getThemeId(),
             ] );
 
             return $this->getById( $page->getId() );
 
-        } catch ( \PDOException $exception )
+        }
+        catch ( \PDOException $exception )
         {
-            $this->connection->rollBack();
             throw new RepositoryException( 'The page could not be updated: ' . $exception->getMessage() );
         }
     }

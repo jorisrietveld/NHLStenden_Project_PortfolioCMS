@@ -9,7 +9,6 @@ declare( strict_types = 1 );
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Driver;
 
 use StendenINF1B\PortfolioCMS\Kernel\Database\Helper\DatabaseConfigurationContainer;
-use StendenINF1B\PortfolioCMS\Kernel\Helper\ParameterContainer;
 
 class DriverFactory
 {
@@ -21,12 +20,12 @@ class DriverFactory
      */
     public function createDriver( DatabaseConfigurationContainer $databaseConfiguration ) : DriverInterface
     {
-        if( $databaseConfiguration->has( 'driver' ) === FALSE )
+        if ( $databaseConfiguration->has( 'driver' ) === FALSE )
         {
-            throw new \InvalidArgumentException("A database driver must be specified.");
+            throw new \InvalidArgumentException( "A database driver must be specified." );
         }
 
-        switch( $databaseConfiguration->get( 'driver' ) )
+        switch ( $databaseConfiguration->get( 'driver' ) )
         {
             case "mysql":
                 return new MysqlDriver();
@@ -35,7 +34,7 @@ class DriverFactory
             case "sqlight":
                 return new SqlightDriver();
             default:
-                throw new \InvalidArgumentException( sprintf( 'Unsupported driver in configuration: %s', $databaseConfiguration->get('driver') ));
+                throw new \InvalidArgumentException( sprintf( 'Unsupported driver in configuration: %s', $databaseConfiguration->get( 'driver' ) ) );
         }
     }
 }

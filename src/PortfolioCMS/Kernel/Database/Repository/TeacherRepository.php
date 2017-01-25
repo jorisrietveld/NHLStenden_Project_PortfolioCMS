@@ -8,8 +8,8 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Repository;
 
-use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\Teacher;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\EntityInterface;
+use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\Teacher;
 use StendenINF1B\PortfolioCMS\Kernel\Database\EntityManager;
 use StendenINF1B\PortfolioCMS\Kernel\Exception\RepositoryException;
 
@@ -166,18 +166,18 @@ class TeacherRepository extends Repository
             $userStatement = $this->connection->prepare( $this->insertUserSql );
 
             $userStatement->execute( [
-                ':password' => $teacher->getHashedPassword(),
-                ':email' => $teacher->getEmail(),
+                ':password'      => $teacher->getHashedPassword(),
+                ':email'         => $teacher->getEmail(),
                 ':lastIpAddress' => $teacher->getLastIpAddress(),
-                ':firstName' => $teacher->getFirstName(),
-                ':lastName' => $teacher->getLastName(),
-                ':isAdmin' => (int)$teacher->getIsAdmin(),
-                ':active' => (int)$teacher->getIsActive(),
+                ':firstName'     => $teacher->getFirstName(),
+                ':lastName'      => $teacher->getLastName(),
+                ':isAdmin'       => (int)$teacher->getIsAdmin(),
+                ':active'        => (int)$teacher->getIsActive(),
             ] );
 
             $teacherStatement = $this->connection->prepare( $this->insertTeacherSql );
             $teacherStatement->execute( [
-               ':isSLBer' => (int)$teacher->getIsSLBer(),
+                ':isSLBer' => (int)$teacher->getIsSLBer(),
             ] );
 
             $this->connection->commit();
@@ -209,19 +209,19 @@ class TeacherRepository extends Repository
             $userStatement = $this->connection->prepare( $this->updateUserSql );
 
             $userStatement->execute( [
-                ':password' => $teacher->getHashedPassword(),
-                ':email' => $teacher->getEmail(),
+                ':password'      => $teacher->getHashedPassword(),
+                ':email'         => $teacher->getEmail(),
                 ':lastIpAddress' => $teacher->getLastIpAddress(),
-                ':firstName' => $teacher->getFirstName(),
-                ':lastName' => $teacher->getLastName(),
-                ':isAdmin' => $teacher->getIsAdmin(),
-                ':active' => $teacher->getIsActive(),
-                ':id' => $teacher->getId(),
+                ':firstName'     => $teacher->getFirstName(),
+                ':lastName'      => $teacher->getLastName(),
+                ':isAdmin'       => $teacher->getIsAdmin(),
+                ':active'        => $teacher->getIsActive(),
+                ':id'            => $teacher->getId(),
             ] );
 
             $studentStatement = $this->connection->prepare( $this->updateTeacherSql );
             $studentStatement->execute( [
-                ':userId' => $teacher->getId(),
+                ':userId'  => $teacher->getId(),
                 ':isSLBer' => $teacher->getIsSLBer(),
             ] );
 
@@ -266,7 +266,7 @@ class TeacherRepository extends Repository
      *
      * @return EntityInterface
      */
-    public function createEmptyEntity(  ) : EntityInterface
+    public function createEmptyEntity() : EntityInterface
     {
         return new Teacher();
     }

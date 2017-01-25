@@ -11,7 +11,6 @@ namespace StendenINF1B\PortfolioCMS\Kernel\Database\Repository;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\EntityInterface;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\SLBAssignment;
 use StendenINF1B\PortfolioCMS\Kernel\Database\EntityManager;
-use StendenINF1B\PortfolioCMS\Kernel\Debug\Debug;
 use StendenINF1B\PortfolioCMS\Kernel\Exception\RepositoryException;
 
 class SLBAssignmentRepository extends Repository
@@ -108,8 +107,7 @@ class SLBAssignmentRepository extends Repository
      */
     protected $updateImageSql = '
         UPDATE SLBAssignment SET 
-            `name` = :name,
-            `feedback` = :feedback
+            `name` = :name
         WHERE `SLBAssignment`.`uploadedFileId` = :id;
     ';
 
@@ -183,18 +181,9 @@ class SLBAssignmentRepository extends Repository
         {
             $this->connection->beginTransaction();
 
-            $uploadedFileStatement = $this->connection->prepare( $this->insertUploadedFileSql );
-            $uploadedFileStatement->execute( [
-                ':fileName'    => $slbAssignment->getFileName(),
-                ':mimeType'    => $slbAssignment->getMimeType(),
-                ':filePath'    => $slbAssignment->getFilePath(),
-                ':portfolioId' => $slbAssignment->getPortfolioId(),
-            ] );
-
             $slbAssignmentStatement = $this->connection->prepare( $this->insertSLBAssignment );
             $slbAssignmentStatement->execute( [
-                ':name'     => $slbAssignment->getName(),
-                ':feedback' => $slbAssignment->getFeedback(),
+                ':name' => $slbAssignment->getName(),
             ] );
 
             $this->connection->commit();
@@ -219,6 +208,7 @@ class SLBAssignmentRepository extends Repository
     {
         $slbAssignment = new SLBAssignment();
         $slbAssignment->setId( (int)$databaseData[ 'id' ] );
+        $slbAssignment->setPortfolio( $databaseData[ 'portfolioId' ] );
         $slbAssignment->setFileName( $databaseData[ 'fileName' ] );
         $slbAssignment->setMimeType( $databaseData[ 'mimeType' ] );
         $slbAssignment->setFilePath( $databaseData[ 'filePath' ] );

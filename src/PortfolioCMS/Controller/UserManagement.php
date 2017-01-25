@@ -88,8 +88,8 @@ class UserManagement extends BaseController
     {
         $context = array_merge( $context, [
             'portfolio-meta-data' => $this->getPortfoliosMetadata(),
-            'asset-path'  => $this->application->getRequest()->getBaseUri() . 'assets/admin/',
-            'httpRequest' => $this->application->getRequest(),
+            'asset-path'          => $this->application->getRequest()->getBaseUri() . 'assets/admin/',
+            'httpRequest'         => $this->application->getRequest(),
         ] );
 
         return parent::createResponse( $webPage, $context, $httpCode );
@@ -149,7 +149,7 @@ class UserManagement extends BaseController
             $newStudent->setStudentCode( $postParams->getString( 'studentCode' ) );
             $newStudent->setPhoneNumber( $postParams->getString( 'phoneNumber' ) );
             $newStudent->setLastIpAddress( $request->getClientIp() );
-            $newStudent->setActive(  $postParams->getBoolean( 'isActive' ));
+            $newStudent->setActive( $postParams->getBoolean( 'isActive' ) );
 
             // Insert the new student.
             $this->studentRepository->insert( $newStudent );
@@ -157,14 +157,14 @@ class UserManagement extends BaseController
             $feedback = 'De student is toegevoegd.';
             $feedbackType = 'success';
         }
-        elseif( $request->getMethod() === 'POST' )
+        elseif ( $request->getMethod() === 'POST' )
         {
             $feedback = Validation::getInstance()->getReadableErrors();
             $feedbackType = 'danger';
         }
 
         return $this->createResponse( 'admin:addStudent', [
-                'feedback' => $feedback ?? '',
+                'feedback'      => $feedback ?? '',
                 'feedback-type' => $feedbackType ?? '',
             ]
         );
@@ -191,20 +191,20 @@ class UserManagement extends BaseController
             $newTeacher->setIsSLBer( $postParams->getBoolean( 'isSlber' ) );
             $newTeacher->setIsAdmin( $postParams->getBoolean( 'isAdmin' ) );
             $newTeacher->setLastIpAddress( $request->getClientIp() );
-            $newTeacher->setActive(  $postParams->getBoolean( 'isActive' ));
+            $newTeacher->setActive( $postParams->getBoolean( 'isActive' ) );
 
             $this->teacherRepository->insert( $newTeacher );
             $feedback = 'De docent is toegevoegd';
             $feedbackType = 'success';
         }
-        elseif( $request->getMethod() === 'POST' )
+        elseif ( $request->getMethod() === 'POST' )
         {
             $feedback = Validation::getInstance()->getReadableErrors();
             $feedbackType = 'danger';
         }
 
         return $this->createResponse( 'admin:addTeacher', [
-                'feedback' => $feedback ?? '',
+                'feedback'      => $feedback ?? '',
                 'feedback-type' => $feedbackType ?? '',
             ]
         );
@@ -263,15 +263,15 @@ class UserManagement extends BaseController
 
             $studentEntity = $this->studentRepository->update( $studentEntity );
         }
-        elseif( $request->getMethod() === 'POST' )
+        elseif ( $request->getMethod() === 'POST' )
         {
             $feedback = Validation::getInstance()->getReadableErrors();
             $feedbackType = 'danger';
         }
 
         return $this->createResponse( 'admin:editStudent', [
-                'student-data' => $studentEntity,
-                'feedback'     => $feedback ?? '',
+                'student-data'  => $studentEntity,
+                'feedback'      => $feedback ?? '',
                 'feedback-type' => $feedbackType ?? '',
             ]
         );
@@ -297,7 +297,7 @@ class UserManagement extends BaseController
 
         $postParams = $request->getPostParams();
 
-        if ( Validation::getInstance()->validatePostParameters( $postParams, array_merge( $this->userFields, $this->teacherFields ) )&& $request->getMethod() === 'POST'  )
+        if ( Validation::getInstance()->validatePostParameters( $postParams, array_merge( $this->userFields, $this->teacherFields ) ) && $request->getMethod() === 'POST' )
         {
             $feedback = 'Het account is aangepast.';
             $feedbackType = 'success';
@@ -328,15 +328,15 @@ class UserManagement extends BaseController
             // Update the teacher.
             $teacherEntity = $this->teacherRepository->update( $teacherEntity );
         }
-        elseif( $request->getMethod() === 'POST' )
+        elseif ( $request->getMethod() === 'POST' )
         {
             $feedback = Validation::getInstance()->getReadableErrors();
             $feedbackType = 'danger';
         }
 
         return $this->createResponse( 'admin:editTeacher', [
-                'teacher-data' => $updatedTeacher ?? $teacherEntity,
-                'feedback'     => $feedback ?? '',
+                'teacher-data'  => $updatedTeacher ?? $teacherEntity,
+                'feedback'      => $feedback ?? '',
                 'feedback-type' => $feedbackType ?? '',
             ]
         );

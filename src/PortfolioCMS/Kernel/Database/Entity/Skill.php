@@ -8,7 +8,6 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Entity;
 
-
 class Skill implements EntityInterface
 {
     /**
@@ -102,6 +101,5 @@ class Skill implements EntityInterface
         $this->portfolioId = $portfolioId;
         return $this;
     }
-
 
 }

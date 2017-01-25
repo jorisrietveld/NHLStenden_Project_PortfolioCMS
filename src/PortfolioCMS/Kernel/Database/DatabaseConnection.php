@@ -8,7 +8,6 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Kernel\Database;
 
-
 use DebugBar\DataCollector\PDO\TraceablePDO;
 use StendenINF1B\PortfolioCMS\Kernel\Helper\ParameterContainer;
 
@@ -40,9 +39,9 @@ class DatabaseConnection
      * @param string    $name
      * @param string    $type
      * @param \PDO|null $PDO
-     * @param $pdoSettings ParameterContainer|null
+     * @param           $pdoSettings ParameterContainer|null
      */
-    public function __construct( string $name, string $type, \PDO $PDO = null, ParameterContainer $pdoSettings = NULL )
+    public function __construct( string $name, string $type, \PDO $PDO = NULL, ParameterContainer $pdoSettings = NULL )
     {
         $this->setName( $name );
         $this->setType( $type );
@@ -74,12 +73,12 @@ class DatabaseConnection
      */
     public function getPdo()
     {
-        if( $this->pdo == NULL )
+        if ( $this->pdo == NULL )
         {
             throw new \LogicException( 'Cannot return the php data object because it is not set.' );
         }
 
-        if( DEBUG )
+        if ( DEBUG )
         {
             return new TraceablePDO( $this->pdo );
         }
@@ -128,6 +127,5 @@ class DatabaseConnection
         $this->type = $type;
         return $this;
     }
-
 
 }

@@ -103,7 +103,7 @@ class HobbyRepository extends Repository
             $statement = $this->connection->prepare( $this->insertHobbySql );
 
             $statement->execute( [
-                ':name' => $hobby->getName(),
+                ':name'        => $hobby->getName(),
                 ':portfolioId' => $hobby->getPortfolioId(),
             ] );
 
@@ -111,9 +111,9 @@ class HobbyRepository extends Repository
 
             return $this->getById( $id );
 
-        } catch ( \PDOException $exception )
+        }
+        catch ( \PDOException $exception )
         {
-            $this->connection->rollBack();
             throw new RepositoryException( 'The hobby could not be inserted: ' . $exception->getMessage() );
         }
     }
@@ -132,15 +132,16 @@ class HobbyRepository extends Repository
             $statement = $this->connection->prepare( $this->updateHobbySql );
 
             $statement->execute( [
-                ':name' => $hobby->getName(),
+                ':name'        => $hobby->getName(),
                 ':portfolioId' => $hobby->getPortfolioId(),
+                ':id'          => $hobby->getId(),
             ] );
 
             return $this->getById( $hobby->getId() );
 
-        } catch ( \PDOException $exception )
+        }
+        catch ( \PDOException $exception )
         {
-            $this->connection->rollBack();
             throw new RepositoryException( 'The hobby could not be updated: ' . $exception->getMessage() );
         }
     }
@@ -158,12 +159,12 @@ class HobbyRepository extends Repository
         $hobby->setName( $databaseData[ 'name' ] );
         $hobby->setPortfolio( (int)$databaseData[ 'portfolioId' ] );
 
-
         return $hobby;
     }
 
     /**
      * Creates an new empty hobby object.
+     *
      * @return EntityInterface
      */
     public function createEmptyEntity() : EntityInterface

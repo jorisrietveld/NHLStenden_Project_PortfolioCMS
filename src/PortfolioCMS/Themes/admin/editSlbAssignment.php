@@ -16,7 +16,7 @@ include 'header.php';
                     <div class="header">
                         <h4 class="title text-center">
                             <strong>
-                                <i class="fa fa-pencil-square-o"></i>SLB opdracht aanpassen
+                                <i class="fa fa-pencil-square-o"></i>&nbsp;SLB opdracht aanpassen
                             </strong>
                         </h4>
                         <hr class="style-one"/>
@@ -46,14 +46,6 @@ include 'header.php';
                                                        id="nameopdr"
                                                        value="<?= $dataProvider->call('slbAssignment-data','getName') ?>"
                                                        required>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <div class="fileUpload btn btn-md btn-primary btn-custom">
-                                                    <span>Selecteer een bestand...</span>
-                                                    <input id="uploadBtn" type="file" class="upload" name="slbAssignment"/>
-                                                </div>
-                                                <input id="uploadFile" class="fileUpload-text" placeholder="" disabled="disabled" />
                                             </div>
 
                                             <div class="row">

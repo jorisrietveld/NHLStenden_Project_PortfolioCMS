@@ -8,7 +8,6 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Helper;
 
-
 use StendenINF1B\PortfolioCMS\Kernel\Helper\ParameterContainer;
 
 class EntityCollection extends ParameterContainer implements \IteratorAggregate
@@ -24,13 +23,13 @@ class EntityCollection extends ParameterContainer implements \IteratorAggregate
     {
         $filteredEntityCollection = new EntityCollection();
 
-        foreach ( $this->parameters as $entityId => $entity )
+        foreach ($this->parameters as $entityId => $entity)
         {
-            $methodString = 'get'.ucfirst( $fieldName );
+            $methodString = 'get' . ucfirst( $fieldName );
 
-            if( method_exists( $entity, $methodString ))
+            if ( method_exists( $entity, $methodString ) )
             {
-                if( $entity->{$methodString}() == $hasValue )
+                if ( $entity->{$methodString}() == $hasValue )
                 {
                     $filteredEntityCollection->set( $entityId, $entity );
                 }
@@ -53,19 +52,19 @@ class EntityCollection extends ParameterContainer implements \IteratorAggregate
      */
     public function getEntityWith( string $fieldName, $hasValue )
     {
-        foreach ( $this->parameters as $entityId => $entity )
+        foreach ($this->parameters as $entityId => $entity)
         {
-            $methodString = 'get'.ucfirst( $fieldName );
+            $methodString = 'get' . ucfirst( $fieldName );
 
-            if( method_exists( $entity, $methodString ))
+            if ( method_exists( $entity, $methodString ) )
             {
-                if( $entity->{$methodString}() == $hasValue )
+                if ( $entity->{$methodString}() == $hasValue )
                 {
                     return $entity;
                 }
             }
         }
-        return false;
+        return FALSE;
     }
 
     public function mergeWith( EntityCollection $collection )

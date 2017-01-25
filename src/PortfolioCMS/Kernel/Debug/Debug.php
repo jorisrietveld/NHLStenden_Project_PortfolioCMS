@@ -8,7 +8,6 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Kernel\Debug;
 
-use DebugBar\DataCollector\PDO\PDOCollector;
 use DebugBar\DataCollector\PDO\TraceablePDO;
 use DebugBar\StandardDebugBar;
 
@@ -30,14 +29,14 @@ class Debug
     /**
      * Debug constructor.
      */
-    protected function __construct(  )
+    protected function __construct()
     {
         self::$debugBar = new StandardDebugBar();
     }
 
     /**
      * Retunes the singleton debugbar instance.
-     * 
+     *
      * @return StandardDebugBar
      */
     public static function getDebugBar()
@@ -49,25 +48,26 @@ class Debug
     /**
      * Initiate the debugbar.
      */
-    protected static function init(  )
+    protected static function init()
     {
-        if( self::$debugBar === NULL )
+        if ( self::$debugBar === NULL )
         {
             new Debug();
         }
     }
+
     /**
      * Detailed debug information.
      *
      * @param string $message
-     * @param array $context
+     * @param array  $context
      */
     public static function debug( string $message = '', array $context = [] )
     {
-        if( DEBUG )
+        if ( DEBUG )
         {
             self::init();
-            self::$debugBar['messages']->debug( $message );
+            self::$debugBar[ 'messages' ]->debug( $message );
         }
     }
 
@@ -75,14 +75,14 @@ class Debug
      * Normal but significant events.
      *
      * @param string $message
-     * @param array $context
+     * @param array  $context
      */
     public static function notice( string $message = '', array $context = [] )
     {
-        if( DEBUG )
+        if ( DEBUG )
         {
             self::init();
-            self::$debugBar['messages']->notice( $message );
+            self::$debugBar[ 'messages' ]->notice( $message );
         }
     }
 
@@ -90,14 +90,14 @@ class Debug
      * System is unusable.
      *
      * @param string $message
-     * @param array $context
+     * @param array  $context
      */
     public static function emergency( string $message, array $context = [] )
     {
-        if( DEBUG )
+        if ( DEBUG )
         {
             self::init();
-            self::$debugBar['messages']->emergency( $message );
+            self::$debugBar[ 'messages' ]->emergency( $message );
         }
     }
 
@@ -108,14 +108,14 @@ class Debug
      * trigger the SMS alerts and wake you up.
      *
      * @param string $message
-     * @param array $context
+     * @param array  $context
      */
     public static function alert( string $message, array $context = [] )
     {
-        if( DEBUG )
+        if ( DEBUG )
         {
             self::init();
-            self::$debugBar['messages']->alert( $message );
+            self::$debugBar[ 'messages' ]->alert( $message );
         }
     }
 
@@ -125,14 +125,14 @@ class Debug
      * Example: Application component unavailable, unexpected exception.
      *
      * @param string $message
-     * @param array $context
+     * @param array  $context
      */
     public static function critical( string $message, array $context = [] )
     {
-        if( DEBUG )
+        if ( DEBUG )
         {
             self::init();
-            self::$debugBar['messages']->critical( $message );
+            self::$debugBar[ 'messages' ]->critical( $message );
         }
     }
 
@@ -141,14 +141,14 @@ class Debug
      * be logged and monitored.
      *
      * @param string $message
-     * @param array $context
+     * @param array  $context
      */
     public static function error( string $message, array $context = [] )
     {
-        if( DEBUG )
+        if ( DEBUG )
         {
             self::init();
-            self::$debugBar['messages']->error( $message );
+            self::$debugBar[ 'messages' ]->error( $message );
         }
     }
 
@@ -159,14 +159,14 @@ class Debug
      * that are not necessarily wrong.
      *
      * @param string $message
-     * @param array $context
+     * @param array  $context
      */
     public static function warning( string $message, array $context = [] )
     {
-        if( DEBUG )
+        if ( DEBUG )
         {
             self::init();
-            self::$debugBar['messages']->warning( $message );
+            self::$debugBar[ 'messages' ]->warning( $message );
         }
     }
 
@@ -176,14 +176,14 @@ class Debug
      * Example: User logs in, SQL logs.
      *
      * @param string $message
-     * @param array $context
+     * @param array  $context
      */
     public static function info( string $message, array $context = [] )
     {
-        if( DEBUG )
+        if ( DEBUG )
         {
             self::init();
-            self::$debugBar['messages']->info( $message );
+            self::$debugBar[ 'messages' ]->info( $message );
         }
     }
 
@@ -194,17 +194,17 @@ class Debug
      */
     public static function addException( \Exception $exception )
     {
-        if( DEBUG )
+        if ( DEBUG )
         {
             self::init();
-            self::$debugBar['exceptions']->addException( $exception );
+            self::$debugBar[ 'exceptions' ]->addException( $exception );
         }
     }
 
     public static function addPdoTracer( TraceablePDO $traceablePDO )
     {
         //dump( self::$debugBar->addCollector( new PDOCollector( $traceablePDO )) );
-       // dump( self::$debugBar->addCollector( new PDOCollector( $traceablePDO) ) );
+        // dump( self::$debugBar->addCollector( new PDOCollector( $traceablePDO) ) );
     }
 
     public static function addConfigCollector( $data )

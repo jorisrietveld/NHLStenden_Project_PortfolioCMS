@@ -8,7 +8,6 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Entity;
 
-
 use StendenINF1B\PortfolioCMS\Kernel\Database\Helper\EntityCollection;
 
 class Theme implements EntityInterface
@@ -16,7 +15,7 @@ class Theme implements EntityInterface
     /**
      * @var int
      */
-    protected $id;
+    protected $id = 0;
 
     /**
      * @var string
@@ -148,6 +147,5 @@ class Theme implements EntityInterface
     {
         $this->pages = $pages;
     }
-
 
 }

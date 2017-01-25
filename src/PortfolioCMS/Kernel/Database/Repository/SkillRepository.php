@@ -8,7 +8,6 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Repository;
 
-
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\EntityInterface;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\Skill;
 use StendenINF1B\PortfolioCMS\Kernel\Database\EntityManager;
@@ -108,18 +107,18 @@ class SkillRepository extends Repository
             $statement = $this->connection->prepare( $this->insertHobbySql );
 
             $statement->execute( [
-                ':name' => $skill->getName(),
+                ':name'              => $skill->getName(),
                 ':levelOfExperience' => $skill->getLevelOfExperience(),
-                ':portfolioId' => $skill->getPortfolioId(),
+                ':portfolioId'       => $skill->getPortfolioId(),
             ] );
 
             $id = (int)$this->connection->lastInsertId();
 
             return $this->getById( $id );
 
-        } catch ( \PDOException $exception )
+        }
+        catch ( \PDOException $exception )
         {
-            $this->connection->rollBack();
             throw new RepositoryException( 'The skill could not be inserted: ' . $exception->getMessage() );
         }
     }
@@ -138,16 +137,17 @@ class SkillRepository extends Repository
             $statement = $this->connection->prepare( $this->updateHobbySql );
 
             $statement->execute( [
-                ':name' => $skill->getName(),
+                ':name'              => $skill->getName(),
                 ':levelOfExperience' => $skill->getLevelOfExperience(),
-                ':portfolioId' => $skill->getPortfolioId(),
+                ':portfolioId'       => $skill->getPortfolioId(),
+                ':id'                => $skill->getId(),
             ] );
 
             return $this->getById( $skill->getId() );
 
-        } catch ( \PDOException $exception )
+        }
+        catch ( \PDOException $exception )
         {
-            $this->connection->rollBack();
             throw new RepositoryException( 'The skill could not be updated: ' . $exception->getMessage() );
         }
     }
@@ -164,7 +164,7 @@ class SkillRepository extends Repository
         $skill->setId( (int)$databaseData[ 'id' ] );
         $skill->setName( $databaseData[ 'name' ] );
         $skill->setLevelOfExperience( (int)$databaseData[ 'levelOfExperience' ] );
-        $skill->getPortfolioId( (int)$databaseData[ 'portfolioId' ] );
+        $skill->setPortfolioId( (int)$databaseData[ 'portfolioId' ] );
 
         return $skill;
     }

@@ -26,7 +26,7 @@ class Home extends BaseController
         return $this->createResponse(
             'site:home', [
             'portfolioMenuLinks' => $this->renderMenuLinks(),
-            'asset-path' => $request->getBaseUri() . 'assets/site/',
+            'asset-path'         => $request->getBaseUri() . 'assets/site/',
         ] );
     }
 
@@ -35,12 +35,12 @@ class Home extends BaseController
      *
      * @return Response
      */
-    public function contact( Request $request  ) : Response
+    public function contact( Request $request ) : Response
     {
         return $this->createResponse(
             'site:contact', [
             'portfolioMenuLinks' => $this->renderMenuLinks(),
-            'asset-path' => $request->getBaseUri() . 'assets/site/',
+            'asset-path'         => $request->getBaseUri() . 'assets/site/',
         ] );
     }
 }

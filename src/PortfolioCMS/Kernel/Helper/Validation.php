@@ -545,7 +545,7 @@ class Validation
      * @param string $fieldName
      * @param string $input
      */
-    public function filterXXS( string $fieldName, string $input )
+    public function filterXXS( string $input )
     {
         return filter_var( $input, FILTER_SANITIZE_STRING );
     }

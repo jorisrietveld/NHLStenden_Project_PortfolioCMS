@@ -8,7 +8,6 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Kernel;
 
-
 use StendenINF1B\PortfolioCMS\Kernel\Database\EntityManager;
 use StendenINF1B\PortfolioCMS\Kernel\Helper\ConfigLoader;
 use StendenINF1B\PortfolioCMS\Kernel\Http\ParameterContainer;
@@ -56,7 +55,7 @@ abstract class BaseController
      * @param TemplateEngine|null $templateEngine
      * @param ConfigLoader|null   $configLoader
      */
-    public function __construct( TemplateEngine $templateEngine = null, ConfigLoader $configLoader = null )
+    public function __construct( TemplateEngine $templateEngine = NULL, ConfigLoader $configLoader = NULL )
     {
         $this->configLoader = $configLoader ?? new ConfigLoader( CONFIG_FILE );
         $this->templateEngine = $templateEngine ?? new TemplateEngine( $this->configLoader );
@@ -128,7 +127,7 @@ abstract class BaseController
                 $webPage,
                 array_merge( $context, [
                     'request-uri' => $this->application->getRequest()->getBaseUri(),
-                    'lib-path' => $this->application->getRequest()->getBaseUri() . 'libs/',
+                    'lib-path'    => $this->application->getRequest()->getBaseUri() . 'libs/',
                 ] ) ),
             $httpCode
         );
@@ -145,9 +144,9 @@ abstract class BaseController
         //return $this->application->handleFromRoute( $toRoute );
     }
 
-    public function validatePostParams(  )
+    public function validatePostParams()
     {
-        
+
     }
 
     /**
@@ -161,10 +160,10 @@ abstract class BaseController
         {
             if ( !$postParams->has( $requiredField ) )
             {
-                return false;
+                return FALSE;
             }
         }
-        return true;
+        return TRUE;
     }
 
     // TODO remove this abstract method from all children where its not necessary.

@@ -8,12 +8,10 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Kernel\Database;
 
-
 interface EntityMangerInterface
 {
     ///public function find( $entityName, $id );
 
     public function getRepository( $entityName );
-
 
 }

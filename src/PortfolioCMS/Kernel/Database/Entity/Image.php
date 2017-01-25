@@ -8,7 +8,6 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Entity;
 
-
 class Image extends UploadedFile implements EntityInterface
 {
     /**
@@ -192,6 +191,5 @@ class Image extends UploadedFile implements EntityInterface
         $this->portfolioId = $portfolioId;
         return $this;
     }
-
 
 }

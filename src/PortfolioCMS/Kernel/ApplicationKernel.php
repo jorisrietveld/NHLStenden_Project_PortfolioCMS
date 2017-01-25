@@ -9,7 +9,6 @@ declare( strict_types = 1 );
 namespace StendenINF1B\PortfolioCMS\Kernel;
 
 use StendenINF1B\PortfolioCMS\Kernel\Debug\Debug;
-use StendenINF1B\PortfolioCMS\Kernel\Exception\ConfigurationErrorException;
 use StendenINF1B\PortfolioCMS\Kernel\Helper\ConfigLoader;
 use StendenINF1B\PortfolioCMS\Kernel\Http\Request;
 use StendenINF1B\PortfolioCMS\Kernel\Http\Response;
@@ -127,21 +126,21 @@ class ApplicationKernel
 
         $controller->setApplication( $this );
 
-        if( !method_exists( $controller, $route->getMethod() ))
+        if ( !method_exists( $controller, $route->getMethod() ) )
         {
-            throw new \BadMethodCallException( sprintf( 'The action: %s does not exist in the controller: %s', $route->getMethod(), $route->getController() ));
+            throw new \BadMethodCallException( sprintf( 'The action: %s does not exist in the controller: %s', $route->getMethod(), $route->getController() ) );
         }
 
         // Call the method on the controller and pass it the arguments so we get an response.
         $response = $controller->{$route->getMethod()}( $this->request, ...array_values( $route->getArguments() ) );
 
         // Check if the controller returned an appropriate response.
-        if( is_a($response, 'StendenINF1B\PortfolioCMS\Kernel\Http\Response'))
+        if ( is_a( $response, 'StendenINF1B\PortfolioCMS\Kernel\Http\Response' ) )
         {
             $this->response = $response;
             return $this->response;
         }
-        throw new \LogicException('The controller must return an Response object!');
+        throw new \LogicException( 'The controller must return an Response object!' );
     }
 
     /**
@@ -154,7 +153,7 @@ class ApplicationKernel
     {
         $routeMatcher = new RouteMatcher();
 
-        if( $path === NULL )
+        if ( $path === NULL )
         {
             return $routeMatcher->match( $this->request );
         }

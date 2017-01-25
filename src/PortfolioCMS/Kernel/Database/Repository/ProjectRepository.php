@@ -8,7 +8,6 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Repository;
 
-
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\EntityInterface;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\Project;
 use StendenINF1B\PortfolioCMS\Kernel\Database\EntityManager;
@@ -123,21 +122,21 @@ class ProjectRepository extends Repository
             $statement = $this->connection->prepare( $this->insertProjectSql );
 
             $statement->execute( [
-                ':name' => $project->getName(),
+                ':name'        => $project->getName(),
                 ':description' => $project->getDescription(),
-                ':link' => $project->getLink(),
-                ':imageId' => $project->getImage()->getId(),
+                ':link'        => $project->getLink(),
+                ':imageId'     => $project->getImage()->getId(),
                 ':portfolioId' => $project->getPortfolioId(),
-                ':grade' => $project->getGrade(),
+                ':grade'       => $project->getGrade(),
             ] );
 
             $id = (int)$this->connection->lastInsertId();
 
             return $this->getById( $id );
 
-        } catch ( \PDOException $exception )
+        }
+        catch ( \PDOException $exception )
         {
-            $this->connection->rollBack();
             throw new RepositoryException( 'The project could not be inserted: ' . $exception->getMessage() );
         }
     }
@@ -156,19 +155,20 @@ class ProjectRepository extends Repository
             $statement = $this->connection->prepare( $this->updateProjectSql );
 
             $statement->execute( [
-                ':name' => $project->getName(),
+                ':name'        => $project->getName(),
                 ':description' => $project->getDescription(),
-                ':link' => $project->getLink(),
-                ':imageId' => $project->getImage()->getId(),
+                ':link'        => $project->getLink(),
+                ':imageId'     => $project->getImage()->getId(),
                 ':portfolioId' => $project->getPortfolioId(),
-                ':grade' => $project->getGrade(),
+                ':grade'       => $project->getGrade(),
+                ':id'          => $project->getId(),
             ] );
 
             return $this->getById( $project->getId() );
 
-        } catch ( \PDOException $exception )
+        }
+        catch ( \PDOException $exception )
         {
-            $this->connection->rollBack();
             throw new RepositoryException( 'The project could not be updated: ' . $exception->getMessage() );
         }
     }
@@ -190,17 +190,18 @@ class ProjectRepository extends Repository
         $project = new Project();
         $project->setId( (int)$databaseData[ 'id' ] );
         $project->setName( $databaseData[ 'name' ] );
-        $project->setDescription( $databaseData['description']);
-        $project->setLink( $databaseData['link']);
-        $project->setImage( $this->getImage( (int)$databaseData['imageId']) );
-        $project->setPortfolioId( (int)$databaseData['portfolioId']);
-        $project->setGrade( (float)$databaseData['grade'] );
+        $project->setDescription( $databaseData[ 'description' ] );
+        $project->setLink( $databaseData[ 'link' ] );
+        $project->setImage( $this->getImage( (int)$databaseData[ 'imageId' ] ) );
+        $project->setPortfolioId( (int)$databaseData[ 'portfolioId' ] );
+        $project->setGrade( (float)$databaseData[ 'grade' ] );
 
         return $project;
     }
 
     /**
      * Creates an new empty Project object.
+     *
      * @return EntityInterface
      */
     public function createEmptyEntity() : EntityInterface

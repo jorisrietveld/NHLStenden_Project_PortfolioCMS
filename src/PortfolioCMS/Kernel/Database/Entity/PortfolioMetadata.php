@@ -8,7 +8,6 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Entity;
 
-
 use StendenINF1B\PortfolioCMS\Kernel\Database\Helper\EntityCollection;
 
 class PortfolioMetadata
@@ -16,7 +15,7 @@ class PortfolioMetadata
     /**
      * @var int
      */
-    protected $id;
+    protected $id = 0;
 
     /**
      * @var string
@@ -163,7 +162,7 @@ class PortfolioMetadata
         $this->portfolioSubPages = $portfolioSubPages;
     }
 
-    public function getStudentName(  ) : string
+    public function getStudentName() : string
     {
         return $this->getStudentFirstName() . ' ' . $this->getStudentLastName();
     }

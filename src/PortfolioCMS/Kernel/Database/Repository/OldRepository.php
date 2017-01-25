@@ -8,7 +8,6 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Repository;
 
-
 use Doctrine\Instantiator\Exception\InvalidArgumentException;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\EntityInterface;
 
@@ -33,7 +32,6 @@ class Repository
 
     const IS_NOT_NULL = 'IS NOT NULL';
     const IS_NULL = 'IS NULL';
-
 
     // Valid logic gates for building queries.
     const VALID_LOGIC_GATES = [
@@ -78,7 +76,7 @@ class Repository
 
         $statement = $this->connection->prepare( $query );
 
-        if( $statement->execute( [ 'id' => $id ] ) )
+        if ( $statement->execute( [ 'id' => $id ] ) )
         {
 
         }
@@ -123,7 +121,7 @@ class Repository
         }
 
         $returnValue = [
-            'query' => 'WHERE ',
+            'query'  => 'WHERE ',
             'params' => [],
         ];
 
@@ -159,7 +157,7 @@ class Repository
             throw new InvalidArgumentException( 'Not enough arguments to build an where clause test.' );
         }
 
-        $isValidOperatorAtIndexOne = in_array( $whereTestBits[ 1 ], self::VALID_OPERATORS, true );
+        $isValidOperatorAtIndexOne = in_array( $whereTestBits[ 1 ], self::VALID_OPERATORS, TRUE );
 
         if ( $isValidOperatorAtIndexOne && !isset( $whereTestBits[ 2 ] ) )
         {
@@ -172,7 +170,7 @@ class Repository
         if ( $whereTestBits[ 1 ] === self::IS_NULL || $whereTestBits === self::IS_NOT_NULL )
         {
             return [
-                'test' => sprintf( '%s %s', $columnName, $whereTestBits[ 1 ] ),
+                'test'   => sprintf( '%s %s', $columnName, $whereTestBits[ 1 ] ),
                 'params' => [],
             ];
         }
@@ -185,7 +183,7 @@ class Repository
             $param = $whereTestBits[ 2 ] ?? $whereTestBits[ 1 ];
 
             return [
-                'test' => sprintf( '%s %s :%s', $columnName, $comparisonOperator, $columnName ),
+                'test'   => sprintf( '%s %s :%s', $columnName, $comparisonOperator, $columnName ),
                 'params' => [ $columnName => $param ],
             ];
         }

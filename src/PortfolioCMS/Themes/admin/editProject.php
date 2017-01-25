@@ -67,18 +67,6 @@ include 'header.php';
                                                        value="<?= $dataProvider->call('project-data','getLink') ?>"
                                                        required>
                                             </div>
-                                            
-                                            
-                                            <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">Cijfer:</label>
-                                                <input type="text"
-                                                       name="grade"
-                                                       class="form-control"
-                                                       id="grade"
-                                                       value="<?= $dataProvider->call('project-data','getGrade') ?>"
-                                                 
-                                                       >
-                                            </div>
 
 
                                             <div class="row">

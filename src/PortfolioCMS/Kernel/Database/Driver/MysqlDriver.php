@@ -11,7 +11,6 @@ use StendenINF1B\PortfolioCMS\Kernel\Database\DatabaseConnection;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Helper\DatabaseConfigurationContainer;
 use StendenINF1B\PortfolioCMS\Kernel\Exception\DatabaseDriverException;
 
-
 class MysqlDriver extends Driver implements DriverInterface
 {
     /**
@@ -54,22 +53,22 @@ class MysqlDriver extends Driver implements DriverInterface
         // If the connection conects through an unix socket select the default database to use.
         if ( $config->has( 'unix_socket' ) )
         {
-            $this->mysqlConnection->exec( sprinf( 'use `%s`;', $config->get('dbname') ));
+            $this->mysqlConnection->exec( sprinf( 'use `%s`;', $config->get( 'dbname' ) ) );
         }
 
-        if( $config->has( 'charset') )
+        if ( $config->has( 'charset' ) )
         {
             $this->setCharset();
         }
 
-        if ( $config->has('charset') )
+        if ( $config->has( 'charset' ) )
         {
-            $this->setCharset( );
+            $this->setCharset();
         }
 
         if ( $config->has( 'timezone' ) )
         {
-            $this->setTimezone( );
+            $this->setTimezone();
         }
 
         if ( $config->has( 'strict' ) )
@@ -86,12 +85,12 @@ class MysqlDriver extends Driver implements DriverInterface
     /**
      * Sets default the charset and collation to an the MySQL database connection.
      */
-    protected function setCharset( )
+    protected function setCharset()
     {
         $setCharsetQuery = sprintf(
             'set names %s %s',
-            $this->databaseConfig->get('charset'),
-            ( $this->databaseConfig->has('collation') ? 'collation '. $this->databaseConfig->get('collation') : '' )
+            $this->databaseConfig->get( 'charset' ),
+            ( $this->databaseConfig->has( 'collation' ) ? 'collation ' . $this->databaseConfig->get( 'collation' ) : '' )
         );
 
         $this->mysqlConnection->prepare( $setCharsetQuery )->execute();
@@ -100,11 +99,11 @@ class MysqlDriver extends Driver implements DriverInterface
     /**
      * Sets default the timezone to an the MySQL database connection.
      */
-    protected function setTimezone( )
+    protected function setTimezone()
     {
         $setTimeZoneQuery = sprintf(
             'SET time_zone=\'%s\'',
-            $this->databaseConfig->get('timezone', '')
+            $this->databaseConfig->get( 'timezone', '' )
         );
 
         $this->mysqlConnection->prepare( $setTimeZoneQuery )->execute();

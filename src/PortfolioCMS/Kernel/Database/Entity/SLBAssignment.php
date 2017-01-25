@@ -8,7 +8,6 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Entity;
 
-
 class SLBAssignment extends UploadedFile implements EntityInterface
 {
     /**
@@ -146,7 +145,5 @@ class SLBAssignment extends UploadedFile implements EntityInterface
         $this->portfolioId = $portfolioId;
         return $this;
     }
-
-
 
 }

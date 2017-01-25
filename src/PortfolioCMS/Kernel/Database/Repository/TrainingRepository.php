@@ -8,7 +8,6 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Repository;
 
-
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\EntityInterface;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\Training;
 use StendenINF1B\PortfolioCMS\Kernel\Database\EntityManager;
@@ -137,15 +136,15 @@ class TrainingRepository extends Repository
         {
             $statement = $this->connection->prepare( $this->insertTrainingSql );
             $statement->execute( [
-                ':title' => $training->getTitle(),
-                ':institution' => $training->getInstitution(),
-                ':location' => $training->getLocation(),
-                ':startedAt' => $training->getStatedAt()->format('Y-m-d'),
-                ':finishedAt' => $training->getFinishedAt()->format('Y-m-d'),
-                ':description' => $training->getDescription(),
+                ':title'               => $training->getTitle(),
+                ':institution'         => $training->getInstitution(),
+                ':location'            => $training->getLocation(),
+                ':startedAt'           => $training->getStatedAt()->format( 'Y-m-d' ),
+                ':finishedAt'          => $training->getFinishedAt()->format( 'Y-m-d' ),
+                ':description'         => $training->getDescription(),
                 ':obtainedCertificate' => (int)$training->getObtainedCertificate(),
-                ':currentTraining' => (int)$training->getCurrentTraining(),
-                ':portfolioId' => $training->getPortfolioId(),
+                ':currentTraining'     => (int)$training->getCurrentTraining(),
+                ':portfolioId'         => $training->getPortfolioId(),
             ] );
 
             $id = (int)$this->connection->lastInsertId();
@@ -173,22 +172,23 @@ class TrainingRepository extends Repository
             $statement = $this->connection->prepare( $this->updateTrainingSql );
 
             $statement->execute( [
-                ':title' => $training->getTitle(),
-                ':institution' => $training->getInstitution(),
-                ':location' => $training->getLocation(),
-                ':startedAt' => $training->getStatedAt()? $training->getStatedAt()->format('Y-m-d') : (new \DateTime())->format('Y-m-d'),
-                ':finishedAt' => $training->getFinishedAt()? $training->getStatedAt()->format('Y-m-d') : (new \DateTime())->format('Y-m-d'),
-                ':description' => $training->getDescription(),
+                ':title'               => $training->getTitle(),
+                ':institution'         => $training->getInstitution(),
+                ':location'            => $training->getLocation(),
+                ':startedAt'           => $training->getStatedAt() ? $training->getStatedAt()->format( 'Y-m-d' ) : ( new \DateTime() )->format( 'Y-m-d' ),
+                ':finishedAt'          => $training->getFinishedAt() ? $training->getStatedAt()->format( 'Y-m-d' ) : ( new \DateTime() )->format( 'Y-m-d' ),
+                ':description'         => $training->getDescription(),
                 ':obtainedCertificate' => (int)$training->getObtainedCertificate(),
-                ':currentTraining' => (int)$training->getCurrentTraining(),
-                ':portfolioId'> $training->getPortfolioId(),
+                ':currentTraining'     => (int)$training->getCurrentTraining(),
+                ':portfolioId'         => $training->getPortfolioId(),
+                ':id'                  => $training->getId(),
             ] );
 
             return $this->getById( $training->getId() );
 
-        } catch ( \PDOException $exception )
+        }
+        catch ( \PDOException $exception )
         {
-            $this->connection->rollBack();
             throw new RepositoryException( 'The training could not be updated: ' . $exception->getMessage() );
         }
     }
@@ -203,20 +203,22 @@ class TrainingRepository extends Repository
     {
         $training = new Training();
         $training->setId( (int)$databaseData[ 'id' ] );
-        $training->setInstitution( $databaseData['institution']);
-        $training->setLocation( $databaseData['location']);
-        $training->setStatedAt( new \DateTime( $databaseData['startedAt']));
-        $training->setFinishedAt( new \DateTime( $databaseData['finishedAt']));
-        $training->setDescription( $databaseData['description']);
-        $training->setObtainedCertificate( (bool)$databaseData['obtainedCertificate']);
-        $training->setCurrentTraining( (bool)$databaseData['currentTraining']);
-        $training->setPortfolioId( (int)$databaseData['portfolioId']);
+        $training->setTitle( $databaseData[ 'title' ] );
+        $training->setInstitution( $databaseData[ 'institution' ] );
+        $training->setLocation( $databaseData[ 'location' ] );
+        $training->setStatedAt( new \DateTime( $databaseData[ 'startedAt' ] ) );
+        $training->setFinishedAt( new \DateTime( $databaseData[ 'finishedAt' ] ) );
+        $training->setDescription( $databaseData[ 'description' ] );
+        $training->setObtainedCertificate( (bool)$databaseData[ 'obtainedCertificate' ] );
+        $training->setCurrentTraining( (bool)$databaseData[ 'currentTraining' ] );
+        $training->setPortfolioId( (int)$databaseData[ 'portfolioId' ] );
 
         return $training;
     }
 
     /**
      * Creates an new empty hobby object.
+     *
      * @return EntityInterface
      */
     public function createEmptyEntity() : EntityInterface

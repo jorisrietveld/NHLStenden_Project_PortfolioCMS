@@ -8,13 +8,12 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Entity;
 
-
 class Project implements EntityInterface
 {
     /**
      * @var int
      */
-    protected $id;
+    protected $id = 0;
 
     /**
      * @var string
@@ -159,6 +158,10 @@ class Project implements EntityInterface
      */
     public function getGrade(): float
     {
+        if ( $this->grade === NULL )
+        {
+            $this->grade = (float)0;
+        }
         return $this->grade;
     }
 

@@ -17,6 +17,7 @@ class JobExperienceRepository extends Repository
 {
     /**
      * This holds an SQL statement for selecting an JobExperience entity from the database by its id.
+     *
      * @var string
      */
     protected $getByIdSql = '
@@ -74,6 +75,7 @@ class JobExperienceRepository extends Repository
 
     /**
      * This holds an SQL statement for updating an JobExperience entity in the database.
+     *
      * @var string
      */
     protected $updateJobExperienceSql = '
@@ -89,6 +91,7 @@ class JobExperienceRepository extends Repository
 
     /**
      * This holds an SQL statement for deleting an JobExperience entity from the database.
+     *
      * @var string
      */
     protected $deleteSql = '
@@ -118,21 +121,21 @@ class JobExperienceRepository extends Repository
             $statement = $this->connection->prepare( $this->insertJobExperienceSql );
 
             $statement->execute( [
-                ':location' => $jobExperience->getLocation(),
-                ':startedAt' => $jobExperience->getStartedAt()->format( 'Y-m-d H:i:s' ),
-                ':endedAt' => $jobExperience->getEndedAt()->format( 'Y-m-d H:i:s' ),
-                ':description' => $jobExperience->getDescription(),
+                ':location'     => $jobExperience->getLocation(),
+                ':startedAt'    => $jobExperience->getStartedAt()->format( 'Y-m-d H:i:s' ),
+                ':endedAt'      => $jobExperience->getEndedAt()->format( 'Y-m-d H:i:s' ),
+                ':description'  => $jobExperience->getDescription(),
                 ':isInternship' => (int)$jobExperience->getIsInternship(),
-                ':portfolioId' => (int)$jobExperience->getPortfolioId(),
+                ':portfolioId'  => (int)$jobExperience->getPortfolioId(),
             ] );
 
             $id = (int)$this->connection->lastInsertId();
 
             return $this->getById( $id );
 
-        } catch ( \PDOException $exception )
+        }
+        catch ( \PDOException $exception )
         {
-            $this->connection->rollBack();
             throw new RepositoryException( 'The job experience could not be inserted: ' . $exception->getMessage() );
         }
     }
@@ -151,20 +154,20 @@ class JobExperienceRepository extends Repository
             $statement = $this->connection->prepare( $this->updateJobExperienceSql );
 
             $statement->execute( [
-                ':id' => (int)$jobExperience->getId(),
-                ':location' => $jobExperience->getLocation(),
-                ':startedAt' => $jobExperience->getStartedAt()->format( 'Y-m-d H:i:s' ),
-                ':endedAt' => $jobExperience->getEndedAt()->format( 'Y/m/d H:i:s' ),
-                ':description' => $jobExperience->getDescription(),
+                ':id'           => (int)$jobExperience->getId(),
+                ':location'     => $jobExperience->getLocation(),
+                ':startedAt'    => $jobExperience->getStartedAt()->format( 'Y-m-d H:i:s' ),
+                ':endedAt'      => $jobExperience->getEndedAt()->format( 'Y/m/d H:i:s' ),
+                ':description'  => $jobExperience->getDescription(),
                 ':isInternship' => (int)$jobExperience->getIsInternship(),
-                ':portfolioId' => (int)$jobExperience->getPortfolioId(),
+                ':portfolioId'  => (int)$jobExperience->getPortfolioId(),
             ] );
 
             return $this->getById( $jobExperience->getId() );
 
-        } catch ( \PDOException $exception )
+        }
+        catch ( \PDOException $exception )
         {
-            $this->connection->rollBack();
             throw new RepositoryException( 'The job experience could not be updated: ' . $exception->getMessage() );
         }
     }

@@ -15,7 +15,7 @@ class EntityManager
     protected $repositories;
     protected $connectionManager;
 
-    public function __construct(  )
+    public function __construct()
     {
         $this->connectionManager = new ConnectionManager( TRUE, DATABASE_CONFIG_FILE );
         $this->repositories = new ParameterContainer();
@@ -23,7 +23,7 @@ class EntityManager
 
     public function getRepository( string $repositoryName )
     {
-        if( !$this->repositories->has( $repositoryName ) )
+        if ( !$this->repositories->has( $repositoryName ) )
         {
             $this->createNewRepository( $repositoryName );
         }
@@ -40,12 +40,12 @@ class EntityManager
         $this->repositories->set( $repositoryName, $repository );
     }
 
-    public function getRepositories(  ) : ParameterContainer
+    public function getRepositories() : ParameterContainer
     {
         return $this->repositories;
     }
 
-    public function getConnectionManager(  ) : ConnectionManager
+    public function getConnectionManager() : ConnectionManager
     {
         return $this->connectionManager;
     }

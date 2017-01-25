@@ -44,7 +44,7 @@ class ThemeManger
     {
         $this->entityManager = $entityManager;
 
-        if( $configLoader === NULL )
+        if ( $configLoader === NULL )
         {
             $this->configLoader = new ConfigLoader();
         }
@@ -52,9 +52,9 @@ class ThemeManger
         $this->setDefaultAssetDirs();
     }
 
-    public function setDefaultAssetDirs(  )
+    public function setDefaultAssetDirs()
     {
-        if( $this->configContainer->has( 'template_asset_dirs' ) )
+        if ( $this->configContainer->has( 'template_asset_dirs' ) )
         {
             array_combine(
                 $this->defaultAssetDirs,
@@ -63,18 +63,18 @@ class ThemeManger
         }
     }
 
-    public function getAllInstalledThemes(  )
+    public function getAllInstalledThemes()
     {
-        
+
     }
 
-    public function installNewTheme(  )
+    public function installNewTheme()
     {
-        
+
     }
 
-    public function moveAssetDirs(  )
+    public function moveAssetDirs()
     {
-        
+
     }
 }

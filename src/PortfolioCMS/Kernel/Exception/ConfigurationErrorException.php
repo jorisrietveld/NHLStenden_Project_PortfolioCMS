@@ -8,7 +8,6 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Kernel\Exception;
 
-
 use Exception;
 
 class ConfigurationErrorException extends \Exception

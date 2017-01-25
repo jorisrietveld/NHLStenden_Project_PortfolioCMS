@@ -8,7 +8,6 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Entity;
 
-
 use StendenINF1B\PortfolioCMS\Kernel\Database\Helper\EntityCollection;
 
 class Portfolio implements EntityInterface
@@ -16,7 +15,7 @@ class Portfolio implements EntityInterface
     /**
      * @var int
      */
-    protected $id;
+    protected $id = 0;
 
     /**
      * @var Theme
@@ -352,7 +351,7 @@ class Portfolio implements EntityInterface
     /**
      * @return EntityCollection
      */
-    public function getPages(  ) : EntityCollection
+    public function getPages() : EntityCollection
     {
         return $this->pages;
     }

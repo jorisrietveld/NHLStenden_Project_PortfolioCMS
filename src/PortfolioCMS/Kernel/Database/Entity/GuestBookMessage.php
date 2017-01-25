@@ -8,13 +8,12 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Entity;
 
-
 class GuestBookMessage implements EntityInterface
 {
     /**
      * @var int
      */
-    protected $id;
+    protected $id = 0;
 
     /**
      * @var string
@@ -169,8 +168,5 @@ class GuestBookMessage implements EntityInterface
     {
         $this->sendAt = $sendAt;
     }
-
-
-
 
 }

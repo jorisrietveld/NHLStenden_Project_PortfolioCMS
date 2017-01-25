@@ -8,7 +8,6 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Controller;
 
-
 use StendenINF1B\PortfolioCMS\Kernel\Authorization\User as AuthorizedUser;
 use StendenINF1B\PortfolioCMS\Kernel\BaseController;
 use StendenINF1B\PortfolioCMS\Kernel\Http\Request;
@@ -42,25 +41,25 @@ class Authentication extends BaseController
             $authorizationLevel = $this->validateUser( $request->getPostParams()->getString( 'email' ), $request->getPostParams()->getString( 'password' ) );
             if ( $authorizationLevel )
             {
-                if( $authorizationLevel == AuthorizedUser::ADMIN )
+                if ( $authorizationLevel == AuthorizedUser::ADMIN )
                 {
                     $this->redirect( '/admin/gebruikersOverzicht' );
                 }
-                elseif( $authorizationLevel == AuthorizedUser::STUDENT )
+                elseif ( $authorizationLevel == AuthorizedUser::STUDENT )
                 {
-                    $this->redirect( '/admin/editStudent/'.$_SESSION['userId'] );
+                    $this->redirect( '/admin/editStudent/' . $_SESSION[ 'userId' ] );
                 }
                 else
                 {
-                    $this->redirect( '/admin/editTeacher/'.$_SESSION['userId'] );
+                    $this->redirect( '/admin/editTeacher/' . $_SESSION[ 'userId' ] );
                 }
             }
             else
             {
                 return $this->createResponse( 'site:login', [
                         'portfolioMenuLinks' => $this->renderMenuLinks(),
-                        'login-feedback' => 'De combinatie van wachtwoord gebruikersnaam is niet gevonden in onze database.',
-                        'asset-path' => $request->getBaseUri() . 'assets/site/',
+                        'login-feedback'     => 'De combinatie van wachtwoord gebruikersnaam is niet gevonden in onze database.',
+                        'asset-path'         => $request->getBaseUri() . 'assets/site/',
                     ]
                 );
             }
@@ -68,7 +67,7 @@ class Authentication extends BaseController
         // Normal login request so render the login page.
         return $this->createResponse( 'site:login', [
             'portfolioMenuLinks' => $this->renderMenuLinks(),
-            'asset-path' => $request->getBaseUri() . 'assets/site/',
+            'asset-path'         => $request->getBaseUri() . 'assets/site/',
         ] );
     }
 
@@ -115,7 +114,7 @@ class Authentication extends BaseController
         // Check if the user is found in the database.
         if ( $student->getId() < 1 && $teacher->getId() < 1 )
         {
-            return false;
+            return FALSE;
         }
 
         $user = ( $student->getId() < 1 ) ? $teacher : $student;
@@ -123,13 +122,13 @@ class Authentication extends BaseController
         // Check the inputted password with the stored hash.
         if ( !password_verify( $password, $user->getHashedPassword() ) )
         {
-            return false;
+            return FALSE;
         }
 
         $_SESSION[ 'userId' ] = $user->getId();
-        $_SESSION['name'] = $user->getFirstName() . ' ' . $user->getLastName();
+        $_SESSION[ 'name' ] = $user->getFirstName() . ' ' . $user->getLastName();
 
-        switch ( true )
+        switch ( TRUE )
         {
             case $user->getIsAdmin():
                 return $_SESSION[ 'authorizationLevel' ] = AuthorizedUser::ADMIN;

@@ -10,7 +10,6 @@ use PDO;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Helper\DatabaseConfigurationContainer;
 use StendenINF1B\PortfolioCMS\Kernel\Exception\DatabaseDriverException;
 
-
 class Driver
 {
     /**
@@ -19,11 +18,11 @@ class Driver
      * @var array
      */
     protected $pdoOptions = [
-        \PDO::ATTR_EMULATE_PREPARES => false,
-        \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
-        \PDO::ATTR_CASE => \PDO::CASE_NATURAL,
-        \PDO::ATTR_ORACLE_NULLS => \PDO::NULL_NATURAL,
-        \PDO::ATTR_STRINGIFY_FETCHES => false,
+        \PDO::ATTR_EMULATE_PREPARES  => FALSE,
+        \PDO::ATTR_ERRMODE           => \PDO::ERRMODE_EXCEPTION,
+        \PDO::ATTR_CASE              => \PDO::CASE_NATURAL,
+        \PDO::ATTR_ORACLE_NULLS      => \PDO::NULL_NATURAL,
+        \PDO::ATTR_STRINGIFY_FETCHES => FALSE,
     ];
 
     /**
@@ -45,11 +44,11 @@ class Driver
      */
     public function addPdoOptionsFromConfig( DatabaseConfigurationContainer $config )
     {
-        foreach ( $config->getPdoOptions() as $setting => $value )
+        foreach ($config->getPdoOptions() as $setting => $value)
         {
-            if( defined( $setting ) )
+            if ( defined( $setting ) )
             {
-                $this->addPdoOption( constant( $setting ), constant( $value ));
+                $this->addPdoOption( constant( $setting ), constant( $value ) );
             }
             else
             {
@@ -84,7 +83,7 @@ class Driver
      *
      * @return array
      */
-    public function getPdoOptions( ) : array
+    public function getPdoOptions() : array
     {
         return $this->pdoOptions;
     }

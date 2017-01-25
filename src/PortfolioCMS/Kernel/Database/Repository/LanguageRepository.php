@@ -8,7 +8,6 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Repository;
 
-
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\EntityInterface;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\Language;
 use StendenINF1B\PortfolioCMS\Kernel\Database\EntityManager;
@@ -113,9 +112,9 @@ class LanguageRepository extends Repository
             $statement = $this->connection->prepare( $this->insertLanguageSql );
 
             $statement->execute( [
-                ':language' => $language->getLanguage(),
-                ':level' => $language->getLevel(),
-                ':isNative' => (int)$language->getIsIsNative(),
+                ':language'    => $language->getLanguage(),
+                ':level'       => $language->getLevel(),
+                ':isNative'    => (int)$language->getIsIsNative(),
                 ':portfolioId' => (int)$language->getPortfolioId(),
             ] );
 
@@ -123,9 +122,9 @@ class LanguageRepository extends Repository
 
             return $this->getById( $id );
 
-        } catch ( \PDOException $exception )
+        }
+        catch ( \PDOException $exception )
         {
-            $this->connection->rollBack();
             throw new RepositoryException( 'The language could not be inserted: ' . $exception->getMessage() );
         }
     }
@@ -144,17 +143,18 @@ class LanguageRepository extends Repository
             $statement = $this->connection->prepare( $this->updateLanguageSql );
 
             $statement->execute( [
-                ':language' => $language->getLanguage(),
-                ':level' => $language->getLevel(),
-                ':isNative' => (int)$language->getIsIsNative(),
+                ':language'    => $language->getLanguage(),
+                ':level'       => $language->getLevel(),
+                ':isNative'    => (int)$language->getIsIsNative(),
                 ':portfolioId' => $language->getPortfolioId(),
+                ':id'          => $language->getId(),
             ] );
 
             return $this->getById( $language->getId() );
 
-        } catch ( \PDOException $exception )
+        }
+        catch ( \PDOException $exception )
         {
-            $this->connection->rollBack();
             throw new RepositoryException( 'The language could not be updated: ' . $exception->getMessage() );
         }
     }
@@ -179,6 +179,7 @@ class LanguageRepository extends Repository
 
     /**
      * Creates an new language object.
+     *
      * @return EntityInterface
      */
     public function createEmptyEntity() : EntityInterface

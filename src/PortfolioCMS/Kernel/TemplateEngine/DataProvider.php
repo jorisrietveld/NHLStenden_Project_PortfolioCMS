@@ -145,7 +145,7 @@ class DataProvider extends ParameterContainer
     {
         if ( isset( $_SESSION[ 'userId' ], $_SESSION[ 'authorizationLevel' ] ) )
         {
-            if ( $this->call( 'student', 'getId' ) == $_SESSION[ 'id' ] || $_SESSION[ 'authorizationLevel' ] == AuthorizedUser::SLB_TEACHER )
+            if ( $this->call( 'student', 'getId' ) == $_SESSION[ 'userId' ] || $_SESSION[ 'authorizationLevel' ] == AuthorizedUser::SLB_TEACHER )
             {
                 return TRUE;
             }
@@ -161,7 +161,7 @@ class DataProvider extends ParameterContainer
     {
         if( isset( $_SESSION[ 'userId' ], $_SESSION[ 'authorizationLevel' ] ))
         {
-            if ( $this->call( 'student', 'getId' ) == $_SESSION[ 'id' ] || $_SESSION[ 'authorizationLevel' ] == AuthorizedUser::ADMIN )
+            if ( $this->call( 'student', 'getId' ) == $_SESSION[ 'userId' ] || $_SESSION[ 'authorizationLevel' ] == AuthorizedUser::ADMIN )
             {
                 return TRUE;
             }

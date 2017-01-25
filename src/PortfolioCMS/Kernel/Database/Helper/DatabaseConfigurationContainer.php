@@ -8,13 +8,13 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Helper;
 
-
 use StendenINF1B\PortfolioCMS\Kernel\Helper\ParameterContainer;
 
 class DatabaseConfigurationContainer extends ParameterContainer
 {
     /**
      * This holds the name of the database configuration file.
+     *
      * @var string
      */
     protected $connectionName;
@@ -51,6 +51,7 @@ class DatabaseConfigurationContainer extends ParameterContainer
 
     /**
      * Sets the name of the database connection.
+     *
      * @param string $connectionName
      */
     public function setConnectionName( string $connectionName )
@@ -73,11 +74,9 @@ class DatabaseConfigurationContainer extends ParameterContainer
      *
      * @return ParameterContainer
      */
-    public function getPdoOptions(  ) : ParameterContainer
+    public function getPdoOptions() : ParameterContainer
     {
         return $this->pdoOptions;
     }
 
-
-    
 }

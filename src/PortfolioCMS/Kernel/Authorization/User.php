@@ -8,7 +8,6 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Kernel\Authorization;
 
-
 class User
 {
     const ANONYMOUS_USER = 0;

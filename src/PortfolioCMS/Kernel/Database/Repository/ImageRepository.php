@@ -116,7 +116,6 @@ class ImageRepository extends Repository
      */
     protected $updateImageSql = '
         UPDATE Image SET 
-            `uploadedFileId` = :uploadedFileId,
             `name` = :name,
             `description` = :description,
             `type` = :type,
@@ -197,18 +196,9 @@ class ImageRepository extends Repository
         {
             $this->connection->beginTransaction();
 
-            $uploadedFileStatement = $this->connection->prepare( $this->updateUploadedFileSql );
-            $uploadedFileStatement->execute( [
-                ':id' => $image->getId(),
-                ':fileName' => $image->getFileName(),
-                ':mimeType' => $image->getMimeType(),
-                ':filePath' => $image->getFilePath(),
-                ':portfolioId' => $image->getPortfolioId(),
-            ] );
-
             $imageStatement = $this->connection->prepare( $this->updateImageSql );
             $imageStatement->execute( [
-                ':uploadedFileId' => $image->getId(),
+                ':id' => $image->getId(),
                 ':name' => $image->getName(),
                 ':description' => $image->getDescription(),
                 ':type' => $image->getType(),

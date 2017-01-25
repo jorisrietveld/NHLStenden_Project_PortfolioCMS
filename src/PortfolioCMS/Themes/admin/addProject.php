@@ -68,10 +68,14 @@ include 'header.php';
                                                        required>
                                             </div>
 
-                                            <?php foreach ( $dataProvider->get() as $picture ) : ?>
-
-
-                                            <?php endforeach; ?>
+                                            <div class="form-group">
+                                                <label class="form-label col-lg-3" for="imageId">Kies een afbeelding?</label>
+                                                <select required  class="form-control" name="imageId" id="imageId">
+                                                    <?php foreach ( $dataProvider->get('images') as $picture ) : ?>
+                                                        <option value="<?= $picture->getId()?>"><?= $picture->getName()?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
 
                                             <div class="row">
                                                 <div class="col-lg-6 clearfix"><br/></div>

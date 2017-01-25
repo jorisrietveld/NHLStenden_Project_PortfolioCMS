@@ -8,7 +8,6 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Repository;
 
-
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\EntityInterface;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\Theme;
 use StendenINF1B\PortfolioCMS\Kernel\Database\EntityManager;
@@ -114,9 +113,9 @@ class ThemeRepository extends Repository
             $statement = $this->connection->prepare( $this->insertThemeSql );
 
             $statement->execute( [
-                ':author' => $theme->getAuthor(),
-                ':name' => $theme->getName(),
-                ':description' => $theme->getDescription(),
+                ':author'        => $theme->getAuthor(),
+                ':name'          => $theme->getName(),
+                ':description'   => $theme->getDescription(),
                 ':directoryName' => $theme->getDirectoryName(),
             ] );
 
@@ -124,9 +123,9 @@ class ThemeRepository extends Repository
 
             return $this->getById( $id );
 
-        } catch ( \PDOException $exception )
+        }
+        catch ( \PDOException $exception )
         {
-            $this->connection->rollBack();
             throw new RepositoryException( 'The theme could not be inserted: ' . $exception->getMessage() );
         }
     }
@@ -145,17 +144,17 @@ class ThemeRepository extends Repository
             $statement = $this->connection->prepare( $this->updateThemeSql );
 
             $statement->execute( [
-                ':author' => $theme->getAuthor(),
-                ':name' => $theme->getName(),
-                ':description' => $theme->getDescription(),
+                ':author'        => $theme->getAuthor(),
+                ':name'          => $theme->getName(),
+                ':description'   => $theme->getDescription(),
                 ':directoryName' => $theme->getDirectoryName(),
             ] );
 
             return $this->getById( $theme->getId() );
 
-        } catch ( \PDOException $exception )
+        }
+        catch ( \PDOException $exception )
         {
-            $this->connection->rollBack();
             throw new RepositoryException( 'The theme could not be updated: ' . $exception->getMessage() );
         }
     }
@@ -178,10 +177,10 @@ class ThemeRepository extends Repository
         $theme = new Theme();
         $theme->setId( (int)$databaseData[ 'id' ] );
         $theme->setName( $databaseData[ 'name' ] );
-        $theme->setAuthor( $databaseData['author']);
-        $theme->setDescription( $databaseData['description']);
-        $theme->setDirectoryName( $databaseData['directoryName']);
-        $theme->setPages( $this->getPagesByThemeId( (int)$databaseData['id'] ));
+        $theme->setAuthor( $databaseData[ 'author' ] );
+        $theme->setDescription( $databaseData[ 'description' ] );
+        $theme->setDirectoryName( $databaseData[ 'directoryName' ] );
+        $theme->setPages( $this->getPagesByThemeId( (int)$databaseData[ 'id' ] ) );
 
         return $theme;
     }
@@ -202,6 +201,9 @@ class ThemeRepository extends Repository
      */
     public function getByName( string $themeName ) : Theme
     {
-        return $this->getOneByCondition( 'WHERE name=:whereName', [ ':whereName', $themeName ]);
+        return $this->getOneByCondition( 'WHERE name=:whereName', [
+            ':whereName',
+            $themeName,
+        ] );
     }
 }

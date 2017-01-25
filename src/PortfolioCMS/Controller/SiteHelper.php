@@ -8,7 +8,6 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Controller;
 
-
 use StendenINF1B\PortfolioCMS\Kernel\Database\Helper\EntityCollection;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Repository\PortfolioRepository;
 
@@ -31,11 +30,11 @@ trait SiteHelper
     /**
      * Render the base menu.
      */
-    public function renderMenuLinks(  )
+    public function renderMenuLinks()
     {
         $menuLinks = '';
 
-        foreach ( $this->getPortfoliosMetadata() as $portfolio )
+        foreach ($this->getPortfoliosMetadata() as $portfolio)
         {
             $menuLinks .= sprintf(
                 '<li>
@@ -54,7 +53,7 @@ trait SiteHelper
      *
      * @return EntityCollection
      */
-    public function getPortfoliosMetadata(  ) : EntityCollection
+    public function getPortfoliosMetadata() : EntityCollection
     {
         $this->portfolioRepository = $this->portfolioRepository ??  $this->getEntityManager()->getRepository( 'Portfolio' );
         return $this->portfolioRepository->getPortfolioMetaData();
@@ -65,7 +64,7 @@ trait SiteHelper
      *
      * @return EntityCollection
      */
-    protected function getPortfolios(  )
+    protected function getPortfolios()
     {
         $this->portfolioRepository = $this->portfolioRepository ?? $this->getEntityManager()->getRepository( 'Portfolio' );
         $this->portfoliosCollection = $this->portfoliosCollection ?? $this->portfolioRepository->getAll();

@@ -40,7 +40,7 @@ class DatabaseConfigLoader
      *
      * @param string|null $configFile
      */
-    public function __construct( string $configFile = null )
+    public function __construct( string $configFile = NULL )
     {
         $this->filename = $configFile ?? DATABASE_CONFIG_FILE;
         $this->databaseConfigContainers = [];
@@ -52,7 +52,7 @@ class DatabaseConfigLoader
      * @throws FileNotFoundException
      * @throws XMLParserException
      */
-    public function loadXmlFile( string $fileName = null )
+    public function loadXmlFile( string $fileName = NULL )
     {
         if ( $fileName )
         {
@@ -97,7 +97,7 @@ class DatabaseConfigLoader
      */
     public function getSimpleXmlObject() : \SimpleXMLElement
     {
-        if ( $this->simpleXMLObject == null )
+        if ( $this->simpleXMLObject == NULL )
         {
             $this->loadXmlFile();
         }
@@ -110,9 +110,9 @@ class DatabaseConfigLoader
      * @param \SimpleXMLElement|null $databaseConfig
      * @throws ConfigurationErrorException
      */
-    public function convertSimpleXMLToDatabaseContainer( \SimpleXMLElement $databaseConfig = null )
+    public function convertSimpleXMLToDatabaseContainer( \SimpleXMLElement $databaseConfig = NULL )
     {
-        if ( $databaseConfig !== null )
+        if ( $databaseConfig !== NULL )
         {
             $this->simpleXMLObject = $databaseConfig;
         }
@@ -189,7 +189,7 @@ class DatabaseConfigLoader
      * @param $autoLoadXml bool Set this to to prevent the auto loading of the SimpleXMLFile.
      * @return array
      */
-    public function getDatabaseConfigContainers( $autoLoadXml = false ): array
+    public function getDatabaseConfigContainers( $autoLoadXml = FALSE ): array
     {
         if ( $autoLoadXml )
         {
@@ -206,7 +206,7 @@ class DatabaseConfigLoader
      * @param        $autoLoadXml bool Set this to to prevent the auto loading of the SimpleXMLFile.
      * @return array|null
      */
-    public function getDatabaseConfigContainer( string $connectionName, $autoLoadXml = false ) : DatabaseConfigurationContainer
+    public function getDatabaseConfigContainer( string $connectionName, $autoLoadXml = FALSE ) : DatabaseConfigurationContainer
     {
         if ( $autoLoadXml )
         {
@@ -215,7 +215,7 @@ class DatabaseConfigLoader
 
         if ( !isset( $this->databaseConfigContainers[ $connectionName ] ) )
         {
-            throw  new ConfigurationErrorException( sprintf( 'No database configuration found with connection name: %s', $connectionName ));
+            throw  new ConfigurationErrorException( sprintf( 'No database configuration found with connection name: %s', $connectionName ) );
         }
 
         return $this->databaseConfigContainers[ $connectionName ];

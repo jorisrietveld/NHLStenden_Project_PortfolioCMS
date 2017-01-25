@@ -8,8 +8,6 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Kernel\TemplateEngine;
 
-
-use DebugBar\DebugBar;
 use StendenINF1B\PortfolioCMS\Kernel\Debug\Debug;
 use StendenINF1B\PortfolioCMS\Kernel\Exception\TemplateEngineException;
 use StendenINF1B\PortfolioCMS\Kernel\Helper\ConfigLoader;
@@ -35,6 +33,7 @@ class TemplateEngine
 
     /**
      * The path to the assets from the theme.
+     *
      * @var string
      */
     protected $assetPath;
@@ -66,7 +65,7 @@ class TemplateEngine
      *
      * @return mixed
      */
-    public function getAssetPath(  ) : string
+    public function getAssetPath() : string
     {
         return $this->assetPath;
     }
@@ -107,23 +106,23 @@ class TemplateEngine
     {
         $nameParts = explode( ':', $name );
 
-        if( count( $nameParts ) !== 2 )
+        if ( count( $nameParts ) !== 2 )
         {
             throw new TemplateEngineException( sprintf( 'Malformed template name: %s', $name ) );
         }
 
-        $theme = $nameParts[0];
-        $template = $nameParts[1];
+        $theme = $nameParts[ 0 ];
+        $template = $nameParts[ 1 ];
 
         $themePath = THEMES_DIR . $theme;
         $templatePath = $themePath . DIR_SEP . $template . '.php';
 
-        if( !is_dir( $themePath ) )
+        if ( !is_dir( $themePath ) )
         {
             throw new TemplateEngineException( sprintf( 'The theme: %s is not found at location: %s', $theme, $themePath ) );
         }
 
-        if( !file_exists( $templatePath ) )
+        if ( !file_exists( $templatePath ) )
         {
             throw new TemplateEngineException( sprintf( 'The template: %s is not found at location: %s', $template, $templatePath ) );
         }

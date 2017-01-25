@@ -8,13 +8,12 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Entity;
 
-
 class Training implements EntityInterface
 {
     /**
      * @var int
      */
-    protected $id;
+    protected $id = 0;
 
     /**
      * @var string
@@ -138,7 +137,7 @@ class Training implements EntityInterface
      */
     public function getStatedAt() : \DateTime
     {
-        if(! $this->statedAt )
+        if ( !$this->statedAt )
         {
             return new \DateTime();
         }
@@ -160,7 +159,7 @@ class Training implements EntityInterface
      */
     public function getFinishedAt() : \DateTime
     {
-        if(! $this->statedAt )
+        if ( !$this->statedAt )
         {
             return new \DateTime();
         }
@@ -248,6 +247,5 @@ class Training implements EntityInterface
         $this->portfolioId = $portfolioId;
         return $this;
     }
-
 
 }

@@ -8,7 +8,6 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Entity;
 
-
 class Student extends User implements EntityInterface
 {
     /**
@@ -46,7 +45,7 @@ class Student extends User implements EntityInterface
      *
      *
      */
-    public function __construct(  )
+    public function __construct()
     {
         $this->type = 'student';
     }

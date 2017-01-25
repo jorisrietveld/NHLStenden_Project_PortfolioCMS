@@ -26,8 +26,8 @@ class Error extends BaseController
     {
         return $this->createResponse( 'site:error', [
             'portfolioMenuLinks' => $this->renderMenuLinks(),
-            'errorMessage' => '<h1>Error 401</h1>U heeft niet de juiste autorisatie om deze pagina te bekijken klik <a href="home">hier</a> om terug te gaan naar home.',
-            'asset-path' => 'assets/site/',
+            'errorMessage'       => '<h1>Error 401</h1>U heeft niet de juiste autorisatie om deze pagina te bekijken klik <a href="home">hier</a> om terug te gaan naar home.',
+            'asset-path'         => 'assets/site/',
         ] );
     }
 
@@ -36,13 +36,13 @@ class Error extends BaseController
      *
      * @return Response
      */
-    public function error404(  )
+    public function error404()
     {
         return $this->createResponse(
             'site:error', [
             'portfolioMenuLinks' => $this->renderMenuLinks(),
-            'errorMessage' => '<h1>Error 404</h1>De door u opgevraagde web pagina bestaat niet Klik <a href="home">hier</a> om terug te gaan naar home.',
-            'asset-path' => 'assets/site/',
+            'errorMessage'       => '<h1>Error 404</h1>De door u opgevraagde web pagina bestaat niet Klik <a href="home">hier</a> om terug te gaan naar home.',
+            'asset-path'         => 'assets/site/',
         ],
             Response::HTTP_STATUS_NOT_FOUND
         );
@@ -55,7 +55,7 @@ class Error extends BaseController
      * @param null         $exception
      * @return Response
      */
-    public function error500( Request $request, $exception = null )
+    public function error500( Request $request, $exception = NULL )
     {
         if ( DEBUG )
         {
@@ -100,8 +100,8 @@ class Error extends BaseController
         return $this->createResponse(
             'site:error', [
             'portfolioMenuLinks' => $this->renderMenuLinks(),
-            'errorMessage' => sprintf( '<h1>Error 405</h1>HTTP methode %s niet toegestaan.</h1>', $method ),
-            ],
+            'errorMessage'       => sprintf( '<h1>Error 405</h1>HTTP methode %s niet toegestaan.</h1>', $method ),
+        ],
             Response::HTTP_STATUS_METHOD_NOT_ALLOWED
         );
 

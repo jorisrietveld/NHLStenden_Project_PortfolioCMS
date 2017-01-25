@@ -23,7 +23,7 @@ class ConnectionManager
     /**
      * @var ParameterContainer
      */
-    protected  $openedConnections;
+    protected $openedConnections;
 
     /**
      * @var DriverFactory
@@ -46,7 +46,7 @@ class ConnectionManager
         $this->configLoader = new DatabaseConfigLoader( $configFile );
         $this->openedConnections = new ParameterContainer();
 
-        if( $autoLoadConfig )
+        if ( $autoLoadConfig )
         {
             $this->loadConnectionFromConfig();
         }
@@ -59,15 +59,15 @@ class ConnectionManager
      */
     public function loadConnectionFromConfig( string $connectionName = '' )
     {
-        if( $connectionName === '' )
+        if ( $connectionName === '' )
         {
-            $connectionName = (new ConfigLoader( CONFIG_FILE ) )->getConfigContainer( TRUE )->get('database','');
+            $connectionName = ( new ConfigLoader( CONFIG_FILE ) )->getConfigContainer( TRUE )->get( 'database', '' );
         }
 
         $databaseConfigContainer = $this->configLoader->getDatabaseConfigContainer( $connectionName, TRUE );
-        $driver =  $this->driverFactory->createDriver( $databaseConfigContainer );
+        $driver = $this->driverFactory->createDriver( $databaseConfigContainer );
 
-        $this->addConnection( $driver->connect( $databaseConfigContainer ));
+        $this->addConnection( $driver->connect( $databaseConfigContainer ) );
     }
 
     /**
@@ -80,11 +80,11 @@ class ConnectionManager
         $databaseConfigContainers = $this->configLoader->getDatabaseConfigContainers( TRUE );
         $restrictConnectionLoading = count( $loadConnectionNames ) > 0 ? TRUE : FALSE;
 
-        foreach ( $databaseConfigContainers as $name => $container )
+        foreach ($databaseConfigContainers as $name => $container)
         {
-            if( $restrictConnectionLoading )
+            if ( $restrictConnectionLoading )
             {
-                if( in_array( $name, $loadConnectionNames, TRUE ) )
+                if ( in_array( $name, $loadConnectionNames, TRUE ) )
                 {
                     $this->loadConnectionFromConfig( $name );
                 }
@@ -98,7 +98,7 @@ class ConnectionManager
 
     /**
      * Adds a new database connection to the connection manger, it will override connections with the same name.
-     * 
+     *
      * @param DatabaseConnection $databaseConnection
      */
     public function addConnection( DatabaseConnection $databaseConnection )
@@ -114,12 +114,12 @@ class ConnectionManager
      */
     public function getConnection( string $connectionName = '' ): DatabaseConnection
     {
-        if( $connectionName === '' )
+        if ( $connectionName === '' )
         {
-            $connectionName = (new ConfigLoader( CONFIG_FILE ) )->getConfigContainer( TRUE )->get('database','');
+            $connectionName = ( new ConfigLoader( CONFIG_FILE ) )->getConfigContainer( TRUE )->get( 'database', '' );
         }
 
-        if( $this->openedConnections->has( $connectionName ) )
+        if ( $this->openedConnections->has( $connectionName ) )
         {
             return $this->openedConnections->get( $connectionName );
         }
@@ -144,7 +144,7 @@ class ConnectionManager
      *
      * @return array
      */
-    public function getConnections(  ): ParameterContainer
+    public function getConnections(): ParameterContainer
     {
         return $this->openedConnections;
     }
