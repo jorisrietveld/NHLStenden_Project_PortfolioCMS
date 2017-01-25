@@ -39,7 +39,7 @@ include 'header.php';
                                                 </div>
                                             <?php endif; ?>
                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">Titel</label>
+                                                <label class="form-label col-lg-3" for="title">Titel</label>
                                                 <input type="text"
                                                        name="title"
                                                        class="form-control"
@@ -48,7 +48,7 @@ include 'header.php';
                                                        required>
                                             </div>
                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">URL:</label>
+                                                <label class="form-label col-lg-3" for="url">URL:</label>
                                                 <input type="text"
                                                        name="url"
                                                        class="form-control"
@@ -56,16 +56,26 @@ include 'header.php';
                                                        placeholder="URL"
                                                        required>
                                             </div>
-                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">Cijfer:</label>
-                                                <input type="text"
-                                                       name="grade"
-                                                       class="form-control"
-                                                       id="cijfer"
-                                                       placeholder="10,0"
-                                                       >
+
+                                            <div class="form-group">
+                                                <label class="form-label col-lg-3" for="userId">Student</label>
+                                                <select required  class="form-control" name="userId" id="userId">
+                                                    <option>Selecteer een student</option>
+                                                    <?php foreach ( $dataProvider->get( 'students', [] ) as $studentId => $student ) : ?>
+                                                        <option value="<?=$studentId?>"><?= $student->getFirstName() . ' ' . $student->getLastName() ?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
                                             </div>
 
+                                            <div class="form-group">
+                                                <label class="form-label col-lg-3" for="themeId">Thema</label>
+                                                <select required  class="form-control" name="themeId" id="themeId">
+                                                    <option>Selecteer een thema</option>
+                                                    <?php foreach ( $dataProvider->get( 'themes', [] ) as $themeId => $theme ) : ?>
+                                                        <option value="<?=$themeId?>"><?= $theme->getName() ?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
 
                                             <div class="row">
                                                 <div class="col-lg-6 clearfix"><br/></div>

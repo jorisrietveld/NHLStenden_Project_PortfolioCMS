@@ -39,7 +39,7 @@ include 'header.php';
                                                 </div>
                                             <?php endif; ?>
                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">Naam Hobby:</label>
+                                                <label class="form-label col-lg-3" for="name">Naam Hobby:</label>
                                                 <input type="text"
                                                        name="name"
                                                        class="form-control"

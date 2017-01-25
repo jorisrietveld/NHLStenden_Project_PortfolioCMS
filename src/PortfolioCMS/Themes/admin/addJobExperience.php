@@ -39,11 +39,11 @@ include 'header.php';
                                                 </div>
                                             <?php endif; ?>
                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">Werkplaats:</label>
+                                                <label class="form-label col-lg-3" for="location">Werkplaats:</label>
                                                 <input type="text"
                                                        name="location"
                                                        class="form-control"
-                                                       id="plaats"
+                                                       id="location"
                                                        placeholder="werkplaats"
                                                        required>
                                             </div>
@@ -51,39 +51,39 @@ include 'header.php';
                                             
                                             <!--Input type text in verband met beperkte browser support input date en format invoer database   -->
                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">Startdatum:</label>
+                                                <label class="form-label col-lg-3" for="startedAt">Startdatum:</label>
                                                 <input type="text"
                                                        name="startedAt"
                                                        class="form-control"
-                                                       id="startdatum"
+                                                       id="startedAt"
                                                        placeholder="YYYY-MM-DD"
                                                        >
                                             </div>
                                             
                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">Einddatum:</label>
+                                                <label class="form-label col-lg-3" for="endedAt">Einddatum:</label>
                                                 <input type="text"
                                                        name="endedAt"
                                                        class="form-control"
-                                                       id="einddatum"
+                                                       id="endedAt"
                                                        placeholder="YYYY-MM-DD"
                                                        >
                                             </div>
                                             
                                              <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">Werk omschrijving:</label>
+                                                <label class="form-label col-lg-3" for="description">Werk omschrijving:</label>
                                                 <textarea 
                                                        rows="10"
                                                        name="description"
                                                        class="form-control"
-                                                       id="workdescription"
+                                                       id="description"
                                                        placeholder="Beschrijving"
                                                        required></textarea>
                                             </div>
                                             
                                             <div class="form-group">
                                                 <label class="form-label col-lg-3" for="isInternship">Type werkplek:</label>
-                                                <select required  class="form-control" name="isInternship">
+                                                <select required  class="form-control" name="isInternship" id="isInternship">
                                                     <option value="">Selecteer een werkplek</option>
                                                     <option value="FALSE">Werkplek</option>
                                                     <option value="TRUE">Stageplaats</option>

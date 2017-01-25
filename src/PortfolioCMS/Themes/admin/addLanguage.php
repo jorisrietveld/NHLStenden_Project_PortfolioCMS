@@ -38,7 +38,7 @@ include 'header.php';
                                                 </div>
                                             <?php endif; ?>
                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">Taal:</label>
+                                                <label class="form-label col-lg-3" for="language">Taal:</label>
                                                 <input type="text"
                                                        name="language"
                                                        class="form-control"
@@ -48,26 +48,25 @@ include 'header.php';
                                             </div>
                                             
                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">Level(1-10)</label>
-                                                <input type="text"
+                                                <label class="form-label col-lg-3" for="level">Level(1-10)</label>
+                                                <input type="number"
                                                        name="level"
                                                        class="form-control"
                                                        id="langlevel"
                                                        placeholder="Level"
+                                                       min="0"
+                                                       max="10"
+                                                       title="De waarde moet tussen de 0 en 10 zijn"
                                                        required>
                                             </div>
                                             
-                                              <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">Is het de moedertaal?</label>
-                                                <select required  class="form-control" name="isNative">
-                                                    <option value="">-</option>
-                                                    <option value="werk">Ja</option>
-                                                    <option value="stage">Nee</option>
+                                            <div class="form-group">
+                                                <label class="form-label col-lg-3" for="isNative">Is het de moedertaal?</label>
+                                                <select required  class="form-control" name="isNative" id="isNative">
+                                                    <option value="TRUE">Ja</option>
+                                                    <option value="FALSE">Nee</option>
                                                 </select>
-                                               
-                                             
                                             </div>
-
 
                                             <div class="row">
                                                 <div class="col-lg-6 clearfix"><br/></div>

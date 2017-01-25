@@ -39,7 +39,7 @@ include 'header.php';
                                                 </div>
                                             <?php endif; ?>
                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">Titel:</label>
+                                                <label class="form-label col-lg-3" for="title">Titel:</label>
                                                 <input type="text"
                                                        name="title"
                                                        class="form-control"
@@ -48,7 +48,7 @@ include 'header.php';
                                                        required>
                                             </div>
                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">Instituut:</label>
+                                                <label class="form-label col-lg-3" for="institution">Instituut:</label>
                                                 <input type="text"
                                                        name="institution"
                                                        class="form-control"
@@ -58,7 +58,7 @@ include 'header.php';
                                             </div>
                                             
                                              <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">Locatie:</label>
+                                                <label class="form-label col-lg-3" for="location">Locatie:</label>
                                                 <input type="text"
                                                        name="location"
                                                        class="form-control"
@@ -68,7 +68,7 @@ include 'header.php';
                                             </div>
                                             
                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">Startdatum:</label>
+                                                <label class="form-label col-lg-3" for="startedAt">Startdatum:</label>
                                                 <input type="text"
                                                        name="startedAt"
                                                        class="form-control"
@@ -78,7 +78,7 @@ include 'header.php';
                                             </div>
                                             
                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">Einddatum:</label>
+                                                <label class="form-label col-lg-3" for="finishedAt">Einddatum:</label>
                                                 <input type="text"
                                                        name="finishedAt"
                                                        class="form-control"
@@ -88,7 +88,7 @@ include 'header.php';
                                             </div>
                                             
                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">Beschrijving:</label>
+                                                <label class="form-label col-lg-3" for="description">Beschrijving:</label>
                                                 <textarea 
                                                        rows="5"
                                                        name="description"
@@ -101,9 +101,8 @@ include 'header.php';
                                             <div class="form-group">
                                                 <label class="form-label col-lg-3" for="inputEmail">Is de opleiding gehaald?</label>
                                                 <select required  class="form-control" name="obtainedCertificate">
-                                                    <option value="">-</option>
-                                                    <option value="werk">Ja</option>
-                                                    <option value="stage">Nee</option>
+                                                    <option value="TRUE">Ja</option>
+                                                    <option value="FALSE">Nee</option>
                                                 </select>
                                                
                                              
@@ -112,16 +111,10 @@ include 'header.php';
                                             <div class="form-group">
                                                 <label class="form-label col-lg-3" for="inputEmail">Is het de huidige opleiding?</label>
                                                 <select required  class="form-control" name="currentTraining">
-                                                    <option value="">-</option>
-                                                    <option value="werk">Ja</option>
-                                                    <option value="stage">Nee</option>
+                                                    <option value="TRUE">Ja</option>
+                                                    <option value="FALSE">Nee</option>
                                                 </select>
-                                               
-                                             
                                             </div>
-                                            
-                                           
-
 
                                             <div class="row">
                                                 <div class="col-lg-6 clearfix"><br/></div>

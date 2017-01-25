@@ -48,7 +48,7 @@ class PortfolioManagement extends BaseController
      */
     protected $portfolioFields = [
         'title'   => 'required|alpha_space|max_length,40|min_length,3',
-        'url'     => 'required|valid_url|max_length,40|min_length,3',
+        'url'     => 'required|max_length,40|min_length,3',
         'themeId' => 'required|integer',
         'userId'  => 'required|integer',
     ];
@@ -412,6 +412,8 @@ class PortfolioManagement extends BaseController
             'admin:addPortfolio', [
                 'feedback'      => $feedback ?? '',
                 'feedback-type' => $feedbackType ?? '',
+                'themes' => $this->themeRepository->getAll(),
+                'students' => $this->studentRepository->getAll(),
             ]
         );
     }
@@ -998,6 +1000,7 @@ class PortfolioManagement extends BaseController
                 $trainingEntity->setDescription( $postParams->getString( 'description' ) );
                 $trainingEntity->setCurrentTraining( $postParams->getBoolean( 'currentTraining' ) );
                 $trainingEntity->setFinishedAt( $postParams->getDateTime( 'finishedAt' ) );
+                $trainingEntity->setStatedAt( $postParams->getDateTime( 'startedAt' ));
                 $trainingEntity->setInstitution( $postParams->getString( 'institution' ) );
                 $trainingEntity->setObtainedCertificate( $postParams->getBoolean( 'obtainedCertificate' ) );
                 $trainingEntity->setTitle( $postParams->getString( 'title' ) );
@@ -1014,7 +1017,7 @@ class PortfolioManagement extends BaseController
                 $feedbackType = 'danger';
             }
         }
-        else
+        elseif( $request->getMethod() === 'POST' )
         {
             $feedback = Validation::getInstance()->getReadableErrors();
             $feedbackType = 'danger';
@@ -1064,7 +1067,7 @@ class PortfolioManagement extends BaseController
                 $feedbackType = 'danger';
             }
         }
-        else
+        elseif( $request->getMethod() === 'POST' )
         {
             $feedback = Validation::getInstance()->getReadableErrors();
             $feedbackType = 'danger';
@@ -1116,7 +1119,7 @@ class PortfolioManagement extends BaseController
                 $feedbackType = 'danger';
             }
         }
-        else
+        elseif( $request->getMethod() === 'POST' )
         {
             $feedback = Validation::getInstance()->getReadableErrors();
             $feedbackType = 'danger';
@@ -1168,7 +1171,7 @@ class PortfolioManagement extends BaseController
                 $feedbackType = 'danger';
             }
         }
-        else
+        elseif( $request->getMethod() === 'POST' )
         {
             $feedback = Validation::getInstance()->getReadableErrors();
             $feedbackType = 'danger';
@@ -1222,7 +1225,7 @@ class PortfolioManagement extends BaseController
                 $feedbackType = 'danger';
             }
         }
-        else
+        elseif( $request->getMethod() === 'POST' )
         {
             $feedback = Validation::getInstance()->getReadableErrors();
             $feedbackType = 'danger';
@@ -1274,7 +1277,7 @@ class PortfolioManagement extends BaseController
                 $feedbackType = 'danger';
             }
         }
-        else
+        elseif( $request->getMethod() === 'POST' )
         {
             $feedback = Validation::getInstance()->getReadableErrors();
             $feedbackType = 'danger';

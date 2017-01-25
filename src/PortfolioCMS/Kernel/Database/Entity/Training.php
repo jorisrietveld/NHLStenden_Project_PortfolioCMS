@@ -136,8 +136,12 @@ class Training implements EntityInterface
     /**
      * @return \DateTime
      */
-    public function getStatedAt(): \DateTime
+    public function getStatedAt() : \DateTime
     {
+        if(! $this->statedAt )
+        {
+            return new \DateTime();
+        }
         return $this->statedAt;
     }
 
@@ -154,8 +158,12 @@ class Training implements EntityInterface
     /**
      * @return \DateTime
      */
-    public function getFinishedAt(): \DateTime
+    public function getFinishedAt() : \DateTime
     {
+        if(! $this->statedAt )
+        {
+            return new \DateTime();
+        }
         return $this->finishedAt;
     }
 

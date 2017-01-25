@@ -62,7 +62,7 @@ class TrainingRepository extends Repository
      *
      * @var string
      */
-    protected $insertHobbySql = '
+    protected $insertTrainingSql = '
         INSERT INTO `DigitalPortfolio`.`Training`( 
             `title`,
             `institution`,
@@ -91,7 +91,7 @@ class TrainingRepository extends Repository
      *
      * @var string
      */
-    protected $updateHobbySql = '
+    protected $updateTrainingSql = '
         UPDATE Training SET 
             `title` = :title,
             `institution` = :institution,
@@ -135,27 +135,26 @@ class TrainingRepository extends Repository
     {
         try
         {
-            $statement = $this->connection->prepare( $this->insertHobbySql );
-
+            $statement = $this->connection->prepare( $this->insertTrainingSql );
             $statement->execute( [
                 ':title' => $training->getTitle(),
                 ':institution' => $training->getInstitution(),
                 ':location' => $training->getLocation(),
-                ':startedAt' => $training->getStatedAt()->format('Y-m-d H:i:s'),
-                ':finishedAt' => $training->getFinishedAt()->format('Y-m-d H:i:s'),
+                ':startedAt' => $training->getStatedAt()->format('Y-m-d'),
+                ':finishedAt' => $training->getFinishedAt()->format('Y-m-d'),
                 ':description' => $training->getDescription(),
                 ':obtainedCertificate' => (int)$training->getObtainedCertificate(),
                 ':currentTraining' => (int)$training->getCurrentTraining(),
-                ':portfolioId'> $training->getPortfolioId(),
+                ':portfolioId' => $training->getPortfolioId(),
             ] );
 
             $id = (int)$this->connection->lastInsertId();
 
             return $this->getById( $id );
 
-        } catch ( \PDOException $exception )
+        }
+        catch ( \PDOException $exception )
         {
-            $this->connection->rollBack();
             throw new RepositoryException( 'The training could not be inserted: ' . $exception->getMessage() );
         }
     }
@@ -171,14 +170,14 @@ class TrainingRepository extends Repository
     {
         try
         {
-            $statement = $this->connection->prepare( $this->updateHobbySql );
+            $statement = $this->connection->prepare( $this->updateTrainingSql );
 
             $statement->execute( [
                 ':title' => $training->getTitle(),
                 ':institution' => $training->getInstitution(),
                 ':location' => $training->getLocation(),
-                ':startedAt' => $training->getStatedAt()->format('Y-m-d H:i:s'),
-                ':finishedAt' => $training->getFinishedAt()->format('Y-m-d H:i:s'),
+                ':startedAt' => $training->getStatedAt()? $training->getStatedAt()->format('Y-m-d') : (new \DateTime())->format('Y-m-d'),
+                ':finishedAt' => $training->getFinishedAt()? $training->getStatedAt()->format('Y-m-d') : (new \DateTime())->format('Y-m-d'),
                 ':description' => $training->getDescription(),
                 ':obtainedCertificate' => (int)$training->getObtainedCertificate(),
                 ':currentTraining' => (int)$training->getCurrentTraining(),

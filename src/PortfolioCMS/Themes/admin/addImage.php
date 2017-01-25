@@ -39,18 +39,16 @@ include 'header.php';
                                                 </div>
                                             <?php endif; ?>
                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">Naam:</label>
+                                                <label class="form-label col-lg-3" for="name">Naam:</label>
                                                 <input type="text"
                                                        name="name"
                                                        class="form-control"
                                                        id="name"
-                                                       placeholder="Naam"
-                                                       >
+                                                       placeholder="Naam">
                                             </div>
                                             
-                                            
                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">Beschrijving:</label>
+                                                <label class="form-label col-lg-3" for="description">Beschrijving:</label>
                                                 <textarea 
                                                        name="description"
                                                        class="form-control"
@@ -58,21 +56,15 @@ include 'header.php';
                                                        placeholder="Beschrijving"
                                                        required></textarea>
                                             </div>
-                                            
-                                            
+
                                              <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">Type afbeelding:</label>
-                                                <select required  class="form-control" name="type">
+                                                <label class="form-label col-lg-3" for="type">Type afbeelding:</label>
+                                                <select required  class="form-control" name="type" id="type">
                                                     <option value="">Geen</option>
                                                     <option value="GALLERY_IMAGE">Galerij</option>
                                                     <option value="PROFILE_IMAGE">Profielfoto</option>
                                                 </select>
-                                               
-                                             
                                             </div>
-                                            
-                                            
-
 
                                             <div class="row">
                                                 <div class="col-lg-6 clearfix"><br/></div>
