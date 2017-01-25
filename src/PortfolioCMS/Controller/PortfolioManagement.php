@@ -114,9 +114,6 @@ class PortfolioManagement extends BaseController
      * @var array
      */
     protected $uploadedFileFields = [
-        'fileName' => 'required',
-        'mimeType' => 'required',
-        'filePath' => 'required',
     ];
 
     /**
