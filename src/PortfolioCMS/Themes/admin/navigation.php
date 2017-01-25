@@ -121,7 +121,7 @@ $hasPageSuffix = count( explode( '/', $dataProvider->call( 'httpRequest', 'getRe
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <?php foreach ($meta->getUrl() as $link) {echo "test";} ?>
+                                <?php //foreach ($meta->getUrl() as $link) {echo "test";} ?>
                             </ul>
                         </li>
                         <li>
