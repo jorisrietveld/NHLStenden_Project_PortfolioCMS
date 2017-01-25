@@ -8,10 +8,10 @@ declare( strict_types = 1 );
 
 namespace StendenINF1B\PortfolioCMS\Kernel\Database\Repository;
 
-
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\EntityInterface;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\SLBAssignment;
 use StendenINF1B\PortfolioCMS\Kernel\Database\EntityManager;
+use StendenINF1B\PortfolioCMS\Kernel\Debug\Debug;
 use StendenINF1B\PortfolioCMS\Kernel\Exception\RepositoryException;
 
 class SLBAssignmentRepository extends Repository
@@ -72,6 +72,7 @@ class SLBAssignmentRepository extends Repository
 
     /**
      * This holds an SQL statement for inserting an new SLBAssignment entity into the database.
+     *
      * @var string
      */
     protected $insertSLBAssignment = '
@@ -102,6 +103,7 @@ class SLBAssignmentRepository extends Repository
 
     /**
      * This holds an SQL statement for updating an SLBAssignment entity in the database.
+     *
      * @var string
      */
     protected $updateImageSql = '
@@ -143,28 +145,28 @@ class SLBAssignmentRepository extends Repository
         {
             $this->connection->beginTransaction();
 
-            $uploadedFileStatement = $this->connection->prepare( $this->insertUploadedFileSql );
-            $uploadedFileStatement->execute( [
-                ':fileName' => $slbAssignment->getFileName(),
-                ':mimeType' => $slbAssignment->getMimeType(),
-                ':filePath' => $slbAssignment->getFilePath(),
+            dump($uploadedFileStatement = $this->connection->prepare( $this->insertUploadedFileSql ));
+            dump($uploadedFileStatement->execute( [
+                ':fileName'    => $slbAssignment->getFileName(),
+                ':mimeType'    => $slbAssignment->getMimeType(),
+                ':filePath'    => $slbAssignment->getFilePath(),
                 ':portfolioId' => $slbAssignment->getPortfolioId(),
-            ] );
+            ] ));
 
-            $slbAssignmentStatement = $this->connection->prepare( $this->insertSLBAssignment );
-            $slbAssignmentStatement->execute( [
-                ':name' => $slbAssignment->getName(),
+            dump($slbAssignmentStatement = $this->connection->prepare( $this->insertSLBAssignment ));
+            dump($slbAssignmentStatement->execute( [
+                ':name'     => $slbAssignment->getName(),
                 ':feedback' => $slbAssignment->getFeedback(),
-            ] );
+            ] ));
 
             $this->connection->commit();
 
             $id = (int)$this->connection->lastInsertId();
             return $this->getById( $id );
 
-        } catch ( \PDOException $exception )
+        }
+        catch ( \PDOException $exception )
         {
-            $this->connection->rollBack();
             throw new RepositoryException( 'The slb assignment could not be inserted: ' . $exception->getMessage() );
         }
     }
@@ -184,15 +186,15 @@ class SLBAssignmentRepository extends Repository
 
             $uploadedFileStatement = $this->connection->prepare( $this->insertUploadedFileSql );
             $uploadedFileStatement->execute( [
-                ':fileName' => $slbAssignment->getFileName(),
-                ':mimeType' => $slbAssignment->getMimeType(),
-                ':filePath' => $slbAssignment->getFilePath(),
+                ':fileName'    => $slbAssignment->getFileName(),
+                ':mimeType'    => $slbAssignment->getMimeType(),
+                ':filePath'    => $slbAssignment->getFilePath(),
                 ':portfolioId' => $slbAssignment->getPortfolioId(),
             ] );
 
             $slbAssignmentStatement = $this->connection->prepare( $this->insertSLBAssignment );
             $slbAssignmentStatement->execute( [
-                ':name' => $slbAssignment->getName(),
+                ':name'     => $slbAssignment->getName(),
                 ':feedback' => $slbAssignment->getFeedback(),
             ] );
 
@@ -200,7 +202,8 @@ class SLBAssignmentRepository extends Repository
 
             return $this->getById( $slbAssignment->getId() );
 
-        } catch ( \PDOException $exception )
+        }
+        catch ( \PDOException $exception )
         {
             $this->connection->rollBack();
             throw new RepositoryException( 'The slb assignment could not be updated: ' . $exception->getMessage() );

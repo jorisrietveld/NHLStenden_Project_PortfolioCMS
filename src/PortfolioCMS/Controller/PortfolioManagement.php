@@ -260,6 +260,7 @@ class PortfolioManagement extends BaseController
         $context = array_merge( $context, [
             'asset-path'  => $this->application->getRequest()->getBaseUri() . 'assets/admin/',
             'httpRequest' => $this->application->getRequest(),
+            'portfolio-meta-data' => $this->getPortfoliosMetadata(),
         ] );
 
         return parent::createResponse( $webPage, $context, $httpCode );
@@ -399,7 +400,7 @@ class PortfolioManagement extends BaseController
                 $feedbackType = 'danger';
             }
         }
-        elseif( $request->getMethod() === 'POST' )
+        elseif ( $request->getMethod() === 'POST' )
         {
             $feedback = Validation::getInstance()->getReadableErrors();
             $feedbackType = 'danger';
@@ -409,8 +410,8 @@ class PortfolioManagement extends BaseController
             'admin:addPortfolio', [
                 'feedback'      => $feedback ?? '',
                 'feedback-type' => $feedbackType ?? '',
-                'themes' => $this->themeRepository->getAll(),
-                'students' => $this->studentRepository->getAll(),
+                'themes'        => $this->themeRepository->getAll(),
+                'students'      => $this->studentRepository->getAll(),
             ]
         );
     }
@@ -907,7 +908,7 @@ class PortfolioManagement extends BaseController
                 $feedbackType = 'danger';
             }
         }
-        elseif( $request->getMethod() === 'POST' )
+        elseif ( $request->getMethod() === 'POST' )
         {
             $feedback = Validation::getInstance()->getReadableErrors();
             $feedbackType = 'danger';
@@ -997,7 +998,7 @@ class PortfolioManagement extends BaseController
                 $trainingEntity->setDescription( $postParams->getString( 'description' ) );
                 $trainingEntity->setCurrentTraining( $postParams->getBoolean( 'currentTraining' ) );
                 $trainingEntity->setFinishedAt( $postParams->getDateTime( 'finishedAt' ) );
-                $trainingEntity->setStatedAt( $postParams->getDateTime( 'startedAt' ));
+                $trainingEntity->setStatedAt( $postParams->getDateTime( 'startedAt' ) );
                 $trainingEntity->setInstitution( $postParams->getString( 'institution' ) );
                 $trainingEntity->setObtainedCertificate( $postParams->getBoolean( 'obtainedCertificate' ) );
                 $trainingEntity->setTitle( $postParams->getString( 'title' ) );
@@ -1014,7 +1015,7 @@ class PortfolioManagement extends BaseController
                 $feedbackType = 'danger';
             }
         }
-        elseif( $request->getMethod() === 'POST' )
+        elseif ( $request->getMethod() === 'POST' )
         {
             $feedback = Validation::getInstance()->getReadableErrors();
             $feedbackType = 'danger';
@@ -1064,7 +1065,7 @@ class PortfolioManagement extends BaseController
                 $feedbackType = 'danger';
             }
         }
-        elseif( $request->getMethod() === 'POST' )
+        elseif ( $request->getMethod() === 'POST' )
         {
             $feedback = Validation::getInstance()->getReadableErrors();
             $feedbackType = 'danger';
@@ -1116,7 +1117,7 @@ class PortfolioManagement extends BaseController
                 $feedbackType = 'danger';
             }
         }
-        elseif( $request->getMethod() === 'POST' )
+        elseif ( $request->getMethod() === 'POST' )
         {
             $feedback = Validation::getInstance()->getReadableErrors();
             $feedbackType = 'danger';
@@ -1146,20 +1147,43 @@ class PortfolioManagement extends BaseController
 
         $postParams = $request->getPostParams();
 
-        if ( Validation::getInstance()->validatePostParameters( $postParams, $this->trainingFields ) && $request->getMethod() === 'POST' )
+        if ( Validation::getInstance()->validatePostParameters( $postParams, $this->slbAssignmentFields ) && $request->getMethod() === 'POST' && isset( $_FILES[ 'slbAssignment' ] ) )
         {
             try
             {
+                $array = explode( '.', $_FILES[ 'slbAssignment' ][ 'name' ] );
+                $fileName = md5( time() . $_FILES[ 'slbAssignment' ][ 'name' ] ) . '.' . end( $array );
+                $saveDirectory = WEB_ROOT . 'slbAssignments' . DIR_SEP;
+                $fileInfoMime = finfo_open( FILEINFO_MIME_TYPE );
+                $mimeType = finfo_file( $fileInfoMime, $_FILES[ 'slbAssignment' ][ 'tmp_name' ] );
+                $targetFile = $saveDirectory . $fileName;
+
                 $slbAssignmentEntity = new SLBAssignment();
                 $slbAssignmentEntity->setName( $postParams->getString( 'name' ) );
-                //$slbAssignmentEntity->setFileName(  );
-                // todo add code for fileupload.
-                $slbAssignmentEntity->setFilePath( WEB_ROOT . 'files' . DIR_SEP );
-                $slbAssignmentEntity->setMimeType( 'pdf' );
+                $slbAssignmentEntity->setFileName( $fileName );
+                $slbAssignmentEntity->setFilePath( $saveDirectory );
+                $slbAssignmentEntity->setMimeType( $mimeType );
+                $slbAssignmentEntity->setPortfolio( (int)$portfolioId );
+                $slbAssignmentEntity->setFeedback('');
 
-                $this->slbAssignmentRepository->insert( $slbAssignmentEntity );
-                $feedback = 'De slb opdracht is toegevoegd.';
-                $feedbackType = 'success';
+                if ( file_exists( $targetFile ) )
+                {
+                    $feedback = 'Het bestand kan niet worden geupload omdat het al bestaat.';
+                    $feedbackType = 'danger';
+                }
+                elseif ( $_FILES[ "slbAssignment" ][ "size" ] > 8388608 )
+                {
+                    $feedback = 'Het bestand is te groot.';
+                    $feedbackType = 'danger';
+                }
+                else
+                {
+                    move_uploaded_file( $_FILES[ "slbAssignment" ][ "tmp_name" ], $targetFile );
+                    $this->slbAssignmentRepository->insert( $slbAssignmentEntity );
+
+                    $feedback = 'De slb opdracht is toegevoegd.';
+                    $feedbackType = 'success';
+                }
             }
             catch ( \Exception $exception )
             {
@@ -1168,10 +1192,15 @@ class PortfolioManagement extends BaseController
                 $feedbackType = 'danger';
             }
         }
-        elseif( $request->getMethod() === 'POST' )
+        elseif ( $request->getMethod() === 'POST' )
         {
             $feedback = Validation::getInstance()->getReadableErrors();
             $feedbackType = 'danger';
+
+            if ( !isset( $_FILES[ 'slbAssignment' ] ) )
+            {
+                $feedback .= 'U moet ook een bestand uploaden.';
+            }
         }
 
         return $this->createResponse(
@@ -1222,7 +1251,7 @@ class PortfolioManagement extends BaseController
                 $feedbackType = 'danger';
             }
         }
-        elseif( $request->getMethod() === 'POST' )
+        elseif ( $request->getMethod() === 'POST' )
         {
             $feedback = Validation::getInstance()->getReadableErrors();
             $feedbackType = 'danger';
@@ -1274,7 +1303,7 @@ class PortfolioManagement extends BaseController
                 $feedbackType = 'danger';
             }
         }
-        elseif( $request->getMethod() === 'POST' )
+        elseif ( $request->getMethod() === 'POST' )
         {
             $feedback = Validation::getInstance()->getReadableErrors();
             $feedbackType = 'danger';

@@ -32,7 +32,7 @@ include 'header.php';
                             <div class="container-fluid">
                                 <div class="row">
                                     <div class="col-sm-6 col-sm-offset-3">
-                                        <form class="form-custom float-left" action="" method="POST">
+                                        <form class="form-custom float-left" action="" method="POST" enctype="multipart/form-data">
                                             <?php if ( $dataProvider->hasFeedback() ) : ?>
                                                 <div class="alert alert-<?= $dataProvider->get( 'feedback-type' ) ?>">
                                                     <span><?= $dataProvider->get( 'feedback' ) ?></span>
