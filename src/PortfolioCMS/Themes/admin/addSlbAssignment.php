@@ -47,19 +47,12 @@ include 'header.php';
                                                        placeholder="Naam opdracht"
                                                        required>
                                             </div>
-                                            
-                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">Feedback:</label>
-                                                <textarea 
-                                                       rows="10"
-                                                       name="description"
-                                                       class="form-control"
-                                                       id="feedback"
-                                                       placeholder="Feedback"
-                                                       ></textarea>
-                                            </div>
-                                            
 
+                                            <div class="form-group">
+                                                <label class="btn btn-default btn-custom btn-file">
+                                                    Browse <input type="file" style="display: none;">
+                                                </label>
+                                            </div>
 
                                             <div class="row">
                                                 <div class="col-lg-6 clearfix"><br/></div>

@@ -402,7 +402,7 @@ class PortfolioManagement extends BaseController
                 $feedbackType = 'danger';
             }
         }
-        else
+        elseif( $request->getMethod() === 'POST' )
         {
             $feedback = Validation::getInstance()->getReadableErrors();
             $feedbackType = 'danger';
@@ -1097,7 +1097,7 @@ class PortfolioManagement extends BaseController
 
         $postParams = $request->getPostParams();
 
-        if ( Validation::getInstance()->validatePostParameters( $postParams, $this->trainingFields ) && $request->getMethod() === 'POST' )
+        if ( Validation::getInstance()->validatePostParameters( $postParams, $this->languageFields ) && $request->getMethod() === 'POST' )
         {
             try
             {
