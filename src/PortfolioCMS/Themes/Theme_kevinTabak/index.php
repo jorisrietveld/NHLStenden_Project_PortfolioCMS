@@ -1,6 +1,5 @@
 <?php 
 $student = $dataProvider->get( 'student' );
-$images = $dataProvider->get( 'images', [] );
 ?>
 <!DOCTYPE html>
 <html>
@@ -29,12 +28,13 @@ $images = $dataProvider->get( 'images', [] );
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                   <ul class="nav navbar-nav navbar-right">
-                      <li class="dropdown">
-                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Portfolio's <span class="fa fa-caret-down"></span></a>
-                                        <ul class="dropdown-menu">
-                                            <?= $dataProvider->get( 'portfolioMenuLinks', '' ) ?>
-                                        </ul>
-                                    </li>
+                      <li><a href="http://digitaalportfolio/">HOME</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">PORTFOLIO'S <span class="fa fa-caret-down"></span></a>
+                        <ul class="dropdown-menu">
+                            <?= $dataProvider->get( 'portfolioMenuLinks', '' ) ?>
+                        </ul>
+                    </li>
                     <li><a href="#over">OVER</a></li>
                     <li><a href="#cv">CV</a></li>
                     <li><a href="#cijfers">CIJFERS</a></li>
@@ -98,7 +98,10 @@ $images = $dataProvider->get( 'images', [] );
                     </div>
                 </div>
             </div>
-            <div id="galerij" class="container-fluid text-center bg-grey">
+            <div id="SLB" class="bg-grey container-fluid">
+                
+            </div>
+            <div id="galerij" class="container-fluid text-center">
                 <h2>Galerij</h2>
                 <h4>Mijn afbeeldingen</h4>
                 <div class="row text-center">
@@ -125,7 +128,7 @@ $images = $dataProvider->get( 'images', [] );
                     </div>
                 </div>
             </div>
-            <div id="contact" class="container-fluid">
+            <div id="contact" class="container-fluid bg-grey">
                 <h2 class="text-center">CONTACT</h2>
                 <div class="row">
                     <div class="col-sm-5">
