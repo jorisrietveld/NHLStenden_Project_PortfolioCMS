@@ -23,6 +23,7 @@ use StendenINF1B\PortfolioCMS\Kernel\TemplateEngine\TemplateEngine;
 
 class UserManagement extends BaseController
 {
+    use SiteHelper;
     /**
      * @var array
      */
@@ -86,6 +87,7 @@ class UserManagement extends BaseController
     public function createResponse( string $webPage, array $context, $httpCode = Response::HTTP_STATUS_OK ) : Response
     {
         $context = array_merge( $context, [
+            'portfolio-meta-data' => $this->getPortfoliosMetadata(),
             'asset-path'  => $this->application->getRequest()->getBaseUri() . 'assets/admin/',
             'httpRequest' => $this->application->getRequest(),
         ] );

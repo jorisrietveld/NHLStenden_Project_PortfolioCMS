@@ -36,8 +36,8 @@ include 'header.php'; ?>
                          * You can remove it
                          */
                         dump( $dataProvider->all() );
-                        ?>
 
+                        ?>
                         <?php if( $dataProvider->isOwnOrAdmin() ) : ?>
                             <div>
                                 <!-- Show form to edit the portolio: url, theme, title -->
