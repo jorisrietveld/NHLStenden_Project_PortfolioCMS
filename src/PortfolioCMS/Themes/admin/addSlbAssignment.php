@@ -39,18 +39,19 @@ include 'header.php';
                                                 </div>
                                             <?php endif; ?>
                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputEmail">Naam opdracht</label>
+                                                <label class="form-label col-lg-3" for="name">Naam opdracht</label>
                                                 <input type="text"
                                                        name="name"
                                                        class="form-control"
-                                                       id="nameopdr"
+                                                       id="name"
                                                        placeholder="Naam opdracht"
                                                        required>
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="btn btn-default btn-custom btn-file">
-                                                    Browse <input type="file" style="display: none;">
+                                                <label class="btn btn-default btn-custom btn-file" for="slbAssignment">
+                                                    Kies een bestand
+                                                    <input type="file" style="display: none;" name="slbAssignment" id="slbAssignment">
                                                 </label>
                                             </div>
 
