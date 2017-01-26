@@ -123,11 +123,7 @@
                             echo $studentln->getLastName();
                             ?>
                             
-                            <?php dump($dataProvider) ?>
                             
-                            <?php
-                           echo $dataProvider->get( 'languages', [1] )[4]->getLevel();
-                            ?>
                         </p>    
             
                         <p class="records">    
@@ -145,16 +141,23 @@
                             echo $place->getLocation();
                             ?>
                         </p>
-       
-                       
-            
-                        <p class="records">
-                            E-mailadres: 
+                        
+                        <p class="records">    
+                            Email: 
                             <?php
                             $email = $dataProvider->get( 'student' );
-                            echo $email->getEmail();
+                            if($email->getFirstName()=='Marco'){
+                                
+                                echo'marcobrink@outlook.com';
+                            }else{
+                                echo $email->getEmail();
+                            }
+                            
                             ?>
                         </p>
+                       
+            
+                       
             
                         <p class="records">
                             Rijbewijs:
@@ -193,51 +196,225 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4 col-lg-offset-2">
+                <div class="col-lg-2 col-lg-offset-2">
                     <div class="nederland">
                           
                         
                         <p class="records">
-                        
-                            <?php 
-                            $DBConnect = mysqli_connect('85.144.187.81','inf1b','peer');
-                           if ($DBConnect === FALSE)
-                            {
-                            echo "<p>Unable to connect to the database server.</p>"
-                            . "<p>Error code " . mysqli_errno() . ": " . mysqli_error()
-                            . "</p>";
-                            }else {
-                                $DBName = "DigitalPortfolio";
-                                if(!mysqli_select_db ($DBConnect, $DBName))
-                                    {
-                                      echo "<p>There are no entries in the guest book!</p>";
-                                    }else {
-                                        $TableName = "Language";
-                                        $SQLstring = "SELECT * FROM $TableName WHERE portfolioId = 5" ;
-                                        $QueryResult = mysqli_query($DBConnect, $SQLstring);
-                                        if (mysqli_num_rows($QueryResult) == 0)
-                                        {
-                                            echo "<p>There are no languages!</p>";
-                                        }else{
-                                            
-                                        
-                                       
-        
-                                        while($Row = mysqli_fetch_assoc($QueryResult))
-                                        {
-                                            echo "{$Row['language']}<br>";
-                                            echo "{$Row['level']}<br>";
-                                        }
-                                    }
-                                    mysqli_free_result($QueryResult);
-                                }
-                            mysqli_close($DBConnect);
-                        }
-                                    
-                            
-                                    
+                        <?php //  dump($dataProvider) ?>
+                            Taal:
+                            <?php
+                            echo $dataProvider->get( 'languages', [1] )[1]->getLanguage();
                             ?>
+                    
                         </p>  
+                        
+                        <p class="records">
+                       
+                            Niveau:
+                            <?php
+                            if($dataProvider->get( 'languages', [1] )[1]->getLevel()==10){
+                                
+                                echo'C2';
+                            }
+                            if($dataProvider->get( 'languages', [1] )[1]->getLevel()== 9){
+                                
+                                echo'C1';
+                            }
+                            if($dataProvider->get( 'languages', [1] )[1]->getLevel()== 8){
+                                
+                                echo'C1';
+                            }
+                            ?>
+                            
+                   
+                        </p> 
+                        
+                         <p class="records">
+                      
+                            Moedertaal:
+                            <?php
+                            if($dataProvider->get( 'languages', [1] )[1]->getIsIsNative()==TRUE){
+                                
+                                echo'Ja';
+                            }
+                            if($dataProvider->get( 'languages', [1] )[1]->getIsIsNative()== FALSE){
+                                
+                                echo'Nee';
+                            }
+                          
+                        ?>
+                            
+                   
+                        </p> 
+            
+                        
+            
+                    </div>
+                </div>
+                <div class="col-lg-2 col-lg-offset-2">
+                     <div class="engels">
+                          
+                        
+                        <p class="records">
+                        <?php //  dump($dataProvider) ?>
+                            Taal:
+                            <?php
+                            echo $dataProvider->get( 'languages', [1] )[2]->getLanguage();
+                            ?>
+                    
+                        </p>  
+                        
+                        <p class="records">
+                       
+                            Niveau:
+                            <?php
+                            if($dataProvider->get( 'languages', [1] )[2]->getLevel()==10){
+                                
+                                echo'C2';
+                            }
+                            if($dataProvider->get( 'languages', [1] )[2]->getLevel()== 9){
+                                
+                                echo'C1';
+                            }
+                            if($dataProvider->get( 'languages', [1] )[2]->getLevel()== 8){
+                                
+                                echo'C1';
+                            }
+                            if($dataProvider->get( 'languages', [1] )[2]->getLevel()== 7){
+                                
+                                echo'B2';
+                            }
+                            if($dataProvider->get( 'languages', [1] )[2]->getLevel()== 6){
+                                
+                                echo'B1';
+                            }
+                            if($dataProvider->get( 'languages', [1] )[2]->getLevel()== 5){
+                                
+                                echo'B1';
+                            }
+                             if($dataProvider->get( 'languages', [1] )[2]->getLevel()== 4){
+                                
+                                echo'A2';
+                            }
+                             if($dataProvider->get( 'languages', [1] )[2]->getLevel()== 3){
+                                
+                                echo'A2';
+                            }
+                            if($dataProvider->get( 'languages', [1] )[2]->getLevel()== 2){
+                                
+                                echo'A1';
+                            }
+                            if($dataProvider->get( 'languages', [1] )[2]->getLevel()== 1){
+                                
+                                echo'A1';
+                            }
+                            ?>
+                            
+                   
+                        </p> 
+                        
+                         <p class="records">
+                      
+                            Moedertaal:
+                            <?php
+                            if($dataProvider->get( 'languages', [1] )[2]->getIsIsNative()==TRUE){
+                                
+                                echo'Ja';
+                            }
+                            if($dataProvider->get( 'languages', [1] )[2]->getIsIsNative()== FALSE){
+                                
+                                echo'Nee';
+                            }
+                          
+                        ?>
+                            
+                   
+                        </p> 
+            
+                        
+            
+                    </div>
+                </div>
+                <div class="col-lg-2 col-lg-offset-2">
+                     <div class="duits">
+                          
+                        
+                        <p class="records">
+                        <?php //  dump($dataProvider) ?>
+                            Taal:
+                            <?php
+                            echo $dataProvider->get( 'languages', [1] )[3]->getLanguage();
+                            ?>
+                    
+                        </p>  
+                        
+                        <p class="records">
+                       
+                            Niveau:
+                            <?php
+                            if($dataProvider->get( 'languages', [1] )[3]->getLevel()==10){
+                                
+                                echo'C2';
+                            }
+                            if($dataProvider->get( 'languages', [1] )[3]->getLevel()== 9){
+                                
+                                echo'C1';
+                            }
+                            if($dataProvider->get( 'languages', [1] )[3]->getLevel()== 8){
+                                
+                                echo'C1';
+                            }
+                            if($dataProvider->get( 'languages', [1] )[3]->getLevel()== 7){
+                                
+                                echo'B2';
+                            }
+                            if($dataProvider->get( 'languages', [1] )[3]->getLevel()== 6){
+                                
+                                echo'B1';
+                            }
+                            if($dataProvider->get( 'languages', [1] )[3]->getLevel()== 5){
+                                
+                                echo'B1';
+                            }
+                             if($dataProvider->get( 'languages', [1] )[3]->getLevel()== 4){
+                                
+                                echo'A2';
+                            }
+                             if($dataProvider->get( 'languages', [1] )[3]->getLevel()== 3){
+                                
+                                echo'A2';
+                            }
+                            if($dataProvider->get( 'languages', [1] )[3]->getLevel()== 2){
+                                
+                                echo'A1';
+                            }
+                            if($dataProvider->get( 'languages', [1] )[3]->getLevel()== 1){
+                                
+                                echo'A1';
+                            }
+                            ?>
+                            
+                   
+                        </p> 
+                        
+                         <p class="records">
+                      
+                            Moedertaal:
+                            <?php
+                            if($dataProvider->get( 'languages', [1] )[3]->getIsIsNative()==TRUE){
+                                
+                                echo'Ja';
+                            }
+                            if($dataProvider->get( 'languages', [1] )[3]->getIsIsNative()== FALSE){
+                                
+                                echo'Nee';
+                            }
+                          
+                        ?>
+                            
+                   
+                        </p> 
             
                         
             
@@ -252,46 +429,387 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h3>Certificaten</h3>
+                    <h3>Opleidingen/Certificaten</h3>
                      <i class="fa fa-book fa-3x" aria-hidden="true"></i>
                     <hr class="star-light">
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-4 col-lg-offset-2">
-                    <div class="info">
+                    <div class="opleidingen">
+                        
+                        <h3>Opleidingen</h3>
                         
                         <p class="records">
-                            Naam: Marco Brink
-                        </p>    
-            
-                        <p class="records">    
-                            Geboortedatum: 10 mei 1996
-                        </p>
-            
-                        <p class="records">    
-                            Plaats: Assen
-                        </p>
-       
+                        <?php //  dump($dataProvider) ?>
+                            Naam Studie:
+                            <?php
+                            echo $dataProvider->get( 'trainings', [1] )[1]->getTitle();
+                        ?> 
+                        </p> 
+                        
                         <p class="records">
-                            Nationaliteit: Nederlands
-                        </p>
-            
+                  
+                            Naam school:
+                            <?php
+                            echo $dataProvider->get( 'trainings', [1] )[1]->getInstitution();
+                        ?> 
+                        </p> 
+                        
+                          
                         <p class="records">
-                            E-mailadres: marco.brink@student.stenden.com  
-                        </p>
-            
+                     
+                            Locatie:
+                            <?php
+                            echo $dataProvider->get( 'trainings', [1] )[1]->getLocation();
+                        ?> 
+                        </p> 
+                        
                         <p class="records">
-                            Rijbewijs: Ja  
+                     
+                            Begonnen op:
+                            <?php
+                            echo $dataProvider->get( 'trainings', [1] )[1]->getStatedAt()->format( 'd-m-Y' );
+                        ?> 
+                        </p> 
+                        
+                        <p class="records">
+                      
+                            Beëindigd op:
+                            <?php
+                            echo $dataProvider->get( 'trainings', [1] )[1]->getFinishedAt()->format( 'd-m-Y' );
+                        ?> 
+                        </p> 
+                        
+                         <p class="records" >
+                       
+                            Behaald:
+                            <?php
+                            if($dataProvider->get( 'trainings', [1] )[1]->getObtainedCertificate()== true){
+                                
+                                echo'Ja';
+                            }else{
+                                echo'Nee';
+                            }
+                        ?> 
+                        </p> 
+                        
+                        
+                        <br>
+                        <br>
+                        <br>
+                        <!-- Tweede opleiding--->
+                        
+                           
+                        <p class="records">
+                        
+                            Naam Studie:
+                            <?php
+                            echo $dataProvider->get( 'trainings', [1] )[2]->getTitle();
+                        ?> 
+                        </p> 
+                        
+                        <p class="records">
+                      
+                            Naam school:
+                            <?php
+                            echo $dataProvider->get( 'trainings', [1] )[2]->getInstitution();
+                        ?> 
+                        </p> 
+                        
+                          
+                        <p class="records">
+                    
+                            Locatie:
+                            <?php
+                            echo $dataProvider->get( 'trainings', [1] )[2]->getLocation();
+                        ?> 
+                        </p> 
+                        
+                        <p class="records">
+                        
+                            Begonnen op:
+                            <?php
+                            echo $dataProvider->get( 'trainings', [1] )[2]->getStatedAt()->format( 'd-m-Y' );
+                        ?> 
+                        </p> 
+                        
+                        <p class="records">
+                        
+                            Beëindigd op:
+                            <?php
+                            echo $dataProvider->get( 'trainings', [1] )[2]->getFinishedAt()->format( 'd-m-Y' );
+                        ?> 
+                        </p> 
+                        
+                         <p class="records">
+                      
+                            Behaald:
+                            <?php
+                            if($dataProvider->get( 'trainings', [1] )[2]->getObtainedCertificate()== true){
+                                
+                                echo'Ja';
+                            }else{
+                                echo'Nee';
+                            }
+                        ?> 
                         </p>
+            <!--Derde studie --->
+                        <br>
+                        <br>
+                        <br>
+                        
+                        
+                           
+                        <p class="records">
+                        
+                            Naam Studie:
+                            <?php
+                            echo $dataProvider->get( 'trainings', [1] )[3]->getTitle();
+                        ?> 
+                        </p> 
+                        
+                        <p class="records">
+                      
+                            Naam school:
+                            <?php
+                            echo $dataProvider->get( 'trainings', [1] )[3]->getInstitution();
+                        ?> 
+                        </p> 
+                        
+                          
+                        <p class="records">
+                    
+                            Locatie:
+                            <?php
+                            echo $dataProvider->get( 'trainings', [1] )[3]->getLocation();
+                        ?> 
+                        </p> 
+                        
+                        <p class="records">
+                        
+                            Begonnen op:
+                            <?php
+                            echo $dataProvider->get( 'trainings', [1] )[3]->getStatedAt()->format( 'd-m-Y' );
+                        ?> 
+                        </p> 
+                        
+                        <p class="records">
+                        
+                            Beëindigd op:
+                            <?php
+                            echo $dataProvider->get( 'trainings', [1] )[3]->getFinishedAt()->format( 'd-m-Y' );
+                        ?> 
+                        </p> 
+                        
+                         <p class="records" >
+                      
+                            Behaald:
+                            <?php
+                            if($dataProvider->get( 'trainings', [1] )[3]->getObtainedCertificate()== true){
+                                
+                                echo'Ja';
+                            }else{
+                                echo'Nee';
+                            }
+                        ?> 
+                        </p>
+                        <p class="records">
+                        
+                            
+                            <?php
+                            if( $dataProvider->get( 'student' )->getFirstName()=='Marco'){
+                                echo'*Het judicium cum laude is toegekend op grond van artikel 52a juncto 64.';
+                            }
+                        ?> 
+                        </p> 
+                       
             
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <p> Hallo! Op dit moment ben ik 20 jaar. Ik woon in Assen.
-                    Ik studeer Informatica bij Stenden hogeschool 
-                    in Emmen. Mijn hobby's zijn het spelen van basketbal(en het kijken van basketbal), gamen, 
-                    luisteren van muziek en reizen.</p>
+                    <div class="opleidingen">
+                        
+                        <h3>Certificaten</h3>
+                        
+                        <p class="records">
+                        <?php //  dump($dataProvider) ?>
+                            Naam Certificaat:
+                            <?php
+                            echo $dataProvider->get( 'trainings', [1] )[4]->getTitle();
+                        ?> 
+                        </p> 
+                        
+                        <p class="records">
+                  
+                            Naam school:
+                            <?php
+                            echo $dataProvider->get( 'trainings', [1] )[4]->getInstitution();
+                        ?> 
+                        </p> 
+                        
+                          
+                        <p class="records">
+                     
+                            Locatie:
+                            <?php
+                            echo $dataProvider->get( 'trainings', [1] )[4]->getLocation();
+                        ?> 
+                        </p> 
+                        
+                        <p class="records">
+                     
+                            Begonnen op:
+                            <?php
+                            echo $dataProvider->get( 'trainings', [1] )[4]->getStatedAt()->format( 'd-m-Y' );
+                        ?> 
+                        </p> 
+                        
+                        <p class="records">
+                      
+                            Beëindigd op:
+                            <?php
+                            echo $dataProvider->get( 'trainings', [1] )[4]->getFinishedAt()->format( 'd-m-Y' );
+                        ?> 
+                        </p> 
+                        
+                         <p class="records" >
+                       
+                            Behaald:
+                            <?php
+                            if($dataProvider->get( 'trainings', [1] )[4]->getObtainedCertificate()== true){
+                                
+                                echo'Ja';
+                            }else{
+                                echo'Nee';
+                            }
+                        ?> 
+                        </p> 
+                        
+                        
+                        <br>
+                        <br>
+                        <br>
+                        <!-- Tweede Certificaat--->
+                        
+                           
+                        <p class="records">
+                        
+                            Naam Certificaat:
+                            <?php
+                            echo $dataProvider->get( 'trainings', [1] )[5]->getTitle();
+                        ?> 
+                        </p> 
+                        
+                        <p class="records">
+                      
+                            Naam school:
+                            <?php
+                            echo $dataProvider->get( 'trainings', [1] )[5]->getInstitution();
+                        ?> 
+                        </p> 
+                        
+                          
+                        <p class="records">
+                    
+                            Locatie:
+                            <?php
+                            echo $dataProvider->get( 'trainings', [1] )[5]->getLocation();
+                        ?> 
+                        </p> 
+                        
+                        <p class="records">
+                        
+                            Begonnen op:
+                            <?php
+                            echo $dataProvider->get( 'trainings', [1] )[5]->getStatedAt()->format( 'd-m-Y' );
+                        ?> 
+                        </p> 
+                        
+                        <p class="records">
+                        
+                            Beëindigd op:
+                            <?php
+                            echo $dataProvider->get( 'trainings', [1] )[5]->getFinishedAt()->format( 'd-m-Y' );
+                        ?> 
+                        </p> 
+                        
+                         <p class="records">
+                      
+                            Behaald:
+                            <?php
+                            if($dataProvider->get( 'trainings', [1] )[5]->getObtainedCertificate()== true){
+                                
+                                echo'Ja';
+                            }else{
+                                echo'Nee';
+                            }
+                        ?> 
+                        </p>
+            <!--Derde Certificaat --->
+                        <br>
+                        <br>
+                        <br>
+                        
+                        
+                           
+                        <p class="records">
+                        
+                            Naam Certificaat:
+                            <?php
+                            echo $dataProvider->get( 'trainings', [1] )[6]->getTitle();
+                        ?> 
+                        </p> 
+                        
+                        <p class="records">
+                      
+                            Naam school:
+                            <?php
+                            echo $dataProvider->get( 'trainings', [1] )[6]->getInstitution();
+                        ?> 
+                        </p> 
+                        
+                          
+                        <p class="records">
+                    
+                            Locatie:
+                            <?php
+                            echo $dataProvider->get( 'trainings', [1] )[6]->getLocation();
+                        ?> 
+                        </p> 
+                        
+                        <p class="records">
+                        
+                            Begonnen op:
+                            <?php
+                            echo $dataProvider->get( 'trainings', [1] )[6]->getStatedAt()->format( 'd-m-Y' );
+                        ?> 
+                        </p> 
+                        
+                        <p class="records">
+                        
+                            Beëindigd op:
+                            <?php
+                            echo $dataProvider->get( 'trainings', [1] )[6]->getFinishedAt()->format( 'd-m-Y' );
+                        ?> 
+                        </p> 
+                        
+                         <p class="records" >
+                      
+                            Behaald:
+                            <?php
+                            if($dataProvider->get( 'trainings', [1] )[6]->getObtainedCertificate()== true){
+                                
+                                echo'Ja';
+                            }else{
+                                echo'Nee';
+                            }
+                        ?> 
+                        </p>
+                        
+                       
+            
+                    </div>
                 </div>
             </div>
         </div>
@@ -311,37 +829,54 @@
                     <div class="info">
                         
                         <p class="records">
-                            Naam: Marco Brink
-                        </p>    
-            
-                        <p class="records">    
-                            Geboortedatum: 10 mei 1996
-                        </p>
-            
-                        <p class="records">    
-                            Plaats: Assen
-                        </p>
-       
+                        
+                        Werkplaats:
+                        <?php
+                            echo $dataProvider->get( 'jobExperiences', [1] )[1]->getLocation();
+                        ?> 
+                        </p>   
+                        
                         <p class="records">
-                            Nationaliteit: Dutch  
-                        </p>
-            
+                        
+                        Beschrijving:
+                        <?php
+                            echo $dataProvider->get( 'jobExperiences', [1] )[1]->getDescription();
+                        ?> 
+                        </p> 
+                        
                         <p class="records">
-                            E-mailadres: marco.brink@student.stenden.com  
+                        
+                        Begonnen op:
+                            <?php
+                            echo $dataProvider->get( 'jobExperiences', [1] )[1]->getStartedAt()->format( 'd-m-Y' );
+                        ?> 
                         </p>
-            
+                        
                         <p class="records">
-                            Rijbewijs: Ja  
-                        </p>
+                        
+                            Beëindigd op:
+                            <?php
+                            echo $dataProvider->get( 'jobExperiences', [1] )[1]->getEndedAt()->format( 'd-m-Y' );
+                        ?> 
+                        </p> 
+                        
+                        <p class="records" >
+                      
+                            Stage:
+                            <?php
+                            if($dataProvider->get( 'jobExperiences', [1] )[1]->getIsInternship()== true){
+                                
+                                echo'Ja';
+                            }else{
+                                echo'Nee';
+                            }
+                        ?> 
+            
+                       
             
                     </div>
                 </div>
-                <div class="col-lg-4">
-                    <p> Hello! I am currently 20 years old. I live in Assen.
-                    At this moment I am studying informatics at Stenden Universtity in 
-                    Emmen.!  My hobbies are playing(and watching basketball), gaming, 
-                    listening to music(especially electronic)and travelling.</p>
-                </div>
+                
             </div>
         </div>
     </section>
@@ -356,40 +891,29 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4 col-lg-offset-2">
+                <div class="col-lg-4 col-lg-offset-3">
                     <div class="info">
                         
-                        <p class="records">
-                            Naam: Marco Brink
+                        <h2>Project:</h2>
+                        
+                        <p class="records" style="font-size:40pt">
+                            <?php
+                      //  echo $dataProvider->get( 'portfolios')->getGrade();
+                            //dump($dataProvider)
+                        ?>
                         </p>    
             
-                        <p class="records">    
-                            Geboortedatum: 10 mei 1996
-                        </p>
-            
-                        <p class="records">    
-                            Plaats: Assen
-                        </p>
-       
-                        <p class="records">
-                            Nationaliteit: Nederlands
-                        </p>
-            
-                        <p class="records">
-                            E-mailadres: marco.brink@student.stenden.com  
-                        </p>
-            
-                        <p class="records">
-                            Rijbewijs: Ja  
-                        </p>
-            
+                        
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <p> Hallo! Op dit moment ben ik 20 jaar. Ik woon in Assen.
-                    Ik studeer Informatica bij Stenden hogeschool 
-                    in Emmen. Mijn hobby's zijn het spelen van basketbal(en het kijken van basketbal), gamen, 
-                    luisteren van muziek en reizen.</p>
+                    <h2>Portfolio</h2>
+                      <p class="records" style="font-size:40pt">
+                        <?php
+                       // echo $dataProvider->get( 'portfolios')->getGrade();
+                        ?>
+                      </p>
+                    
                 </div>
             </div>
         </div>
@@ -424,9 +948,7 @@
                             Nationaliteit: Dutch  
                         </p>
             
-                        <p class="records">
-                            E-mailadres: marco.brink@student.stenden.com  
-                        </p>
+                        
             
                         <p class="records">
                             Rijbewijs: Ja  
