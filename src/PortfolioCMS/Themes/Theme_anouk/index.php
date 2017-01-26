@@ -40,14 +40,8 @@
                             <a href="#page-top"></a>
                         </li>
                         <li class="page-scroll">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Portfolio's</a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-menu-down"></span> Portfolio's </a>
                             <ul class="dropdown-menu">
-<!--                                 <li><a href="#"><span class="glyphicon glyphicon-user"></span> Aron Soppe</a></li>
-                                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Esmee Lunenborg</a></li>
-                                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Joris Rietveld</a></li>
-                                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Kevin Tabak</a></li>
-                                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Kevin Veldman</a></li>
-                                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Marco Brink</a></li>-->
                                 <?= $dataProvider->get( 'portfolioMenuLinks', '' ) ?>
                             </ul>
                         </li>
@@ -69,11 +63,11 @@
                         <li class="page-scroll">
                             <a href="#gastenboek"> <span class="glyphicon glyphicon-comment"></span> Gastenboek</a>   
                         </li>
-                        <li class="page-scroll">
+<!--                        <li class="page-scroll">
                             <a href="#inloggen">
                                 <i class="fa fa-sign-in"></i> Inloggen
                             </a>
-                        </li>
+                        </li>-->
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -110,10 +104,26 @@
                     <div class="clearfix"></div>
                     <h2 class="section-heading">Over mij</h2>
                     <p>
-                    Naam: Anouk van der Veen<br>
-                    Geboortedatum: 21-06-1999<br>
-                    Adres: Munnekemoer Oost 19<br>
-                    Plaats: Ter Apel<br>
+                    Hallo, ik ben 
+                            <?php
+                            $studentfn = $dataProvider->get( 'student' );
+                            echo $studentfn->getFirstName();
+                            ?> 
+                            <?php
+                            $studentln = $dataProvider->get( 'student' );
+                            echo $studentln->getLastName();
+                            ?><br>
+                    Ik ben geboren op 
+                            <?php
+                            $birthdate = $dataProvider->get( 'student' );
+                            echo $birthdate->getDateOfBirth()->format( 'd-m-Y' );
+                            ?><br>
+                    Ik woon in  
+                            <?php
+                            $place = $dataProvider->get( 'student' );
+                            echo $place->getLocation();
+                            ?><br>
+                    <br>
                     </p>       
                 </div>
                 <div class="col-lg-5 col-lg-offset-2 col-sm-6">
@@ -133,7 +143,7 @@
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
                     <h2 class="section-heading">SLB Opdrachten</h2>
-                    <p class="lead">Hier vind u mijn slb opdrachten.</p>
+                    <p class="lead">Hier vind je mijn slb opdrachten.</p>
                     <p>Hier staan alle opdrachten die ik voor slb heb gemaakt.</p>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
                        Ut metus purus, vestibulum sed neque et, posuere iaculis sem. 
@@ -212,7 +222,12 @@
                     <div class="clearfix"></div>
                     <h2 class="section-heading">Galerij</h2>
                     <p>Hier vind je mijn galerij. </p>
-                    <p></p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                       Ut metus purus, vestibulum sed neque et, posuere iaculis sem. 
+                       Integer eleifend tortor eget ultrices facilisis. Aenean aliquam luctus quam. 
+                       Curabitur finibus, lacus in imperdiet laoreet, neque lacus maximus mi, 
+                       ac porta erat ante sit amet ante. Duis efficitur dui eget scelerisque vestibulum.
+                    </p>
                     
                 </div>
                 <div class="col-lg-4 col-lg-offset-2 col-sm-6">
@@ -275,7 +290,11 @@
     <footer class='text-center'>
         <div class="container">
             <div class="row">
-                <h4> Mail: <span class="glyphicon glyphicon-envelope"></span> estheranouk123@gmail.com </h4>
+                <h4> Mail: <span class="glyphicon glyphicon-envelope"></span> 
+                            <?php
+                            $email = $dataProvider->get( 'student' );
+                            echo $email->getEmail();
+                            ?></h4>
                 <h4> Of bel: <span class="glyphicon glyphicon-earphone"></span> +31 629766229</h4>
                 <div class="col-lg-12">
                     <ul class="list-inline">
