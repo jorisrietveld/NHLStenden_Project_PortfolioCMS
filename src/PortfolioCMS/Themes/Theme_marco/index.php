@@ -122,6 +122,12 @@
                             $studentln = $dataProvider->get( 'student' );
                             echo $studentln->getLastName();
                             ?>
+                            
+                            <?php dump($dataProvider) ?>
+                            
+                            <?php
+                           echo $dataProvider->get( 'languages', [1] )[4]->getLevel();
+                            ?>
                         </p>    
             
                         <p class="records">    
