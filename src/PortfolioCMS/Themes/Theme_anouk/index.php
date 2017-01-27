@@ -1,3 +1,7 @@
+<?php 
+$student = $dataProvider->get( 'student' );
+$language = $dataProvider->get( 'language' );
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -82,7 +86,16 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="intro-message">
-                        <h1>Anouk van der Veen</h1>
+                        <h1>
+                            <?php
+                            $studentfn = $dataProvider->get( 'student' );
+                            echo $studentfn->getFirstName();
+                            ?>
+                            <?php
+                            $studentln = $dataProvider->get( 'student' );
+                            echo $studentln->getLastName();
+                            ?>  
+                        </h1>
                         <hr class="small">
                         <h3>Informatica Student</h3>
                     </div>
@@ -104,11 +117,11 @@
                     <div class="clearfix"></div>
                     <h2 class="section-heading">Over mij</h2>
                     <p>
-                    Hallo, ik ben 
-                            <?php
+                    Hallo, ik ben
+                    <?php
                             $studentfn = $dataProvider->get( 'student' );
                             echo $studentfn->getFirstName();
-                            ?> 
+                            ?>
                             <?php
                             $studentln = $dataProvider->get( 'student' );
                             echo $studentln->getLastName();
@@ -117,17 +130,53 @@
                             <?php
                             $birthdate = $dataProvider->get( 'student' );
                             echo $birthdate->getDateOfBirth()->format( 'd-m-Y' );
-                            ?><br>
-                    Ik woon in  
+                            ?> <br>
+                    Ik woon op 
                             <?php
-                            $place = $dataProvider->get( 'student' );
-                            echo $place->getLocation();
+                            $address = $dataProvider->get( 'student' );
+                            echo $address->getAddress();
+                            ?>
+                    in <?= $student->getLocation(); ?> <br>
+                    De talen die ik spreek zijn 
+                            <?php
+                            echo $dataProvider->get( 'languages', [1] )[4]->getLanguage();
+                            ?>
+                    en
+                            <?php
+                            echo $dataProvider->get( 'languages', [1] )[5]->getLanguage();
                             ?><br>
+                    Ik heb gewerkt als 
+                        <?php
+                            echo $dataProvider->get( 'jobExperiences', [1] )[2]->getDescription();
+                        ?>
+                    Bij 
+                        <?php
+                            echo $dataProvider->get( 'jobExperiences', [1] )[2]->getLocation();
+                            ?>
+                    van <?php
+                            echo $dataProvider->get( 'jobExperiences', [1] )[2]->getStartedAt()->format( 'd-m-Y' );
+                        ?>
+                    tot <?php
+                            echo $dataProvider->get( 'jobExperiences', [1] )[2]->getEndedAt()->format( 'd-m-Y' );
+                        ?><br>
+                    Nu werk ik bij
+                        <?php
+                            echo $dataProvider->get( 'jobExperiences', [1] )[4]->getLocation();
+                        ?>
+                    als
+                            <?php
+                            echo $dataProvider->get( 'jobExperiences', [1] )[4]->getDescription();
+                            ?>
+                    van <?php
+                            echo $dataProvider->get( 'jobExperiences', [1] )[4]->getStartedAt()->format( 'd-m-Y' );
+                            dump($dataProvider);
+                        ?>
+                    tot heden<br>
                     <br>
                     </p>       
                 </div>
                 <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-                    <img class="img-responsive" src="images/CVicon.png" alt="">
+                    <img class="img-responsive" src="images/usericon.png" alt="icon">
                 </div>
             </div>
         </div>
@@ -145,15 +194,11 @@
                     <h2 class="section-heading">SLB Opdrachten</h2>
                     <p class="lead">Hier vind je mijn slb opdrachten.</p>
                     <p>Hier staan alle opdrachten die ik voor slb heb gemaakt.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                       Ut metus purus, vestibulum sed neque et, posuere iaculis sem. 
-                       Integer eleifend tortor eget ultrices facilisis. Aenean aliquam luctus quam. 
-                       Curabitur finibus, lacus in imperdiet laoreet, neque lacus maximus mi, 
-                       ac porta erat ante sit amet ante. Duis efficitur dui eget scelerisque vestibulum.
+                    <p>
                     </p>
                 </div>
                 <div class="col-lg-5 col-sm-pull-6  col-sm-6">
-                    <img class="img-responsive" src="images/SuperSLB.png" alt="">
+                    <img class="img-responsive" src="images/slb.jpg" alt="slb">
                 </div>
             </div>
         </div>
@@ -171,13 +216,7 @@
                     <h2 class="section-heading">CV</h2>
                     <p class="lead">Hier vind je mijn CV.</p>
                     <p>Download of bekijk hier mijn CV.</p>
-                    <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                        Ut metus purus, vestibulum sed neque et, posuere iaculis sem. 
-                        Integer eleifend tortor eget ultrices facilisis. Aenean aliquam luctus quam. 
-                        Curabitur finibus, lacus in imperdiet laoreet, neque lacus maximus mi, 
-                        ac porta erat ante sit amet ante. Duis efficitur dui eget scelerisque vestibulum. 
-                        Pellentesque in commodo odio. Duis aliquet luctus ex, eu auctor turpis hendrerit a. 
-                        Fusce et sem elementum lectus blandit hendrerit at nec ante. Etiam eget nisi leo.
+                    <p>
                     </p>
                 </div>
                 <div class="col-lg-5 col-lg-offset-2 col-sm-6">
@@ -198,12 +237,7 @@
                         <div class="clearfix"></div>
                         <h2 class="section-heading">Cijfers</h2>
                         <p>De cijfers die ik heb gehaald.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                           Ut metus purus, vestibulum sed neque et, posuere iaculis sem. 
-                           Integer eleifend tortor eget ultrices facilisis. Aenean aliquam luctus quam. 
-                           Curabitur finibus, lacus in imperdiet laoreet, neque lacus maximus mi, 
-                           ac porta erat ante sit amet ante. Duis efficitur dui eget scelerisque vestibulum. 
-                           Pellentesque in commodo odio. Duis aliquet luctus ex, eu auctor turpis hendrerit a. 
+                        <p> 
                         </p>
                 </div>
                 <div class="col-lg-5 col-sm-pull-6  col-sm-6">
@@ -222,20 +256,16 @@
                     <div class="clearfix"></div>
                     <h2 class="section-heading">Galerij</h2>
                     <p>Hier vind je mijn galerij. </p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                       Ut metus purus, vestibulum sed neque et, posuere iaculis sem. 
-                       Integer eleifend tortor eget ultrices facilisis. Aenean aliquam luctus quam. 
-                       Curabitur finibus, lacus in imperdiet laoreet, neque lacus maximus mi, 
-                       ac porta erat ante sit amet ante. Duis efficitur dui eget scelerisque vestibulum.
+                    <p>
                     </p>
                     
                 </div>
                 <div class="col-lg-4 col-lg-offset-2 col-sm-6">
                     <div class=row">
                     <img class="img-thumbnail col-lg-6 float-left" src="images/pictureanouk.jpg">
-                    <img class="img-thumbnail col-lg-6 float-left" src="images/pictureanouk.jpg">
-                    <img class="img-thumbnail col-lg-6 float-right" src="images/pictureanouk.jpg">
-                    <img class="img-thumbnail col-lg-6 float-right" src="images/pictureanouk.jpg">
+                    <img class="img-thumbnail col-lg-6 float-left" src="images/anouk.jpg">
+                    <img class="img-thumbnail col-lg-6 float-right" src="images/anoukstairs.jpg">
+                    <img class="img-thumbnail col-lg-6 float-right" src="images/anoukberlijn.jpg">
                     </div>
                 </div>
             </div>
@@ -291,11 +321,9 @@
         <div class="container">
             <div class="row">
                 <h4> Mail: <span class="glyphicon glyphicon-envelope"></span> 
-                            <?php
-                            $email = $dataProvider->get( 'student' );
-                            echo $email->getEmail();
-                            ?></h4>
-                <h4> Of bel: <span class="glyphicon glyphicon-earphone"></span> +31 629766229</h4>
+                    <?= $student->getEmail(); ?> </h4>
+                <h4> Of bel: <span class="glyphicon glyphicon-earphone"></span>
+                    <?= $student->getphoneNumber(); ?> </h4>
                 <div class="col-lg-12">
                     <ul class="list-inline">
                         <li>
