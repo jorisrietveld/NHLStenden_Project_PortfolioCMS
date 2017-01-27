@@ -46,7 +46,7 @@ $student = $dataProvider->get( 'student' );
             </nav>
             <div class="jumbotron text-center">
                 <div id="title">
-                    <h1>Portefolio</h1>
+                    <h1>Portfolio</h1>
                     <p><?= $student->getFirstName() . " " . $student->getLastName(); ?></p>
                 </div>
             </div>
@@ -62,7 +62,7 @@ $student = $dataProvider->get( 'student' );
               <div class="row">
                 <div class="col-sm-6">
                     <h2>CV</h2>
-                    <p>In mijn CV staat al mijn werk ervaring en mijn contactgegevend.</p>
+                    <p>In mijn CV staat al mijn werkervaring en mijn contactgegevend.</p>
                 </div>
                 <div class="col-sm-4 text-center">
                     <h2>Download</h2>
