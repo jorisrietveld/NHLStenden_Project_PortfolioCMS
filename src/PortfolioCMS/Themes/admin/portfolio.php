@@ -152,7 +152,7 @@ include 'header.php'; ?>
                                         <td><?= $language->getId() ?></td>
                                         <td><?= $language->getLanguage() ?></td>
                                         <td><?= $language->getLevel() ?></td>
-                                        <td><?= $language->getIsNative() ? 'Ja' : 'Nee' ?></td>
+                                        <td><?= $language->getIsIsNative() ? 'Ja' : 'Nee' ?></td>
                                         <td>
                                             <a href="./editLanguage/<?= $language->getId() ?>">
                                                 <button class="btn btn-md btn-primary btn-block btn-custom">
@@ -280,7 +280,7 @@ include 'header.php'; ?>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <?php foreach ($dataProvider->get( 'slbAssignments' ) as $image): ?>
+                                <?php foreach ($dataProvider->get( 'images' ) as $image): ?>
                                     <tr>
                                         <td><?= $image->getId() ?></td>
                                         <td><?= $image->getName() ?></td>
@@ -316,14 +316,16 @@ include 'header.php'; ?>
                                 <tr>
                                     <th>Id</th>
                                     <th>Naam</th>
+                                    <th>Niveau</th>
                                     <th>Aanpassen</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <?php foreach ($dataProvider->get( 'slbAssignments' ) as $image): ?>
+                                <?php foreach ($dataProvider->get( 'skills' ) as $skills ): ?>
                                     <tr>
-                                        <td><?= $image->getId() ?></td>
-                                        <td><?= $image->getName() ?></td>
+                                        <td><?= $skills->getId() ?></td>
+                                        <td><?= $skills->getName() ?></td>
+                                        <td><?= $skills->getLevelOfExperience() ?></td>
                                         <td>
                                             <a href="./editSkill/<?= $image->getId() ?>">
                                                 <button class="btn btn-md btn-primary btn-block btn-custom">
@@ -337,18 +339,92 @@ include 'header.php'; ?>
                                 </tbody>
                             </table>
 
-                            <?php dump( $dataProvider->all() ); ?>
+                            <br>
+                            <h4 class="title text-center">
+                                <strong>
+                                    Projects
+                                </strong>
+                            </h4>
+                            <hr class="style-one"/>
+                            <div class="col-sm-5 custom-buttons">
+                                <a href="editProject/<?= $dataProvider->get( 'id' ) ?>">
+                                    <button class="btn btn-md btn-primary btn-block btn-custom">
+                                        <i class="fa fa-plus"></i> Projects toevoegen
+                                    </button>
+                                </a>
+                            </div>
+                            <table class="table table-hover table-custom-portfolio">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Naam</th>
+                                    <th>Description</th>
+                                    <th>Link</th>
+                                    <th>imageId</th>
+                                    <th>Aanpassen</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php foreach ($dataProvider->get( 'projects' ) as $projects ): ?>
+                                    <tr>
+                                        <td><?= $projects->getId() ?></td>
+                                        <td><?= $projects->getName() ?></td>
+                                        <td><?= $projects->getDescription() ?></td>
+                                        <td><?= $projects->getLink() ?></td>
+                                        <td><?= $projects->getImageId() ?></td>
+                                        <td>
+                                            <a href="./editProject/<?= $projects->getId() ?>">
+                                                <button class="btn btn-md btn-primary btn-block btn-custom">
+                                                    <i class="fa fa-edit"></i>
+                                                    <span class="out_window">Bewerk</span>
+                                                </button>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                                </tbody>
+                            </table>
 
+                            <br>
+                            <h4 class="title text-center">
+                                <strong>
+                                    Hobbies
+                                </strong>
+                            </h4>
+                            <hr class="style-one"/>
+                            <div class="col-sm-5 custom-buttons">
+                                <a href="addHobby/<?= $dataProvider->get( 'id' ) ?>">
+                                    <button class="btn btn-md btn-primary btn-block btn-custom">
+                                        <i class="fa fa-plus"></i> Hobbies toevoegen
+                                    </button>
+                                </a>
+                            </div>
+                            <table class="table table-hover table-custom-portfolio">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Naam</th>
+                                    <th>Aanpassen</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php foreach ($dataProvider->get( 'hobbies' ) as $hobbies ): ?>
+                                    <tr>
+                                        <td><?= $hobbies->getId() ?></td>
+                                        <td><?= $hobbies->getName() ?></td>
+                                        <td>
+                                            <a href="./editHobby/<?= $projects->getId() ?>">
+                                                <button class="btn btn-md btn-primary btn-block btn-custom">
+                                                    <i class="fa fa-edit"></i>
+                                                    <span class="out_window">Bewerk</span>
+                                                </button>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                                </tbody>
+                            </table>
 
-                            <!-- Show lists with all the items in the portfolio with buttons for editing and deleting items
-                                Above each list with items place een button that redirects to the add{itemName} pages.
-
-                                The links to the edit pages should include the item id like:
-                                /admin/editSkill/{echo the skill id here}
-
-                                The links to the add pages should contain the portfolioId like:
-                                /admin/addSkill/{echo portfolio id here}
-                            -->
                             <?php if ( $dataProvider->hasFeedback() ) : ?>
                                 <div class="alert alert-<?= $dataProvider->get( 'feedback-type' ) ?>">
                                     <span><?= $dataProvider->get( 'feedback' ) ?></span>
