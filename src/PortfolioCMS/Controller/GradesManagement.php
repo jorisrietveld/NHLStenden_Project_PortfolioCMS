@@ -86,6 +86,8 @@ class GradesManagement extends BaseController
                 'asset-path' => $this->application->getRequest()->getBaseUri() . 'assets/admin/',
                 'grade-data' => $gradesArray,
                 'student' => $this->studentRepository->getById( (int)$userId ),
+                'httpRequest'         => $this->application->getRequest(),
+                'portfolio-meta-data' => $this->getPortfoliosMetadata(),
             ]
         );
     }

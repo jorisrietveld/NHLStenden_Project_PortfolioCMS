@@ -297,6 +297,46 @@ include 'header.php'; ?>
                                 </tbody>
                             </table>
 
+                            <br>
+                            <h4 class="title text-center">
+                                <strong>
+                                    Vaardigheden
+                                </strong>
+                            </h4>
+                            <hr class="style-one"/>
+                            <div class="col-sm-5 custom-buttons">
+                                <a href="addSkill/<?= $dataProvider->get( 'id' ) ?>">
+                                    <button class="btn btn-md btn-primary btn-block btn-custom">
+                                        <i class="fa fa-plus"></i> Vaardigheden toevoegen
+                                    </button>
+                                </a>
+                            </div>
+                            <table class="table table-hover table-custom-portfolio">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Naam</th>
+                                    <th>Aanpassen</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php foreach ($dataProvider->get( 'slbAssignments' ) as $image): ?>
+                                    <tr>
+                                        <td><?= $image->getId() ?></td>
+                                        <td><?= $image->getName() ?></td>
+                                        <td>
+                                            <a href="./editSkill/<?= $image->getId() ?>">
+                                                <button class="btn btn-md btn-primary btn-block btn-custom">
+                                                    <i class="fa fa-edit"></i>
+                                                    <span class="out_window">Bewerk</span>
+                                                </button>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                                </tbody>
+                            </table>
+
                             <?php dump( $dataProvider->all() ); ?>
 
 
