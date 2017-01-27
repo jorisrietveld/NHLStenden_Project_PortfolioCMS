@@ -39,17 +39,18 @@ class Authentication extends BaseController
         if ( $request->postParams->has( 'email' ) && $request->postParams->has( 'password' ) )
         {
             $authorizationLevel = $this->validateUser( $request->getPostParams()->getString( 'email' ), $request->getPostParams()->getString( 'password' ) );
+
             if ( $authorizationLevel )
             {
-                if ( $authorizationLevel == AuthorizedUser::ADMIN )
+                if ( $authorizationLevel === AuthorizedUser::ADMIN )
                 {
                     $this->redirect( '/admin/gebruikersOverzicht' );
                 }
-                elseif ( $authorizationLevel == AuthorizedUser::STUDENT )
+                elseif ( $authorizationLevel === AuthorizedUser::STUDENT )
                 {
                     $this->redirect( '/admin/editStudent/' . $_SESSION[ 'userId' ] );
                 }
-                else
+                elseif ( $authorizationLevel === AuthorizedUser::SLB_TEACHER || $authorizationLevel === AuthorizedUser::TEACHER )
                 {
                     $this->redirect( '/admin/editTeacher/' . $_SESSION[ 'userId' ] );
                 }

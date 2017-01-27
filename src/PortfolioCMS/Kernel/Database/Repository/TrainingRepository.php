@@ -206,8 +206,8 @@ class TrainingRepository extends Repository
         $training->setTitle( $databaseData[ 'title' ] );
         $training->setInstitution( $databaseData[ 'institution' ] );
         $training->setLocation( $databaseData[ 'location' ] );
-        $training->setStatedAt( new \DateTime( $databaseData[ 'startedAt' ] ) );
-        $training->setFinishedAt( new \DateTime( $databaseData[ 'finishedAt' ] ) );
+        $training->setStatedAt( new \DateTime( '' ) );
+        $training->setFinishedAt( new \DateTime( '' ) );
         $training->setDescription( $databaseData[ 'description' ] );
         $training->setObtainedCertificate( (bool)$databaseData[ 'obtainedCertificate' ] );
         $training->setCurrentTraining( (bool)$databaseData[ 'currentTraining' ] );
