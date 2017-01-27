@@ -177,10 +177,17 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <p> Hallo! Op dit moment ben ik 20 jaar. Ik woon in Assen.
+                    <?php
+                    if($dataProvider->get( 'student' )->getFirstName()=='Marco'){
+                       
+                    echo"Hallo! Op dit moment ben ik 20 jaar. Ik woon in Assen.
                     Ik studeer Informatica bij Stenden hogeschool 
-                    in Emmen. Mijn hobby's zijn het spelen van basketbal(en het kijken van basketbal), gamen, 
-                    luisteren van muziek en reizen.</p>
+                    in Emmen. Mijn hobbys zijn basketbal   
+                    (en het kijken van basketbal), gamen, 
+                    luisteren van muziek en reizen.";
+                    }        
+                    ?>
+                    
                 </div>
             </div>
         </div>
@@ -1054,7 +1061,7 @@
 //                             
 //                             }
 //                              
-//                          }
+//                        }
                           $Name = stripslashes(htmlentities($_POST['name']));
                           $Message = stripslashes(htmlentities($_POST['message']));
                           $userId = "";
