@@ -29,9 +29,6 @@ include 'header.php'; ?>
                                 </strong>
                             </h4>
                             <hr class="style-one"/>
-                            <div class="col-sm-5 custom-buttons">
-
-                            </div>
                             <form class="form-custom float-left" action="" method="POST">
                                 <?php if ( $dataProvider->hasFeedback() ) : ?>
                                     <div class="alert alert-<?= $dataProvider->get( 'feedback-type' ) ?>">
@@ -39,6 +36,7 @@ include 'header.php'; ?>
                                     </div>
                                 <?php endif; ?>
                                 <div class="form-group">
+                                    <br />
                                     <label class="form-label col-lg-3" for="title">Titel:</label>
                                     <input type="text"
                                            name="title"
@@ -76,12 +74,14 @@ include 'header.php'; ?>
                                 <div class="row">
                                     <div class="col-lg-6 clearfix"><br/></div>
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-custom">Wijzegingen opslaan</button>
+                                <button type="submit" class="btn btn-primary btn-custom">Wijzigingen opslaan</button>
                             </form>
                             <br>
+                            <div class="row">
+                                <div class="col-lg-12">
                             <h4 class="title text-center">
                                 <strong>
-                                    Werk ervaringen
+                                    Werkervaringen
                                 </strong>
                             </h4>
                             <hr class="style-one"/>
@@ -96,8 +96,8 @@ include 'header.php'; ?>
                                 <thead>
                                 <tr>
                                     <th>Id</th>
-                                    <th>Location</th>
-                                    <th>Description</th>
+                                    <th>Locatie</th>
+                                    <th>Beschrijving</th>
                                     <th>Type</th>
                                     <th>Aanpassen</th>
                                 </tr>
@@ -121,6 +121,7 @@ include 'header.php'; ?>
                                 <?php endforeach; ?>
                                 </tbody>
                             </table>
+                                </div></div>
 
                             <br>
                             <h4 class="title text-center">

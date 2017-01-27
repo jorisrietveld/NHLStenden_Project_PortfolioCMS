@@ -53,7 +53,16 @@
                     </ul>
                 </li>
                 <li class="page-scroll">
-                    <a href="#cv">Mijn CV</a>
+                    <a href="#over">Over</a>
+                </li>
+                <li class="page-scroll">
+                    <a href="#talen">Talen</a>
+                </li>
+                <li class="page-scroll">
+                    <a href="#opleiding">Opleiding</a>
+                </li>
+                <li class="page-scroll">
+                    <a href="#werkervaring">Werkervaring</a>
                 </li>
                 <li class="page-scroll">
                     <a href="#gastenboek">Gastenboek</a>
@@ -101,7 +110,7 @@
 </header>
 
 <!-- Portfolio Grid Section -->
-<section id="portfolio">
+<!-- <section id="portfolio">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
@@ -120,6 +129,103 @@
                     <img src="img/naturebg.jpg" class="img-responsive" alt="">
                 </a>
             </div>
+        </div>
+    </div>
+</section> -->
+
+<!-- Over Section -->
+<section class="success" id="over">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2>Over mij</h2>
+                <hr class="linestyle">
+                <p class="records">
+                    Naam:
+                    <?php
+                    $studentfn = $dataProvider->get( 'student' );
+                    echo $studentfn->getFirstName();
+                    ?>
+                    <?php
+                    $studentln = $dataProvider->get( 'student' );
+                    echo $studentln->getLastName();
+                    ?>
+
+
+                </p>
+
+                <p class="records">
+                    Geboortedatum:
+                    <?php
+                    $birthdate = $dataProvider->get( 'student' );
+                    echo $birthdate->getDateOfBirth()->format( 'd-m-Y' );
+                    ?>
+                </p>
+
+                <p class="records">
+                    Plaats:
+                    <?php
+                    $place = $dataProvider->get( 'student' );
+                    echo $place->getLocation();
+                    ?>
+                </p>
+
+                <p class="records">
+                    Email:
+                    <?php
+                    $email = $dataProvider->get( 'student' );
+                    echo $email->getEmail();
+                    ?>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+
+        </div>
+    </div>
+</section>
+
+<!-- Talen Section -->
+<section id="talen">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2>Mijn talen</h2>
+                <hr class="linestyle">
+            </div>
+        </div>
+        <div class="row">
+
+        </div>
+    </div>
+</section>
+
+<!-- Opleiding Section -->
+<section class="success" id="opleiding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2>Mijn opleidingen</h2>
+                <hr class="linestyle">
+            </div>
+        </div>
+        <div class="row">
+
+        </div>
+    </div>
+</section>
+
+<!-- Werkervaring Section -->
+<section id="werkervaring">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2>Mijn werkervaring</h2>
+                <hr class="linestyle">
+            </div>
+        </div>
+        <div class="row">
+
         </div>
     </div>
 </section>
