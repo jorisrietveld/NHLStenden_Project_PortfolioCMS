@@ -174,10 +174,7 @@ $language = $dataProvider->get( 'language' );
                     van <?php
                             echo $dataProvider->get( 'jobExperiences', [] )[4]->getStartedAt()->format( 'd-m-Y' );
                         ?>
-                    tot heden
-                    
-                    
-                           
+                    tot heden 
                     <br>
                     <br>
                     </p>       
