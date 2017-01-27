@@ -26,9 +26,31 @@ include 'header.php'; ?>
                         </div>
                         <div class="content table-responsive table-full-width">
                             <table class="table table-hover table-custom-portfolio">
-                                <?php foreach ( $dataProvider->get( 'cijfers-data') as $portfolioMetaData ) : ?>
-
+                                <thead>
+                                <tr>
+                                    <th>Naam student</th>
+                                    <th></th>
+                                    <th>Bekijk</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php foreach ( $dataProvider->get( 'grades-data' ) as $portfolioMetaData): ?>
+                                    <tr>
+                                        <td><?= $portfolioMetaData->getStudentName() ?></td>
+                                        <td>
+                                            <a href="cijferAdministratie/<?= $portfolioMetaData->getStudentId() ?>"></a>
+                                        </td>
+                                        <td>
+                                            <a href="cijferAdministratie/<?= $portfolioMetaData->getStudentId() ?>">
+                                                <button class="btn btn-sm btn-primary btn-block btn-custom btn-custom-sm">
+                                                    <i class="fa fa-address-book-o" aria-hidden="true"></i>
+                                                    <span class="out_window">Bekijk</span>
+                                                </button>
+                                            </a>
+                                        </td>
+                                    </tr>
                                 <?php endforeach; ?>
+                                </tbody>
                             </table>
                         </div>
                     </div>

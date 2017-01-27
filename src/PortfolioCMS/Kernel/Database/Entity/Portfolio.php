@@ -87,6 +87,11 @@ class Portfolio implements EntityInterface
      */
     protected $projects; // (N:M) One portfolio has many or zero Projects.
 
+    public function __construct(  )
+    {
+        $this->grade = (float)0.0;
+    }
+
     /**
      * @return int
      */

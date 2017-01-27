@@ -18,7 +18,7 @@ include 'header.php'; ?>
                         <h4 class="title text-center">
                             <strong>
                                 <?php if( $dataProvider->isAtLeasedTeacher() ):?>
-                                    Cijfers van <?= $dataProvider->call( 'student', 'getFirstName' ) . ' ' . $dataProvider->call( 'student', 'getFirstName' ) ?>
+                                    Cijfers van <?= $dataProvider->call( 'student', 'getFirstName' ) . ' ' . $dataProvider->call( 'student', 'getLastName' ) ?>
                                 <?php else : ?>
                                     Mijn cijfers
                                 <?php endif; ?>
@@ -28,9 +28,24 @@ include 'header.php'; ?>
                         <div class="col-sm-5 custom-buttons">
 
                         </div>
-                        <div class="content table-responsive table-full-width">
-
-                        </div>
+                        <table class="table table-hover table-custom-portfolio">
+                            <thead>
+                            <tr>
+                                <th>Naam student</th>
+                                <th><span class="pull-right">Cijfer</span></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php foreach ( $dataProvider->get( 'grade-data' ) as $grade): ?>
+                                <tr>
+                                    <td><?= $grade['name'] ?></td>
+                                    <td>
+                                       <span class="pull-right"><?= $grade['grade'] == 0 ? 'Nog geen cijfer toegekend':$grade['grade'] ?></span>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

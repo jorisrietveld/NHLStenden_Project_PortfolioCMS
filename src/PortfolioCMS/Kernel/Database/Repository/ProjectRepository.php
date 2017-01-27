@@ -73,6 +73,16 @@ class ProjectRepository extends Repository
         );
     ';
 
+    protected $getGradesSql = '
+        SELECT
+          `Project`.`id`,
+          `Project`.`portfolioId`,
+          `Project`.`name`,
+          `Project`.`grade`
+        FROM `DigitalPortfolio`.`Portfolio` JOIN `DigitalPortfolio`.`Project` ON Portfolio.id = Project.portfolioId 
+        WHERE `Portfolio`.`userId` = :userId
+    ';
+
     /**
      * This holds an SQL statement for updating an Project entity in the database.
      *
@@ -173,10 +183,43 @@ class ProjectRepository extends Repository
         }
     }
 
+    /**
+     * @param int $id
+     * @return mixed
+     */
     public function getImage( int $id )
     {
         $imageRepository = $this->entityManager->getRepository( 'Image' );
         return $imageRepository->getById( $id );
+    }
+
+    /**
+     * @param int $userId
+     * @return mixed
+     */
+    public function getGradesByUserId( int $userId )
+    {
+        try
+        {
+            $statement = $this->connection->prepare( $this->getGradesSql );
+
+            $statement->execute( [
+                ':userId' => $userId
+            ] );
+
+            $returnArray = [];
+
+            foreach ( $statement->fetchAll( \PDO::FETCH_CLASS, '\\StendenINF1B\\PortfolioCMS\\Kernel\\Database\\Helper\\ResultSet' ) as $resultSet)
+            {
+                $returnArray[ $resultSet->getInt( 'id' ) ] = $resultSet;
+            }
+
+            return $returnArray;
+        }
+        catch ( \PDOException $exception )
+        {
+            throw new RepositoryException( 'The project grades could not be fetched from the database: ' . $exception->getMessage() );
+        }
     }
 
     /**

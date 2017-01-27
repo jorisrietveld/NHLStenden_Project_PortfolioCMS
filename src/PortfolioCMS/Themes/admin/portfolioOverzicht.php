@@ -4,14 +4,6 @@
 $page_title = "Overzicht | Admin";
 $isOnAdminPage = "portfolio";
 
-// ADMIN - SLB'ER - DOCENT
-
-include "db.php";
-
-$sql = "SELECT id, themeId, title, userId FROM Portfolio ORDER BY userId";
-$query = mysqli_query($conn, $sql);
-
-
 include 'header.php'; ?>
 <body>
 
@@ -46,14 +38,14 @@ include 'header.php'; ?>
                                 <th>Verwijder</th>
                                 </thead>
                                 <tbody>
-                                <?php while ($row = mysqli_fetch_assoc($query)) { ?>
+                                <?php foreach ( $dataProvider->get( 'portfolios-data' ) as $portfolioMetaData ): ?>
                                     <tr>
-                                        <td><?= $row['userId'] ?></td>
+                                        <td><?= $portfolioMetaData->getStudentName() ?></td>
                                         <td>
-                                            <a href="portfolio_van/<?= $row['userId'] ?>"><?= $row['title'] ?></a>
+                                            <a href="portfolio_van/<?= $portfolioMetaData->getStudentId() ?>"></a>
                                         </td>
                                         <td>
-                                            <a href="portfolio_van/<?= $row['userId'] ?>">
+                                            <a href="portfolio_van/<?= $portfolioMetaData->getStudentId() ?>">
                                                 <button class="btn btn-sm btn-primary btn-block btn-custom btn-custom-sm">
                                                     <i class="fa fa-edit"></i>
                                                     <span class="out_window">Bewerk</span>
@@ -69,7 +61,7 @@ include 'header.php'; ?>
                                             </a>
                                         </td>
                                     </tr>
-                                <?php } ?>
+                                <?php endforeach; ?>
                             </table>
                         </div>
                     </div>

@@ -43,6 +43,11 @@ class PortfolioMetadata
     protected $portfolioSubPages;
 
     /**
+     * @var int
+     */
+    protected $studentId;
+
+    /**
      * This method gets the Id property.
      *
      * @return int
@@ -166,4 +171,26 @@ class PortfolioMetadata
     {
         return $this->getStudentFirstName() . ' ' . $this->getStudentLastName();
     }
+
+    /**
+     * This method gets the StudentId property.
+     *
+     * @return int
+     */
+    public function getStudentId(): int
+    {
+        return $this->studentId;
+    }
+
+    /**
+     * This method sets the studentId property.
+     *
+     * @param int $studentId
+     */
+    public function setStudentId( int $studentId )
+    {
+        $this->studentId = $studentId;
+    }
+
+
 }

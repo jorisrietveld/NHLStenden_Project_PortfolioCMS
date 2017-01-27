@@ -103,7 +103,8 @@ class PortfolioRepository extends Repository
             `Portfolio`.`url`,
             `Portfolio`.`themeId`,
             `User`.`firstName`,
-            `User`.`lastName`
+            `User`.`lastName`,
+            `Portfolio`.`userId`
         FROM `DigitalPortfolio`.`Portfolio` JOIN `DigitalPortfolio`.`User` ON Portfolio.userId = User.id
     ';
 
@@ -217,6 +218,7 @@ class PortfolioRepository extends Repository
                 $portfolioMetadata->setStudentFirstName( $resultSet->getString( 'firstName' ) );
                 $portfolioMetadata->setStudentLastName( $resultSet->getString( 'lastName' ) );
                 $portfolioMetadata->setPortfolioSubPages( $portfolioPages );
+                $portfolioMetadata->setStudentId( $resultSet->getInt( 'userId' ) );
                 $metaDataCollection->set( $portfolioMetadata->getId(), $portfolioMetadata );
             }
             return $metaDataCollection;
