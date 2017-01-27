@@ -52,7 +52,7 @@ include 'header.php';
                                                 <input type="number"
                                                        name="level"
                                                        class="form-control"
-                                                       id="langlevel"
+                                                       id="level"
                                                        placeholder="Level"
                                                        min="0"
                                                        max="10"

@@ -258,8 +258,8 @@ class PortfolioManagement extends BaseController
     public function createResponse( string $webPage, array $context, $httpCode = Response::HTTP_STATUS_OK ) : Response
     {
         $context = array_merge( $context, [
-            'asset-path'  => $this->application->getRequest()->getBaseUri() . 'assets/admin/',
-            'httpRequest' => $this->application->getRequest(),
+            'asset-path'          => $this->application->getRequest()->getBaseUri() . 'assets/admin/',
+            'httpRequest'         => $this->application->getRequest(),
             'portfolio-meta-data' => $this->getPortfoliosMetadata(),
         ] );
 
@@ -348,6 +348,8 @@ class PortfolioManagement extends BaseController
                 'httpRequest'    => $request,
                 'feedback'       => $feedback ?? '',
                 'feedback-type'  => $feedbackType ?? '',
+                'themes'         => $this->themeRepository->getAll(),
+                'current-theme'  => $portfolioEntity->getTheme(),
             ]
         );
     }
@@ -456,7 +458,7 @@ class PortfolioManagement extends BaseController
                 $feedbackType = 'danger';
             }
         }
-        elseif( $request->getMethod() === 'POST' )
+        elseif ( $request->getMethod() === 'POST' )
         {
             $feedback = Validation::getInstance()->getReadableErrors();
             $feedbackType = 'danger';
@@ -516,7 +518,7 @@ class PortfolioManagement extends BaseController
                 $feedbackType = 'danger';
             }
         }
-        elseif( $request->getMethod() === 'POST' )
+        elseif ( $request->getMethod() === 'POST' )
         {
             $feedback = Validation::getInstance()->getReadableErrors();
             $feedbackType = 'danger';
@@ -570,7 +572,7 @@ class PortfolioManagement extends BaseController
                 $feedbackType = 'danger';
             }
         }
-        elseif( $request->getMethod() === 'POST' )
+        elseif ( $request->getMethod() === 'POST' )
         {
             $feedback = Validation::getInstance()->getReadableErrors();
             $feedbackType = 'danger';
@@ -626,7 +628,7 @@ class PortfolioManagement extends BaseController
                 $feedbackType = 'danger';
             }
         }
-        elseif( $request->getMethod() === 'POST' )
+        elseif ( $request->getMethod() === 'POST' )
         {
             $feedback = Validation::getInstance()->getReadableErrors();
             $feedbackType = 'danger';
@@ -656,7 +658,7 @@ class PortfolioManagement extends BaseController
 
         if ( $slbAssignmentEntity->getId() === 0 )
         {
-            dump($slbAssignmentEntity);
+            dump( $slbAssignmentEntity );
             $this->redirect( '/404' );
         }
 
@@ -675,7 +677,7 @@ class PortfolioManagement extends BaseController
 
                 $feedback = 'De slb opdracht is aangepast.';
                 $feedbackType = 'success';
-                }
+            }
             catch ( \Exception $exception )
             {
                 Debug::addException( $exception );
@@ -683,7 +685,7 @@ class PortfolioManagement extends BaseController
                 $feedbackType = 'danger';
             }
         }
-        elseif( $request->getMethod() === 'POST' )
+        elseif ( $request->getMethod() === 'POST' )
         {
             $feedback = Validation::getInstance()->getReadableErrors();
             $feedbackType = 'danger';
@@ -726,7 +728,7 @@ class PortfolioManagement extends BaseController
                 $imageEntity->setDescription( $postParams->getString( 'description' ) );
                 $imageEntity->setOrder( $postParams->getInt( 'order' ) );
                 $imageEntity->setType( $postParams->getString( 'type' ) );
-                $imageEntity->setName( $postParams->getString('name' ));
+                $imageEntity->setName( $postParams->getString( 'name' ) );
 
                 $this->imageRepository->update( $imageEntity );
 
@@ -740,7 +742,7 @@ class PortfolioManagement extends BaseController
                 $feedbackType = 'danger';
             }
         }
-        elseif( $request->getMethod() === 'POST' )
+        elseif ( $request->getMethod() === 'POST' )
         {
             $feedback = Validation::getInstance()->getReadableErrors();
             $feedbackType = 'danger';
@@ -1165,9 +1167,9 @@ class PortfolioManagement extends BaseController
                 $slbAssignmentEntity->setFilePath( $saveDirectory );
                 $slbAssignmentEntity->setMimeType( $mimeType );
                 $slbAssignmentEntity->setPortfolio( (int)$portfolioId );
-                $slbAssignmentEntity->setFeedback('');
+                $slbAssignmentEntity->setFeedback( '' );
 
-                if( !in_array( $mimeType, [ 'application/pdf' ]))
+                if ( !in_array( $mimeType, [ 'application/pdf' ] ) )
                 {
                     $feedback = 'Dit type bestand is niet toegestaan.';
                     $feedbackType = 'danger';
@@ -1232,7 +1234,7 @@ class PortfolioManagement extends BaseController
         }
 
         $postParams = $request->getPostParams();
-        if ( Validation::getInstance()->validatePostParameters( $postParams, $this->imageFields ) && $request->getMethod() === 'POST' && isset($_FILES['image']) )
+        if ( Validation::getInstance()->validatePostParameters( $postParams, $this->imageFields ) && $request->getMethod() === 'POST' && isset( $_FILES[ 'image' ] ) )
         {
             try
             {
@@ -1249,11 +1251,17 @@ class PortfolioManagement extends BaseController
                 $imageEntity->setFilePath( $saveDirectory );
                 $imageEntity->setMimeType( $mimeType );
                 $imageEntity->setPortfolioId( (int)$portfolioId );
-                $imageEntity->setDescription( $postParams->getString( 'description' ));
-                $imageEntity->setOrder( $postParams->getInt('order'));
+                $imageEntity->setDescription( $postParams->getString( 'description' ) );
+                $imageEntity->setOrder( $postParams->getInt( 'order' ) );
                 $imageEntity->setType( $postParams->getString( 'type' ) );
 
-                if ( !in_array( $mimeType, ['image/png', 'image/x-icon', 'image/gif', 'image/jpeg']) )
+                if ( !in_array( $mimeType, [
+                    'image/png',
+                    'image/x-icon',
+                    'image/gif',
+                    'image/jpeg',
+                ] )
+                )
                 {
                     $feedback = 'Dit bestands type is niet toegestaan.';
                     $feedbackType = 'danger';
@@ -1286,7 +1294,7 @@ class PortfolioManagement extends BaseController
         }
         elseif ( $request->getMethod() === 'POST' )
         {
-            dump(Validation::getInstance()->getReadableErrors());
+            dump( Validation::getInstance()->getReadableErrors() );
             $feedback = Validation::getInstance()->getReadableErrors();
             $feedbackType = 'danger';
         }
