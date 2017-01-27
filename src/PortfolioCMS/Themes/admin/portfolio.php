@@ -44,7 +44,7 @@ include 'header.php'; ?>
                                            name="title"
                                            class="form-control"
                                            id="title"
-                                           pattern="[a-zA-Z]{3,40}"
+                                           pattern="{3,40}"
                                            placeholder="De titel"
                                            title="Het veld mag alleen letters bevatten en tussen de 3 - 40 karakters zijn"
                                            value="<?= $dataProvider->get( 'title' ) ?>"
