@@ -86,7 +86,7 @@ include 'header.php'; ?>
                             </h4>
                             <hr class="style-one"/>
                             <div class="col-sm-5 custom-buttons">
-                                <a href="addJobExperience/<?= $dataProvider->get( 'id' ) ?>">
+                                <a href="../addJobExperience/<?= $dataProvider->get( 'id' ) ?>">
                                     <button class="btn btn-md btn-primary btn-block btn-custom">
                                         <i class="fa fa-plus"></i> Werk ervaring toevoegen
                                     </button>
@@ -110,7 +110,7 @@ include 'header.php'; ?>
                                         <td><?= $jobExperience->getDescription() ?></td>
                                         <td><?= $jobExperience->getIsInternship() ? 'Stage' : 'Baan' ?></td>
                                         <td>
-                                            <a href="./editJobExperience/<?= $jobExperience->getId() ?>">
+                                            <a href="../editJobExperience/<?= $jobExperience->getId() ?>">
                                                 <button class="btn btn-md btn-primary btn-block btn-custom">
                                                     <i class="fa fa-edit"></i>
                                                     <span class="out_window">Bewerk</span>
@@ -130,7 +130,7 @@ include 'header.php'; ?>
                             </h4>
                             <hr class="style-one"/>
                             <div class="col-sm-5 custom-buttons">
-                                <a href="addLanguage/<?= $dataProvider->get( 'id' ) ?>">
+                                <a href="../addLanguage/<?= $dataProvider->get( 'id' ) ?>">
                                     <button class="btn btn-md btn-primary btn-block btn-custom">
                                         <i class="fa fa-plus"></i> Talen toevoegen
                                     </button>
@@ -154,7 +154,7 @@ include 'header.php'; ?>
                                         <td><?= $language->getLevel() ?></td>
                                         <td><?= $language->getIsIsNative() ? 'Ja' : 'Nee' ?></td>
                                         <td>
-                                            <a href="./editLanguage/<?= $language->getId() ?>">
+                                            <a href="../editLanguage/<?= $language->getId() ?>">
                                                 <button class="btn btn-md btn-primary btn-block btn-custom">
                                                     <i class="fa fa-edit"></i>
                                                     <span class="out_window">Bewerk</span>
@@ -174,7 +174,7 @@ include 'header.php'; ?>
                             </h4>
                             <hr class="style-one"/>
                             <div class="col-sm-5 custom-buttons">
-                                <a href="addTraining/<?= $dataProvider->get( 'id' ) ?>">
+                                <a href="../addTraining/<?= $dataProvider->get( 'id' ) ?>">
                                     <button class="btn btn-md btn-primary btn-block btn-custom">
                                         <i class="fa fa-plus"></i> Opleidingen toevoegen
                                     </button>
@@ -203,7 +203,7 @@ include 'header.php'; ?>
                                         <td><?= $training->getObtainedCertificate() ? 'Ja' : 'Nee' ?></td>
                                         <td><?= $training->getIsCurrentTraining() ? 'Ja' : 'Nee' ?></td>
                                         <td>
-                                            <a href="./editLanguage/<?= $language->getId() ?>">
+                                            <a href="../editLanguage/<?= $language->getId() ?>">
                                                 <button class="btn btn-md btn-primary btn-block btn-custom">
                                                     <i class="fa fa-edit"></i>
                                                     <span class="out_window">Bewerk</span>
@@ -223,7 +223,7 @@ include 'header.php'; ?>
                             </h4>
                             <hr class="style-one"/>
                             <div class="col-sm-5 custom-buttons">
-                                <a href="addSlbAssignment/<?= $dataProvider->get( 'id' ) ?>">
+                                <a href="../addSlbAssignment/<?= $dataProvider->get( 'id' ) ?>">
                                     <button class="btn btn-md btn-primary btn-block btn-custom">
                                         <i class="fa fa-plus"></i> SLB opdracht toevoegen
                                     </button>
@@ -245,7 +245,7 @@ include 'header.php'; ?>
                                         <td><?= $slbAssignment->getName() ?></td>
                                         <td><?= $slbAssignment->getFeedback() ?></td>
                                         <td>
-                                            <a href="./editSlbAssignment/<?= $slbAssignment->getId() ?>">
+                                            <a href="../editSlbAssignment/<?= $slbAssignment->getId() ?>">
                                                 <button class="btn btn-md btn-primary btn-block btn-custom">
                                                     <i class="fa fa-edit"></i>
                                                     <span class="out_window">Bewerk</span>
@@ -265,7 +265,7 @@ include 'header.php'; ?>
                             </h4>
                             <hr class="style-one"/>
                             <div class="col-sm-5 custom-buttons">
-                                <a href="addImage/<?= $dataProvider->get( 'id' ) ?>">
+                                <a href="../addImage/<?= $dataProvider->get( 'id' ) ?>">
                                     <button class="btn btn-md btn-primary btn-block btn-custom">
                                         <i class="fa fa-plus"></i> Afbeeldingen toevoegen
                                     </button>
@@ -285,7 +285,7 @@ include 'header.php'; ?>
                                         <td><?= $image->getId() ?></td>
                                         <td><?= $image->getName() ?></td>
                                         <td>
-                                            <a href="./editImage/<?= $image->getId() ?>">
+                                            <a href="../editImage/<?= $image->getId() ?>">
                                                 <button class="btn btn-md btn-primary btn-block btn-custom">
                                                     <i class="fa fa-edit"></i>
                                                     <span class="out_window">Bewerk</span>
@@ -305,7 +305,7 @@ include 'header.php'; ?>
                             </h4>
                             <hr class="style-one"/>
                             <div class="col-sm-5 custom-buttons">
-                                <a href="addSkill/<?= $dataProvider->get( 'id' ) ?>">
+                                <a href="../addSkill/<?= $dataProvider->get( 'id' ) ?>">
                                     <button class="btn btn-md btn-primary btn-block btn-custom">
                                         <i class="fa fa-plus"></i> Vaardigheden toevoegen
                                     </button>
@@ -327,7 +327,7 @@ include 'header.php'; ?>
                                         <td><?= $skills->getName() ?></td>
                                         <td><?= $skills->getLevelOfExperience() ?></td>
                                         <td>
-                                            <a href="./editSkill/<?= $image->getId() ?>">
+                                            <a href="../editSkill/<?= $image->getId() ?>">
                                                 <button class="btn btn-md btn-primary btn-block btn-custom">
                                                     <i class="fa fa-edit"></i>
                                                     <span class="out_window">Bewerk</span>
@@ -347,7 +347,7 @@ include 'header.php'; ?>
                             </h4>
                             <hr class="style-one"/>
                             <div class="col-sm-5 custom-buttons">
-                                <a href="editProject/<?= $dataProvider->get( 'id' ) ?>">
+                                <a href="../editProject/<?= $dataProvider->get( 'id' ) ?>">
                                     <button class="btn btn-md btn-primary btn-block btn-custom">
                                         <i class="fa fa-plus"></i> Projects toevoegen
                                     </button>
@@ -373,7 +373,7 @@ include 'header.php'; ?>
                                         <td><?= $projects->getLink() ?></td>
                                         <td><?= $projects->getImageId() ?></td>
                                         <td>
-                                            <a href="./editProject/<?= $projects->getId() ?>">
+                                            <a href="../editProject/<?= $projects->getId() ?>">
                                                 <button class="btn btn-md btn-primary btn-block btn-custom">
                                                     <i class="fa fa-edit"></i>
                                                     <span class="out_window">Bewerk</span>
@@ -393,7 +393,7 @@ include 'header.php'; ?>
                             </h4>
                             <hr class="style-one"/>
                             <div class="col-sm-5 custom-buttons">
-                                <a href="addHobby/<?= $dataProvider->get( 'id' ) ?>">
+                                <a href="../addHobby/<?= $dataProvider->get( 'id' ) ?>">
                                     <button class="btn btn-md btn-primary btn-block btn-custom">
                                         <i class="fa fa-plus"></i> Hobbies toevoegen
                                     </button>
@@ -413,7 +413,7 @@ include 'header.php'; ?>
                                         <td><?= $hobbies->getId() ?></td>
                                         <td><?= $hobbies->getName() ?></td>
                                         <td>
-                                            <a href="./editHobby/<?= $projects->getId() ?>">
+                                            <a href="../editHobby/<?= $projects->getId() ?>">
                                                 <button class="btn btn-md btn-primary btn-block btn-custom">
                                                     <i class="fa fa-edit"></i>
                                                     <span class="out_window">Bewerk</span>
