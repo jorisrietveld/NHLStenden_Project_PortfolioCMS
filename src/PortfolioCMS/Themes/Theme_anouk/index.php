@@ -137,6 +137,10 @@ $language = $dataProvider->get( 'language' );
                             echo $address->getAddress();
                             ?>
                     in <?= $student->getLocation(); ?> <br>
+                    Mijn hobbies zijn
+                            <?php foreach( $dataProvider->get( 'hobbies', [] ) as $hobby ) :?>
+                            <?= $hobby->getName()?>,
+                            <?php endforeach; ?><br>
                     De talen die ik spreek zijn 
                             <?php
                             echo $dataProvider->get( 'languages', [1] )[4]->getLanguage();
@@ -161,17 +165,20 @@ $language = $dataProvider->get( 'language' );
                         ?><br>
                     Nu werk ik bij
                         <?php
-                            echo $dataProvider->get( 'jobExperiences', [1] )[4]->getLocation();
+                            echo $dataProvider->get( 'jobExperiences', [] )[4]->getLocation();
                         ?>
                     als
                             <?php
-                            echo $dataProvider->get( 'jobExperiences', [1] )[4]->getDescription();
+                            echo $dataProvider->get( 'jobExperiences', [] )[4]->getDescription();
                             ?>
                     van <?php
-                            echo $dataProvider->get( 'jobExperiences', [1] )[4]->getStartedAt()->format( 'd-m-Y' );
-                            dump($dataProvider);
+                            echo $dataProvider->get( 'jobExperiences', [] )[4]->getStartedAt()->format( 'd-m-Y' );
                         ?>
-                    tot heden<br>
+                    tot heden
+                    
+                    
+                           
+                    <br>
                     <br>
                     </p>       
                 </div>
