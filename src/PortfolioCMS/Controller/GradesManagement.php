@@ -104,6 +104,8 @@ class GradesManagement extends BaseController
             'admin:cijferOverzicht', [
                 'asset-path'  => $this->application->getRequest()->getBaseUri() . 'assets/admin/',
                 'grades-data' => $this->getPortfoliosMetadata(),
+                'httpRequest'         => $this->application->getRequest(),
+                'portfolio-meta-data' => $this->getPortfoliosMetadata(),
             ]
         );
     }
