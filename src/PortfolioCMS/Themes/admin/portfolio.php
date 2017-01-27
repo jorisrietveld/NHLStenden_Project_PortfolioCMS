@@ -65,10 +65,10 @@ include 'header.php'; ?>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="form-label col-lg-3" for="isNative">Thema</label>
-                                    <select required class="form-control" name="isNative" id="isNative">
+                                    <label class="form-label col-lg-3" for="themeId">Thema</label>
+                                    <select required class="form-control" name="themeId" id="themeId">
                                         <?php foreach ($dataProvider->get( 'themes' ) as $theme) : ?>
-                                            <option value="<?= $theme->getId() ?>" <?php $dataProvider->get( 'current-theme' )->getId() == $theme->getId() ? 'selected' : '' ?>><?= $theme->getName() ?></option>
+                                            <option value="<?= $theme->getId() ?>" <?= $dataProvider->call( 'current-theme', 'getId' ) == $theme->getId() ? 'selected="selected"' : '' ?>><?= $theme->getName() ?></option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>

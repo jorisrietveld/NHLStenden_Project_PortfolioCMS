@@ -49,8 +49,7 @@ class PortfolioManagement extends BaseController
     protected $portfolioFields = [
         'title'   => 'required|alpha_space|max_length,40|min_length,3',
         'url'     => 'required|max_length,40|min_length,3',
-        'themeId' => 'required|integer',
-        'userId'  => 'required|integer',
+        'themeId' => 'required',
     ];
 
     /**
@@ -288,8 +287,9 @@ class PortfolioManagement extends BaseController
     public function portfolio( Request $request, string $id ): Response
     {
         $postParams = $request->getPostParams();
+        $portfolioEntity = $this->portfolioRepository->getByUserId( (int)$id );
 
-        if ( !$portfolioEntity = $this->portfolioRepository->getByUserId( (int)$id ) )
+        if ( $portfolioEntity->getId() == 0 )
         {
             $this->redirect( '/404' );
         }
