@@ -201,7 +201,7 @@ include 'header.php'; ?>
                                         <td><?= $training->getInstitution() ?></td>
                                         <td><?= $training->getDescription() ?></td>
                                         <td><?= $training->getObtainedCertificate() ? 'Ja' : 'Nee' ?></td>
-                                        <td><?= $training->getIsCurrentTraining() ? 'Ja' : 'Nee' ?></td>
+                                        <td><?= $training->getCurrentTraining() ? 'Ja' : 'Nee' ?></td>
                                         <td>
                                             <a href="../editLanguage/<?= $language->getId() ?>">
                                                 <button class="btn btn-md btn-primary btn-block btn-custom">
@@ -413,7 +413,7 @@ include 'header.php'; ?>
                                         <td><?= $hobbies->getId() ?></td>
                                         <td><?= $hobbies->getName() ?></td>
                                         <td>
-                                            <a href="../editHobby/<?= $projects->getId() ?>">
+                                            <a href="../editHobby/<?= $hobbies->getId() ?>">
                                                 <button class="btn btn-md btn-primary btn-block btn-custom">
                                                     <i class="fa fa-edit"></i>
                                                     <span class="out_window">Bewerk</span>
