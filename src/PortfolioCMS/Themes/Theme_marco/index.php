@@ -907,7 +907,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <h2>Portfolio</h2>
+                    <h2>Portfolio:</h2>
                       <p class="records" style="font-size:40pt">
                         <?php
                        // echo $dataProvider->get( 'portfolios')->getGrade();
