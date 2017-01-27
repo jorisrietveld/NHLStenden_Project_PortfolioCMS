@@ -134,7 +134,7 @@ class Authentication extends BaseController
             case $user->getIsAdmin():
                 return $_SESSION[ 'authorizationLevel' ] = AuthorizedUser::ADMIN;
 
-            case $user->getId() == $user->getId():
+            case $user->getId() == $student->getId():
                 return $_SESSION[ 'authorizationLevel' ] = AuthorizedUser::STUDENT;
 
             case $user->getIsSLBer():
