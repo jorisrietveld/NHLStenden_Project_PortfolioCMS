@@ -1,8 +1,8 @@
 <!doctype html>
 <?php
 
-$page_title = "Overzicht | Admin";
-$isOnAdminPage = "overzicht";
+$page_title = "Cijfers | Admin";
+$isOnAdminPage = "cijfer";
 
 include 'header.php'; ?>
 <body>

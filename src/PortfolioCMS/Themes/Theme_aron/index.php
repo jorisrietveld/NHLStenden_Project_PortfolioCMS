@@ -25,7 +25,7 @@
 </head>
 
 <body id="page-top" class="index">
-
+<?php dump($dataProvider); ?>
 <!-- Navigation -->
 <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
     <div class="container-fluid">
@@ -46,8 +46,11 @@
                 <li class="hidden">
                     <a href="#page-top"></a>
                 </li>
-                <li class="page-scroll">
-                    <a href="#portfolio">Portfolio</a>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Portfolio's <span class="fa fa-caret-down"></span></a>
+                    <ul class="dropdown-menu">
+                        <?= $dataProvider->get( 'portfolioMenuLinks', '' ) ?>
+                    </ul>
                 </li>
                 <li class="page-scroll">
                     <a href="#cv">Mijn CV</a>
@@ -64,10 +67,16 @@
                     <a href="#cijfers">Cijfers</a>
                 </li>
 
-                <li class="page-scroll">
-                    <a href="#inloggen">
-                        <i class="fa fa-sign-in"></i> Inloggen
-                    </a>
+                <li>
+                    <?php if( isset( $_SESSION['userId'] ) ): ?>
+                        <a href="/logout">
+                            <i class="fa fa-sign-out"></i> Afmelden
+                        </a>
+                    <?php else: ?>
+                        <a href="/login">
+                            <i class="fa fa-sign-in"></i> Aanmelden
+                        </a>
+                    <?php endif; ?>
                 </li>
             </ul>
         </div>

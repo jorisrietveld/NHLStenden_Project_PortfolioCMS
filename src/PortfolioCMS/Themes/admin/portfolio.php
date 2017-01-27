@@ -199,6 +199,7 @@ include 'header.php'; ?>
                                         <td><?= $training->getId() ?></td>
                                         <td><?= $training->getTitle() ?></td>
                                         <td><?= $training->getInstitution() ?></td>
+                                        <td><?= $training->getLocation() ?></td>
                                         <td><?= $training->getDescription() ?></td>
                                         <td><?= $training->getObtainedCertificate() ? 'Ja' : 'Nee' ?></td>
                                         <td><?= $training->getCurrentTraining() ? 'Ja' : 'Nee' ?></td>

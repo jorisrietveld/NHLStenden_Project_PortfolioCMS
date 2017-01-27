@@ -108,3 +108,24 @@ hr.linestyle-inv:after {
     font-size: 13pt;
 }
 
+.dropdown-menu a {
+    color: black !important;
+}
+
+.dropdown-menu li:hover a {
+    color: rebeccapurple !important;
+}
+
+.dropdown-toggle:hover {
+    color: rgba(102, 51, 153, 0.8);
+}
+
+@media (max-width: 768px) {
+    .dropdown-menu a {
+        background-color: white;
+    }
+
+    .dropdown-menu li:hover a {
+        color: white !important;
+    }
+}

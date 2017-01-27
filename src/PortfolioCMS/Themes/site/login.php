@@ -59,7 +59,7 @@
                                     <li>
                                         <?php if( isset( $_SESSION['userId'] ) ): ?>
                                             <a href="logout">
-                                                <i class="fa fa-sign-in"></i> Afmelden
+                                                <i class="fa fa-sign-out"></i> Afmelden
                                             </a>
                                         <?php else: ?>
                                             <a href="login">

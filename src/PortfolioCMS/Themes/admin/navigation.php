@@ -36,9 +36,9 @@ $hasPageSuffix = count(explode('/', $dataProvider->call('httpRequest', 'getReque
                     <li <?php if ($isOnAdminPage == 'overzicht')
                         { ?>class="active"<?php } ?>>
                         <?php if ($hasPageSuffix) : ?>
-                        <a href="../overzicht">
+                        <a href="../editStudent/<?= $dataProvider->getcurrentuserid() ?>">
                             <?php else: ?>
-                            <a href="overzicht">
+                            <a href="editStudent/<?= $dataProvider->getcurrentuserid() ?>">
                                 <?php endif; ?>
                                 <i class="fa fa-user"></i>
                                 <p>Mijn account</p>
