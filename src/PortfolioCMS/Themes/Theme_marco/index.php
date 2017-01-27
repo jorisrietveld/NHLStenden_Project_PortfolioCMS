@@ -177,6 +177,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
+                    <p class="records">
                     <?php
                     if($dataProvider->get( 'student' )->getFirstName()=='Marco'){
                        
@@ -187,6 +188,7 @@
                     luisteren van muziek en reizen.";
                     }        
                     ?>
+                    </p>
                     
                 </div>
             </div>
@@ -943,31 +945,12 @@
                             Naam: Marco Brink
                         </p>    
             
-                        <p class="records">    
-                            Geboortedatum: 10 mei 1996
-                        </p>
-            
-                        <p class="records">    
-                            Plaats: Assen
-                        </p>
-       
-                        <p class="records">
-                            Nationaliteit: Dutch  
-                        </p>
-            
-                        
-            
-                        <p class="records">
-                            Rijbewijs: Ja  
-                        </p>
             
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <p> Hello! I am currently 20 years old. I live in Assen.
-                    At this moment I am studying informatics at Stenden Universtity in 
-                    Emmen.!  My hobbies are playing(and watching basketball), gaming, 
-                    listening to music(especially electronic)and travelling.</p>
+                    
+                   
                 </div>
             </div>
         </div>
@@ -989,7 +972,7 @@
                 <div class="col-lg-8 col-lg-offset-2">
                     <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
                     <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-                    <form name="sentMessage" id="contactForm" action="<?php strtok($_SERVER["REQUEST_URI"],'?')?>" method="get" >
+                    <form name="sentMessage" id="contactForm" action="marco_brink" method="post" >
                         <div class="row control-group" style="border:2px solid;border-radius:4px ">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
                                 <label>Name</label>
@@ -1008,7 +991,7 @@
                         <div id="success"></div>
                         <div class="row">
                             <div class="form-group col-xs-12">
-                                <button type="submit" class="btn btn-success btn-lg">Send</button>
+                                <input type="submit" name="submit" class="btn btn-success btn-lg">
                             </div>
                         </div>
                         <?php
@@ -1050,29 +1033,32 @@
                           $SQLstring= "SHOW TABLES LIKE '$TableName'";
                           $QueryResult= mysqli_query($conn, $SQLstring);
                           
-//                          if(mysqli_num_rows($QueryResult) == 0)
-//                          {
-//                              $SQLstring= "CREATE TABLE $TableName(Bugnr SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY, product_name VARCHAR(40), version VARCHAR(20),type VARCHAR(40), OS VARCHAR(20), 
-//                                           frequency INT, solutions TEXT(500))";
-//                              $QueryResult = mysqli_query($conn,$SQLstring);
-//                             if($QueryResult === FALSE)
-//                             { echo "<p>Unable to create the table.</p>" . "<p>Error code "  . 
-//                              mysqli_errno($conn) . ": " . mysqli_error($conn) . "</p>"; 
-//                             
-//                             }
-//                              
-//                        }
+                          if(mysqli_num_rows($QueryResult) == 0)
+                          {
+                              $SQLstring= "CREATE TABLE $TableName(Bugnr SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY, product_name VARCHAR(40), version VARCHAR(20),type VARCHAR(40), OS VARCHAR(20), 
+                                           frequency INT, solutions TEXT(500))";
+                              $QueryResult = mysqli_query($conn,$SQLstring);
+                             if($QueryResult === FALSE)
+                             { echo "<p>Unable to create the table.</p>" . "<p>Error code "  . 
+                              mysqli_errno($conn) . ": " . mysqli_error($conn) . "</p>"; 
+                             
+                             }
+                              
+                        }
                           $Name = stripslashes(htmlentities($_POST['name']));
                           $Message = stripslashes(htmlentities($_POST['message']));
                           $userId = "";
                           $studentln = $dataProvider->get( 'student' );
+                          $sendAt=date("Y-m-d H:i:s");
+                          $accepted='0';
+                         
+                           $userId = $dataProvider->call( 'student', 'getId' );
                             
-                          if( $studentln->getLastName() == 'BRINK'){
-                              $userId = 6;
-                          }
+                            
+                           
                        
                           
-                          $string = "INSERT INTO $TableName VALUES(NULL,'$Name',NULL,'$Message',NULL,$userId,NULL)"; 
+                          $string = "INSERT INTO GuestBookMessage(sender, title, message, sendAt, studentId, accepted) VALUES('$Name','', '$Message','$sendAt','$userId','$accepted')"; 
                           $Result = mysqli_query($conn, $string);
                           if($Result === FALSE) 
                          { echo "<p>Unable to execute the query.</p>" . "<p>Error code " . mysqli_errno($conn) . 

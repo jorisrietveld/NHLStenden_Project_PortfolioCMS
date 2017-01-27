@@ -285,31 +285,108 @@ $language = $dataProvider->get( 'language' );
             <div class="row">
                 <div class="col-lg-6">
                     <h2 class="section-heading">Gastenboek</h2>
-                        <form>
+                        <form action='anouk_van_der_veen' method='post'>
                             <div class="row control-group">
                                 <div class="form-group col-xs-12 floating-label-form-group controls">
-                                    <input type="text" class="form-control" placeholder="Naam"></input>
+                                    <input type="text" class="form-control" name='name' placeholder="Naam"></input>
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>
+                           
                             <div class="row control-group">
-                                <div class="form-group col-xs-12 floating-label-form-group controls">
-                                    <input type="text" class="form-control" placeholder="Email"></input>
-                                    <p class="help-block text-danger"></p>
-                                </div>
-                            </div>
-                            <div class="row control-group">
-                                <div class="form-group col-xs-12 floating-label-form-group controls">
-                                    <textarea rows="10"class="form-control" placeholder="Bericht"></textarea>
+                                <div class="form-group col-xs-12  floating-label-form-group controls">
+                                    <textarea rows="10"class="form-control" name='message' placeholder="Bericht"></textarea>
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-xs-12">
-                                    <button type="submit" class="btn btn-succes btn-lg"> Send </button>
+                                    <button type="submit" name='submit' class="btn btn-succes btn-lg"> Send </button>
                                 </div>
                             </div>
                         </form>
+                        <?php
+                    if(htmlentities(isset($_POST['submit'])))
+                        {
+                    
+                        if(htmlentities(empty($_POST['name']) || empty($_POST['message'])))
+                            {
+                                    echo "<p>You must enter everything!</p>"; 
+                                    
+                            }else{
+                            $conn= mysqli_connect('85.144.187.81','inf1b','peer');
+                            if($conn == FALSE)
+                            {
+                
+                                echo "<p>unable to connect</p>".
+                                "<p>Error code " . mysqli_errno() . ": "  . mysqli_error() . "</p>";
+                    
+                            }else{
+                            $DBName='DigitalPortfolio';
+                            if(!mysqli_select_db($conn, $DBName))
+                            {
+                                $SQLstring = "CREATE DATABASE $DBName";  
+                                $SQLquery  = mysqli_query($conn, $SQLstring); 
+                                if ($SQLquery === FALSE){
+                              
+                                echo "<p>Unable to execute the query.</p>" . "<p>Error code "  . 
+                                      mysqli_errno($DBConnect) . ": " . mysqli_error($DBConnect) . "</p>";
+                                }
+                                else{
+                            
+                                   echo "<p>Your messge has been placed!</p>"; 
+                                }
+                    
+                          }
+                          mysqli_select_db($conn, $DBName);
+                          
+                          $TableName='GuestBookMessage';
+                          $SQLstring= "SHOW TABLES LIKE '$TableName'";
+                          $QueryResult= mysqli_query($conn, $SQLstring);
+                          
+                          if(mysqli_num_rows($QueryResult) == 0)
+                          {
+                              $SQLstring= "CREATE TABLE $TableName(Bugnr SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY, product_name VARCHAR(40), version VARCHAR(20),type VARCHAR(40), OS VARCHAR(20), 
+                                           frequency INT, solutions TEXT(500))";
+                              $QueryResult = mysqli_query($conn,$SQLstring);
+                             if($QueryResult === FALSE)
+                             { echo "<p>Unable to create the table.</p>" . "<p>Error code "  . 
+                              mysqli_errno($conn) . ": " . mysqli_error($conn) . "</p>"; 
+                             
+                             }
+                              
+                        }
+                          $Name = stripslashes(htmlentities($_POST['name']));
+                          $Message = stripslashes(htmlentities($_POST['message']));
+                          $userId = "";
+                          $studentln = $dataProvider->get( 'student' );
+                          $sendAt=date("Y-m-d H:i:s");
+                          $accepted='0';
+                         
+                           $userId = $dataProvider->call( 'student', 'getId' );
+                            
+                            
+                 
+                          
+                       
+                          
+                          $string = "INSERT INTO GuestBookMessage(sender, title, message, sendAt, studentId, accepted) VALUES('$Name','', '$Message','$sendAt','$userId','$accepted')"; 
+                          $Result = mysqli_query($conn, $string);
+                          if($Result === FALSE) 
+                         { echo "<p>Unable to execute the query.</p>" . "<p>Error code " . mysqli_errno($conn) . 
+                                ": " . mysqli_error($conn) . "</p>"; 
+                         
+                         } else { echo "<h1>Bedankt voor uw bericht!</h1>";
+                                      
+                         }
+                         
+                        mysqli_close($conn);
+                          
+                    }
+                    
+                }
+                }
+                ?>
                 </div>
                 <div class="col-lg-6">
                 </div>
