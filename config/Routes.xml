@@ -34,6 +34,10 @@
         <action id="controller">Raw</action>
     </route>
 
+    <route id="download" path="/downloadFile" methods="GET" authorization="ANONYMOUS_USER">
+        <action id="controller">DownloadManager:downloadFile</action>
+    </route>
+
     <!-- Authorized user management routes. -->
     <route id="user_overview" path="/admin/gebruikersOverzicht" methods="GET" authorization="ADMIN">
         <action id="controller">UserManagement:userOverview</action>
@@ -149,6 +153,15 @@
 
     <route id="grade_overview" path="/admin/cijferOverzicht" methods="GET" authorization="ADMIN">
         <action id="controller">GradesManagement:gradeOverview</action>
+    </route>
+
+    <!-- Authorized guestbook moderation -->
+    <route id="moderate_guestbook" path="/admin/moderateGuestbook/{userId}" methods="GET|POST" authorization="STUDENT">
+        <action id="controller">GuestBookManagement:guestBookManagement</action>
+    </route>
+
+    <route id="guestbook_overview" path="/admin/guestBookOverview" methods="GET" authorization="ADMIN">
+        <action id="controller">GuestBookManagement:guestBookOverview</action>
     </route>
 
     <!-- Error routes -->

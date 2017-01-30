@@ -44,6 +44,22 @@ server {
 	location / {
 		try_files $uri /index.php$is_args$args;
 	}
+	
+	location ^~ /vendor/* {
+    }
+    
+    location ^~ /assets/*{
+    
+    }
+    
+    location ^~ /images/*{
+    
+    }
+    
+    location ^~ /slbAssignments/{
+        rewrite ^/slbAssignments/(.*) /downloadFile/$1 last;
+    }
+
 
 	location ~ \.php$ {
             fastcgi_param  QUERY_STRING       $query_string;

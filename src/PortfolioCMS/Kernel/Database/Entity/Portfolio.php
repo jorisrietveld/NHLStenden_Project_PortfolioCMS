@@ -87,6 +87,8 @@ class Portfolio implements EntityInterface
      */
     protected $projects; // (N:M) One portfolio has many or zero Projects.
 
+    protected $cv;
+
     public function __construct(  )
     {
         $this->grade = (float)0.0;
@@ -360,5 +362,26 @@ class Portfolio implements EntityInterface
     {
         return $this->pages;
     }
+
+    /**
+     * This method gets the Cv property.
+     *
+     * @return mixed
+     */
+    public function getCv() : SLBAssignment
+    {
+        return $this->cv;
+    }
+
+    /**
+     * This method sets the cv property.
+     *
+     * @param mixed $cv
+     */
+    public function setCv( SLBAssignment $cv )
+    {
+        $this->cv = $cv;
+    }
+
 
 }

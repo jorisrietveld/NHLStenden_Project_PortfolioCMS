@@ -297,6 +297,10 @@ class PortfolioRepository extends Repository
             $themeManager->getPagesByThemeId( $databaseData[ 'themeId' ] )
         );
 
+        $portfolio->setCv(
+            $slbAssignmentManager->getCv( $databaseData['id'] )
+        );
+
         return $portfolio;
     }
 

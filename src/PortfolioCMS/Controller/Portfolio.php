@@ -62,7 +62,6 @@ class Portfolio extends BaseController
 
             if ( $portfolioEntity )
             {
-
                 $theme = $portfolioEntity->getTheme();
                 return $this->createResponse(
                     $theme->getDirectoryName() . ':' . $portfolioPageName, [
@@ -85,6 +84,7 @@ class Portfolio extends BaseController
                         'portfoliosMetadata' => $this->getPortfoliosMetadata(),
                         'current-page'       => $portfolioPageName,
                         'portfolioMenuLinks' => $this->renderMenuLinks(),
+                        'cv'                 => $portfolioEntity->getCv(),
                     ]
                 );
             }

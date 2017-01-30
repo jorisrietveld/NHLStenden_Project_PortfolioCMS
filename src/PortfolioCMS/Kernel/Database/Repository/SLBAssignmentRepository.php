@@ -120,6 +120,19 @@ class SLBAssignmentRepository extends Repository
         DELETE FROM SLBAssignment WHERE `SLBAssignment`.`uploadedFileId` = :id;
     ';
 
+    protected $getCvSql = '
+         SELECT
+            `UploadedFile`.`id`,
+            `UploadedFile`.`fileName`,
+            `UploadedFile`.`mimeType`,
+            `UploadedFile`.`filePath`,
+            `UploadedFile`.`portfolioId`,
+            `SLBAssignment`.`name`,
+	        `SLBAssignment`.`feedback`
+        FROM `DigitalPortfolio`.`SLBAssignment` JOIN `DigitalPortfolio`.`UploadedFile` ON `SLBAssignment`.`uploadedFileId` = `UploadedFile`.`id`
+        WHERE `SLBAssignment`.`name` LIKE \'%CV%\' AND `UploadedFile`.`portfolioId` = :whereUploadedFileId
+    ';
+
     /**
      * SLBAssignmentRepository constructor.
      *
@@ -226,5 +239,23 @@ class SLBAssignmentRepository extends Repository
     public function createEmptyEntity() : EntityInterface
     {
         return new SLBAssignment();
+    }
+
+    public function getCv( $portfolioId ) : EntityInterface
+    {
+        $slbAssignmentStatement = $this->connection->prepare( $this->getCvSql );
+
+        if ( $slbAssignmentStatement->execute( [ ':whereUploadedFileId' => $portfolioId ] ))
+        {
+
+            $data = $slbAssignmentStatement->fetchAll( \PDO::FETCH_ASSOC );
+
+            if ( count( $data ) < 1 )
+            {
+                return $this->createEmptyEntity();
+            }
+            return $this->createEntity( $data[ 0 ] );
+        }
+        throw new RepositoryException( sprintf( 'The query: %s could not be executed.', $this->getCvSql ) );
     }
 }
