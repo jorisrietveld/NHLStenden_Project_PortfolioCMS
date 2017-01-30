@@ -29,7 +29,7 @@ define( 'DATABASE_CONFIG_FILE', CONFIG_ROOT . 'Database.xml' );
 /**
  * Never set debug to TRUE on an production server!
  */
-define( 'DEBUG', TRUE );
+define( 'DEBUG', FALSE );
 
 /**
  * This file contains an error and exception handler that are needed when things go wrong...

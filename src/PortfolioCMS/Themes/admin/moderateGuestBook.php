@@ -46,7 +46,7 @@ include 'header.php'; ?>
                                             <th>Id</th>
                                             <th>Verstuurd door</th>
                                             <th>Bericht</th>
-                                            <th>Verstuurd op:</th>
+                                            <th>Verstuurd op</th>
                                         </tr>
                                         </thead>
                                         <tbody>

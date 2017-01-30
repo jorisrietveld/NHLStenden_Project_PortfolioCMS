@@ -84,7 +84,7 @@
 
             <div class="inner cover custom-main">
                 <h1 class="cover-heading">Profolio</h1>
-                <p class="lead">Portfolio's van de leden van groep INF1B periode 2, 2016/2017.</p>
+                <p class="lead">Het digitaal portfolio management systeem.</p>
             </div>
         </div>
 
