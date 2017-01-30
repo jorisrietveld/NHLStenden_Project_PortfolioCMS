@@ -41,7 +41,7 @@
                             <div class="collapse navbar-collapse" id="myNavbar">
 
                                 <ul class="nav navbar-nav">
-                                    <li class="active-menu">
+                                    <li>
                                         <a href="home">Home</a>
                                     </li>
                                     <li class="dropdown">
@@ -55,7 +55,7 @@
                                     <li><a href="contact">Contact</a></li>
                                 </ul>
 
-                                <ul class="nav navbar-nav navbar-right">
+                                <ul class="nav navbar-nav navbar-right active-menu">
                                     <li>
                                         <?php if( isset( $_SESSION['userId'] ) ): ?>
                                             <a href="logout">

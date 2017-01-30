@@ -60,7 +60,7 @@
 
                             <div class="collapse navbar-collapse" id="myNavbar">
                                 <ul class="nav navbar-nav">
-                                    <li class="active-menu">
+                                    <li>
                                         <a href="home">Home</a>
                                     </li>
                                     <li class="dropdown">
@@ -71,7 +71,7 @@
                                             <?= $dataProvider->get( 'portfolioMenuLinks', '' ) ?>
                                         </ul>
                                     </li>
-                                    <li>
+                                    <li  class="active-menu">
                                         <a href="contact">Contact</a>
                                     </li>
                                 </ul>
