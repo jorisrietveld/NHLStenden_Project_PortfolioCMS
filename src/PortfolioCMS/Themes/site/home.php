@@ -83,7 +83,7 @@
             </div>
 
             <div class="inner cover custom-main">
-                <h1 class="cover-heading">INF1B Portfolio's</h1>
+                <h1 class="cover-heading">Profolio</h1>
                 <p class="lead">Portfolio's van de leden van groep INF1B periode 2, 2016/2017.</p>
             </div>
         </div>

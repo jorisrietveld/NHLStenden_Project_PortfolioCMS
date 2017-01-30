@@ -103,7 +103,7 @@ include 'header.php'; ?>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <?php foreach ($dataProvider->get( 'jobExperiences' ) as $jobExperience): ?>
+                                <?php foreach ($dataProvider->get( 'jobExperiences', [] ) as $jobExperience): ?>
                                     <tr>
                                         <td><?= $jobExperience->getId() ?></td>
                                         <td><?= $jobExperience->getLocation() ?></td>
@@ -148,7 +148,7 @@ include 'header.php'; ?>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <?php foreach ($dataProvider->get( 'languages' ) as $language): ?>
+                                <?php foreach ($dataProvider->get( 'languages', [] ) as $language): ?>
                                     <tr>
                                         <td><?= $language->getId() ?></td>
                                         <td><?= $language->getLanguage() ?></td>
@@ -195,7 +195,7 @@ include 'header.php'; ?>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <?php foreach ($dataProvider->get( 'trainings' ) as $training): ?>
+                                <?php foreach ($dataProvider->get( 'trainings', [] ) as $training): ?>
                                     <tr>
                                         <td><?= $training->getId() ?></td>
                                         <td><?= $training->getTitle() ?></td>
@@ -205,7 +205,7 @@ include 'header.php'; ?>
                                         <td><?= $training->getObtainedCertificate() ? 'Ja' : 'Nee' ?></td>
                                         <td><?= $training->getCurrentTraining() ? 'Ja' : 'Nee' ?></td>
                                         <td>
-                                            <a href="../editLanguage/<?= $language->getId() ?>">
+                                            <a href="../editTraining/<?= $language->getId() ?>">
                                                 <button class="btn btn-md btn-primary btn-block btn-custom">
                                                     <i class="fa fa-edit"></i>
                                                     <span class="out_window">Bewerk</span>
@@ -241,7 +241,7 @@ include 'header.php'; ?>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <?php foreach ($dataProvider->get( 'slbAssignments' ) as $slbAssignment): ?>
+                                <?php foreach ($dataProvider->get( 'slbAssignments', [] ) as $slbAssignment): ?>
                                     <tr>
                                         <td><?= $slbAssignment->getId() ?></td>
                                         <td><?= $slbAssignment->getName() ?></td>
@@ -323,7 +323,7 @@ include 'header.php'; ?>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <?php foreach ($dataProvider->get( 'skills' ) as $skills ): ?>
+                                <?php foreach ($dataProvider->get( 'skills', [] ) as $skills ): ?>
                                     <tr>
                                         <td><?= $skills->getId() ?></td>
                                         <td><?= $skills->getName() ?></td>
@@ -410,7 +410,7 @@ include 'header.php'; ?>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <?php foreach ($dataProvider->get( 'hobbies' ) as $hobbies ): ?>
+                                <?php foreach ($dataProvider->get( 'hobbies', [] ) as $hobbies ): ?>
                                     <tr>
                                         <td><?= $hobbies->getId() ?></td>
                                         <td><?= $hobbies->getName() ?></td>

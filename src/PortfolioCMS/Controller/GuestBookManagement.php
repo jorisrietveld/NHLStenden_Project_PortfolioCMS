@@ -101,53 +101,9 @@ class GuestBookManagement extends BaseController
      */
     public function guestBookManagement( Request $request, string $userId )
     {
-        $postParams = $request->getPostParams();
-        $portfolioEntity = $this->portfolioRepository->getByUserId( (int)$userId );
-        $guestBookMessages = $this->guestBookRepository->getByUserId( (int)$userId );
-
-        if ( $portfolioEntity->getId() == 0 )
-        {
-            $this->redirect( '/404' );
-        }
-
-        if ( !$this->isOwnOrAdmin( $portfolioEntity->getId() ) )
-        {
-            $this->redirect( '/401' );
-        }
-
-        if ( $request->getMethod() === 'POST' )
-        {
-            if ( Validation::getInstance()->validatePostParameters( $postParams, $this->guestBookMessageFields ) )
-            {
-                try
-                {
-                    $guestBookMessageEntity = $guestBookMessages->getEntityWith( 'id', $postParams->get( 'messageId' ) );
-
-                    if ( !$guestBookMessageEntity )
-                    {
-                        throw new \InvalidArgumentException( sprintf( 'No message found with the id: %s', $postParams->get( 'messageId' ) ) );
-                    }
-
-                    $guestBookMessageEntity->setIsAccepted( (bool)$postParams->get( 'isAccepted' ));
-
-                    $this->guestBookRepository->update( $guestBookMessageEntity );
-
-                    $feedback = 'De wijzegingen zijn opgeslagen.';
-                    $feedbackType = 'success';
-                }
-                catch ( \Exception $exception )
-                {
-                    Debug::addException( $exception );
-                    $feedback = 'Er is iets fout gegaan, probeer later opnieuw.';
-                    $feedbackType = 'danger';
-                }
-            }
-            else
-            {
-                $feedback = Validation::getInstance()->getReadableErrors();
-                $feedbackType = 'danger';
-            }
-
-        }
+        return $this->createResponse(
+            'admin:moderateGuestBook', [
+            ]
+        );
     }
 }

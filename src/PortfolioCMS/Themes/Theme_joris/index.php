@@ -140,7 +140,7 @@ $hasPageSuffix = FALSE !== strpos( $dataProvider->call( 'httpRequest', 'getBaseU
                 </h4>
 
             </div>
-            <img class="img-circle header-profile-picture col-lg-3" src="<?= $dataProvider->get( 'asset-path' ) ?>images/profile.jpg"/>
+            <img class="img-circle header-profile-picture col-lg-3" src="<?= $dataProvider->call( 'images', '' ) ?>images/profile.jpg"/>
         </section>
 
         <section class="jumbotron row">
