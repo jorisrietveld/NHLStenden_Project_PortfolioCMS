@@ -11,6 +11,7 @@ namespace StendenINF1B\PortfolioCMS\Kernel\Database\Repository;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\EntityInterface;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\GuestBookMessage;
 use StendenINF1B\PortfolioCMS\Kernel\Database\EntityManager;
+use StendenINF1B\PortfolioCMS\Kernel\Database\Helper\EntityCollection;
 use StendenINF1B\PortfolioCMS\Kernel\Exception\RepositoryException;
 
 class GuestBookMessageRepository extends Repository
@@ -200,5 +201,10 @@ class GuestBookMessageRepository extends Repository
     public function createEmptyEntity() : EntityInterface
     {
         return new GuestBookMessage();
+    }
+
+    public function getByUserId( int $userId ) : EntityCollection
+    {
+        return $this->getByCondition( 'studentId = :whereStudentId', [ ':whereStudentId' => $userId ] );
     }
 }

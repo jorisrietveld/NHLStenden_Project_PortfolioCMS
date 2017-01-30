@@ -80,6 +80,14 @@ include 'header.php';
                                                        placeholder="Beschrijving"
                                                        required></textarea>
                                             </div>
+
+                                            <div class="form-group">
+                                                <label class="form-label col-lg-3" for="location">Location:</label>
+                                                <input type="text"
+                                                       name="location"
+                                                       class="form-control"
+                                                       id="location">
+                                            </div>
                                             
                                             <div class="form-group">
                                                 <label class="form-label col-lg-3" for="isInternship">Type werkplek:</label>

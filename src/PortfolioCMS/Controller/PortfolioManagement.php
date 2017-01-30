@@ -58,7 +58,7 @@ class PortfolioManagement extends BaseController
      * @var array
      */
     protected $skillFields = [
-        'name'              => 'required|alpha_space|min_length,3|max_length,40',
+        'name'              => 'required|min_length,3|max_length,40',
         'levelOfExperience' => 'required|numeric',
     ];
 
@@ -68,10 +68,10 @@ class PortfolioManagement extends BaseController
      * @var array
      */
     protected $trainingFields = [
-        'title'               => 'required|alpha_space|min_length,3|max_length,40',
-        'institution'         => 'required|alpha_space|min_length,3|max_length,40',
-        'location'            => 'required|alpha_space|min_length,3|max_length,40',
-        'description'         => 'required|alpha_space|min_length,3|max_length,40',
+        'title'               => 'required|min_length,3|max_length,40',
+        'institution'         => 'required|min_length,3|max_length,40',
+        'location'            => 'required|min_length,3|max_length,40',
+        'description'         => 'required|min_length,3|max_length,600',
         'obtainedCertificate' => 'required|boolean',
         'currentTraining'     => 'required|boolean',
     ];
@@ -102,8 +102,8 @@ class PortfolioManagement extends BaseController
      * @var array
      */
     protected $jobExperienceFields = [
-        'location'     => 'required|alpha_space|min_length,3|max_length,40',
-        'description'  => 'required|alpha_space|min_length,3',
+        'location'     => 'required|min_length,3|max_length,40',
+        'description'  => 'required|min_length,3',
         'isInternship' => 'required|boolean',
     ];
 
@@ -945,7 +945,7 @@ class PortfolioManagement extends BaseController
             try
             {
                 $skillEntity = new Skill();
-                $skillEntity->setPortfolioId( $postParams->getInt( 'portfolioId' ) );
+                $skillEntity->setPortfolioId( (int)$portfolioId );
                 $skillEntity->setName( $postParams->getString( 'name' ) );
                 $skillEntity->setLevelOfExperience( $postParams->getInt( 'levelOfExperience' ) );
 
@@ -961,7 +961,7 @@ class PortfolioManagement extends BaseController
                 $feedbackType = 'danger';
             }
         }
-        else
+        elseif ( $request->getMethod() === 'post' )
         {
             $feedback = Validation::getInstance()->getReadableErrors();
             $feedbackType = 'danger';

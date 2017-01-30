@@ -32,3 +32,6 @@ body{
 .text-mono{
     font-family: 'Ubuntu Mono', monospace !important;
 }
+.certificate-icon{
+    width: 80px;
+}

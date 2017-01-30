@@ -15,7 +15,6 @@ use StendenINF1B\PortfolioCMS\Kernel\Authorization\User as AuthorizedUser;
 
 class DataProvider extends ParameterContainer
 {
-    protected $user;
 
     public function __construct()
     {

@@ -244,8 +244,24 @@ $language = $dataProvider->get( 'language' );
                         <p> 
                         </p>
                 </div>
-                <div class="col-lg-5 col-sm-pull-6  col-sm-6">
-                    <img class="img-responsive" src="images/grade_a_plus.png" alt="">
+                <div class="col-lg-4 col-sm-pull-7  col-sm-6">
+                    <div class="col-lg-5 col-lg-offset-3">
+                    <div class="info">
+                        <h2>Project:</h2>
+                        <p class="records" style="font-size:40pt">
+                            <?php
+                            ?>
+                        </p>             
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <h2>Portfolio:</h2>
+                      <p class="records" style="font-size:40pt">
+                        <?php
+                        ?>
+                      </p>    
+                </div>
+<!--                    <img class="img-responsive" src="images/grade_a_plus.png" alt="">-->
                 </div>
             </div>
         </div>

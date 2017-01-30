@@ -329,7 +329,7 @@ include 'header.php'; ?>
                                         <td><?= $skills->getName() ?></td>
                                         <td><?= $skills->getLevelOfExperience() ?></td>
                                         <td>
-                                            <a href="../editSkill/<?= $image->getId() ?>">
+                                            <a href="../editSkill/<?= $skills->getId() ?>">
                                                 <button class="btn btn-md btn-primary btn-block btn-custom">
                                                     <i class="fa fa-edit"></i>
                                                     <span class="out_window">Bewerk</span>
