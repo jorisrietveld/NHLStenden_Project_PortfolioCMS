@@ -1,7 +1,7 @@
 <!doctype html>
 <?php
-$page_title = "Portfolio | Admin";
-$isOnAdminPage = "portfolio";
+$page_title = "Afbeelding aanpassen | Admin";
+$pageName = 'portfolio';
 include 'header.php';
 ?>
 <body>

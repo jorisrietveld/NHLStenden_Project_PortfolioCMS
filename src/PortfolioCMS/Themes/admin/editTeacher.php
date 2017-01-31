@@ -1,7 +1,7 @@
 <!doctype html>
 <?php
-$page_title = "Overzicht | Admin";
-$isOnAdminPage = "overzicht";
+$page_title = "Docent aanpassen | Admin";
+$pageName = "users";
 include 'header.php';
 
 ?>

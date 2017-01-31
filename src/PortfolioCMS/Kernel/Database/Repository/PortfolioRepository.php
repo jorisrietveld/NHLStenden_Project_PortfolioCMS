@@ -245,6 +245,7 @@ class PortfolioRepository extends Repository
         $trainingManager = $this->entityManager->getRepository( 'Training' );
         $hobbyManager = $this->entityManager->getRepository( 'Hobby' );
         $studentManager = $this->entityManager->getRepository( 'Student' );
+        $guestBookMessageManager = $this->entityManager->getRepository( 'GuestBookMessage' );
 
         $whereClause = '`portfolioId` = :wherePortfolioId';
         $param = [ ':wherePortfolioId' => $databaseData[ 'id' ] ];
@@ -299,6 +300,10 @@ class PortfolioRepository extends Repository
 
         $portfolio->setCv(
             $slbAssignmentManager->getCv( $databaseData['id'] )
+        );
+
+        $portfolio->setGuestBookMessages(
+            $guestBookMessageManager->getByUserId( $databaseData[ 'userId' ] )
         );
 
         return $portfolio;

@@ -2,8 +2,7 @@
 <?php
 
 $page_title = "Overzicht | Admin";
-$isOnAdminPage = "portfolio";
-
+$pageName = "portfolio";
 // PER STUDENT, INFO SCHERMEN MET HOBBY, TRAINING, ETC IN COLUMNS
 
 include 'header.php'; ?>

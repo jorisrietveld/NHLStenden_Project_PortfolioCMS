@@ -34,6 +34,10 @@
         <action id="controller">Raw</action>
     </route>
 
+    <route id="add_slb_assignment" path="/addGuestBookMessage" methods="GET|POST" authorization="STUDENT">
+        <action id="controller">GuestBookManagement:addGuestBookMessage</action>
+    </route>
+
     <route id="download" path="/downloadFile" methods="GET" authorization="ANONYMOUS_USER">
         <action id="controller">DownloadManager:downloadFile</action>
     </route>

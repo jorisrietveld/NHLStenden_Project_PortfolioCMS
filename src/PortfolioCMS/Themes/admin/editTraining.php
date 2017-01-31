@@ -1,14 +1,12 @@
 <!doctype html>
 <?php
-$page_title = "Portfolio | Admin";
-$isOnAdminPage = "portfolio";
+$page_title = "Opleiding aanpassen | Admin";
+$pageName = "portfolio";
 include 'header.php';
 $training = $dataProvider->get( 'training-data' );
 ?>
 <body>
-
 <?php include 'navigation.php' ?>
-
 <div class="content">
     <div class="container-fluid">
         <div class="row">

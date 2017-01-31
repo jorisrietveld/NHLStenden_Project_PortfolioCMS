@@ -89,6 +89,11 @@ class Portfolio implements EntityInterface
 
     protected $cv;
 
+    /**
+     * @var EntityCollection
+     */
+    protected $guestBookMessages;
+
     public function __construct(  )
     {
         $this->grade = (float)0.0;
@@ -383,5 +388,23 @@ class Portfolio implements EntityInterface
         $this->cv = $cv;
     }
 
+    /**
+     * This method gets the GuestBookMessages property.
+     *
+     * @return EntityCollection
+     */
+    public function getGuestBookMessages(): EntityCollection
+    {
+        return $this->guestBookMessages;
+    }
 
+    /**
+     * This method sets the guestBookMessages property.
+     *
+     * @param EntityCollection $guestBookMessages
+     */
+    public function setGuestBookMessages( EntityCollection $guestBookMessages )
+    {
+        $this->guestBookMessages = $guestBookMessages;
+    }
 }

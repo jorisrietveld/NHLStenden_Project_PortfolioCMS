@@ -1,14 +1,10 @@
 <!doctype html>
 <?php
-
-$page_title = "Overzicht | Admin";
-$isOnAdminPage = "overzicht";
-
+$page_title = "Gastenboek overzicht | Admin";
+$pageName = "guestBook";
 include 'header.php'; ?>
 <body>
-
 <?php include 'navigation.php' ?>
-
 <div class="content">
     <div class="">
         <div class="row">
@@ -41,7 +37,7 @@ include 'header.php'; ?>
                                             <a href="./moderateGuestbook/<?= $portfolioMetaData->getStudentId() ?>">
                                                 <button class="btn btn-md btn-primary btn-block btn-custom">
                                                     <i class="fa fa-edit"></i>
-                                                    <span class="out_window">Bekijk gastenboek</span>
+                                                    <span class="out_window">Bekijk gastenboek berichten</span>
                                                 </button>
                                             </a>
                                         </td>

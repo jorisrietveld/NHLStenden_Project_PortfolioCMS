@@ -2,7 +2,7 @@
 <?php
 
 $page_title = "Cijfers | Admin";
-$isOnAdminPage = "cijfer";
+$pageName = 'grade';
 
 include 'header.php'; ?>
 <body>

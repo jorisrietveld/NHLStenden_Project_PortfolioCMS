@@ -29,7 +29,12 @@ define( 'DATABASE_CONFIG_FILE', CONFIG_ROOT . 'Database.xml' );
 /**
  * Never set debug to TRUE on an production server!
  */
-define( 'DEBUG', FALSE );
+define( 'DEBUG', TRUE );
+
+/**
+ * Set the locale to dutch UTF-8 for date formatting.
+ */
+setlocale(LC_ALL, 'nl_NL.UTF-8');
 
 /**
  * This file contains an error and exception handler that are needed when things go wrong...

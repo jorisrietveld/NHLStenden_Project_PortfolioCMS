@@ -1,8 +1,7 @@
 <!doctype html>
 <?php
-
 $page_title = "Overzicht | Admin";
-$isOnAdminPage = "overzicht";
+$pageName = "users";
 
 include 'header.php'; ?>
 <body>

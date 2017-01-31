@@ -29,7 +29,7 @@ class GuestBookMessageRepository extends Repository
             `GuestBookMessage`.`message`,
             `GuestBookMessage`.`sendAt`,
             `GuestBookMessage`.`studentId`,
-            `GuestBookMessage`.`accsepted`
+            `GuestBookMessage`.`accepted`
         FROM `DigitalPortfolio`.`GuestBookMessage`
         WHERE `GuestBookMessage`.`id` = :id;
     ';
@@ -47,7 +47,7 @@ class GuestBookMessageRepository extends Repository
             `GuestBookMessage`.`message`,
             `GuestBookMessage`.`sendAt`,
             `GuestBookMessage`.`studentId`,
-            `GuestBookMessage`.`accsepted`
+            `GuestBookMessage`.`accepted`
         FROM `DigitalPortfolio`.`GuestBookMessage`
     ';
 
@@ -63,7 +63,7 @@ class GuestBookMessageRepository extends Repository
                 `message`,
                 `sendAt`,
                 `studentId`,
-                `accsepted`
+                `accepted`
             ) VALUES ( 
                 :sender,
                 :title,
@@ -86,7 +86,7 @@ class GuestBookMessageRepository extends Repository
             `message` = :message,
             `sendAt` = :sendAt,
             `studentId` = :studentId,
-            `accsepted` = :accsepted
+            `accepted` = :accsepted
         WHERE `GuestBookMessage`.`id` = :id;
     ';
 
@@ -162,6 +162,7 @@ class GuestBookMessageRepository extends Repository
                 ':sendAt'    => $guestBookMessage->getSendAt()->format( 'Y-m-d H:i:s' ),
                 ':studentId' => (int)$guestBookMessage->getStudentId(),
                 ':accsepted' => (int)$guestBookMessage->getIsAccepted(),
+                ':id'        => $guestBookMessage->getId(),
             ] );
 
             return $this->getById( $guestBookMessage->getId() );
@@ -188,7 +189,7 @@ class GuestBookMessageRepository extends Repository
         $guestBookMessage->setMessage( $databaseData[ 'message' ] );
         $guestBookMessage->setSendAt( new \DateTime( $databaseData[ 'sendAt' ] ) );
         $guestBookMessage->setStudentId( (int)$databaseData[ 'studentId' ] );
-        $guestBookMessage->setIsAccepted( (bool)$databaseData[ 'accsepted' ] );
+        $guestBookMessage->setIsAccepted( (bool)$databaseData[ 'accepted' ] );
 
         return $guestBookMessage;
     }

@@ -10,7 +10,11 @@ namespace StendenINF1B\PortfolioCMS\Controller;
 
 use StendenINF1B\PortfolioCMS\Kernel\BaseController;
 use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\DisplayStudent;
+use StendenINF1B\PortfolioCMS\Kernel\Database\Entity\GuestBookMessage;
+use StendenINF1B\PortfolioCMS\Kernel\Debug\Debug;
 use StendenINF1B\PortfolioCMS\Kernel\Helper\ConfigLoader;
+use StendenINF1B\PortfolioCMS\Kernel\Helper\Validation;
+use StendenINF1B\PortfolioCMS\Kernel\Http\ParameterContainer;
 use StendenINF1B\PortfolioCMS\Kernel\Http\Request;
 use StendenINF1B\PortfolioCMS\Kernel\Http\Response;
 use StendenINF1B\PortfolioCMS\Kernel\TemplateEngine\TemplateEngine;
@@ -39,6 +43,13 @@ class Portfolio extends BaseController
     {
         if ( $studentName !== NULL )
         {
+            if ( $request->getMethod() == 'POST' )
+            {
+                $feedback = $this->addGuestBookMessage( $request->getPostParams() );
+                $feedbackType = $feedback[ 0 ];
+                $feedback = $feedback[ 1 ];
+            }
+
             if ( !$portfolioEntity = $this->getPortfolios()->getEntityWith( 'url', $studentName ) )
             {
                 $this->redirect( '/404' );
@@ -85,6 +96,9 @@ class Portfolio extends BaseController
                         'current-page'       => $portfolioPageName,
                         'portfolioMenuLinks' => $this->renderMenuLinks(),
                         'cv'                 => $portfolioEntity->getCv(),
+                        'feedback'           => $feedback ?? '',
+                        'feedback-type'      => $feedbackType ?? '',
+                        'guestBookMessages'  => $portfolioEntity->getGuestBookMessages()->getEntitiesWith( 'isAccepted', TRUE ),
                     ]
                 );
             }
@@ -94,6 +108,52 @@ class Portfolio extends BaseController
         {
             // No name is set for the repository so redirect the user to home.
             return $this->redirect( '/home' );
+        }
+    }
+
+    public function addGuestBookMessage( ParameterContainer $postParams )
+    {
+        $guestBookMessageRepository = $this->getEntityManager()->getRepository( 'GuestBookMessage' );
+
+        $validationRules = [
+            'message'   => 'required|min_length,5|max_length,500',
+            'sender'    => 'required|min_length,3|max_length,100',
+            'studentId' => 'required',
+        ];
+
+        if ( Validation::getInstance()->validatePostParameters( $postParams, $validationRules ) )
+        {
+            try
+            {
+                $guestBookMessageEntity = new GuestBookMessage();
+                $guestBookMessageEntity->setStudentId( $postParams->getInt( 'studentId' ) );
+                $guestBookMessageEntity->setIsAccepted( FALSE );
+                $guestBookMessageEntity->setSender( $postParams->getString( 'sender' ) );
+                $guestBookMessageEntity->setTitle( $postParams->getString( 'title', 'Geen titel' ) );
+                $guestBookMessageEntity->setSendAt( new \DateTime() );
+                $guestBookMessageEntity->setMessage( $postParams->getString( 'message' ) );
+
+                $guestBookMessageRepository->insert( $guestBookMessageEntity );
+                return [
+                    'success',
+                    'Het bericht is geplaats, en zal worden weergegeven wanneer hij toegestaan is door de beheerder.',
+                ];
+            }
+            catch ( \Exception $exception )
+            {
+                Debug::addException( $exception );
+                return [
+                    'danger',
+                    'Er is iets fout gegaan bij het opslaan van je bericht, probeer later opnieuw.',
+                ];
+            }
+        }
+        else
+        {
+            return [
+                'danger',
+                Validation::getInstance()->getReadableErrors(),
+            ];
         }
     }
 

@@ -1,6 +1,6 @@
 <?php
-$page_title = "Portfolio | Admin";
-$isOnAdminPage = "portfolio";
+$page_title = "Taal toevoegen | Admin";
+$pageName = 'portfolio';
 include 'header.php';
 ?>
 <body>

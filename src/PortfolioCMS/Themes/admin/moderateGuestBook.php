@@ -1,8 +1,8 @@
 <!doctype html>
 <?php
 
-$page_title = "Overzicht | Admin";
-$isOnAdminPage = "portfolio";
+$page_title = "Gastenboek berichten | Admin";
+$pageName = "guestBook";
 
 include 'header.php'; ?>
 <body>
@@ -31,6 +31,11 @@ include 'header.php'; ?>
                             </div>
 
                             <form class="form-custom float-left" action="" method="POST">
+                                <?php if ( $dataProvider->hasFeedback() ) : ?>
+                                    <div class="alert alert-<?= $dataProvider->get( 'feedback-type' ) ?>">
+                                        <span><?= $dataProvider->get( 'feedback' ) ?></span>
+                                    </div>
+                                <?php endif; ?>
                                 <br/>
                                 <h4 class="title text-center">
                                     <strong>
@@ -38,32 +43,40 @@ include 'header.php'; ?>
                                     </strong>
                                 </h4>
                                 <hr class="style-one"/>
-
-                                <?php foreach ($dataProvider->get( 'guestBookMessages', [] ) as $guestBookMessage): ?>
-                                    <table class="table table-hover table-custom-portfolio">
-                                        <thead>
+                                <table class="table table-custom-portfolio">
+                                    <thead>
                                         <tr>
                                             <th>Id</th>
                                             <th>Verstuurd door</th>
-                                            <th>Bericht</th>
                                             <th>Verstuurd op</th>
+                                            <th>Bericht</th>
+                                            <th>Weergave aanpassen</th>
                                         </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <?php if ( $guestBookMessage->getIsAccepted() ) : ?>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($dataProvider->get( 'guestBookMessages', [] ) as $guestBookMessage): ?>
+                                            <tr>
                                                 <td>
-                                                    <input type="button" value="TRUE" id="isAccepted" name="isAccepted" required/>
+                                                    <?= $guestBookMessage->getId() ?>
                                                 </td>
-                                            <?php else: ?>
                                                 <td>
-                                                    <input type="button" value="FALSE" id="isAccepted" name="isAccepted" required/>
+                                                    <?= $guestBookMessage->getSender() ?>
                                                 </td>
-                                            <?php endif; ?>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                <?php endforeach; ?>
+                                                <td>
+                                                    <?= $guestBookMessage->getSendAt()->format( 'd-m-Y H:i' ) ?>
+                                                </td>
+                                                <td>
+                                                    <?= $guestBookMessage->getMessage() ?>
+                                                </td>
+                                                <td>
+                                                    <input type="hidden" value="<?= $guestBookMessage->getId() ?>" id="messageId" name="messageId" required/>
+                                                    <input type="hidden" value="<?= !$guestBookMessage->getIsAccepted() ?>" id="isAccepted" name="isAccepted" required/>
+                                                    <input class="btn btn-primary btn-custom" type="submit" value="Bericht <?= $guestBookMessage->getIsAccepted() ? 'Verbergen' : 'Toestaan' ?>"/>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>

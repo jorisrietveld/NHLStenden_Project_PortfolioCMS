@@ -2,7 +2,7 @@
 <?php
 
 $page_title = "Overzicht | Admin";
-$isOnAdminPage = "portfolio";
+$pageName = "portfolio";
 
 include 'header.php'; ?>
 <body>
