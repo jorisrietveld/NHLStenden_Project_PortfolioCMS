@@ -394,6 +394,7 @@ class PortfolioManagement extends BaseController
         return $this->createResponse(
             'admin:portfolioOverzicht', [
                 'portfolios-data' => $this->getPortfoliosMetadata(),
+                'httpRequest'    => $request,
             ]
         );
     }
@@ -442,6 +443,7 @@ class PortfolioManagement extends BaseController
                 'feedback-type' => $feedbackType ?? '',
                 'themes'        => $this->themeRepository->getAll(),
                 'students'      => $this->studentRepository->getAll(),
+                'httpRequest'    => $request,
             ]
         );
     }
@@ -497,6 +499,7 @@ class PortfolioManagement extends BaseController
                 'skill-data'    => $skillEntity,
                 'feedback'      => $feedback ?? '',
                 'feedback-type' => $feedbackType ?? '',
+                'httpRequest'    => $request,
             ]
         );
     }
