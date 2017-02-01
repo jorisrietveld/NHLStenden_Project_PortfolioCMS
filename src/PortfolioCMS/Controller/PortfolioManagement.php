@@ -147,6 +147,34 @@ class PortfolioManagement extends BaseController
     ];
 
     /**
+     * The required field to update the portfolio grade.
+     *
+     * @var array
+     */
+    protected $portfolioGradeFields = [
+        'grade' => 'required',
+    ];
+
+    /**
+     * The required field to add feedback to an slb assignment.
+     *
+     * @var array
+     */
+    protected $slbAssignmentFeedbackFields = [
+        'feedback' => 'required|min_length,1|max_length,500',
+    ];
+
+    /**
+     * The required field to add an grade to an project.
+     *
+     * @var array
+     */
+    protected $projectGradeField = [
+        'projectId' => 'required',
+        'grade'     => 'required',
+    ];
+
+    /**
      * This can be used to fetch JobExperience entities from the database.
      *
      * @var JobExperienceRepository
@@ -1364,17 +1392,44 @@ class PortfolioManagement extends BaseController
     {
         $portfolioEntity = $this->portfolioRepository->getByUserId( (int)$userId );
 
-        if( $portfolioEntity->getId() == 0 )
+        if ( $portfolioEntity->getId() == 0 )
         {
             $this->redirect( '/404' );
         }
 
+        $postParams = $request->getPostParams();
+
+        if ( Validation::getInstance()->validatePostParameters( $postParams, $this->portfolioGradeFields ) && $request->getMethod() === 'POST' )
+        {
+            try
+            {
+                $portfolioEntity->setGrade( $postParams->getFloat( 'grade' ) );
+
+                $this->portfolioRepository->update( $portfolioEntity );
+
+                $feedback = 'Het cijfer is toegevoegd.';
+                $feedbackType = 'success';
+            }
+            catch ( \Exception $exception )
+            {
+                Debug::addException( $exception );
+                $feedback = 'Er is iets fout gegaan probeer later opnieuw.';
+                $feedbackType = 'danger';
+            }
+        }
+        elseif ( $request->getMethod() === 'POST' )
+        {
+            $feedback = Validation::getInstance()->getReadableErrors();
+            $feedbackType = 'danger';
+        }
+
         return $this->createResponse(
             'admin:portfolioSlbAssignments', [
-                'feedback'      => $feedback ?? '',
-                'feedback-type' => $feedbackType ?? '',
+                'feedback'       => $feedback ?? '',
+                'feedback-type'  => $feedbackType ?? '',
                 'slbAssignments' => $portfolioEntity->getSlbAssignments(),
                 'student'        => new DisplayStudent( $portfolioEntity->getStudent() ),
+                'portfolio'      => $portfolioEntity,
             ]
         );
     }
@@ -1383,23 +1438,89 @@ class PortfolioManagement extends BaseController
     {
         $portfolioEntity = $this->portfolioRepository->getByUserId( (int)$userId );
 
-        if( $portfolioEntity->getId() == 0 )
+        if ( $portfolioEntity->getId() == 0 )
         {
             $this->redirect( '/404' );
+        }
+
+        $postParams = $request->getPostParams();
+
+        if ( Validation::getInstance()->validatePostParameters( $postParams, $this->projectGradeField ) && $request->getMethod() === 'POST' )
+        {
+            try
+            {
+                $projectEntity = $this->projectRepository->getById( $postParams->getInt( 'projectId') );
+                $projectEntity->setGrade( $postParams->getFloat( 'grade' ));
+                dump($postParams);
+                $this->projectRepository->update( $projectEntity );
+
+                $feedback = 'Het cijfer is toegevoegd.';
+                $feedbackType = 'success';
+            }
+            catch ( \Exception $exception )
+            {
+                Debug::addException( $exception );
+                $feedback = 'Er is iets fout gegaan probeer later opnieuw.';
+                $feedbackType = 'danger';
+            }
+        }
+        elseif ( $request->getMethod() === 'POST' )
+        {
+            $feedback = Validation::getInstance()->getReadableErrors();
+            $feedbackType = 'danger';
         }
 
         return $this->createResponse(
             'admin:portfolioProjects', [
                 'feedback'      => $feedback ?? '',
                 'feedback-type' => $feedbackType ?? '',
-                'projects' => $portfolioEntity->getSlbAssignments(),
-                'student'        => new DisplayStudent( $portfolioEntity->getStudent() ),
+                'projects'      => $portfolioEntity->getProjects(),
+                'student'       => new DisplayStudent( $portfolioEntity->getStudent() ),
             ]
         );
     }
 
-    public function addFeedback(  )
+    public function addFeedback( Request $request, string $slbAssignmentId )
     {
-        
+        $slbAssignment = $this->slbAssignmentRepository->getById( (int)$slbAssignmentId );
+
+        if ( $slbAssignment->getId() == 0 )
+        {
+            $this->redirect( '/404' );
+        }
+
+        $postParams = $request->getPostParams();
+
+        if ( Validation::getInstance()->validatePostParameters( $postParams, $this->slbAssignmentFeedbackFields ) && $request->getMethod() === 'POST' )
+        {
+            try
+            {
+                $slbAssignment->setFeedback( $postParams->getString( 'feedback' ) );
+
+                $this->slbAssignmentRepository->update( $slbAssignment );
+
+                $feedback = 'De feedback is toegevoegd.';
+                $feedbackType = 'success';
+            }
+            catch ( \Exception $exception )
+            {
+                Debug::addException( $exception );
+                $feedback = 'Er is iets fout gegaan probeer later opnieuw.';
+                $feedbackType = 'danger';
+            }
+        }
+        elseif ( $request->getMethod() === 'POST' )
+        {
+            $feedback = Validation::getInstance()->getReadableErrors();
+            $feedbackType = 'danger';
+        }
+
+        return $this->createResponse(
+            'admin:addFeedback', [
+                'feedback'      => $feedback ?? '',
+                'feedback-type' => $feedbackType ?? '',
+                'slbAssignment' => $slbAssignment,
+            ]
+        );
     }
 }

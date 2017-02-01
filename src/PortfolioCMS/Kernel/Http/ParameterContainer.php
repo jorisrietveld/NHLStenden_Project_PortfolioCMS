@@ -184,6 +184,17 @@ class ParameterContainer implements \IteratorAggregate, \Countable, \ArrayAccess
     }
 
     /**
+     * Get an paramether value as an float
+     * @param      $key
+     * @param bool $default
+     * @return bool
+     */
+    public function getFloat( $key, $default = 0.0 ) : float
+    {
+        return (float)$this->filter( $key, $default, FILTER_VALIDATE_FLOAT );
+    }
+
+    /**
      * Gets an parameter value as an string.
      *
      * @param        $key

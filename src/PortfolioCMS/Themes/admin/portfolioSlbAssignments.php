@@ -34,12 +34,12 @@ include 'header.php'; ?>
                                 <br/>
                                 <label class="form-label" for="title">Cijfer geven aan dit portfolio:</label>
 
-                                <input type="number"
+                                <input type="text"
                                        name="grade"
                                        class="form-control"
                                        id="grade"
                                        placeholder="Cijfer"
-                                       value="<?= $dataProvider->get( 'grade' ) ?>"
+                                       value="<?= $dataProvider->call( 'portfolio', 'getGrade' ) ?>"
                                        required>
                             </div>
 

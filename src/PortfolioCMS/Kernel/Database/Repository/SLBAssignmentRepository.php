@@ -105,9 +105,10 @@ class SLBAssignmentRepository extends Repository
      *
      * @var string
      */
-    protected $updateImageSql = '
+    protected $updateSlbAssignmentSql = '
         UPDATE SLBAssignment SET 
-            `name` = :name
+            `name` = :name,
+            `feedback` = :feedback
         WHERE `SLBAssignment`.`uploadedFileId` = :id;
     ';
 
@@ -194,9 +195,11 @@ class SLBAssignmentRepository extends Repository
         {
             $this->connection->beginTransaction();
 
-            $slbAssignmentStatement = $this->connection->prepare( $this->insertSLBAssignment );
+            $slbAssignmentStatement = $this->connection->prepare( $this->updateSlbAssignmentSql );
             $slbAssignmentStatement->execute( [
                 ':name' => $slbAssignment->getName(),
+                ':feedback' => $slbAssignment->getFeedback(),
+                ':id'   => $slbAssignment->getId(),
             ] );
 
             $this->connection->commit();
@@ -245,7 +248,7 @@ class SLBAssignmentRepository extends Repository
     {
         $slbAssignmentStatement = $this->connection->prepare( $this->getCvSql );
 
-        if ( $slbAssignmentStatement->execute( [ ':whereUploadedFileId' => $portfolioId ] ))
+        if ( $slbAssignmentStatement->execute( [ ':whereUploadedFileId' => $portfolioId ] ) )
         {
 
             $data = $slbAssignmentStatement->fetchAll( \PDO::FETCH_ASSOC );

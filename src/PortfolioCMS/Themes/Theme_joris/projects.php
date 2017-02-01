@@ -25,7 +25,7 @@ $hasPageSuffix = FALSE !== strpos( $dataProvider->call( 'httpRequest', 'getBaseU
                 <div class="col-lg-6">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            <h3 class="panel-title"><?= $project->getName()?></h3>
+                            <h3 class="panel-title"><?= $project->getName()?><span class="pull-right">Cijfer: <?= $project->getGrade()>0 ? $project->getGrade():'Nog geen cijfer' ?></span> </h3>
                         </div>
                         <div class="panel-body">
                             <?= $project->getDescription()?>

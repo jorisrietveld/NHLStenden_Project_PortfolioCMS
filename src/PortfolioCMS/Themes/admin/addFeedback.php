@@ -41,19 +41,14 @@ include 'header.php';
                                             <?php endif; ?>
 
                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputFeedback">Feedback</label>
-                                                <input type="text"
-                                                       name="feedback"
-                                                       class="form-control"
-                                                       id="feedback"
-                                                       value="<?= $dataProvider->call('slbAssignment-data','getFeedback') ?>"
-                                                       required>
+                                                <label class="form-label col-lg-3" for="feedback">Feedback</label>
+                                                <textarea name="feedback" class="form-control" id="feedback" required><?= $dataProvider->call('slbAssignment-data','getFeedback') ?></textarea>
                                             </div>
 
                                             <div class="row">
                                                 <div class="col-lg-6 clearfix"><br/></div>
                                             </div>
-                                            <button type="submit" class="btn btn-primary btn-custom">Opslaan</button>
+                                            <button type="submit" class="btn btn-primary btn-custom">Feedback Opslaan</button>
                                         </form>
                                     </div>
                                 </div>
