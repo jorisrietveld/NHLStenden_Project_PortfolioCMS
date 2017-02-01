@@ -67,11 +67,35 @@ class EntityCollection extends ParameterContainer implements \IteratorAggregate
         return FALSE;
     }
 
+    /**
+     * This function sorts an entity collection by an certain field name.
+     *
+     * @param string $fieldName
+     */
+    public function sortByField( string $fieldName )
+    {
+        usort( $this->parameters, function( $a, $b ) use ( $fieldName ){
+            return ($a->$fieldName < $b->$fieldName) ? -1 : 1;
+        } );
+        return $this->parameters;
+    }
+
+    /**
+     * This merges an entity collection with an other entity collection.
+     *
+     * @param EntityCollection $collection
+     * @return array
+     */
     public function mergeWith( EntityCollection $collection )
     {
         return array_merge( $this->parameters, $collection->getAsArray() );
     }
 
+    /**
+     * Gets an Array iterator for use with an foreach loop.
+     *
+     * @return \ArrayIterator
+     */
     public function getIterator()
     {
         return parent::getIterator();

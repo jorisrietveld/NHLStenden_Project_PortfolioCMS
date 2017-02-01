@@ -133,6 +133,8 @@ $hasPageSuffix = FALSE !== strpos( $dataProvider->call( 'httpRequest', 'getBaseU
                 </a>
             <?php endif; ?>
         </section>
+
+
     </main>
 </div>
 <!-- Jquery javascript library -->
