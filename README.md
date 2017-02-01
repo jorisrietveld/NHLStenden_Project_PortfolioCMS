@@ -12,7 +12,7 @@ Documentation or here:
 
 
 ### Live version
-To view an live version of the Portefolio cms [click here](http://146.185.141.142)
+To view an live version of the Portefolio cms [click here](http://www.profolio.ml)
 
 ### Authors
 Esmee Lunenborg - esmee.lunenborg@student.stenden.com<br>
