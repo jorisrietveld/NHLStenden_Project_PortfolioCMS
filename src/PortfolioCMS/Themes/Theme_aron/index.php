@@ -61,19 +61,112 @@
                 </li>
                 <li class="page-scroll">
                     <a href="#talen">Talen</a>
+                    <?php foreach ( $dataProvider->get('languages', []) as $language ) : ?>
+                        <?= $language->getLanguage()?><br>
+                        <?php for( $i = 0; $i < 10; $i++ ) : ?>
+                            <i class="fa fa-circle<?= $language->getLevel() <= $i ? '-o': ''?>" aria-hidden="true"></i>
+                        <?php endfor; ?>
+                        <br>
+                    <?php endforeach; ?>
                 </li>
                 <li class="page-scroll">
                     <a href="#opleiding">Opleiding</a>
+                    <?php foreach ( $dataProvider->get('trainings', []) as $training ) : ?>
+                        <div class="col-lg-12 row">
+                            <h4 class="col-lg-12">
+                                <span class="color-orange"><?= $training->getTitle()?></span>
+                                &nbsp;-
+                                <span class="color-purple"><?= $training->getInstitution()?></span>
+                            </h4>
+                            <div class="col-lg-11">
+                                <?= $training->getDescription()?><br><br>
+                            </div>
+                            <div class="col-lg-1">
+                                <?php if ( !$training->getCurrentTraining() ): ?>
+                                    <img alt="certificate icon" class="certificate-icon" src="<?= $dataProvider->get( 'asset-path' ) ?>/images/obtained_certificate<?= $training->getObtainedCertificate()? '':'_not'?>.png"/>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
                 </li>
+
                 <li class="page-scroll">
                     <a href="#werkervaring">Werkervaring</a>
+                    <?php foreach( $dataProvider->call( 'jobExperiences', 'getEntitiesWith', [ 'IsInternship', FALSE ] ) as $jobExperience ) : ?>
+                        <h4 class=""><?= $jobExperience->getLocation()?></h4>
+                        <?= $jobExperience->getDescription()?><br><br>
+                    <?php endforeach; ?>
                 </li>
+
+                <li class="page-scroll">
+                    <a href="#stages">Stages</a>
+                    <?php foreach( $dataProvider->call( 'jobExperiences', 'getEntitiesWith', [ 'IsInternship', TRUE ] ) as $internship ) : ?>
+                        <h4 class="color-orange"><?= $internship->getLocation()?></h4>
+                        <?= $internship->getDescription()?><br><br>
+                    <?php endforeach; ?>
+                </li>
+
                 <li class="page-scroll">
                     <a href="#gastenboek">Gastenboek</a>
+                    <?php if( count( $dataProvider->get( 'guestBookMessages' ) )) : ?>
+                        <?php foreach ( $dataProvider->get( 'guestBookMessages', [] ) as $guestBookId => $guestBookMessageEntity ) : ?>
+                            <br/>
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        <?= $guestBookMessageEntity->getSender() ?>
+                                        <span class="pull-right"><?= strftime( '%A %e %B %Y', $guestBookMessageEntity->getSendAt()->getTimestamp()) . ' om ' . $guestBookMessageEntity->getSendAt()->format( 'H:m' )?></span>
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    <h3 class="color-purple"><?= $guestBookMessageEntity->getTitle() ?></h3>
+                                    <?= $guestBookMessageEntity->getMessage() ?>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </li>
 
                 <li class="page-scroll">
                     <a href="#slb">SLB Opdrachten</a>
+                    <?php foreach ( $dataProvider->get( 'slbAssignments', [] ) as $slbAssignment ) : ?>
+                        <button type="button" class="btn btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12" data-toggle="modal" data-target="#model-<?=  $slbAssignment->getId() ?>">
+                            Bekijk de opdracht: <?= $slbAssignment->getName() ?>
+                        </button>
+                        <div class="col-lg-12">
+                            <?= strlen( $slbAssignment->getFeedback() ) == 0 ? 'Deze opdracht heeft geen feedback.' : $slbAssignment->getFeedback() ?>
+                            <br/>
+                            <br/>
+                        </div>
+
+                        <div class="modal fade" id="model-<?= $slbAssignment->getId() ?>" tabindex="-1" role="dialog" aria-labelledby="slb-model=<?= $slbAssignment->getId()?>">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title"><?= $slbAssignment->getName() ?></h4>
+                                    </div>
+
+                                    <div class="modal-body">
+
+                                        <object
+                                            class="pdf-object col-lg-12 col-md-12 col-sm-12 col-xs-1"
+                                            type="application/pdf"
+                                            data="../../../slbAssignments/<?= $slbAssignment->getFileName() ?>?#zoom=85&scrollbar=0&toolbar=0&navpanes=0"
+                                            id="pdf-content-<?= $slbAssignment->getId() ?>">
+                                            <p>De slb opdracht kan niet worden weergegeven.</p>
+                                        </object>
+
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-info col-lg-12 col-md-12 col-sm-12 col-xs-1" data-dismiss="modal">Opdracht sluiten</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
                 </li>
 
                 <li class="page-scroll">

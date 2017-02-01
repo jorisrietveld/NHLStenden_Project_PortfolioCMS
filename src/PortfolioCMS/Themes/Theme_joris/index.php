@@ -23,14 +23,14 @@ $hasPageSuffix = FALSE !== strpos( $dataProvider->call( 'httpRequest', 'getBaseU
 <?php include __DIR__ . DIR_SEP . 'navigation.php'; ?>
 <div class="page-wrapper container">
     <header class="jumbotron text-center row" id="portfolio-header">
-        <h1 class="col-lg-12 text-mono">
-            <span class="color-orange"><?= $student->getFirstName() ?>@<?= $dataProvider->call( 'httpRequest', 'getServerIp' ) ?>:~$</span> whoami
+        <h1 class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-mono">
+            <span class="color-orange header-text-size"><?= $student->getFirstName() ?>@<?= $dataProvider->call( 'httpRequest', 'getServerIp' ) ?>:~$</span> whoami
         </h1>
     </header>
 
     <main>
         <section class="jumbotron row">
-            <div class="col-lg-9">
+            <div class="col-lg-9 col-md-6 col-sm-12 col-xs-12">
                 <h1><?= $student->getFirstName() . ' ' . $student->getLastName() ?></h1>
                 <h4>
                     <i class="fa fa-birthday-cake" aria-hidden="true"></i>
@@ -54,7 +54,7 @@ $hasPageSuffix = FALSE !== strpos( $dataProvider->call( 'httpRequest', 'getBaseU
 
             </div>
                 <img
-                class="img-circle header-profile-picture col-lg-3"
+                class=" pull-right img-circle header-profile-picture col-lg-3 col-md-4 col-sm-12 col-xs-12"
                 src="../../../images/<?= $dataProvider->nestedCall( 'images', 'getEntityWith:getFileName', [ [ 'type', 'PROFILE_IMAGE' ], [] ] )?>"
                 alt="<?= $dataProvider->nestedCall( 'images', 'getEntityWith:getDescription', [ [ 'type', 'PROFILE_IMAGE' ], [] ] )?>"/>
         </section>
