@@ -1,3 +1,8 @@
+<?php
+$student = $dataProvider->get( 'student' );
+$hasPageSuffix = FALSE !== strpos( $dataProvider->call( 'httpRequest', 'getBaseUrl' ), $dataProvider->get( 'current-page' ) );
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +14,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Portfolio Aron Soppe</title>
+    <title><?= $dataProvider->get( 'title' ) ?></title>
 
     <!-- Font awesome css files -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
@@ -36,7 +41,7 @@
                 <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
             </button>
             <div class="page-title">
-                <a class="navbar-brand" href="#page-top">Portfolio Aron</a>
+                <a class="navbar-brand" href="#page-top">Portfolio <?= $student->getFirstName() ?></a>
             </div>
         </div>
 
@@ -61,112 +66,25 @@
                 </li>
                 <li class="page-scroll">
                     <a href="#talen">Talen</a>
-                    <?php foreach ( $dataProvider->get('languages', []) as $language ) : ?>
-                        <?= $language->getLanguage()?><br>
-                        <?php for( $i = 0; $i < 10; $i++ ) : ?>
-                            <i class="fa fa-circle<?= $language->getLevel() <= $i ? '-o': ''?>" aria-hidden="true"></i>
-                        <?php endfor; ?>
-                        <br>
-                    <?php endforeach; ?>
                 </li>
                 <li class="page-scroll">
                     <a href="#opleiding">Opleiding</a>
-                    <?php foreach ( $dataProvider->get('trainings', []) as $training ) : ?>
-                        <div class="col-lg-12 row">
-                            <h4 class="col-lg-12">
-                                <span class="color-orange"><?= $training->getTitle()?></span>
-                                &nbsp;-
-                                <span class="color-purple"><?= $training->getInstitution()?></span>
-                            </h4>
-                            <div class="col-lg-11">
-                                <?= $training->getDescription()?><br><br>
-                            </div>
-                            <div class="col-lg-1">
-                                <?php if ( !$training->getCurrentTraining() ): ?>
-                                    <img alt="certificate icon" class="certificate-icon" src="<?= $dataProvider->get( 'asset-path' ) ?>/images/obtained_certificate<?= $training->getObtainedCertificate()? '':'_not'?>.png"/>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
                 </li>
 
                 <li class="page-scroll">
                     <a href="#werkervaring">Werkervaring</a>
-                    <?php foreach( $dataProvider->call( 'jobExperiences', 'getEntitiesWith', [ 'IsInternship', FALSE ] ) as $jobExperience ) : ?>
-                        <h4 class=""><?= $jobExperience->getLocation()?></h4>
-                        <?= $jobExperience->getDescription()?><br><br>
-                    <?php endforeach; ?>
                 </li>
 
                 <li class="page-scroll">
                     <a href="#stages">Stages</a>
-                    <?php foreach( $dataProvider->call( 'jobExperiences', 'getEntitiesWith', [ 'IsInternship', TRUE ] ) as $internship ) : ?>
-                        <h4 class="color-orange"><?= $internship->getLocation()?></h4>
-                        <?= $internship->getDescription()?><br><br>
-                    <?php endforeach; ?>
                 </li>
 
                 <li class="page-scroll">
                     <a href="#gastenboek">Gastenboek</a>
-                    <?php if( count( $dataProvider->get( 'guestBookMessages' ) )) : ?>
-                        <?php foreach ( $dataProvider->get( 'guestBookMessages', [] ) as $guestBookId => $guestBookMessageEntity ) : ?>
-                            <br/>
-                            <div class="panel panel-primary">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">
-                                        <?= $guestBookMessageEntity->getSender() ?>
-                                        <span class="pull-right"><?= strftime( '%A %e %B %Y', $guestBookMessageEntity->getSendAt()->getTimestamp()) . ' om ' . $guestBookMessageEntity->getSendAt()->format( 'H:m' )?></span>
-                                    </h3>
-                                </div>
-                                <div class="panel-body">
-                                    <h3 class="color-purple"><?= $guestBookMessageEntity->getTitle() ?></h3>
-                                    <?= $guestBookMessageEntity->getMessage() ?>
-                                </div>
-                            </div>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
                 </li>
 
                 <li class="page-scroll">
                     <a href="#slb">SLB Opdrachten</a>
-                    <?php foreach ( $dataProvider->get( 'slbAssignments', [] ) as $slbAssignment ) : ?>
-                        <button type="button" class="btn btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12" data-toggle="modal" data-target="#model-<?=  $slbAssignment->getId() ?>">
-                            Bekijk de opdracht: <?= $slbAssignment->getName() ?>
-                        </button>
-                        <div class="col-lg-12">
-                            <?= strlen( $slbAssignment->getFeedback() ) == 0 ? 'Deze opdracht heeft geen feedback.' : $slbAssignment->getFeedback() ?>
-                            <br/>
-                            <br/>
-                        </div>
-
-                        <div class="modal fade" id="model-<?= $slbAssignment->getId() ?>" tabindex="-1" role="dialog" aria-labelledby="slb-model=<?= $slbAssignment->getId()?>">
-                            <div class="modal-dialog modal-lg" role="document">
-                                <div class="modal-content">
-
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        <h4 class="modal-title"><?= $slbAssignment->getName() ?></h4>
-                                    </div>
-
-                                    <div class="modal-body">
-
-                                        <object
-                                            class="pdf-object col-lg-12 col-md-12 col-sm-12 col-xs-1"
-                                            type="application/pdf"
-                                            data="../../../slbAssignments/<?= $slbAssignment->getFileName() ?>?#zoom=85&scrollbar=0&toolbar=0&navpanes=0"
-                                            id="pdf-content-<?= $slbAssignment->getId() ?>">
-                                            <p>De slb opdracht kan niet worden weergegeven.</p>
-                                        </object>
-
-                                    </div>
-
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-info col-lg-12 col-md-12 col-sm-12 col-xs-1" data-dismiss="modal">Opdracht sluiten</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
                 </li>
 
                 <li class="page-scroll">
@@ -197,9 +115,8 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="intro-text">
-                    <span class="name">Aron Soppe</span>
+                    <span class="name"><?= $student->getFirstName() ?> <?= $student->getLastName() ?></span>
                     <hr class="linestyle">
-                    <span class="skills">Informatica student Stenden - Digitaal Portfolio</span>
                 </div>
             </div>
         </div>
@@ -236,7 +153,7 @@
                 </p>
 
                 <p class="records">
-                    Plaats:
+                    Woonplaats:
                     <?php
                     $place = $dataProvider->get( 'student' );
                     echo $place->getLocation();
@@ -259,7 +176,7 @@
 </section>
 
 <!-- Talen Section -->
-<section id="talen">
+<section   id="talen">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
@@ -267,8 +184,16 @@
                 <hr class="linestyle">
             </div>
         </div>
-        <div class="row">
-
+        <div class="text-center">
+        <?php foreach ( $dataProvider->get('languages', []) as $language ) : ?>
+        <div class="col-lg-6 row">
+            <?= $language->getLanguage()?><br>
+            <?php for( $i = 0; $i < 10; $i++ ) : ?>
+                <i class="fa fa-circle<?= $language->getLevel() <= $i ? '-o': ''?>" aria-hidden="true"></i>
+            <?php endfor; ?>
+            <br>
+        </div>
+        <?php endforeach; ?>
         </div>
     </div>
 </section>
@@ -282,62 +207,93 @@
                 <hr class="linestyle">
             </div>
         </div>
-        <div class="row">
+        <?php foreach ( $dataProvider->get('trainings', []) as $training ) : ?>
+            <div class="col-lg-12 row">
+                <h4 class="col-lg-12">
+                    <span class="color-orange"><?= $training->getTitle()?></span>
+                    <i>@</i>
+                    <span class="color-purple"><?= $training->getInstitution()?></span>
+                </h4>
+                <div class="col-lg-10">
+                    <?= $training->getDescription()?><br><br>
+                </div>
+                <div class="col-lg-2">
+                    Diploma behaald:
+                    <?php
+                    if($training->getObtainedCertificate() == true){
 
-        </div>
+                        echo'<b>Ja</b>';
+                    }else{
+                        echo'<b>Nee</b>';
+                    } ?>
+                </div>
+            </div>
+        <?php endforeach; ?>
     </div>
 </section>
 
 <!-- Werkervaring Section -->
-<section id="werkervaring">
+<section   id="werkervaring">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h2>Mijn werkervaring</h2>
+                <h2>Mijn Werkervaring</h2>
                 <hr class="linestyle">
             </div>
         </div>
-        <div class="row">
-
-        </div>
+        <?php foreach( $dataProvider->call( 'jobExperiences', 'getEntitiesWith', [ 'IsInternship', FALSE ] ) as $jobExperience ) : ?>
+            <h4 class=""><?= $jobExperience->getLocation()?></h4>
+            <?= $jobExperience->getDescription()?><br><br>
+        <?php endforeach; ?>
     </div>
 </section>
 
-<!-- CV Section -->
-<section class="success" id="cv">
+<!-- Stages Section -->
+<section class="success"  id="stages">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h2>Mijn CV</h2>
+                <h2>Mijn Stages</h2>
                 <hr class="linestyle">
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-4 col-lg-offset-2">
-                <p>placeholder</p>
-            </div>
-            <div class="col-lg-4">
-                <p>placeholder</p>
-            </div>
-            <div class="col-lg-8 col-lg-offset-2 text-center">
-                <a href="#" class="btn btn-lg btn-outline">
-                    <i class="fa fa-spinner fa-pulse fa-fw"></i> button
-                </a>
-            </div>
-        </div>
+        <?php foreach( $dataProvider->call( 'jobExperiences', 'getEntitiesWith', [ 'IsInternship', TRUE ] ) as $internship ) : ?>
+            <h4 class="color-orange"><?= $internship->getLocation()?></h4>
+            <?= $internship->getDescription()?><br><br>
+        <?php endforeach; ?>
     </div>
 </section>
 
 <!-- Gastenboek Section -->
-<section id="gastenboek">
+<section  id="gastenboek">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
                 <h2>Gastenboek</h2>
                 <hr class="linestyle">
+                <?php if( count( $dataProvider->get( 'guestBookMessages' ) )) : ?>
+                    <?php foreach ( $dataProvider->get( 'guestBookMessages', [] ) as $guestBookId => $guestBookMessageEntity ) : ?>
+                        <br/>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    <?= $guestBookMessageEntity->getSender() ?>
+                                    <span class="pull-right"><?= strftime( '%A %e %B %Y', $guestBookMessageEntity->getSendAt()->getTimestamp()) . ' om ' . $guestBookMessageEntity->getSendAt()->format( 'H:m' )?></span>
+                                </h3>
+                            </div>
+                            <div class="panel-body">
+                                <h3 class="color-purple"><?= $guestBookMessageEntity->getTitle() ?></h3>
+                                <?= $guestBookMessageEntity->getMessage() ?>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </div>
         </div>
         <div class="row">
+            <hr>
+            <p>Schrijf een bericht op de portfolio van <?= $student->getFirstName() ?> <?= $student->getLastName() ?>:</p>
+
             <div class="col-lg-8 col-lg-offset-2">
                 <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
                 <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
@@ -351,8 +307,8 @@
 
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
-                            <label for="sender">Naam</label>
-                            <input type="text" class="form-control" placeholder="Naam" name='sender' id="sender" required
+                            <label for="sender">Uw naam</label>
+                            <input type="text" class="form-control" placeholder="Uw naam" name='sender' id="sender" required
                                    data-validation-required-message="Vul je naam in.">
                             <p class="help-block text-danger"></p>
                         </div>
@@ -391,16 +347,50 @@
 
 <!-- SLB Section -->
 <section class="success" id="slb">
-    <div class="container">
-        <div class="row">
+    <div class="container">        <div class="row">
             <div class="col-lg-12 text-center">
-                <h2>Mijn SLB opdrachten</h2>
+                <h2>Mijn SLB Opdrachten</h2>
                 <hr class="linestyle">
             </div>
         </div>
-        <div class="row">
+        <?php foreach ( $dataProvider->get( 'slbAssignments', [] ) as $slbAssignment ) : ?>
+            <button type="button" class="btn btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12" data-toggle="modal" data-target="#model-<?=  $slbAssignment->getId() ?>">
+                Bekijk de opdracht: <?= $slbAssignment->getName() ?>
+            </button>
+            <div class="col-lg-12">
+                <?= strlen( $slbAssignment->getFeedback() ) == 0 ? 'Deze opdracht heeft geen feedback.' : $slbAssignment->getFeedback() ?>
+                <br/>
+                <br/>
+            </div>
 
-        </div>
+            <div class="modal fade" id="model-<?= $slbAssignment->getId() ?>" tabindex="-1" role="dialog" aria-labelledby="slb-model=<?= $slbAssignment->getId()?>">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title"><?= $slbAssignment->getName() ?></h4>
+                        </div>
+
+                        <div class="modal-body">
+
+                            <object
+                                    class="pdf-object col-lg-12 col-md-12 col-sm-12 col-xs-1"
+                                    type="application/pdf"
+                                    data="../../../slbAssignments/<?= $slbAssignment->getFileName() ?>?#zoom=85&scrollbar=0&toolbar=0&navpanes=0"
+                                    id="pdf-content-<?= $slbAssignment->getId() ?>">
+                                <p>De slb opdracht kan niet worden weergegeven.</p>
+                            </object>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-info col-lg-12 col-md-12 col-sm-12 col-xs-1" data-dismiss="modal">Opdracht sluiten</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
     </div>
 </section>
 
@@ -419,32 +409,6 @@
     </div>
 </section>
 
-<!-- Footer -->
-<footer class="text-center">
-    <div class="footer-above">
-        <div class="container">
-            <div class="row">
-                <div class="footer-col col-md-12">
-                    <h3>Social Media</h3>
-                    <ul class="list-inline">
-                        <li>
-                            <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="footer-below">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    Copyright &copy; Aron Soppe
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
 
 <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
 <div class="scroll-top page-scroll hidden-sm hidden-xs hidden-lg hidden-md">

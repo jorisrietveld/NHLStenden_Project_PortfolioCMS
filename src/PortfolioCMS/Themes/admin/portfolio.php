@@ -205,7 +205,7 @@ include 'header.php'; ?>
                                         <td><?= $training->getObtainedCertificate() ? 'Ja' : 'Nee' ?></td>
                                         <td><?= $training->getCurrentTraining() ? 'Ja' : 'Nee' ?></td>
                                         <td>
-                                            <a href="../editTraining/<?= $language->getId() ?>">
+                                            <a href="../editTraining/<?= $training->getId() ?>">
                                                 <button class="btn btn-md btn-primary btn-block btn-custom">
                                                     <i class="fa fa-edit"></i>
                                                     <span class="out_window">Bewerk</span>
