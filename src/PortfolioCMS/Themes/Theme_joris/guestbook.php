@@ -16,8 +16,8 @@ $hasPageSuffix = FALSE !== strpos( $dataProvider->call( 'httpRequest', 'getBaseU
     <link rel="stylesheet" href="<?= $dataProvider->get( 'asset-path' ) ?>css/bootstrap_ubuntu.css" type="text/css"/>
     <!-- Compiled custom stylesheet -->
     <link rel="stylesheet" href="<?= $dataProvider->get( 'asset-path' ) ?>css/styles.css" type="text/css"/>
-    <!-- Font awesome icons-->
-    <link rel="stylesheet" href="<?= $dataProvider->get( 'lib-path' ) ?>font-awesome/css/font-awesome.min.css" type="text/css"/>
+    <!-- Font awesome css file-->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <?php include __DIR__ . DIR_SEP . 'navigation.php'; ?>
@@ -33,7 +33,7 @@ $hasPageSuffix = FALSE !== strpos( $dataProvider->call( 'httpRequest', 'getBaseU
             <form method="POST" action="">
                 <?php if ( $dataProvider->hasFeedback() ) : ?>
                     <div class="alert alert-<?= $dataProvider->get( 'feedback-type' ) ?>">
-                        <strong><?= $dataProvider->get( 'feedback-type' ) == 'success' ? '<i class="fa fa-check-square" aria-hidden="true"></i>Bedankt!' : '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Oeps er ging iets mis' ?></strong><br>
+                        <strong><?= $dataProvider->get( 'feedback-type' ) == 'success' ? '<i class="fa fa-check-square" aria-hidden="true"></i>&nbsp;Bedankt!' : '<i class="fa fa-exclamation-triangle" aria-hidden="true">&nbsp;</i>Oeps er ging iets mis' ?></strong><br>
                         <span><?= $dataProvider->get( 'feedback' ) ?></span>
                     </div>
                 <?php endif; ?>

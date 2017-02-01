@@ -311,7 +311,7 @@ CREATE TABLE IF NOT EXISTS `Project` (
   CONSTRAINT pk_project PRIMARY KEY `Project`(`id`),
 
   # Constraint to define the foreign key to the entity Image( id )
-  CONSTRAINT fk_project_image FOREIGN KEY `Project`(`portfolioId`) REFERENCES `DigitalPortfolio`.`Image` (`uploadedFileId`)
+  CONSTRAINT fk_project_image FOREIGN KEY `Project`(`imageId`) REFERENCES `DigitalPortfolio`.`Image` (`uploadedFileId`)
     ON UPDATE CASCADE # When the portfolio is updated, update this record.
     ON DELETE CASCADE, # When the portfolio is updated, delete this record.
 
@@ -320,3 +320,6 @@ CREATE TABLE IF NOT EXISTS `Project` (
     ON UPDATE CASCADE # When the portfolio is updated, update this record.
     ON DELETE CASCADE # When the portfolio is updated, delete this record.
 );
+
+#ALTER TABLE `DigitalPortfolio`.`Project` DROP FOREIGN KEY fk_project_image;
+#ALTER TABLE `DigitalPortfolio`.`Project`  ADD CONSTRAINT fk_project_images FOREIGN KEY `Project`(`imageId`) REFERENCES `DigitalPortfolio`.`Image` (`uploadedFileId`)

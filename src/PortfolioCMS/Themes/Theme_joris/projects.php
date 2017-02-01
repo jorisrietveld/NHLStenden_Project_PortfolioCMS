@@ -10,8 +10,8 @@ $hasPageSuffix = FALSE !== strpos( $dataProvider->call( 'httpRequest', 'getBaseU
     <link rel="stylesheet" href="<?= $dataProvider->get( 'asset-path' ) ?>css/bootstrap_ubuntu.css" type="text/css"/>
     <!-- Compiled custom stylesheet -->
     <link rel="stylesheet" href="<?= $dataProvider->get( 'asset-path' ) ?>css/styles.css" type="text/css"/>
-    <!-- Font awesome icons-->
-    <link rel="stylesheet" href="<?= $dataProvider->get( 'lib-path' ) ?>font-awesome/css/font-awesome.min.css" type="text/css"/>
+    <!-- Font awesome css file-->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <?php include __DIR__ . DIR_SEP . 'navigation.php'; ?>
@@ -20,6 +20,25 @@ $hasPageSuffix = FALSE !== strpos( $dataProvider->call( 'httpRequest', 'getBaseU
     <main>
         <section class="jumbotron row">
             <h1>Projecten</h1>
+            <br/>
+            <?php foreach ( $dataProvider->get( 'projects' ) as $project ) : ?>
+                <div class="col-lg-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><?= $project->getName()?></h3>
+                        </div>
+                        <div class="panel-body">
+                            <?= $project->getDescription()?>
+                            <br/>
+                            <br/>
+                            <img src="../../../images/<?= $project->getImage()->getFileName() ?>" class="col-lg-11" style="margin-bottom: 10px"/>
+                            <a href="<?= $project->getLink()?>">
+                                <button class="btn btn-info col-lg-12">Bekijk de het project</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
         </section>
     </main>
 </div>

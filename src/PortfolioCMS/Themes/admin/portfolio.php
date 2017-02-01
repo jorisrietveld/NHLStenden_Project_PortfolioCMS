@@ -35,7 +35,7 @@ include 'header.php'; ?>
                                     </div>
                                 <?php endif; ?>
                                 <div class="form-group">
-                                    <br />
+                                    <br/>
                                     <label class="form-label col-lg-3" for="title">Titel:</label>
                                     <input type="text"
                                            name="title"
@@ -78,49 +78,50 @@ include 'header.php'; ?>
                             <br>
                             <div class="row">
                                 <div class="col-lg-12">
-                            <h4 class="title text-center">
-                                <strong>
-                                    Werkervaringen
-                                </strong>
-                            </h4>
-                            <hr class="style-one"/>
-                            <div class="col-sm-5 custom-buttons">
-                                <a href="../addJobExperience/<?= $dataProvider->get( 'id' ) ?>">
-                                    <button class="btn btn-md btn-primary btn-block btn-custom">
-                                        <i class="fa fa-plus"></i> Werk ervaring toevoegen
-                                    </button>
-                                </a>
+                                    <h4 class="title text-center">
+                                        <strong>
+                                            Werkervaringen
+                                        </strong>
+                                    </h4>
+                                    <hr class="style-one"/>
+                                    <div class="col-sm-5 custom-buttons">
+                                        <a href="../addJobExperience/<?= $dataProvider->get( 'id' ) ?>">
+                                            <button class="btn btn-md btn-primary btn-block btn-custom">
+                                                <i class="fa fa-plus"></i> Werk ervaring toevoegen
+                                            </button>
+                                        </a>
+                                    </div>
+                                    <table class="table table-hover table-custom-portfolio">
+                                        <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Locatie</th>
+                                            <th>Beschrijving</th>
+                                            <th>Type</th>
+                                            <th>Aanpassen</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php foreach ($dataProvider->get( 'jobExperiences', [] ) as $jobExperience): ?>
+                                            <tr>
+                                                <td><?= $jobExperience->getId() ?></td>
+                                                <td><?= $jobExperience->getLocation() ?></td>
+                                                <td><?= $jobExperience->getDescription() ?></td>
+                                                <td><?= $jobExperience->getIsInternship() ? 'Stage' : 'Baan' ?></td>
+                                                <td>
+                                                    <a href="../editJobExperience/<?= $jobExperience->getId() ?>">
+                                                        <button class="btn btn-md btn-primary btn-block btn-custom">
+                                                            <i class="fa fa-edit"></i>
+                                                            <span class="out_window">Bewerk</span>
+                                                        </button>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                            <table class="table table-hover table-custom-portfolio">
-                                <thead>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Locatie</th>
-                                    <th>Beschrijving</th>
-                                    <th>Type</th>
-                                    <th>Aanpassen</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <?php foreach ($dataProvider->get( 'jobExperiences', [] ) as $jobExperience): ?>
-                                    <tr>
-                                        <td><?= $jobExperience->getId() ?></td>
-                                        <td><?= $jobExperience->getLocation() ?></td>
-                                        <td><?= $jobExperience->getDescription() ?></td>
-                                        <td><?= $jobExperience->getIsInternship() ? 'Stage' : 'Baan' ?></td>
-                                        <td>
-                                            <a href="../editJobExperience/<?= $jobExperience->getId() ?>">
-                                                <button class="btn btn-md btn-primary btn-block btn-custom">
-                                                    <i class="fa fa-edit"></i>
-                                                    <span class="out_window">Bewerk</span>
-                                                </button>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                                </div></div>
 
                             <br>
                             <h4 class="title text-center">
@@ -322,7 +323,7 @@ include 'header.php'; ?>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <?php foreach ($dataProvider->get( 'skills', [] ) as $skills ): ?>
+                                <?php foreach ($dataProvider->get( 'skills', [] ) as $skills): ?>
                                     <tr>
                                         <td><?= $skills->getId() ?></td>
                                         <td><?= $skills->getName() ?></td>
@@ -348,7 +349,7 @@ include 'header.php'; ?>
                             </h4>
                             <hr class="style-one"/>
                             <div class="col-sm-5 custom-buttons">
-                                <a href="../editProject/<?= $dataProvider->get( 'id' ) ?>">
+                                <a href="../addProject/<?= $dataProvider->get( 'id' ) ?>">
                                     <button class="btn btn-md btn-primary btn-block btn-custom">
                                         <i class="fa fa-plus"></i> Projects toevoegen
                                     </button>
@@ -366,15 +367,15 @@ include 'header.php'; ?>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <?php foreach ($dataProvider->get( 'projects' ) as $projects ): ?>
+                                <?php foreach ($dataProvider->get( 'projects' ) as $project): ?>
                                     <tr>
-                                        <td><?= $projects->getId() ?></td>
-                                        <td><?= $projects->getName() ?></td>
-                                        <td><?= $projects->getDescription() ?></td>
-                                        <td><?= $projects->getLink() ?></td>
-                                        <td><?= $projects->getImageId() ?></td>
+                                        <td><?= $project->getId() ?></td>
+                                        <td><?= $project->getName() ?></td>
+                                        <td><?= $project->getDescription() ?></td>
+                                        <td><?= $project->getLink() ?></td>
+                                        <td><?= $project->getImage()->getId() ?></td>
                                         <td>
-                                            <a href="../editProject/<?= $projects->getId() ?>">
+                                            <a href="../editProject/<?= $project->getId() ?>">
                                                 <button class="btn btn-md btn-primary btn-block btn-custom">
                                                     <i class="fa fa-edit"></i>
                                                     <span class="out_window">Bewerk</span>
@@ -409,7 +410,7 @@ include 'header.php'; ?>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <?php foreach ($dataProvider->get( 'hobbies', [] ) as $hobbies ): ?>
+                                <?php foreach ($dataProvider->get( 'hobbies', [] ) as $hobbies): ?>
                                     <tr>
                                         <td><?= $hobbies->getId() ?></td>
                                         <td><?= $hobbies->getName() ?></td>
@@ -433,9 +434,7 @@ include 'header.php'; ?>
                             <?php endif; ?>
                         </div>
                         <?php elseif ( $dataProvider->isSlbTeacher() ) : ?>
-                            <div>
-                                <!-- Show the slb assignments here where the SLB teacher can add an grade and feedback to them -->
-                            </div>
+
                         <?php elseif ( $dataProvider->isTeacher() ) : ?>
                             <div>
                                 <!-- Show the projects here so the teacher can add an grade to them -->

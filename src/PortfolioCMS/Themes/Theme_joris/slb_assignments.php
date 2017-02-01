@@ -10,8 +10,8 @@ $hasPageSuffix = FALSE !== strpos( $dataProvider->call( 'httpRequest', 'getBaseU
     <link rel="stylesheet" href="<?= $dataProvider->get( 'asset-path' ) ?>css/bootstrap_ubuntu.css" type="text/css"/>
     <!-- Compiled custom stylesheet -->
     <link rel="stylesheet" href="<?= $dataProvider->get( 'asset-path' ) ?>css/styles.css" type="text/css"/>
-    <!-- Font awesome icons-->
-    <link rel="stylesheet" href="<?= $dataProvider->get( 'lib-path' ) ?>font-awesome/css/font-awesome.min.css" type="text/css"/>
+    <!-- Font awesome css file-->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <?php include __DIR__ . DIR_SEP . 'navigation.php'; ?>
@@ -19,6 +19,45 @@ $hasPageSuffix = FALSE !== strpos( $dataProvider->call( 'httpRequest', 'getBaseU
     <main>
         <section class="jumbotron row">
             <h1>Slb opdrachen</h1>
+            <br/>
+            <?php foreach ( $dataProvider->get( 'slbAssignments', [] ) as $slbAssignment ) : ?>
+                <button type="button" class="btn btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12" data-toggle="modal" data-target="#model-<?=  $slbAssignment->getId() ?>">
+                    Bekijk de opdracht: <?= $slbAssignment->getName() ?>
+                </button>
+                <div class="col-lg-12">
+                    <?= strlen( $slbAssignment->getFeedback() ) == 0 ? 'Deze opdracht heeft geen feedback.' : $slbAssignment->getFeedback() ?>
+                    <br/>
+                    <br/>
+                </div>
+
+                <div class="modal fade" id="model-<?= $slbAssignment->getId() ?>" tabindex="-1" role="dialog" aria-labelledby="slb-model=<?= $slbAssignment->getId()?>">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title"><?= $slbAssignment->getName() ?></h4>
+                            </div>
+
+                            <div class="modal-body">
+
+                                <object
+                                    class="pdf-object col-lg-12 col-md-12 col-sm-12 col-xs-1"
+                                    type="application/pdf"
+                                    data="../../../slbAssignments/<?= $slbAssignment->getFileName() ?>?#zoom=85&scrollbar=0&toolbar=0&navpanes=0"
+                                    id="pdf-content-<?= $slbAssignment->getId() ?>">
+                                    <p>De slb opdracht kan niet worden weergegeven.</p>
+                                </object>
+
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-info col-lg-12 col-md-12 col-sm-12 col-xs-1" data-dismiss="modal">Opdracht sluiten</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
         </section>
     </main>
 </div>

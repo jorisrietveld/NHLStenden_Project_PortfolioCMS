@@ -76,7 +76,7 @@ $hasPageSuffix = count( explode( '/', $dataProvider->call( 'httpRequest', 'getRe
                             <p>Gastenboek overzicht</p>
                         </a>
                     </li>
-                <?php else: ?>
+                <?php elseif( $dataProvider->isStudent() ): ?>
                     <li class="<?= $pageName == 'guestBook' ? 'active' : '' ?>">
                         <a href="<?= $hasPageSuffix ? '../' : '' ?>moderateGuestbook/<?= $dataProvider->getcurrentuserid() ?>">
                             <i class="fa fa-comments" aria-hidden="true"></i>

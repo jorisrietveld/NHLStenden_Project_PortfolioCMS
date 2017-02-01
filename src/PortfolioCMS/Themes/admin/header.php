@@ -11,9 +11,8 @@
 
     <!-- Bootstrap css lib -->
     <link rel="stylesheet" href="<?= $dataProvider->get( 'lib-path' )?>bootstrap/dist/css/bootstrap.css" />
-    <!-- Jquery -->
     <!-- Font awesome css file-->
-    <link href="<?= $dataProvider->get( 'lib-path' )?>font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
     <!-- Cover css file -->
     <link href="<?=$dataProvider->get('asset-path')?>css/adminstyle.css" rel="stylesheet">
     <!--  Light Bootstrap Table core CSS  -->

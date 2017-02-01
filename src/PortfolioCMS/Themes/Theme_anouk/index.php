@@ -5,7 +5,6 @@ $language = $dataProvider->get( 'language' );
 <!DOCTYPE html>
 <html>
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,10 +12,12 @@ $language = $dataProvider->get( 'language' );
     <meta name="author" content="">
 
     <title>Portfolio Anouk van der Veen</title>
-    <link rel="stylesheet" href="<?= $dataProvider->get( 'lib-path' )?>bootstrap/dist/css/bootstrap.min.css" />
 
-    <!-- Custom Fonts -->
-    <link href="<?= $dataProvider->get( 'lib-path' )?>font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- Bootstrap css files -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Font awesome css file-->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="<?= $dataProvider->get( 'request-uri' ) ?>/assets/Theme_anouk/css/styles.css"/>
     <!-- Page styles -->
@@ -46,7 +47,11 @@ $language = $dataProvider->get( 'language' );
                         <li class="page-scroll">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-menu-down"></span> Portfolio's </a>
                             <ul class="dropdown-menu">
-                                <?= $dataProvider->get( 'portfolioMenuLinks', '' ) ?>
+                                <?php foreach ($dataProvider->get( 'portfoliosMetadata' ) as $portfolio): ?>
+                                    <li>
+                                        <a href="../portfolio/<?= $portfolio->getUrl() ?>"><?= $portfolio->getStudentName() ?></a>
+                                    </li>
+                                <?php endforeach; ?>
                             </ul>
                         </li>
                         <li class="page-scroll">
@@ -301,10 +306,25 @@ $language = $dataProvider->get( 'language' );
             <div class="row">
                 <div class="col-lg-6">
                     <h2 class="section-heading">Gastenboek</h2>
-                        <form action='anouk_van_der_veen' method='post'>
+
+                        <form action='' method='post'>
+                            <?php if ( $dataProvider->hasFeedback() ) : ?>
+                                <div class="alert alert-<?= $dataProvider->get( 'feedback-type' ) ?>">
+                                    <strong><?= $dataProvider->get( 'feedback-type' ) == 'success' ? '<i class="fa fa-check-square" aria-hidden="true"></i>&nbsp;Bedankt!' : '<i class="fa fa-exclamation-triangle" aria-hidden="true">&nbsp;</i>Oeps er ging iets mis' ?></strong><br>
+                                    <span><?= $dataProvider->get( 'feedback' ) ?></span>
+                                </div>
+                            <?php endif; ?>
+
                             <div class="row control-group">
                                 <div class="form-group col-xs-12 floating-label-form-group controls">
-                                    <input type="text" class="form-control" name='name' placeholder="Naam"></input>
+                                    <input type="text" class="form-control" name='sender' placeholder="Naam" />
+                                    <p class="help-block text-danger"></p>
+                                </div>
+                            </div>
+
+                            <div class="row control-group">
+                                <div class="form-group col-xs-12 floating-label-form-group controls">
+                                    <input type="text" class="form-control" name='title' placeholder="Onderwerp" />
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>
@@ -315,94 +335,13 @@ $language = $dataProvider->get( 'language' );
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>
+                            <input type="hidden" value="<?= $dataProvider->call( 'student', 'getId' ) ?>" name="studentId" id="studentId"/>
                             <div class="row">
                                 <div class="form-group col-xs-12">
                                     <button type="submit" name='submit' class="btn btn-succes btn-lg"> Send </button>
                                 </div>
                             </div>
                         </form>
-                        <?php
-                    if(htmlentities(isset($_POST['submit'])))
-                        {
-                    
-                        if(htmlentities(empty($_POST['name']) || empty($_POST['message'])))
-                            {
-                                    echo "<p>You must enter everything!</p>"; 
-                                    
-                            }else{
-                            $conn= mysqli_connect('85.144.187.81','inf1b','peer');
-                            if($conn == FALSE)
-                            {
-                
-                                echo "<p>unable to connect</p>".
-                                "<p>Error code " . mysqli_errno() . ": "  . mysqli_error() . "</p>";
-                    
-                            }else{
-                            $DBName='DigitalPortfolio';
-                            if(!mysqli_select_db($conn, $DBName))
-                            {
-                                $SQLstring = "CREATE DATABASE $DBName";  
-                                $SQLquery  = mysqli_query($conn, $SQLstring); 
-                                if ($SQLquery === FALSE){
-                              
-                                echo "<p>Unable to execute the query.</p>" . "<p>Error code "  . 
-                                      mysqli_errno($DBConnect) . ": " . mysqli_error($DBConnect) . "</p>";
-                                }
-                                else{
-                            
-                                   echo "<p>Your messge has been placed!</p>"; 
-                                }
-                    
-                          }
-                          mysqli_select_db($conn, $DBName);
-                          
-                          $TableName='GuestBookMessage';
-                          $SQLstring= "SHOW TABLES LIKE '$TableName'";
-                          $QueryResult= mysqli_query($conn, $SQLstring);
-                          
-                          if(mysqli_num_rows($QueryResult) == 0)
-                          {
-                              $SQLstring= "CREATE TABLE $TableName(Bugnr SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY, product_name VARCHAR(40), version VARCHAR(20),type VARCHAR(40), OS VARCHAR(20), 
-                                           frequency INT, solutions TEXT(500))";
-                              $QueryResult = mysqli_query($conn,$SQLstring);
-                             if($QueryResult === FALSE)
-                             { echo "<p>Unable to create the table.</p>" . "<p>Error code "  . 
-                              mysqli_errno($conn) . ": " . mysqli_error($conn) . "</p>"; 
-                             
-                             }
-                              
-                        }
-                          $Name = stripslashes(htmlentities($_POST['name']));
-                          $Message = stripslashes(htmlentities($_POST['message']));
-                          $userId = "";
-                          $studentln = $dataProvider->get( 'student' );
-                          $sendAt=date("Y-m-d H:i:s");
-                          $accepted='0';
-                         
-                           $userId = $dataProvider->call( 'student', 'getId' );
-                            
-                            
-                 
-                          
-                       
-                          
-                          $string = "INSERT INTO GuestBookMessage(sender, title, message, sendAt, studentId, accepted) VALUES('$Name','', '$Message','$sendAt','$userId','$accepted')"; 
-                          $Result = mysqli_query($conn, $string);
-                          if($Result === FALSE) 
-                         { echo "<p>Unable to execute the query.</p>" . "<p>Error code " . mysqli_errno($conn) . 
-                                ": " . mysqli_error($conn) . "</p>"; 
-                         
-                         } else { echo "<h1>Bedankt voor uw bericht!</h1>";
-                                      
-                         }
-                         
-                        mysqli_close($conn);
-                          
-                    }
-                    
-                }
-                }
-                ?>
                 </div>
                 <div class="col-lg-6">
                 </div>

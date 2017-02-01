@@ -76,8 +76,16 @@
         <action id="controller">PortfolioManagement:portfolio</action>
     </route>
 
-    <route id="portfolio_overview" path="/admin/portfolioOverzicht" methods="GET|POST" authorization="ADMIN">
+    <route id="portfolio_overview" path="/admin/portfolioOverzicht" methods="GET|POST" authorization="TEACHER">
         <action id="controller">PortfolioManagement:portfolioOverview</action>
+    </route>
+
+    <route id="portfolio_overview" path="/admin/slbOpdrachtenVan/{userId}" methods="GET|POST" authorization="SLB_TEACHER">
+        <action id="controller">PortfolioManagement:slbAssignmentOverview</action>
+    </route>
+
+    <route id="portfolio_overview" path="/admin/projectenVan/{userId}" methods="GET|POST" authorization="TEACHER">
+        <action id="controller">PortfolioManagement:projectsOverview</action>
     </route>
 
     <route id="add_portfolio" path="/admin/addPortfolio" methods="GET|POST" authorization="ADMIN">
@@ -115,6 +123,10 @@
 
     <route id="edit_project" path="/admin/editProject/{id}" methods="GET|POST" authorization="STUDENT">
         <action id="controller">PortfolioManagement:editProject</action>
+    </route>
+
+    <route id="add_skill" path="/admin/addFeedback/{slbId}" methods="GET|POST" authorization="SLB_TEACHER">
+        <action id="controller">PortfolioManagement:addFeedback</action>
     </route>
 
     <!-- Authorized portfolio management add portfolio items -->
@@ -155,7 +167,7 @@
         <action id="controller">GradesManagement:gradeManagement</action>
     </route>
 
-    <route id="grade_overview" path="/admin/cijferOverzicht" methods="GET" authorization="ADMIN">
+    <route id="grade_overview" path="/admin/cijferOverzicht" methods="GET" authorization="TEACHER">
         <action id="controller">GradesManagement:gradeOverview</action>
     </route>
 

@@ -11,15 +11,15 @@
 
     <title>Portfolio Aron Soppe</title>
 
-    <!-- Bootstrap css lib -->
-    <link rel="stylesheet" href="<?= $dataProvider->get( 'lib-path' )?>bootstrap/dist/css/bootstrap.min.css" />
+    <!-- Font awesome css files -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <!-- Bootstrap css files -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <!-- CSS -->
     <link href="<?= $dataProvider->get( 'asset-path' )?>css/freelancer.css" rel="stylesheet" />
     <link href="<?= $dataProvider->get( 'asset-path' )?>css/styles.css" rel="stylesheet">
 
-    <!-- Custom Fonts -->
-    <link href="<?= $dataProvider->get( 'lib-path' )?>font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link href="<?= $dataProvider->get( 'lib-path' )?>google-fonts/aron_fonts.css" rel="stylesheet" type="text/css" />
     <?= $dataProvider->call( 'debugBarRenderer', 'renderHead' ) ?>
 </head>
@@ -49,7 +49,11 @@
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Portfolio's <span class="fa fa-caret-down"></span></a>
                     <ul class="dropdown-menu">
-                        <?= $dataProvider->get( 'portfolioMenuLinks', '' ) ?>
+                        <?php foreach ($dataProvider->get( 'portfoliosMetadata' ) as $portfolio): ?>
+                            <li>
+                                <a href="../portfolio/<?= $portfolio->getUrl() ?>"><?= $portfolio->getStudentName() ?></a>
+                            </li>
+                        <?php endforeach; ?>
                     </ul>
                 </li>
                 <li class="page-scroll">
@@ -108,30 +112,6 @@
         </div>
     </div>
 </header>
-
-<!-- Portfolio Grid Section -->
-<!-- <section id="portfolio">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <h2>Portfolio</h2>
-                <hr class="linestyle">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-4 portfolio-item">
-                <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
-                    <div class="caption">
-                        <div class="caption-content">
-                            <i class="fa fa-search-plus fa-3x"></i>
-                        </div>
-                    </div>
-                    <img src="img/naturebg.jpg" class="img-responsive" alt="">
-                </a>
-            </div>
-        </div>
-    </div>
-</section> -->
 
 <!-- Over Section -->
 <section class="success" id="over">
@@ -268,11 +248,27 @@
             <div class="col-lg-8 col-lg-offset-2">
                 <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
                 <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-                <form name="sentMessage" id="contactForm" action='aron_soppe' method='post' novalidate>
+                <form name="sentMessage" id="contactForm" action='' method='POST' novalidate>
+                    <?php if ( $dataProvider->hasFeedback() ) : ?>
+                        <div class="alert alert-<?= $dataProvider->get( 'feedback-type' ) ?>">
+                            <strong><?= $dataProvider->get( 'feedback-type' ) == 'success' ? '<i class="fa fa-check-square" aria-hidden="true"></i>&nbsp;Bedankt!' : '<i class="fa fa-exclamation-triangle" aria-hidden="true">&nbsp;</i>Oeps er ging iets mis' ?></strong><br>
+                            <span><?= $dataProvider->get( 'feedback' ) ?></span>
+                        </div>
+                    <?php endif; ?>
+
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
-                            <label>Naam</label>
-                            <input type="text" class="form-control" placeholder="Naam" name='name' id="name" required
+                            <label for="sender">Naam</label>
+                            <input type="text" class="form-control" placeholder="Naam" name='sender' id="sender" required
+                                   data-validation-required-message="Vul je naam in.">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+
+                    <div class="row control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label for="title">Onderwerp</label>
+                            <input type="text" class="form-control" placeholder="Onderwerp" name='title' id="title" required
                                    data-validation-required-message="Vul je naam in.">
                             <p class="help-block text-danger"></p>
                         </div>
@@ -280,100 +276,20 @@
                     
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
-                            <label>Bericht</label>
+                            <label for="message">Bericht</label>
                             <textarea rows="5" class="form-control" placeholder="Bericht" name='message' id="message" required
                                       data-validation-required-message="Vul een bericht in."></textarea>
                             <p class="help-block text-danger"></p>
                         </div>
                     </div>
                     <br>
+                    <input type="hidden" value="<?= $dataProvider->call( 'student', 'getId' ) ?>" name="studentId" id="studentId"/>
                     <div id="success"></div>
                     <div class="row">
                         <div class="form-group col-xs-12">
                             <button type="submit" name='submit' class="btn btn-success btn-lg">Send</button>
                         </div>
                     </div>
-                             <?php
-                    if(htmlentities(isset($_POST['submit'])))
-                        {
-                    
-                        if(htmlentities(empty($_POST['name']) || empty($_POST['message'])))
-                            {
-                                    echo "<p>You must enter everything!</p>"; 
-                                    
-                            }else{
-                            $conn= mysqli_connect('85.144.187.81','inf1b','peer');
-                            if($conn == FALSE)
-                            {
-                
-                                echo "<p>unable to connect</p>".
-                                "<p>Error code " . mysqli_errno() . ": "  . mysqli_error() . "</p>";
-                    
-                            }else{
-                            $DBName='DigitalPortfolio';
-                            if(!mysqli_select_db($conn, $DBName))
-                            {
-                                $SQLstring = "CREATE DATABASE $DBName";  
-                                $SQLquery  = mysqli_query($conn, $SQLstring); 
-                                if ($SQLquery === FALSE){
-                              
-                                echo "<p>Unable to execute the query.</p>" . "<p>Error code "  . 
-                                      mysqli_errno($DBConnect) . ": " . mysqli_error($DBConnect) . "</p>";
-                                }
-                                else{
-                            
-                                   echo "<p>Your messge has been placed!</p>"; 
-                                }
-                    
-                          }
-                          mysqli_select_db($conn, $DBName);
-                          
-                          $TableName='GuestBookMessage';
-                          $SQLstring= "SHOW TABLES LIKE '$TableName'";
-                          $QueryResult= mysqli_query($conn, $SQLstring);
-                          
-                          if(mysqli_num_rows($QueryResult) == 0)
-                          {
-                              $SQLstring= "CREATE TABLE $TableName(Bugnr SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY, product_name VARCHAR(40), version VARCHAR(20),type VARCHAR(40), OS VARCHAR(20), 
-                                           frequency INT, solutions TEXT(500))";
-                              $QueryResult = mysqli_query($conn,$SQLstring);
-                             if($QueryResult === FALSE)
-                             { echo "<p>Unable to create the table.</p>" . "<p>Error code "  . 
-                              mysqli_errno($conn) . ": " . mysqli_error($conn) . "</p>"; 
-                             
-                             }
-                              
-                        }
-                          $Name = stripslashes(htmlentities($_POST['name']));
-                          $Message = stripslashes(htmlentities($_POST['message']));
-                          $userId = "";
-                          $studentln = $dataProvider->get( 'student' );
-                          $sendAt=date("Y-m-d H:i:s");
-                          $accepted='0';
-                         
-                           $userId = $dataProvider->call( 'student', 'getId' );
-                            
-                            
-                           
-                       
-                          
-                          $string = "INSERT INTO GuestBookMessage(sender, title, message, sendAt, studentId, accepted) VALUES('$Name','', '$Message','$sendAt','$userId','$accepted')"; 
-                          $Result = mysqli_query($conn, $string);
-                          if($Result === FALSE) 
-                         { echo "<p>Unable to execute the query.</p>" . "<p>Error code " . mysqli_errno($conn) . 
-                                ": " . mysqli_error($conn) . "</p>"; 
-                         
-                         } else { echo "<h1>Bedankt voor uw bericht!</h1>";
-                                      
-                         }
-                         
-                        mysqli_close($conn);
-                          
-                    }
-                    
-                }
-                }
-                ?>
                 </form>
             </div>
         </div>

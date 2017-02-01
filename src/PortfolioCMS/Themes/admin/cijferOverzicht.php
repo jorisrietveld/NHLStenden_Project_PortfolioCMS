@@ -43,7 +43,7 @@ include 'header.php'; ?>
                                             <a href="cijferAdministratie/<?= $portfolioMetaData->getStudentId() ?>">
                                                 <button class="btn btn-sm btn-primary btn-block btn-custom btn-custom-sm">
                                                     <i class="fa fa-address-book-o" aria-hidden="true"></i>
-                                                    <span class="out_window">Bekijk</span>
+                                                    Bekijk Cijfers
                                                 </button>
                                             </a>
                                         </td>

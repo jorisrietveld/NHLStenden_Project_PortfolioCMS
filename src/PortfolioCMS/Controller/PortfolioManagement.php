@@ -1281,7 +1281,7 @@ class PortfolioManagement extends BaseController
                     move_uploaded_file( $_FILES[ "image" ][ "tmp_name" ], $targetFile );
                     $this->imageRepository->insert( $imageEntity );
 
-                    $feedback = 'De slb opdracht is toegevoegd.';
+                    $feedback = 'De afbeelding is toegevoegd.';
                     $feedbackType = 'success';
                 }
             }
@@ -1358,5 +1358,48 @@ class PortfolioManagement extends BaseController
                 'images'        => $this->imageRepository->getByCondition( 'portfolioId = :wherePortfolioId', [ ':wherePortfolioId' => (int)$portfolioId ] ),
             ]
         );
+    }
+
+    public function slbAssignmentOverview( Request $request, string $userId )
+    {
+        $portfolioEntity = $this->portfolioRepository->getByUserId( (int)$userId );
+
+        if( $portfolioEntity->getId() == 0 )
+        {
+            $this->redirect( '/404' );
+        }
+
+        return $this->createResponse(
+            'admin:portfolioSlbAssignments', [
+                'feedback'      => $feedback ?? '',
+                'feedback-type' => $feedbackType ?? '',
+                'slbAssignments' => $portfolioEntity->getSlbAssignments(),
+                'student'        => new DisplayStudent( $portfolioEntity->getStudent() ),
+            ]
+        );
+    }
+
+    public function projectsOverview( Request $request, string $userId )
+    {
+        $portfolioEntity = $this->portfolioRepository->getByUserId( (int)$userId );
+
+        if( $portfolioEntity->getId() == 0 )
+        {
+            $this->redirect( '/404' );
+        }
+
+        return $this->createResponse(
+            'admin:portfolioProjects', [
+                'feedback'      => $feedback ?? '',
+                'feedback-type' => $feedbackType ?? '',
+                'projects' => $portfolioEntity->getSlbAssignments(),
+                'student'        => new DisplayStudent( $portfolioEntity->getStudent() ),
+            ]
+        );
+    }
+
+    public function addFeedback(  )
+    {
+        
     }
 }

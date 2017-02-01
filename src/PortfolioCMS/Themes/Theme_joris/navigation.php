@@ -13,9 +13,13 @@
         <div class="navbar-collapse collapse" id="navbar-main">
             <ul class="nav navbar-nav">
                 <?php foreach ($dataProvider->get( 'pages' ) as $page): ?>
-                    <li>
-                        <a href="<?= $hasPageSuffix ? '.' . $page->getUrl() : $dataProvider->get( 'url' ) . $page->getUrl() ?>"><?= $page->getName() ?></a>
-                    </li>
+                    <?php if( $page->getUrl() == '/slb_assignments' && $dataProvider->isGuest() ):?>
+                        <!-- Not allowed -->
+                    <?php else: ?>
+                        <li>
+                            <a href="<?= $hasPageSuffix ? '.' . $page->getUrl() : $dataProvider->get( 'url' ) . $page->getUrl() ?>"><?= $page->getName() ?></a>
+                        </li>
+                    <?php endif;?>
                 <?php endforeach; ?>
             </ul>
 

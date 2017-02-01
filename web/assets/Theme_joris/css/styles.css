@@ -35,3 +35,7 @@ body{
 .certificate-icon{
     width: 80px;
 }
+
+.pdf-object{
+    height: 70vh;
+}
