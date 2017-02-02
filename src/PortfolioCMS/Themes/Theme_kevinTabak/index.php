@@ -59,7 +59,9 @@ $student = $dataProvider->get( 'student' );
         <div class="row">
             <div class="col-sm-6">
                 <h2>Over mij</h2>
-                <p></p>
+                <p>Mijn naam is Kevin Tabak mijn roepnaam is Kevin. Ik ben een 18 jarige student enthousiast en nog
+                    vol energie om zo te zeggen. Ik heb nog niet veel werk ervaring omdat ik nog jong bent maar dat
+                    betekent dat ik alleen maar meer kan leren.</p>
             </div>
         </div>
     </div>
@@ -102,9 +104,6 @@ $student = $dataProvider->get( 'student' );
                 </table>
             </div>
         </div>
-    </div>
-    <div id="SLB" class="bg-grey container-fluid">
-
     </div>
     <div id="galerij" class="container-fluid text-center">
         <h2>Galerij</h2>
