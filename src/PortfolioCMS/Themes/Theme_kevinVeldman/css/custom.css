@@ -1,0 +1,72 @@
+*{
+  margin:0;
+  padding:0;
+}
+body{
+  background-color: black;
+  color: white;
+}
+h1, h2, h3{
+  font-family: 'Sansita', sans-serif;
+}
+.header{
+  background-image: url(http://wallpaper-gallery.net/images/space/space-13.jpg);
+
+  height: 500px;
+  background-size: cover;
+  border-bottom: 10px solid #6A37C9;
+}
+.header h1{
+  line-height: 500px;
+  font-size: 60px;
+  color: black;
+  margin:0;
+}
+.coln1{
+  color: #EA434A;
+}
+.coln2{
+  color: #C0AAF8;
+}
+.coln3{
+  color: #6A37C9;
+}
+.coln4{
+  color: #140A27;
+}
+.bgcoln1{
+  background-color: #EA434A;
+  color: white;
+  margin-top: 30px;
+}
+.navbar-default{
+  background-color: #EA434A;
+  border-color: #EA434A;
+}
+.panel-primary{
+  background-color: #EA434A;
+  border-color: #EA434A;
+}
+.icon{
+  float: left;
+  width: 20%;
+  text-align: center;
+}
+.infoBox{
+  float: left;
+  width: 80%;
+
+}
+h4{
+  line-height: 30px;
+}
+.imgSizing{
+  margin-top: 20px;
+  height: 100%;
+  width: 100%;
+}
+.row{
+  border-bottom: 1px solid white;
+  padding-bottom: 15px;
+  padding-top: 15px;
+}
