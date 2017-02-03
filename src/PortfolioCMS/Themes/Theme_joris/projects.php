@@ -18,9 +18,13 @@ $hasPageSuffix = FALSE !== strpos( $dataProvider->call( 'httpRequest', 'getBaseU
 <div class="page-wrapper container">
 
     <main>
+        <header class="jumbotron text-center row" id="portfolio-header">
+            <h1 class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-mono">
+                <span class="color-orange header-text-size">Projects</span> /var/www
+            </h1>
+        </header>
+
         <section class="jumbotron row">
-            <h1>Projecten</h1>
-            <br/>
             <?php foreach ( $dataProvider->get( 'projects' ) as $project ) : ?>
                 <div class="col-lg-6">
                     <div class="panel panel-primary">
@@ -33,7 +37,7 @@ $hasPageSuffix = FALSE !== strpos( $dataProvider->call( 'httpRequest', 'getBaseU
                             <br/>
                             <img src="../../../images/<?= $project->getImage()->getFileName() ?>" class="col-lg-11" style="margin-bottom: 10px"/>
                             <a href="<?= $project->getLink()?>">
-                                <button class="btn btn-info col-lg-12">Bekijk de het project</button>
+                                <button class="btn btn-info col-lg-12">Bekijk het project</button>
                             </a>
                         </div>
                     </div>

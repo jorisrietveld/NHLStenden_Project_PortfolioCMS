@@ -896,7 +896,7 @@ class PortfolioManagement extends BaseController
 
         return $this->createResponse(
             'admin:editJobExperience', [
-                'project-data'  => $jobExperienceEntity,
+                'jobExperiences-data'  => $jobExperienceEntity,
                 'feedback'      => $feedback ?? '',
                 'feedback-type' => $feedbackType ?? '',
             ]

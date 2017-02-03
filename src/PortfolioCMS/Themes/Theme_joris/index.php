@@ -134,13 +134,13 @@ $hasPageSuffix = FALSE !== strpos( $dataProvider->call( 'httpRequest', 'getBaseU
             <?php endif; ?>
         </section>
 
-        <section class="jumbotron row">
+      <!--  <section class="jumbotron row">
            <h3>Mijn foto's</h3>
-            <?php foreach ( $dataProvider->get( 'images' ) as $image ): ?>
-                <?php dump( $image ) ?>
-            <?php endforeach; ?>
+            <?php /*foreach ( $dataProvider->get( 'images' ) as $image ): */?>
+                <?php /*dump( $image ) */?>
+            <?php /*endforeach; */?>
         </section>
-
+-->
 
     </main>
 </div>

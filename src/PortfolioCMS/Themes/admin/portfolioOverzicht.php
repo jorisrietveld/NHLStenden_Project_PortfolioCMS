@@ -25,7 +25,7 @@ include 'header.php'; ?>
                             <div class="col-sm-5 custom-buttons">
                                 <a href="addPortfolio">
                                     <button class="btn btn-md btn-primary btn-block btn-custom">
-                                        <i class="fa fa-plus"></i> Nieuwe portfolio
+                                        <i class="fa fa-plus"></i> Nieuw portfolio
                                     </button>
                                 </a>
                             </div>

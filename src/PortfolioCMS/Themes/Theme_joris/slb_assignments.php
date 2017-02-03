@@ -17,9 +17,13 @@ $hasPageSuffix = FALSE !== strpos( $dataProvider->call( 'httpRequest', 'getBaseU
 <?php include __DIR__ . DIR_SEP . 'navigation.php'; ?>
 <div class="page-wrapper container">
     <main>
+        <header class="jumbotron text-center row" id="portfolio-header">
+            <h1 class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-mono">
+                <span class="color-orange header-text-size">SLB Opdrachten</span> /home/<?= $student->getFirstName()?>/doc
+            </h1>
+        </header>
+
         <section class="jumbotron row">
-            <h1>Slb opdrachen</h1>
-            <br/>
             <?php foreach ( $dataProvider->get( 'slbAssignments', [] ) as $slbAssignment ) : ?>
                 <button type="button" class="btn btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12" data-toggle="modal" data-target="#model-<?=  $slbAssignment->getId() ?>">
                     Bekijk de opdracht: <?= $slbAssignment->getName() ?>

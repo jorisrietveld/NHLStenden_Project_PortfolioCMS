@@ -61,12 +61,15 @@ $hasPageSuffix = FALSE !== strpos( $dataProvider->call( 'httpRequest', 'getBaseU
                         <?php endforeach; ?>
                     </ul>
                 </li>
+
                 <li class="page-scroll">
                     <a href="#over">Over</a>
                 </li>
+
                 <li class="page-scroll">
                     <a href="#talen">Talen</a>
                 </li>
+
                 <li class="page-scroll">
                     <a href="#opleiding">Opleiding</a>
                 </li>

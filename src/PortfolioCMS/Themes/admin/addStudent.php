@@ -154,12 +154,12 @@ include 'header.php';
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="form-label col-lg-3" for="inputPassword">telefoon
+                                                <label class="form-label col-lg-3" for="phoneNumber">telefoon
                                                     nummer</label>
                                                 <input type="tel"
-                                                       name="lastName"
+                                                       name="phoneNumber"
                                                        class="form-control"
-                                                       id="inputLastName"
+                                                       id="phoneNumber"
                                                        placeholder="telefoon nummer"
                                                        required>
                                             </div>

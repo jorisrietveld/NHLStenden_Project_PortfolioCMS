@@ -55,7 +55,7 @@ include 'header.php';
                                                 <input type="text"
                                                        name="startedAt"
                                                        class="form-control"
-                                                       value="<?= $dataProvider->call('jobExperiences-data','getStartedAt')?>"
+                                                       value="<?= $dataProvider->nestedCall('jobExperiences-data','getStartedAt:format', [ [], ['Y-m-d'] ] )?>"
                                                        id="startdatum"
                                                    
                                                        >
@@ -66,7 +66,7 @@ include 'header.php';
                                                 <input type="text"
                                                        name="endedAt"
                                                        class="form-control"
-                                                       value="<?= $dataProvider->call('jobExperiences-data','getEndedAt')?>"
+                                                       value="<?= $dataProvider->nestedCall('jobExperiences-data','getEndedAt:format',  [ [], ['Y-m-d'] ] )?>"
                                                        id="einddatum"
                                                        
                                                        >

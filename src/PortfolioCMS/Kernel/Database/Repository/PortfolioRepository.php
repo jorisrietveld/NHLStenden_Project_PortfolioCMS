@@ -105,7 +105,8 @@ class PortfolioRepository extends Repository
             `User`.`firstName`,
             `User`.`lastName`,
             `Portfolio`.`userId`
-        FROM `DigitalPortfolio`.`Portfolio` JOIN `DigitalPortfolio`.`User` ON Portfolio.userId = User.id
+        FROM `DigitalPortfolio`.`Portfolio` 
+        INNER JOIN `DigitalPortfolio`.`User` ON Portfolio.userId = User.id
     ';
 
     /**
@@ -207,8 +208,11 @@ class PortfolioRepository extends Repository
             $pagesRepository = $this->entityManager->getRepository( 'Page' );
             $pages = $pagesRepository->getAll();
 
-            foreach ($statement->fetchAll( \PDO::FETCH_CLASS, '\\StendenINF1B\\PortfolioCMS\\Kernel\\Database\\Helper\\ResultSet' ) as $resultSet)
+            $resultSets = $statement->fetchAll( \PDO::FETCH_CLASS, '\\StendenINF1B\\PortfolioCMS\\Kernel\\Database\\Helper\\ResultSet');
+
+            foreach( $resultSets as $resultSet)
             {
+
                 $portfolioPages = $pages->getEntitiesWith( 'themeId', $resultSet->getInt( 'themeId' ) );
 
                 $portfolioMetadata = new PortfolioMetadata();
