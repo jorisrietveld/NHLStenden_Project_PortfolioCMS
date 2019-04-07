@@ -14,7 +14,20 @@ Documentation or here:
 ### Live version
 To view an live version of the Portefolio cms [click here](http://www.profolio.ml)
 
+### Why reinvent the wheel?
+The reason everything is written from scratch is because we were not allowed to use any framework, I (Joris Rietveld)
+never realy understood how to roll out a MVC system, template engine or how to do dynamic routing so I decided this was
+a great oppertunity to learn these consepts by implementing it my self. I realy learned a lot about architecture, Object 
+oriented design, being way to optimistic about the amount of time it takes to do `it` correct... and the importance of 
+**Unit Testing!** instead of creating ten 500 liner classes and trying to figure out why they don't work...
+
+I leaned a lot, figured out that the teachers that talked about testing, object oriented design, writing documentation and 
+properly using version management were proberly right... and it might be that someone that has 10 years more experience 
+know something your not 
+
+
 ### Authors
+Joris Rietveld - jorisrietveld@gmail.com<br>
 Esmee Lunenborg - esmee.lunenborg@student.stenden.com<br>
 Aron Soppe - aron.soppe@student.stenden.com<br>
 Zervan Hoving - zervan.hoving@student.stenden.com<br>
@@ -22,7 +35,7 @@ Anouk van der Veen - anouk.van.der.veen@student.stenden.com<br>
 Kevin Veldman - kevin.veldman@student.stenden.com<br>
 Kevin Tabak - kevin.tabak@student.stenden.com<br>
 Marco Brink - marco.brink@student.stenden.com<br>
-Joris Rietveld - jorisrietveld@gmail.com<br>
+
 
 ### Licencing: General Public Licence version 3
 > Portefolio CMS - An simple CMS system for managing digital portfolios.
