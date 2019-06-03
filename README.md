@@ -30,7 +30,6 @@ know something your not
 Joris Rietveld - jorisrietveld@gmail.com<br>
 Esmee Lunenborg - esmee.lunenborg@student.stenden.com<br>
 Aron Soppe - aron.soppe@student.stenden.com<br>
-Zervan Hoving - zervan.hoving@student.stenden.com<br>
 Anouk van der Veen - anouk.van.der.veen@student.stenden.com<br>
 Kevin Veldman - kevin.veldman@student.stenden.com<br>
 Kevin Tabak - kevin.tabak@student.stenden.com<br>
